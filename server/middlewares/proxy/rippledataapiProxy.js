@@ -77,7 +77,7 @@ RippledataapiProxy.prototype.init = function(callback) {
 
 			try {
 				var data = JSON.parse(body);
-				var datas = rippleoffersexercised.calculate(data);
+				try { var datas = rippleoffersexercised.calculate(data); } catch(e) { console.log("it's not gonna calculate  !",e)}
 			} catch(e) {
 				console.log("api is taking too long !",body,e);
 				var datas = "error!";

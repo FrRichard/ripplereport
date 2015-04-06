@@ -29,7 +29,9 @@ function createStoreObject(datasets) {
  		_.each(result[dataset.id]['currencylist'], function(currency) {
  			result[dataset.id]['totalfiat'][currency.currency] = calculateFiatTotal(result[dataset.id]['shares'], currency.currency, currency.issuer);
  		});
+ 		result[dataset.id]['datasets'] = datasets;
 	})
+
 
  	return result;
 }
@@ -166,10 +168,6 @@ var RippleaccountoverviewsStore = assign( {}, EventEmitter.prototype, {
 		// return datasets;
 	},
 
-	getDatasets: function() {
-		return datasets;
-	},
-
 	getSpecific:function(key) {
 		var res = {};
 		res[key]= _RippleAccountOverviews[key];
@@ -199,7 +197,6 @@ var allStoreReady = function(stores,action) {
 	var isReady = _.every(stores, function(store) {
 		return (store == true);
 	});
-
 	if(isReady) {
 		var tosave = createStoreObject(datasets);
 		registerAccountOverviews(tosave);

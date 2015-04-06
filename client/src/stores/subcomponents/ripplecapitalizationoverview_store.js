@@ -29,6 +29,7 @@ function createStoreObject(datasets) {
  		_.each(result[dataset.id]['currencylist'], function(currency) {
  			result[dataset.id]['totalfiat'][currency.currency] = calculateFiatTotal(result[dataset.id]['shares'], currency.currency, currency.issuer);
  		});
+ 		result[dataset.id]['datasets'] = datasets;
 	})
 
  	return result;
@@ -128,14 +129,10 @@ function calculateFiatTotal(shares,fiat,issuer) {
 }
 
 
-var RipplecapitalizationoverviewsStore = assign( {}, EventEmitter.prototype, {
+var RipplecapitalizationoverviewStore = assign( {}, EventEmitter.prototype, {
 	getAll: function() {
 		return _RippleCapitalizationOverviews;
 		// return datasets;
-	},
-
-	getDatasets: function() {
-		return datasets;
 	},
 
 	getSpecific:function(key) {
@@ -164,7 +161,7 @@ var RipplecapitalizationoverviewsStore = assign( {}, EventEmitter.prototype, {
 });
 
 
-RipplecapitalizationoverviewsStore.dispatcherIndex = Dispatcher.register(function(payload) {
+RipplecapitalizationoverviewStore.dispatcherIndex = Dispatcher.register(function(payload) {
 	var action = payload.action;
 	var result;
 	
@@ -180,6 +177,7 @@ RipplecapitalizationoverviewsStore.dispatcherIndex = Dispatcher.register(functio
 			registerRippleCapitalization(RipplecapitalizationStore.getAll());
 			var tosave = createStoreObject(datasets);
 			registerCapitalizationOverviews(tosave);
+			RipplecapitalizationoverviewStore.emitChange(action.result);
 			
 			break;
 	}
@@ -187,4 +185,4 @@ RipplecapitalizationoverviewsStore.dispatcherIndex = Dispatcher.register(functio
 	return true;
 });
 
-module.exports = RipplecapitalizationStore;
+module.exports = RipplecapitalizationoverviewStore;

@@ -3,45 +3,6 @@
    var DataHelper = function() {};
 
    DataHelper.prototype.overviewPieChart = function(datasets) {
-      var data = [];
-      _.map(datasets.ripplelines.lines,function(line) {
-         if( line.balance > 0 ) {
-            
-            var balance = { balance:parseFloat(line.balance), currency:line.currency, xrpequ:"" };
-
-            // Chercher l'équivalent de la currency en XRP pour pie chart proportionnelle à la valeur de chaque actif
-             _.each(datasets.rippleexchangerates, function(account) {
-               if(_.isObject(account)) {
-                  if( line.currency == account.base.currency ) {
-                     var xrpequivalent = line.balance*account.last;       
-                     balance.xrpequ = xrpequivalent;  
-                  }
-               };
-            });
-                  
-            data.push(balance);
-         }
-      
-      });
-      
-      //Add XRP
-      var xrpbalance ={ 
-         balance:parseFloat((datasets.rippleinfos.account_data.Balance)*Math.pow(10,-6)), 
-         currency:"XRP",
-         xrpequ:parseFloat((datasets.rippleinfos.account_data.Balance)*Math.pow(10,-6))
-      };
-
-      data.push(xrpbalance);
-   
-      data.sort(function(a,b) {
-         if (a.currency < b.currency) 
-            return -1;
-         if(a.currency > b.currency)
-            return 1;
-         return 0
-      });
-
-      return data;
    };
 
    DataHelper.prototype.BarChart = function(datasets) {

@@ -55,9 +55,7 @@ var AccountOverview = React.createClass({
     this.chartId= "Overview" +this.props.attributes.key;
 
     if( this.state.datasets["address" + this.props.attributes.reportnumber] != undefined) {
-      var datasets = this.state.datasets["address" + this.props.attributes.reportnumber];
-      var data = this.dataHelper.overviewPieChart(datasets);
-      this.piechart.draw(this.chartId, data);
+      this.piechart.draw(this.chartId, this.state.shares);
     }
  
     if(this.state.optlist.currencylist) {
@@ -101,10 +99,11 @@ var AccountOverview = React.createClass({
   _onChangeRippleaccount: function() {
       var key = this.props.attributes.reportnumber;
 
-      var datasets = RippleaccountoverviewsStore.getDatasets();
       var address = RippleaccountoverviewsStore.getSpecific('address' + key);
       var amount = address['address'+key]['totalfiat']['XRP'].totalfiat;
       var issuer = address['address'+key]['totalfiat']['XRP'].issuer;
+      var shares = address['address'+key]['shares'];
+      var datasets =  address['address'+key]['datasets'];
       amount = FormatUtils.truncToNdecimal(amount,2);
       
       this.setState(
@@ -113,6 +112,7 @@ var AccountOverview = React.createClass({
               issuer:issuer
           },
           datasets: datasets,
+          shares:shares,
           optlist: {
               selectedcurrency:["XRP",""],
               currencylist: address['address'+key].currencylist
