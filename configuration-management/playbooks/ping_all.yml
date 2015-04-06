@@ -1,0 +1,9 @@
+---
+- name: Ping 
+  hosts: all
+  sudo: True
+  tasks:
+    - name: Ping
+      ping: 
+    - name: Update all packages
+      apt: upgrade=yes update_cache=yes

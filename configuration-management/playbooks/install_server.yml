@@ -1,0 +1,20 @@
+---
+- name: Install webservers  
+  hosts: webservers
+  sudo: True
+  roles:
+    - create_users
+    - check_packages
+    - install_nodejs
+
+- name: Install redis  
+  hosts: redis
+  sudo: True
+  roles:
+    - install_redis
+
+- name: Install loadbalancers
+  hosts: loadbalancers
+  sudo: True
+  roles: 
+    - role: install_haproxy

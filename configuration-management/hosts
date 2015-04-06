@@ -1,0 +1,15 @@
+ovhpetite ansible_ssh_host=176.31.114.161
+
+[all:children]
+webservers
+redis
+loadbalancers
+
+[webservers]
+ovhpetite
+
+[redis]
+ovhpetite
+
+[loadbalancers]
+ovhpetite

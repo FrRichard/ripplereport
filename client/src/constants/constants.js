@@ -1,0 +1,31 @@
+var keyMirror = require('keymirror');
+
+module.exports = {
+
+  ActionTypes: keyMirror({
+    ASK_RIPPLEID: null,
+    ASK_RIPPLELINES: null,
+    ASK_RIPPLEINFOS: null,
+    ASK_RIPPLEEXCHANGERATES:null,
+    ASK_RIPPLEEXCHANGERATES_CAPITALIZATION:null,
+    ASK_RIPPLEACCOUNTOVERVIEW:null,
+    ASK_RIPPLECAPITALIZATION:null,
+    ASK_RIPPLEOFFERSEXERCISED:null,
+    ASK_RIPPLEACCOUNTTRANSACTIONS:null,
+    ASK_RIPPLEACCOUNTTRANSACTIONSTATS:null,
+    ASK_RIPPLEACCOUNTOFFERS:null,
+    ASK_RIPPLEMARKETTRADERS:null,
+    REGISTER_CURRENTREFGRID: null,
+    REGISTER_CURRENTGRID: null,
+    REGISTER_CONF: null,
+    ADD_WIDGET: null,
+    REMOVE_WIDGET: null,
+    LOADING_GIF: null
+  }),
+
+  PayloadSources: keyMirror({
+    SERVER_ACTION: null,
+    VIEW_ACTION: null
+  })
+
+};

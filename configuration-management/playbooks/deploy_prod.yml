@@ -1,0 +1,37 @@
+--- 
+- name: Deploy production webserver  
+  hosts: webservers
+  remote_user: "{{ deploy_user }}"
+  tasks:
+
+    - name: npm install global modules
+      npm: 
+        global: yes
+        name: "{{ item }}"
+      with_items: nodejs_global_packages
+
+    - name: Stop all servers
+      shell: "forever stopall"
+
+    - name: Checkout git repo 
+      remote_user: "{{ deploy_user }}"
+      git: repo=git@github.com:heartbit/webserver.git dest=/home/{{ deploy_user}}/{{ item.name }} version={{ github_branch }} accept_hostkey=yes
+      with_items: front_servers
+
+    - name: NPM install
+      npm: path=/home/{{ deploy_user}}/{{ item.name }} state=present
+      with_items: front_servers
+
+    - name: gulp install
+      shell: gulp install
+      args:
+        chdir: /home/{{ deploy_user}}/{{ item.name }}
+      with_items: front_servers
+
+    - name: launch servers
+      shell: forever start webserver.js -b -p {{ item.port }}
+      args:
+        chdir: /home/{{ deploy_user}}/{{ item.name }}
+      with_items: front_servers
+
+

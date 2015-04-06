@@ -1,0 +1,48 @@
+@import "../external/bootstrap/css/bootstrap";
+@import "../external/font-awesome/css/font-awesome";
+@import "../external/devoops/css/style";
+@import "../external/gridster/gridster";
+@import "../external/gridster/gridster.responsive";
+@import "../charts/piechart_overview.scss";
+
+
+
+
+.item {
+  display: block; 
+  position: absolute;
+}
+
+body {
+	font-family: "lato", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+}
+
+.loader_gif {
+	position: absolute;
+	left: 40%;
+	top: 35%;
+}
+
+.totalfiat {
+	float: left;
+	display:inline;
+	text-align:left;
+	margin-left:40px;
+	font-size:24px;
+}
+
+.fiatselector {
+	float:left;
+	display:inline;
+	text-align:right;
+	height:35px;
+	width: 95px;
+	margin-left:0;
+}

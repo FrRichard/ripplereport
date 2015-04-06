@@ -1,0 +1,29 @@
+---
+deploy_user: deployer
+# SHA-512 of 64deployer54
+deploy_user_password: $6$ltEWSOZLd4ylHpkDzqFichP.r0hLVd3LH89FG.MpEwl4EXvKmmMyt3AVdhuWuRHH0ci6RBMAbvMGeQuiXgieF
+
+nodejs_version: "0.12.0"
+nodejs_version_tag: "v{{nodejs_version}}"
+nodejs_file_tag: "node-{{nodejs_version_tag}}"
+nodejs_file_name: "{{nodejs_file_tag}}.tar.gz"
+nodejs_base_url: "http://nodejs.org/dist/v{{nodejs_version}}/"
+nodejs_tarball_url: "{{nodejs_base_url}}{{nodejs_file_name}}"
+nodejs_shasum_url: "{{nodejs_base_url}}SHASUMS.txt"
+nodejs_path: "/usr/local/"
+nodejs_tmp_dir: "/tmp/"
+nodejs_global_packages:
+  - grunt
+  - gulp
+  - bower
+  - webpack
+  - forever
+
+github_branch: newclientFrancois 
+front_servers:
+  - name: webserver1
+    port: 9000
+  - name: webserver2
+    port: 9001
+  - name: webserver3
+    port: 9002

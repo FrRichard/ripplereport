@@ -1,0 +1,21 @@
+---
+- name: Create deploy user
+  user:
+    name={{ deploy_user }}
+    password={{ deploy_user_password }}
+    comment="Deployer"
+    uid=1040
+    update_password=always
+    generate_ssh_key=no
+    system=yes
+    createhome=yes
+
+- name: Copy ssh keys
+  copy: 
+    content="../keys/id_rsa"
+    dest=/home/{{ deploy_user}}/.ssh/id_rsa
+    mode=0644
+- copy: 
+    content="../keys/id_rsa.pub"
+    dest=/home/{{ deploy_user}}/.ssh/id_rsa.pub
+    mode=0600

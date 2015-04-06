@@ -1,0 +1,40 @@
+@import "../external/bootstrap/css/bootstrap";
+@import "../external/font-awesome/css/font-awesome";
+@import "../external/devoops/css/style";
+@import "../external/gridster/gridster";
+@import "../external/gridster/gridster.responsive";
+@import "../charts/allcharts";
+@import "../subcomponents/allsubcomponents";
+
+
+
+.item {
+  display: block; 
+  position: absolute;
+}
+
+body {
+	font-family: "lato", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+}
+
+#bigsearch  {
+  width:50%;
+
+}
+
+#search {
+  width:70%;
+}
+
+
+#ripplelogo {
+	float:left;
+}
+

@@ -1,0 +1,21 @@
+{
+  "name": "heartbit-front",
+  "version": "0.1.0",
+  "author": "dschonfe",
+  "dependencies": {
+    "jquery": "*",
+    "lodash": "*",
+    "bootstrap": "*",
+    "backbone": "*",
+    "momentjs": "*",
+    "modernizr": "*",
+    "js-schema": "*",
+    "numeral": "*",
+    "cryptojslib": "*",
+    "store.js": "*",
+    "d3":"*"
+  },
+  "devDependencies": {
+    "chance": "*"
+  }
+}

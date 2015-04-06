@@ -1,0 +1,112 @@
+doctype html
+html(lang="en")
+
+	head
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		meta(http-equiv="X-UA-Compatible", content="IE=edge")
+		link(href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel='stylesheet')
+		link(rel='stylesheet', href='./css/home.css')
+		
+	body#page-top.index
+
+		nav.navbar.navbar-default.navbar-fixed-top
+			.container
+				.navbar-header.page-scroll
+					button.navbar-toggle(data-toggle="collapse", data-target="#bs-example-navbar-collapse-1")
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					a.navbar-brand(href="#page-top") heartbit
+
+				.collapse.navbar-collapse#bs-example-navbar-collapse-1
+					ul.nav.navbar-nav.navbar-right
+						li.hidden
+							a(href="#page-top")
+						li.page-scroll
+							a(href="#feature") Features
+						li.page-scroll
+							a(href="#about") About
+						li.page-scroll
+							a(href="#contact") Contact
+						li
+							a#signin(href="#") Signin
+						li#signup
+							button.btn.btn-default#cta-signup(type="button") Signup
+
+		header 
+			.container
+				.row
+					.col-lg-12
+						img.img-responsive(src="./img/logo-200.png" alt="logo")
+						.intro-text
+							span.name heartbit
+							hr.start-light
+							span.skills 
+								a.btn.btn-default(href="./app") Crypto markets clean dashboards
+
+
+		section#feature
+			.container
+				.row
+					.col-lg-12.text-center
+						h2 Features
+						hr.star-primary
+				.row.text-center
+					.col-sm-4.feature-item
+						.caption
+							.caption-content
+								i.fa.fa-bar-chart
+						p Description
+					.col-sm-4.feature-item
+						.caption
+							.caption-content
+								i.fa.fa-pie-chart
+						p Description
+					.col-sm-4.feature-item
+						.caption
+							.caption-content
+								i.fa.fa-area-chart
+						p Description
+
+		section.success#about
+			.container
+				.row
+					.col-lg-12.text-center
+						h2 About
+
+		section#contact
+			.container
+				.row
+					.col-lg-12.text-center
+						h2 Contact
+						hr.star-primary
+
+		footer.text-center
+			.footer-above
+				.container
+					.row
+						.footer-col.col-md-4
+							h3 Location
+							p Paris North-East
+						.footer-col.col-md-4
+							h3 Around the web
+							ul.list-inline
+								li
+									a.btn-social.btn-outline(href="#")
+										i.fa.fa-fw.fa-twitter
+								li
+									a.btn-social.btn-outline(href="#")
+										i.fa.fa-fw.fa-linkedin
+								li
+									a.btn-social.btn-outline(href="#")
+										i.fa.fa-fw.fa-dribbble
+						.footer-col.col-md-4
+							h3 About heartbit
+							p heartbit is a free to use service..
+
+		.scroll-top.page-scroll.visible-xs.visible-sm
+			a.btn.btn-primary(href="#page-top")
+				i.fa.fa-chevron-up
+
+		script(src='./dist/js/home.js')

@@ -1,0 +1,33 @@
+---
+## VAR SETUP
+- name: 'Set Ubuntu directory prefix'
+  set_fact: etc_prefix=/etc
+  when: ansible_os_family == "Debian"
+
+- name: 'Set Ubuntu haproxy config location'
+  set_fact: config_location=/etc/haproxy/haproxy.cfg
+  when: ansible_os_family == "Debian"
+
+## PACKAGE INSTALL
+# - name: 'Add haproxy apt repo'
+#   sudo: yes
+#   apt_repository: repo="ppa:vbernat/haproxy-1.5" state=present update_cache=yes
+#   when: ansible_os_family == "Debian"
+
+- name: 'Installs haproxy as well as socat for socket api'
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - haproxy
+    - socat
+  when: ansible_os_family == 'Debian'
+
+- name: 'Enable it'
+  service: name=haproxy enabled=yes
+
+- name: 'Ensure chroot directory exists'
+  file: name={{ haproxy_global.chroot }} state=directory
+  when: haproxy_global.chroot is defined and haproxy_global.chroot
+
+- name: 'Haproxy config file'
+  template: src=../templates/haproxy.cfg dest={{ config_location }}
+  notify: restart haproxy

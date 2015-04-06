@@ -1,0 +1,617 @@
+{"currency":
+	[{
+		"name":"dollar",
+		"label": "USD",
+		"symbol" : "$",
+		"image":""
+	},	
+	{
+		"name":"bitcoin",
+		"label": "BTC",
+		"symbol" : "Ƀ",
+		"image" :"CHEMIN/images/Logoscrypto/Bitcoin-64x64.png"
+	},	
+	{	
+		"name":"euro",
+		"label":"EUR",
+		"symbol":"€",
+		"image":""
+	},
+	{		
+		"name":"yuan",
+		"label":"CNY",
+		"symbol": "¥",
+		"image":""
+	},
+	{
+		"name":"rouble",
+		"label": "RUR",
+		"symbol": "&#8381",
+		"image":""
+	},
+	{
+		"name":"feathercoin",
+		"label": "FTC",
+		"symbol":"FTC",
+		"image":"CHEMIN/images/Logoscrypto/Feathercoin-64x64.png"
+	},		
+	{	
+		"name":"litecoin",
+		"label": "LTC",
+		"symbol" : "Ł",
+		"image": "CHEMIN/images/Logoscrypto/Litecoin-64x64.png"
+	},
+	{
+		"name":"dogecoin",
+		"label": "DOGE",
+		"symbol" : "Ɖ",
+		"image":""
+	},
+	{
+		"name":"namecoin",
+		"label": "NMC",
+		"symbol" : "ℕ",
+		"image": "CHEMIN/images/Logoscrypto/namecoin-64x64.png"
+	},
+	{	
+		"name":"novacoin",		
+		"label": "NVC",
+		"symbol": "NVC",
+		"image": "CHEMIN/images/Logoscrypto/novacoin-64x64.png"
+	},
+	{		
+		"name":"peercoin",
+		"label": "PPC",
+		"symbol": "Ᵽ",
+		"image": "CHEMIN/images/Logoscrypto/ppc.jpg"
+	},
+	{		
+		"name":"terracoin",
+		"label": "TRC",
+		"symbol": "Ŧ",
+		"image": "CHEMIN/images/Logoscrypto/terracoin.jpg"
+	},
+	{
+		"name":"primecoin",
+		"label": "XPM",
+		"symbol" : "Ψ",
+		"image": "CHEMIN/images/Logoscrypto/primecoin.jpg"
+	},
+	{		
+		"name":"auroracoin",
+		"label": "AUR",
+		"symbol":"AUR",
+		"image":""
+	},
+	{		
+		"name":"42",
+		"label": "XRP",
+		"symbol":"XRP",
+		"image": "CHEMIN/images/Logoscrypto/xrp.jpg"
+	},
+	{		
+		"name":"alphacoin",	
+		"label": "ALF",
+		"symbol" :"ALF",
+		"image":""
+	},
+	{	
+		"name":"americancoin",
+		"label": "AMC",
+		"symbol":"AMC",
+		"image":""
+	},
+	{
+		"name":"anoncoin",
+		"label": "ANC",
+		"symbol":"ANC",
+		"image": "CHEMIN/images/Logoscrypto/Anoncoin-64x64.png"
+	},
+	{	
+		"name":"argentum",
+		"label": "ARG",
+		"symbol":"ARG",
+		"image":""
+	},
+	{
+		"name":"battlecoin",
+		"label": "BCX",
+		"symbol":"BCX",
+		"image":""
+	},
+	{	
+		"name":"benjamins",
+		"label": "BEN",
+		"symbol":"BEN",
+		"image":""
+	},
+	{	
+		"name":"BBQcoin",	
+		"label": "BBQ",
+		"symbol" :"BBQ",
+		"image": "CHEMIN/images/Logoscrypto/BBQCoin-64x64.png"
+	},
+	{		
+		"name":"bitbar",	
+		"label": "BTB",
+		"symbol" :"BTB",
+		"image": "CHEMIN/images/Logoscrypto/Bitbar-64x64.png"
+	},
+	{	
+		"name":"bytecoin",
+		"label": "BTE",
+		"symbol" :"BTE",
+		"image":""
+	},
+	{
+		"name":"bitgemcoin",	
+		"label": "BTG",
+		"symbol" :"BTG",
+		"image": "CHEMIN/images/Logoscrypto/Bitgem-64x64.png"
+	},
+	{		
+		"name":"cryptobuck",
+		"label": "BUK",
+		"symbol" :"BUK",
+		"image":""
+	},
+	{
+		"name":"cachecoin",
+		"label": "CACH",
+		"symbol" :"CACH",
+		"image":""
+	},
+	{
+		"name":"bottlecaps",		
+		"label":"CAP",
+		"symbol":"CAP",
+		"image": "CHEMIN/images/Logoscrypto/Bottlecaps-64x64.png"
+	},
+	{
+		"name":"cashcoin",
+		"label": "CASH",
+		"symbol" :"CASH",
+		"image":""
+	},
+	{
+		"name":"catcoin",		
+		"label": "CAT",
+		"symbol":"CAT",
+		"image":""
+	},
+	{	
+		"name":"cryptogenicBullion",
+		"label": "CGB",
+		"symbol" :"CGB",
+		"image":""
+	},
+	{		
+		"name":"copperlark",	
+		"label": "CLR",
+		"symbol" :"CLR",
+		"image":""
+	},	
+	{
+		"name":"cosmocoin", 
+		"label": "CMC",
+		"symbol":"CMC",
+		"image": "CHEMIN/images/Logoscrypto/Cosmocoin-64x64.png"
+	},
+	{		
+		"name":"chinacoin",	
+		"label":"CNC",
+		"symbol":"CNC",
+		"image":""
+	},
+	{		
+		"name":"craftcoin", 
+		"label": "CRC",
+		"symbol":"CRC",
+		"image": "CHEMIN/images/Logoscrypto/Craftcoin-64x64.png"
+	},	
+	{
+		"name":"casinocoin", 
+		"label": "CSC",
+		"symbol":"CSC",
+		"image": "CHEMIN/images/Logoscrypto/Casinocoin-64x64.png"
+	},
+	{		
+		"name":"eMark",		
+		"label":"DEM",
+		"symbol":"DEM",
+		"image":""
+	},
+	{		
+		"name":"digitalcoin", 
+		"label": "DGC",
+		"symbol" :"DGC",
+		"image": "CHEMIN/images/Logoscrypto/Digitalcoin-64x64.png"
+	},
+	{
+		"name":"diamond",	 
+		"label": "DMD",
+		"symbol" :"DMD",
+		"image": "CHEMIN/images/Logoscrypto/Diamond-64x64.png"
+	},
+	{
+		"name":"darkcoin",
+		"label": "DRK",
+		"symbol":"DRK",
+		"image":""
+	},
+	{
+		"name":"devcoin",
+		"label":"DVC",
+		"symbol":"DVC",
+		"image":""
+	},
+	{
+		"name":"earthcoin",
+		"label": "EAC",
+		"symbol":"EAC",
+		"image":""	
+	},
+	{
+		"name":"elacoin",	
+		"label": "ELC",
+		"symbol":"ELC",
+		"image":""
+	},	
+	{
+		"name":"emerald",
+		"label":"EMD",
+		"symbol":"EMD",
+		"image": "CHEMIN/images/Logoscrypto/Emerald-64x64.png"
+	},
+	{	
+		"name":"ezcoin",	
+		"label": "EZC",
+		"symbol":"EZC",
+		"image":""	
+	},
+	{
+		"name":"firelycoin",
+		"label": "FFC",
+		"symbol" :"FFC",
+		"image":""
+	},
+	{	
+		"name":"flappycoin",
+		"label": "FLAP",
+		"symbol":"FLAP",
+		"image":""
+	},
+	{
+		"name":"freicoin",		
+		"label": "FRC",
+		"symbol":"FRC",
+		"image":""
+	},
+	{		
+		"name":"franko",
+		"label": "FRK",
+		"symbol":"FRK",
+		"image":""	
+	},
+	{
+		"name":"fastcoin",
+		"label":"FST",
+		"symbol":"FST",
+		"image": "CHEMIN/images/Logoscrypto/Fastcoin-64x64.png"
+	},
+	{
+		"name":"grandcoin",	
+		"label": "GDC",
+		"symbol":"GDC",
+		"image": "CHEMIN/images/Logoscrypto/Grandcoin-64x64.png"
+	},
+	{
+		"name":"globalcoin",	
+		"label":"GLC",
+		"symbol":"GLC",
+		"image": "CHEMIN/images/Logoscrypto/Globalcoin-64x64.png"
+	},
+	{
+		"name":"goldcoin",
+		"label": "GLD",
+		"symbol":"GLD",
+		"image": "CHEMIN/images/Logoscrypto/Goldcoin-64x64.png"
+	},
+	{	
+		"name":"galaxycoin",
+		"label": "GLX",
+		"symbol":"GLX",
+		"image":""
+	},
+	{	"name":"hobonickles",
+		"label": "HBN",
+		"symbol":"HBN",
+		"image": "CHEMIN/images/Logoscrypto/HoboNickels-64x64.png"
+	},
+	{		
+		"name":"infinitecoin",	
+		"label":"IFC",
+		"symbol":"IFC",
+		"image":""	
+	},
+	{
+		"name":"IXCoin",
+		"label": "IXC",
+		"symbol":"IXC",
+		"image":""
+	},
+	{
+		"name":"junkcoin",
+		"label": "JKC",
+		"symbol":"JKC",
+		"image":""
+	},	
+	{	
+		"name":"krugercoin",
+		"label": "KGC",
+		"symbol":"KGC",
+		"image": "CHEMIN/images/Logoscrypto/Krugercoin-64x64.png"
+	},	
+	{	
+		"name":"leafcoin",
+		"label": "LEAF",
+		"symbol":"LEAF",
+		"image":""	
+	},
+	{
+		"name":"lucky7coin",	
+		"label": "LK7",
+		"symbol":"LK7",
+		"image":""
+	},
+	{		
+		"name":"luckycoin",
+		"label": "LKC",
+		"symbol":"LKC",
+		"image": "CHEMIN/images/Logoscrypto/Luckycoin-64x64.png"
+	},
+	{
+		"name":"lottocoin",
+		"label": "LOT",
+		"symbol":"LOT",
+		"image":""
+	},	
+	{	
+		"name":"maxcoin",
+		"label": "MAX",
+		"symbol":"MAX",
+		"image":""
+	},
+	{		
+		"name":"megacoin",	
+		"label": "MEC",
+		"symbol":"MEC",
+		"image": "CHEMIN/images/Logoscrypto/Megacoin-64x64.png"
+	},
+	{
+		"name":"kittehcoin",		
+		"label": "MEOW",
+		"symbol":"MEOW",
+		"image":""
+	},	
+	{
+		"name":"mintcoin",
+		"label": "MINT",
+		"symbol":"MINT"
+	},
+	{
+		"name":"mincoin",
+		"label":"MNC",	
+		"symbol ":"MNC",
+		"image": "CHEMIN/images/Logoscrypto/Mincoin-64x64.png"
+	},
+	{
+		"name":"mooncoin",		
+		"label": "MOON",
+		"symbol":"MOON",
+		"image":""
+	},
+	{
+		"name":"mazacoin",
+		"label": "MZC",
+		"symbol":"MZC",
+		"image":""
+	},
+	{
+		"name":"nanotoken",
+		"label":"NAN",
+		"symbol":"NAN",
+		"image":""
+	},
+	{
+		"name":"nibble",
+		"label": "NBL",
+		"symbol":"NBL",
+		"image":""	
+	},
+	{
+		"name":"neocoin",
+		"label": "NEC",
+		"symbol":"NEC",
+		"image":""
+	},
+	{
+		"name":"netcoin",
+		"label": "NET",
+		"symbol":"NET",
+		"image":""
+	},
+	{	
+		"name":"noirbits",
+		"label": "NRB",
+		"symbol":"NRB",
+		"image": "CHEMIN/images/Logoscrypto/Noirbits-64x64.png"
+	},
+	{
+		"name":"nextcoin",
+		"label": "NXT",
+		"symbol":"NXT",
+		"image":""
+	},
+	{
+		"name":"orbitcoin",
+		"label": "ORB",
+		"symbol":"ORB",
+		"image":""
+	},	
+	{
+		"name":"opensourcecoin",
+		"label": "OSC",
+		"symbol":"OSC",
+		"image":""	
+	},
+	{
+		"name":"philosopherStone",
+		"label": "PHS",
+		"symbol":"PHS",
+		"image":""
+	},
+	{	
+		"name":"points",
+		"label": "Points",
+		"symbol":"Points",
+		"image":""
+	},	
+	{
+		"name":"protoshares",
+		"label": "PTS",
+		"symbol":"PTS",
+		"image":""
+	},	
+	{	
+		"name":"phoenixcoin",
+		"label": "PXC",
+		"symbol":"PXC",
+		"image": "CHEMIN/images/Logoscrypto/Phenixcoin-64x64.png"
+	},
+	{	
+		"name":"paycoin",
+		"label": "PYC",
+		"symbol":"PYC",
+		"image":""
+	},	
+	{
+		"name":"quarkcoin",
+		"label": "QRK",
+		"symbol":"QRK",
+		"image":""
+	},	
+	{
+		"name":"ronpaulcoin",	
+		"label": "RPC",
+		"symbol":"RPC",
+		"image":""
+	},
+	{	
+		"name":"stablecoin",		
+		"label": "SBC",
+		"symbol":"SBC",
+		"image":"CHEMIN/images/Logoscrypto/Stablecoin-64x64.png"
+	},
+	{
+		"name":"smartcoin",
+		"label": "SMC",
+		"symbol":"SMC",
+		"image":""
+	},
+	{	
+		"name":"spots",
+		"label": "SPT",
+		"symbol":"SRC",
+		"image": "CHEMIN/images/Logoscrypto/Spots-64x64.png"
+	},
+	{
+		"name":"securecoin",	
+		"label": "SRC",
+		"symbol":"SRC",
+		"image":""
+	},
+	{
+		"name":"starcoin",
+		"label": "STR",
+		"symbol":"STR",
+		"image":""
+	},
+	{	
+		"name":"sexcoin",	
+		"label": "SXC",
+		"symbol":"SXC",
+		"image":""
+	},	
+	{
+		"name":"tagcoin",
+		"label": "TAG",
+		"symbol":"TAG",
+		"image": "CHEMIN/images/Logoscrypto/Tagcoin-64x64.png"
+	},
+	{
+		"name":"takeicoin",
+		"label": "TAK",
+		"symbol":"TAK",
+		"image":""
+	},
+	{
+		"name":"tekcoin",
+		"label": "TEK",
+		"symbol":"TEK",
+		"image":""
+	},	
+	{
+		"name":"tigercoin",
+		"label": "TGC",
+		"symbol":"TGC",
+		"image":""
+	},	
+	{
+		"name":"unobtanium",
+		"label": "UNO",
+		"symbol":"UNO",
+		"image":""
+	},	
+	{
+		"name":"ultracoin",	
+		"label":"UTC",
+		"symbol":"UTC",
+		"image":""
+	},	
+	{ 
+		"name":"vertcoin",
+		"label": "VTC",
+		"symbol":"VTC",
+		"image":""
+	},	
+	{
+		"name":"worldcoin",
+		"label": "WDC",
+		"symbol":"WDC",
+		"image":""
+	},	
+	{
+		"name":"joulecoin",
+		"label": "XJO",
+		"symbol":"XJO",
+		"image":""
+	},
+	{	
+		"name":"yacoin",
+		"label": "YAC",
+		"symbol":"YAC",
+		"image":""
+	},	
+	{
+		"name":"YBcoin",
+		"label":"YBC",
+		"symbol" :"YBC",
+		"image":""
+	},	
+	{
+		"name":"zetacoin",
+		"label": "ZET",
+		"symbol":"ZET"
+	}]
+}

@@ -1,0 +1,56 @@
+.gridster ul, .gridster ol {
+    list-style: none;
+}
+// .gridster{ display: none}
+.gridster .panel-heading{ min-height: 30px; overflow:hidden}
+.gridster .panel-body{
+	//height:inherit;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.gridster .panel{
+	height:100%;
+	//padding-bottom: 60px;
+}
+.gridster .panel-heading {
+    cursor: pointer;
+    color: #004756;
+}
+
+.gridster .panel-heading .pull-right {
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s .4s, opacity .4s linear;
+}
+.gridster .panel-heading:hover .pull-right {
+	visibility: visible;
+	opacity: 1;
+	transition: opacity .4s linear;
+}
+
+.gridster .panel-heading .pull-right i {
+	opacity: .6;
+	transition: opacity .1s linear;
+	font-size: small;
+}
+
+.gridster .panel-heading .pull-right i:hover {
+	opacity: 1;
+	transition: opacity .1s linear;
+}
+
+.gridster .panel-title.pull-right a {
+    margin-left: 7px;
+}
+
+.gridster .panel-title-text {
+    margin-left: 10px;
+}
+
+.gridster .preview-holder {
+    position: absolute;
+    background-color: #FFFFCC;
+    border-color: #000;
+	border: 1px dashed #000;
+    opacity: 0.3;
+}

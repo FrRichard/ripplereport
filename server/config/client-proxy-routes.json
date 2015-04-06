@@ -1,0 +1,19 @@
+{
+    "unprotectedRoutes": {
+        "/": "file:template/home.jade",
+        "/app": "file:template/app.jade",
+        "/login": "file:template/login.jade",
+        "/register": "file:template/register.jade",
+        "/account": "file:template/account.jade"
+    },
+    "protectedRoutes": {
+        "/widgets": "file:template/widgets.html",
+        "/embed/keyfacts": "file:template/embed/keyfacts.html",
+        "/embed/maingraph": "file:template/embed/maingraph.html",
+        "/embed/marketcap": "file:template/embed/marketcap.html",
+        "/embed/volume": "file:template/embed/volume.html",
+        "/embed/price": "file:template/embed/price.html",
+        "/embed/news": "file:template/embed/news.html",
+        "/embed/depth": "file:template/embed/depth.html"
+    }
+}

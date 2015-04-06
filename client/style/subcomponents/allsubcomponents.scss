@@ -1,0 +1,22 @@
+@import "./rippleaccounttransactionstats";
+@import "./rippleoffersexercisedsummary";
+
+.sell {
+	color:#b01e2e;
+	font-weight:bold;
+}
+
+.buy {
+	color:#339933;
+	font-weight:bold;
+}
+
+.exchange {
+	color:#124A51;
+	font-weight:bold;
+}
+
+.ofexsum_title: {
+	vertical-align:middle;
+	font-size:20px;
+}
