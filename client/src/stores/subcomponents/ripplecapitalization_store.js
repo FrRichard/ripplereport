@@ -11,7 +11,11 @@ function registerCapitalization(result) {
 	var capitalizations = result.toJSON();
 
 	_.each(capitalizations, function(capitalization) {
-		_RippleCapitalizations[capitalization.id] = capitalization;
+		caps = _.filter(capitalization, function(cap) {
+				return cap.amount > 0;
+			});
+		caps["id"] = capitalization.id;
+		_RippleCapitalizations[capitalization.id] = caps;
 	});
 	console.log("_RippleCapitalizationsStore",_RippleCapitalizations);
 };
@@ -54,7 +58,7 @@ RipplecapitalizationStore.dispatcherIndex = Dispatcher.register(function(payload
   	switch(action.actionType) {
   		 case Constants.ActionTypes.ASK_RIPPLECAPITALIZATION:	
   		 	registerCapitalization(action.result); 	
-  		 	RipplecapitalizationStore.emitChange(action.result); 		
+  		 	RipplecapitalizationStore.emitChange(action.result);
   		 	break;
   	}
 

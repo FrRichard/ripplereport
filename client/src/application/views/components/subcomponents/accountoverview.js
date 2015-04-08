@@ -30,7 +30,8 @@ var AccountOverview = React.createClass({
       selectedcurrency:"",
       currencylist: false
     };
-    return { datasets:datasets, optlist:optlist };
+    var isloading = true;
+    return { datasets:datasets, optlist:optlist, isloading:isloading };
 	},
 
   componentWillMount: function() {
@@ -43,6 +44,7 @@ var AccountOverview = React.createClass({
     this.dataHelper = new DataHelper();
     // Listener
     RippleaccountoverviewsStore.addChangeListener(address, this._onChangeRippleaccount);
+    RippleaccountoverviewsStore.addChangeListener("isloading", this._onLoading);
   },
 
   componentWillUnmount: function() {
@@ -79,11 +81,12 @@ var AccountOverview = React.createClass({
           </div>
         </div>
         <div className="panel-body">
+          { this.state.isloading ?  <div><img src={'./img/loading2.gif'} /></div> : ''}
           <div id={this.chartId ? this.chartId: ''}></div>
           { this.state.optlist.currencylist ?
           <select className='fiatselector' onChange={this.onSelectCurrency} value={this.state.optlist.selectedcurrency[0]+","+this.state.optlist.selectedcurrency[1]} >
             {optionlist}
-          </select> : "" }
+          </select> : ""}
           <div id={"OverviewTotal" + this.props.attributes.key}> 
             { this.state.optlist.currencylist ? <div>Total value in &nbsp;</div> : ""}
             { this.state.optlist.currencylist ? <div className="totalfiat"> { this.state.totalfiat.amount } </div> : ""}
@@ -116,8 +119,15 @@ var AccountOverview = React.createClass({
           optlist: {
               selectedcurrency:["XRP",""],
               currencylist: address['address'+key].currencylist
-          }
+          },
+          isloading:false
         });
+  },
+
+  _onLoading: function() {
+    this.setState({
+      isloading:true
+    });
   },
 
   onSelectCurrency: function(e) {

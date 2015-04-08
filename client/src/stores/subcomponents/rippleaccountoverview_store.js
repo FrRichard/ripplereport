@@ -182,6 +182,10 @@ var RippleaccountoverviewsStore = assign( {}, EventEmitter.prototype, {
 		});
 	},
 
+	emitLoading: function(event) {
+		this.emit(event);
+	},
+
 	addChangeListener: function(address,callback) {
 		this.on(address, callback);
 	},
@@ -247,6 +251,10 @@ RippleaccountoverviewsStore.dispatcherIndex = Dispatcher.register(function(paylo
 			registerRippleExchangerates(RippleexchangeratesStore.getAll());
 			isReady.exchangerates = true
 			allStoreReady(isReady,action);
+			break;
+
+		case Constants.ActionTypes.ISLOADING:
+			RippleaccountoverviewsStore.emitLoading('isloading');
 			break;
 	}
 

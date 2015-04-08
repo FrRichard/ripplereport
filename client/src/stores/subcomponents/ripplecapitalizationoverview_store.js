@@ -66,16 +66,20 @@ function calculateShares(toresolve,dataset) {
   var data = [];
 	_.map(dataset.ripplecapitalizations,function(cap) {
 		if( cap.amount > 0 ) {
-		  var balance = { balance:parseFloat(cap.amount), currency:cap.currency, xrpequ:"" , issuer:cap.issuer };
-		  // Chercher l'équivalent de la currency en XRP pour pie chart proportionnelle à la valeur de chaque actif
-		_.each(dataset.rippleexchangerates, function(account) {
-			if(_.isObject(account)) {
-				if( cap.currency == account.base.currency && cap.issuer == account.base.issuer ) {
-					var xrpequivalent = cap.amount*account.last;          
-					balance.xrpequ = xrpequivalent; 
-				}
-			};
-		});        
+		 	 var balance = { balance:parseFloat(cap.amount), currency:cap.currency, xrpequ:"" , issuer:cap.issuer };
+		 	 // Chercher l'équivalent de la currency en XRP pour pie chart proportionnelle à la valeur de chaque actif
+			_.each(dataset.rippleexchangerates, function(account) {
+				if(_.isObject(account)) {
+					if( cap.currency == account.base.currency && cap.issuer == account.base.issuer ) {
+						var xrpequivalent = cap.amount*account.last;          
+						balance.xrpequ = xrpequivalent; 
+					} else {
+						balance.xrpequ = cap.amount;
+					}
+				} else {
+					balance.xrpequ = cap.amount;
+				};
+			});        
 		  data.push(balance);
 		} 
 	});

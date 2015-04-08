@@ -48,6 +48,11 @@ var AccountActions = {
 
 	ripplelines: function(toresolve) {
 		var self=this;
+
+		Dispatcher.handleServerAction({
+			actionType:Constants.ActionTypes.ISLOADING
+		});
+
 		var ripplelinescollection = new ripplelines();
 
 		ripplelinescollection.createLinesList(toresolve.toJSON()).then(function() {	

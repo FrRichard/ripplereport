@@ -1,6 +1,9 @@
 var React = require('react');
 var RippleaccounttransactionsStore = require('RippleaccounttransactionsStore');
-
+//charts
+var LineChart = require('linechart');
+//css
+var viewcommon = require('ViewCommon');
 
 function getRippleaccounttransactionsState(key) {
 	var rippleaccounttransactions= RippleaccounttransactionsStore.getSpecific(key);
@@ -25,6 +28,9 @@ var RippleAccountTransactions = React.createClass({
 	componentDidMount: function() {
 		var key = this.props.attributes.reportnumber;
 		var address = "address" + key;
+		// instanciation & initialition du chart
+		this.linechart = new LineChart(this.chartId);
+		//Listener
 		RippleaccounttransactionsStore.addChangeListener(address, this._onChangeRippleaccounttransactions);
 	},
 
@@ -34,20 +40,31 @@ var RippleAccountTransactions = React.createClass({
 
 	render: function() {
 		var self =this;
-		// console.log("RIPPLECAPITALIZATIONSTATE",this.state.ripplecapitalization);
-			// {this.state.ripplecapitalization[this.address] ?
-			// 		_.map(this.state.ripplecapitalization[this.address],function(cap) {
-			// 			return  <ul>
-			// 						<li> { cap.currency } { cap.amount } </li>
-			// 					</ul>;
-
-			// 		})
-
-			// 	: ""}
 		this.address= "address" + this.props.attributes.reportnumber;
-		return (<div>
-			<p> hello! ripple account_transactions ! Transaction_type: Payment !!</p>
-		</div>);
+		console.log(this.state);
+		var panelstyle = viewcommon.linechart;
+
+		this.chartId= "Overviewcapitalization" +this.props.attributes.key;
+	    if( this.state.rippleaccounttransactions["address" + this.props.attributes.reportnumber] != undefined) {
+	      this.linechart.draw(this.chartId, this.state.rippleaccounttransactions["address" + this.props.attributes.reportnumber].transactions);
+	    }
+
+		return ( 
+			<div className="panel panel-default">
+				 <div className="panel-heading clearfix">
+					 <div className="panel-title  pull-left" onMouseOver="" onMouseOut="">
+	             		<i className={this.props.attributes.icon}></i>
+						<span className="panel-title-text">
+							{this.props.attributes.title}
+						</span>
+           			</div>
+           		</div>
+           		<div className="panel-body" style={panelstyle}>
+           			<div id={this.chartId ? this.chartId: ''}></div>
+				</div>
+			</div>);
+
+		this.address= "address" + this.props.attributes.reportnumber;
 	},
 
 	_onChangeRippleaccounttransactions: function() {

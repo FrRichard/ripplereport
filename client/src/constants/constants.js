@@ -20,7 +20,7 @@ module.exports = {
     REGISTER_CONF: null,
     ADD_WIDGET: null,
     REMOVE_WIDGET: null,
-    LOADING_GIF: null
+    ISLOADING: null
   }),
 
   PayloadSources: keyMirror({

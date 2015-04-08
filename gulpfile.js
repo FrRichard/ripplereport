@@ -43,7 +43,7 @@ gulp.task('watch-sass', function() {
 /* Css */
 gulp.task('sass', function() {
     gulp.src('./client/style/bundle/*.scss')
-        .pipe(sass())
+        .pipe(sass({errLogToConsole: true}))
         .pipe(gulp.dest('./client/dist/css/'));
 });
 

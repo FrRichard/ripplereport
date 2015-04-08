@@ -9199,9 +9199,6 @@ ul.DTTT_dropdown.dropdown-menu > li:hover > a {
 .transactionstats > .table {
   margin-bottom: 0px; }
 
-.doubleselector {
-  margin-bottom: 4px; }
-
 .sell {
   color: #b01e2e;
   font-weight: bold; }
@@ -9213,6 +9210,10 @@ ul.DTTT_dropdown.dropdown-menu > li:hover > a {
 .exchange {
   color: #124A51;
   font-weight: bold; }
+
+.ofexsum_title {
+  vertical-align: middle;
+  font-size: 20px; }
 
 .item {
   display: block;
@@ -9235,3 +9236,15 @@ body {
 
 #ripplelogo {
   float: left; }
+
+path {
+  stroke: steelblue;
+  stroke-width: 2;
+  fill: none; }
+
+.lineaxis path, .lineaxis line {
+  font-size: 11px;
+  fill: none;
+  stroke: grey;
+  stroke-width: 1;
+  shape-rendering: crispEdges; }

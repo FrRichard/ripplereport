@@ -26,7 +26,7 @@ var RippleOffersExercised = React.createClass({
 	componentDidMount: function() {
 		var key = this.props.attributes.reportnumber;
 		var address = "address" + key;
-		this.linechart = new linechart(this.chartId);
+		// this.linechart = new linechart(this.chartId);
 
 		RippleoffersexercisedStore.addChangeListener(address, this._onChangeRippleOffersExercised);
 
@@ -40,11 +40,11 @@ var RippleOffersExercised = React.createClass({
 		var self =this;
 		var panelstyle = { height:250+'px'};
 		this.chartId= "OfferExercised" +this.props.attributes.key;
-		if( this.state.rippleoffersexercised[this.address] != undefined) {
-	      var data = this.state.rippleoffersexercised[this.address].results;
-	      // piechart.remove(this.chartId);
-	      this.linechart.draw(this.chartId, data);
-	    }
+		// if( this.state.rippleoffersexercised[this.address] != undefined) {
+	 //      var data = this.state.rippleoffersexercised[this.address].results;
+	 //      // piechart.remove(this.chartId);
+	 //      this.linechart.draw(this.chartId, data);
+	 //    }
 
 			// {this.state.rippleoffersexercised[this.address] ?
 			// 		_.map(this.state.rippleoffersexercised[this.address].results,function(offer,i) {

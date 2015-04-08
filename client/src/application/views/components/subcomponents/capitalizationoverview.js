@@ -48,11 +48,9 @@ var CapitalizationOverview = React.createClass({
 
   render: function() {
     var self=this;
-    var toresolve = "address" + this.props.attributes.reportnumber;
+
     this.chartId= "Overviewcapitalization" +this.props.attributes.key;
-       console.log("aaaaaaaaaaaaaaaaaaaaaaaa",this.state);
     if( this.state.datasets["address" + this.props.attributes.reportnumber] != undefined) {
-      console.log("aaaaaaaaaaaaaaaaaaaaaaaa",this.state);
       this.piechart.draw(this.chartId, this.state.shares);
     }
  
