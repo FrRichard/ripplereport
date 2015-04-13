@@ -14,17 +14,12 @@ var RippledataActions = require("RippledataActions");
 
 var AccountActions = {
 
-
-	loadinggif: function(toresolves) {
-			// Dispatcher.handleViewAction({
-			// 	actionType: Constants.ActionTypes.LOADING_GIF,
-			// 	toresolves:toresolves
-			// });
-	},
-	
 	rippleid: function(toresolve,gridsterKeys) {
 		var self = this;
-		// self.storeB();
+
+		Dispatcher.handleServerAction({
+			actionType:Constants.ActionTypes.ISLOADING
+		});
 
 		toresolves = toresolve;
 
@@ -49,9 +44,6 @@ var AccountActions = {
 	ripplelines: function(toresolve) {
 		var self=this;
 
-		Dispatcher.handleServerAction({
-			actionType:Constants.ActionTypes.ISLOADING
-		});
 
 		var ripplelinescollection = new ripplelines();
 

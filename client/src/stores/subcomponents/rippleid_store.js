@@ -55,8 +55,8 @@ var RippleidStore = assign({}, EventEmitter.prototype, {
 		});
 	},
 
-	emitLoad: function() {
-		this.emit(LOAD_EVENT);
+	emitLoading: function(event) {
+		this.emit(event);
 	},
 
 	addLoadListener: function(callback) {
@@ -90,6 +90,10 @@ RippleidStore.dispatcherIndex = Dispatcher.register(function(payload) {
   		 	loadFlag(action.toresolves);
   		 	RippleidStore.emitLoad();
   		 	break;
+
+  		 case Constants.ActionTypes.ISLOADING:
+			RippleidStore.emitLoading('isloading');
+			break;
   	}
 
   	

@@ -63,6 +63,7 @@ function registerRippleCapitalization(caps) {
 }
 
 function calculateShares(toresolve,dataset) {
+	console.log("dataaaaaaaaaaaaaaaaaaSEEEET",dataset);
   var data = [];
 	_.map(dataset.ripplecapitalizations,function(cap) {
 		if( cap.amount > 0 ) {
@@ -70,14 +71,15 @@ function calculateShares(toresolve,dataset) {
 		 	 // Chercher l'équivalent de la currency en XRP pour pie chart proportionnelle à la valeur de chaque actif
 			_.each(dataset.rippleexchangerates, function(account) {
 				if(_.isObject(account)) {
+					console.log("acccccccoooouuunnnt",account);
 					if( cap.currency == account.base.currency && cap.issuer == account.base.issuer ) {
 						var xrpequivalent = cap.amount*account.last;          
 						balance.xrpequ = xrpequivalent; 
 					} else {
-						balance.xrpequ = cap.amount;
+						// balance.xrpequ = cap.amount;
 					}
 				} else {
-					balance.xrpequ = cap.amount;
+					// balance.xrpequ = cap.amount;
 				};
 			});        
 		  data.push(balance);
@@ -153,6 +155,10 @@ var RipplecapitalizationoverviewStore = assign( {}, EventEmitter.prototype, {
 		});
 	},
 
+	emitLoading: function(event) {
+		this.emit(event);
+	},
+
 	addChangeListener: function(address,callback) {
 		this.on(address, callback);
 	},
@@ -183,6 +189,9 @@ RipplecapitalizationoverviewStore.dispatcherIndex = Dispatcher.register(function
 			registerCapitalizationOverviews(tosave);
 			RipplecapitalizationoverviewStore.emitChange(action.result);
 			
+			break;
+		case Constants.ActionTypes.ISLOADING:
+			RipplecapitalizationoverviewStore.emitLoading('isloading');
 			break;
 	}
 

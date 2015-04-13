@@ -1,22 +1,47 @@
 @import "./rippleaccounttransactionstats";
 @import "./rippleoffersexercisedsummary";
 
-.sell {
-	color:#b01e2e;
-	font-weight:bold;
+.loading {
+	height:60px;
+	display: block;
+	top:50%;
+  	left:50%;
+  	transform: translate(-50%,-50%);
+
+  	position: absolute;
 }
 
-.buy {
-	color:#339933;
-	font-weight:bold;
+.customSelector {
+	display: inline-block;
+    padding: 4px 3px 3px 5px;
+    margin: 0;
+    font: inherit;
+    line-height: 1.2;
+    background: #FFFFFF;
+    color:#004756;
+    border:0.1;
 }
 
-.exchange {
-	color:#124A51;
-	font-weight:bold;
+.panel-title-text {
+  font-size:17px;
+  font-weight: 500;
 }
 
-.ofexsum_title {
-	vertical-align:middle;
-	font-size:20px;
+.title-address {
+  font-size :14px;
+  font-weight:normal;
+  z-index: 10;  
+  position: absolute;  
+  right: 10px; 
+  top: 3px;
+}
+
+.title-name {
+  display:block;
+  font-size:14px;
+  font-weight:normal;
+  z-index: 10;  
+  position: absolute;  
+  right: 6px;  
+  top: 23px;
 }

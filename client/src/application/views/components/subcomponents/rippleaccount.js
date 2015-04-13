@@ -3,7 +3,6 @@ var ChartEngine = require('ChartEngine');
 var RippleidStore = require('RippleidStore');
 var RipplelinesStore = require('RipplelinesStore');
 var RippleinfosStore = require('RippleinfosStore');
-var RippleexchangeratesStore = require('RippleexchangeratesStore');
 var GridStore = require('GridStore');
 var Loading = require('Loading');
 var FormatUtils = require("FormatUtils");
@@ -56,8 +55,9 @@ var RippleAccount = React.createClass({
       rippleids={};
       rippleinfos={};
       ripplelines={};
+      isloading=true;
 
-      return { rippleids:rippleids, rippleinfos:rippleinfos, ripplelines:ripplelines };
+      return { rippleids:rippleids, rippleinfos:rippleinfos, ripplelines:ripplelines, isloading:isloading };
  
     },
 
@@ -69,13 +69,11 @@ var RippleAccount = React.createClass({
       var key =  this.props.attributes.reportnumber;
       var address = "address"+key;
       //Listener --> Loading
-      RippleidStore.addLoadListener(this._onLoadRippleid);
+      RippleidStore.addChangeListener("isloading", this._onLoading);
       // Listener --> Store loaded
       RippleidStore.addChangeListener(address,this._onChangeRippleid);
       RipplelinesStore.addChangeListener(address,this._onChangeRipplelines);
       RippleinfosStore.addChangeListener(address,this._onChangeRippleinfos);
-      // Register
-      // Loading.gif(this.props.attributes.key,this.state.loading);
       
     },
     
@@ -89,9 +87,6 @@ var RippleAccount = React.createClass({
       var self=this;
       this.address= "address" + this.props.attributes.reportnumber;
 
-      if(this.state.rippleids[this.address]) {
-        Loading.gif(this.props.attributes.key,this.state.rippleids[this.address].loading);
-      }
       var panelstyle = viewcommon.panellist;
       var linestyle = { 'margin-bottom': 5 +'px'};
       var rows = [];
@@ -118,14 +113,22 @@ var RippleAccount = React.createClass({
           <div className="panel-heading clearfix">
             <div className="panel-title  pull-left" onMouseOver="" onMouseOut="">
               <i className={this.props.attributes.icon}></i>
-              <span className="panel-title-text">
-                {this.props.attributes.title}: &nbsp;
-                  {this.state.rippleids[this.address] && this.state.rippleids[this.address].address!=undefined  ? this.state.rippleids[this.address].address : ""} &nbsp; 
+              <span>
+                <span className="panel-title-text">
+                  {this.props.attributes.title} &nbsp;
+                </span>
+                <span className="title-address">
                   {this.state.rippleids[this.address] && this.state.rippleids[this.address].username!=undefined ? "~"+this.state.rippleids[this.address].username : ""}         
+                </span>
+                <span className="title-name">
+                  {this.state.rippleids[this.address] && this.state.rippleids[this.address].address!=undefined  ? this.state.rippleids[this.address].address : ""} &nbsp; 
+                </span>
               </span>
             </div>
           </div>
           <div className="panel-body" style={panelstyle}>
+              { this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
+              { !this.state.isloading ?
               <Table striped bordered condensed hover>
                     <thead>
                       <th> Currency </th>
@@ -139,15 +142,17 @@ var RippleAccount = React.createClass({
                       {rows}    
                     </tbody>
               </Table>
+              : "" }
 
           </div>
         </div>
         ); 
     },
 
-    _onLoadRippleid: function() {
-      var key = this.props.attributes.reportnumber;
-      this.setState(isLoading("address"+key));
+   _onLoading: function() {
+      this.setState({
+        isloading:true
+      });
     },
 
     _onChangeRippleid: function() {
@@ -184,7 +189,7 @@ var RippleAccount = React.createClass({
         });
       }
       getlines.ripplelines["address"+key].lines = toformat;
-      this.setState(getlines);
+      this.setState({ripplelines:getlines.ripplelines, isloading:false});
     },
     _onChangeRippleinfos: function() {
       var key = this.props.attributes.reportnumber;

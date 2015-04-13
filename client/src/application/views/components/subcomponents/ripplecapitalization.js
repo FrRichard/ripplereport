@@ -17,8 +17,9 @@ function getRipplecapitalizationState(key) {
 var RippleCapitalization = React.createClass({
 
 	getInitialState: function() {
-		ripplecapitalization={};
-		return { ripplecapitalization:ripplecapitalization};
+		var ripplecapitalization={};
+		var isloading = true;
+		return { ripplecapitalization:ripplecapitalization, isloading:isloading};
 	},
 
 
@@ -30,6 +31,7 @@ var RippleCapitalization = React.createClass({
 		var key = this.props.attributes.reportnumber;
 		var address = "address" + key;
 		RipplecapitalizationStore.addChangeListener(address, this._onChangeRipplecapitalization);
+		RipplecapitalizationStore.addChangeListener("isloading", this._onLoading);
 	},
 
 	componentWillUnmount: function() {
@@ -70,6 +72,8 @@ var RippleCapitalization = React.createClass({
 		          </div>
 		        </div>
         		<div className="panel-body" style={panelstyle}>
+        		{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
+				{ this.state.ripplecapitalization ?
 					<Table striped bordered condensed hover>
 	                    <thead>
 	                      <th> Currency </th>
@@ -80,6 +84,7 @@ var RippleCapitalization = React.createClass({
 	                      {rows}    
 	                    </tbody>
              		</Table>
+             	: "This account didn't issued any IOUs" }
 				</div>
 			</div>
 		);
@@ -88,7 +93,21 @@ var RippleCapitalization = React.createClass({
 	_onChangeRipplecapitalization: function() {
 		var key = this.props.attributes.reportnumber;
 		this.address= "address" + key;
-		this.setState(getRipplecapitalizationState("address" + key));
+		var isloading = false;
+		var capitalizationstate = getRipplecapitalizationState("address" + key).ripplecapitalization;
+		if(capitalizationstate["address"+key].length >0) {
+			this.setState({ ripplecapitalization:capitalizationstate,
+			isloading:isloading});
+		} else {
+			this.setState({ ripplecapitalization:false,
+			isloading:isloading});
+		}
+	},
+
+	_onLoading: function() {
+		this.setState({
+			isloading:true
+		});
 	}
 
 });

@@ -36,6 +36,10 @@ var RippleoffersexercisedStore = assign({}, EventEmitter.prototype, {
 		});
 	},
 
+	emitLoading: function(event) {
+		this.emit(event);
+	},
+
 	addChangeListener: function(address,callback) {
 		this.on(address, callback);
 	},
@@ -56,6 +60,9 @@ RippleoffersexercisedStore.dispatcherIndex = Dispatcher.register(function(payloa
   		 	registerOffersExercised(action.result); 	
   		 	RippleoffersexercisedStore.emitChange(action.result); 		
   		 	break;
+  		 case Constants.ActionTypes.ISLOADING:
+			RippleoffersexercisedStore.emitLoading('isloading');
+			break;
   	}
 
 

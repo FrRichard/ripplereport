@@ -95,7 +95,11 @@ var gatewayNames = [
 	
 	{
 		name: "~ripplecny",
-		address: "rUdyyYL415tHGQhHG16Lob1BcBiNUwcQfv"
+		address: "rUdyyYL415tHGQhHG16Lob1BcBiNUwcQfv",
+		hotwallets: {
+			EUR: [null],
+			BTC: [null]
+		}
 	},
 	
 	{

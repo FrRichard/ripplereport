@@ -20,8 +20,12 @@ function getRippleaccountoffersState(key) {
 var RippleAccountOffers = React.createClass({
 
 	getInitialState: function() {
-		rippleaccountoffers={};
-		return { rippleaccountoffers:rippleaccountoffers };
+		var rippleaccountoffers = {};
+		var isloading = true;
+		return {
+			rippleaccountoffers:rippleaccountoffers,
+			isloading:isloading
+		};
 	},
 
 
@@ -32,6 +36,7 @@ var RippleAccountOffers = React.createClass({
 	componentDidMount: function() {
 		var key = this.props.attributes.reportnumber;
 		var address = "address" + key;
+		RippleaccountoffersStore.addChangeListener("isloading", this._onLoading);
 		RippleaccountoffersStore.addChangeListener(address, this._onChangeRippleAccountOffers);
 	},
 
@@ -44,6 +49,7 @@ var RippleAccountOffers = React.createClass({
 		var self =this;
 		var panelstyle = ViewCommon.panellist;
 		var rows = [];
+
 		if(this.state.rippleaccountoffers["address" + this.props.attributes.reportnumber] != undefined) {
 			this.data = this.datahelper.accountoffers(this.state.rippleaccountoffers["address" + this.props.attributes.reportnumber]);
 			_.each(this.data, function(d,i) {
@@ -68,17 +74,20 @@ var RippleAccountOffers = React.createClass({
            			</div>
            		</div>
            		<div className="panel-body" style={panelstyle}>
-	          		<Table striped bordered condensed hover>
-		   			    <thead>
-		                  <th> Offers </th>
-		                  <th> Base</th>
-		                  <th> Counter </th>
-		                  <th> Rate </th>
-		                </thead>     
-	                    <tbody>
-	                      {rows}    
-	                    </tbody>
-	                </Table>
+           			{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
+	          		{ !this.state.isloading ?
+		          		<Table striped bordered condensed hover>
+			   			    <thead>
+			                  <th> Offers </th>
+			                  <th> Base</th>
+			                  <th> Counter </th>
+			                  <th> Rate </th>
+			                </thead>     
+		                    <tbody>
+		                      {rows}    
+		                    </tbody>
+		                </Table>
+	                : "" }
            		</div>
 			</div>);
 
@@ -86,9 +95,21 @@ var RippleAccountOffers = React.createClass({
 	},
 
 	_onChangeRippleAccountOffers: function() {
+
 		var key = this.props.attributes.reportnumber;
-		this.address= "address" + key;
-		this.setState(getRippleaccountoffersState("address" + key));
+		this.address = "address" + key;
+		var rippleaccountoffers = getRippleaccountoffersState("address" + key).rippleaccountoffers;
+		var isloading = false;
+		this.setState({
+			rippleaccountoffers: rippleaccountoffers,
+			isloading: isloading
+		});
+	},
+
+	_onLoading: function() {
+		this.setState({
+			isloading : true
+		});
 	}
 
 });

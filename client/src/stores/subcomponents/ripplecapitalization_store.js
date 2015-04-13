@@ -40,6 +40,10 @@ var RipplecapitalizationStore = assign({}, EventEmitter.prototype, {
 		});
 	},
 
+	emitLoading: function(event) {
+		this.emit(event);
+	},
+
 	addChangeListener: function(address,callback) {
 		this.on(address, callback);
 	},
@@ -60,6 +64,9 @@ RipplecapitalizationStore.dispatcherIndex = Dispatcher.register(function(payload
   		 	registerCapitalization(action.result); 	
   		 	RipplecapitalizationStore.emitChange(action.result);
   		 	break;
+  		 case Constants.ActionTypes.ISLOADING:
+			RipplecapitalizationStore.emitLoading('isloading');
+			break;
   	}
 
 

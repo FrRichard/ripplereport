@@ -23,7 +23,7 @@ config.newsproxy.apiUrl = config.newsproxy.hostUrl + '/news/';
 config.rippleaccountproxy = {};
 config.rippleaccountproxy.host = "https://id.ripple.com/v1/user/";
 config.rippleaccountproxy.port = "";
-config.rippleaccountproxy.hostUrl = config.rippleaccountproxy.host ;
+config.rippleaccountproxy.hostUrl = config.rippleaccountproxy.host;
 config.rippleaccountproxy.remoteserver = "wss://s1.ripple.com:443";
 
 
@@ -38,6 +38,11 @@ config.rippledataapiproxy.methodsUrls = {
 	account_transaction_stats: config.rippledataapiproxy.host + "account_transaction_stats",
 	market_traders: config.rippledataapiproxy.host + "market_traders",
 }
+
+config.historicalapiproxy = {};
+config.historicalapiproxy.host = "https://history.ripple.com/v1/";
+config.historicalapiproxy.port = "";
+config.historicalapiproxy.hostUrl = config.historicalapiproxy.host;
 
 config.db = {};
 // config.db.redis = "redis://ber:fraisefrqise95@insightfult.iocointrader.com:6379";

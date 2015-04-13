@@ -2,6 +2,7 @@ var Dispatcher = require("Dispatcher");
 var EventEmitter = require('events').EventEmitter;
 var Constants = require('Constants');
 var assign = require('object-assign');
+var gatewayNames = require('gatewayNames');
 
 var CHANGE_EVENT = 'change';
 var _RippleAccountTransactions = {};
@@ -36,6 +37,10 @@ var RippleaccounttransactionsStore = assign({}, EventEmitter.prototype, {
 		});
 	},
 
+	emitLoading: function(event) {
+		this.emit(event);
+	},
+
 	addChangeListener: function(address,callback) {
 		this.on(address, callback);
 	},
@@ -53,9 +58,13 @@ RippleaccounttransactionsStore.dispatcherIndex = Dispatcher.register(function(pa
  
   	switch(action.actionType) {
   		 case Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS:	
-  		 	registerAccountTransactions(action.result); 	
+  		 	registerAccountTransactions(action.result); 
   		 	RippleaccounttransactionsStore.emitChange(action.result); 		
   		 	break;
+
+  		  case Constants.ActionTypes.ISLOADING:
+			RippleaccounttransactionsStore.emitLoading('isloading');
+			break;
   	}
 
 

@@ -5,14 +5,15 @@ var RippleAccountTransaction = Backbone.Model.extend({
 
 	initialize: function(attr,account) {
 		var query = {
-		    "startTime"  : "jan 1, 2012 10:00 am",
-		    // "endTime"    : "mar 23, 2015 10:00 am",
-		    "account"    : account,
-		    "limit"     : 1000,
-		    "descending" : true,
-		    "format" : "json"
+		    type  : "Payment",
+		    result: "testSUCCESS",
+		    limit:1000,
+		    account:account
 		}
-		this.url= config.rippledataapi.account_transactions.urlModel+JSON.stringify(query);		
+		// this.url= config.rippledataapi.account_transactions.urlModel+JSON.stringify(query);	
+		// var params = "accounts/" + account + "/transactions?type=Payment&result=tesSUCCESS&limit=1000";
+
+		this.url = config.historicalapi.account_transactions.urlModel+JSON.stringify(query);	
 	}
 
 });

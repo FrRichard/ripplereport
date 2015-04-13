@@ -3,7 +3,7 @@ var Config = {
 		items: [{
 	          key: 'keyfact1',
 	          title:'Balances',
-	          icon:'fa fa-bar-chart',
+	          icon:'fa fa-university',
 	          width: 2,
 	          height: 3,
 	          col: 2,
@@ -13,7 +13,7 @@ var Config = {
 	        {
 	          key: 'keyfact2',
 	          title:'Balances Overview',
-	          icon:'fa fa-bar-chart',
+	          icon:'fa fa-university',
 	          width: 1,
 	          height: 3,
 	          col: 1,
@@ -23,8 +23,8 @@ var Config = {
 	        },
 	        {
 	          key: 'keyfact3',
-	          title:'IOUs issued',
-	          icon:'fa fa-bar-chart',
+	          title:'Capitalization',
+	          icon:'fa fa-pie-chart',
 	          width: 2,
 	          height: 3,
 	          col: 2,
@@ -33,8 +33,8 @@ var Config = {
 	        },
 	        {
 	          key: 'keyfact4',
-	          title:'IOUs issued Overview',
-	          icon:'fa fa-bar-chart',
+	          title:'Capitalization Overview',
+	          icon:'fa fa-pie-chart',
 	          width: 1,
 	          height: 3,
 	          col: 1,
@@ -44,8 +44,8 @@ var Config = {
 	        },
 	              {
 	          key: 'keyfact5',
-	          title:'Account_offfers_exercised',
-	          icon:'fa fa-bar-chart',
+	          title:'Offers Exercised',
+	          icon:'fa fa-area-chart',
 	          width: 2,
 	          height: 4,
 	          col: 2,
@@ -54,8 +54,8 @@ var Config = {
 	        },
 	        {
 	          key: 'keyfact6',
-	          title:'offers_exercised_summary',
-	          icon:'fa fa-bar-chart',
+	          title:'Offers Exercised Summary',
+	          icon:'fa fa-area-chart',
 	          width: 1,
 	          height: 4,
 	          col: 1,
@@ -64,8 +64,8 @@ var Config = {
 	        },
 	        {
 	          key: 'keyfact7',
-	          title:'account_transactions',
-	          icon:'fa fa-bar-chart',
+	          title:'Payments',
+	          icon:'fa fa-exchange',
 	          width: 2,
 	          height: 4,
 	          col: 2,
@@ -74,8 +74,8 @@ var Config = {
 	        },
 	        {
 	          key: 'keyfact8',
-	          title:'account_transactions_summary',
-	          icon:'fa fa-bar-chart',
+	          title:'Payments Summary',
+	          icon:'fa fa-exchange',
 	          width: 1,
 	          height: 4,
 	          col: 1,
@@ -85,7 +85,7 @@ var Config = {
 	        {
 	          key: 'keyfact9',
 	          title:'Ongoing offers',
-	          icon:'fa fa-bar-chart',
+	          icon:'fa fa-arrow-right',
 	          width: 2,
 	          height: 3,
 	          col: 1,

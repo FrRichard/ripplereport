@@ -28,15 +28,17 @@ function getRippleoffersexercisedsummaryState(key) {
 var RippleOffersExercisedSummary = React.createClass({
 
 	getInitialState: function() {
-		rippleoffersexercisedsummary={};
-		selectedtypeoffer = "counter";
-		selectedcurrency = null;
-		selectedtypeoffer_total = "counter";
+		var rippleoffersexercisedsummary = {};
+		var selectedtypeoffer = "counter";
+		var selectedcurrency = null;
+		var selectedtypeoffer_total = "counter";
+		var isloading = true;
 
 		return { rippleoffersexercisedsummary:rippleoffersexercisedsummary, 
 				 selectedtypeoffer:selectedtypeoffer,
 				 selectedcurrency:selectedcurrency,
-				 selectedtypeoffer_total:selectedtypeoffer_total
+				 selectedtypeoffer_total:selectedtypeoffer_total,
+				 isloading:isloading
 				};
 	},
 
@@ -50,6 +52,7 @@ var RippleOffersExercisedSummary = React.createClass({
 		var key = this.props.attributes.reportnumber;
 		var address = "address" + key;
 		RippleoffersexercisedStore.addChangeListener(address, this._onChangeRippleOffersExercisedSummary);
+		RippleoffersexercisedStore.addChangeListener("isloading", this._onLoading);
 	},
 
 	componentWillUnmount: function() {
@@ -84,7 +87,6 @@ var RippleOffersExercisedSummary = React.createClass({
        		 	} else {
        		 		var hiddencontent = <span> Got paid: { offer["counter"].amount } { offer["counter"].currency } issuer: { offer["counter"].issuer } </span>;       
        		 	}
-       			// console.log(offer,i);
 				rows.push(   
 					<tr className="offerexercisedrow"> 
 							<td>  <CollapsableRow key={"offerexercised_"+offer[self.state.selectedtypeoffer].issuer+i} content={content} offertype={self.state.selectedtypeoffer}> {hiddencontent} </CollapsableRow>
@@ -107,23 +109,6 @@ var RippleOffersExercisedSummary = React.createClass({
        		});
 
 
-
-       		// var totalsold = this.state.rippleoffersexercisedsummary[this.address].summary.total["base"];
-       		// _.each(totalsold, function(currencies,currencykey) {
-       		// 	var totalcharts = _.map(currencies, function(summary,issuerkey) {
-       		// 		var chartId ="sell_"+currencykey+"_"+issuerkey;
-       		// 		chartstotal.push(<div id={chartId}></div>);
-       		// 		var data = {
-       		// 			type: "sell",
-       		// 			currency: currencykey,
-       		// 			summary:summary,
-       		// 			issuer:issuerkey,
-       		// 			id:chartId
-       		// 		};
-       				
-       		// 	});
-       		// });
-
 		}
 		return (
 			<div className="panel panel-default">
@@ -136,37 +121,41 @@ var RippleOffersExercisedSummary = React.createClass({
            			</div>
            		</div>
            		<div className="panel-body" style={ofexsum_top10}>
-					    <Table striped bordered condensed hover  >
-		                    <thead>
-								<th colSpan={2}> 
-									<span style={ofexsum_titlestyle}>Top 10 trades </span>
-									{ this.state.rippleoffersexercisedsummary[this.address] ?
-										<span>
-											<select style={doubleselectorstyle} onChange={this.onSelectTypeOffer} value={this.state.selectedtypeoffer}>
-												<option key={"optionbase"} value={"base"}> SOLD </option>
-												<option key={"optioncounter"} value={"counter"}> BOUGHT </option>
-											</select>
-											<select onChange={this.onSelectCurrency} style={doubleselectorstyle} value={this.state.selectedcurrency}>
-												{optioncurrencies}
-											</select>
-										</span>
-									: "" }
-								</th>							
-						
-		                    </thead>     
+           			{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
+				    <Table striped bordered condensed hover  >
+	                    <thead>
+							<th colSpan={2}> 
+								<span style={ofexsum_titlestyle}>Top 10 trades </span>
+								{ !this.state.isloading ?
+									<span>
+										<select className="customSelector" style={doubleselectorstyle} onChange={this.onSelectTypeOffer} value={this.state.selectedtypeoffer}>
+											<option key={"optionbase"} value={"base"}> SOLD </option>
+											<option key={"optioncounter"} value={"counter"}> BOUGHT </option>
+										</select>
+										<select className="customSelector" onChange={this.onSelectCurrency} style={doubleselectorstyle} value={this.state.selectedcurrency}>
+											{optioncurrencies}
+										</select>
+									</span>
+								: "" }
+							</th>							
+					
+	                    </thead> 
 		                    <tbody>
-		                      	{rows}    
+	                    		{ !this.state.isloading ?    
+		                      		{rows}    
+	                    		:"" }
 		                    </tbody>
-	              		</Table>
+              		</Table>
 				</div>
 				<div className="panel-body" style={ofexsum_top10}>
+					{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
 				    <Table striped bordered condensed hover  >
 	                    <thead>
 							<th colSpan={2}> 
 								<span style={ofexsum_titlestyle}>Total traded </span>
-								{ this.state.rippleoffersexercisedsummary[this.address] ?
+								{ !this.state.isloading ?
 									<span>
-									<select style={doubleselectorstyle} onChange={this.onSelectTypeOffer_total} value={this.state.selectedtypeoffer_total}>
+									<select className="customSelector" style={doubleselectorstyle} onChange={this.onSelectTypeOffer_total} value={this.state.selectedtypeoffer_total}>
 										<option key={"optionbase_total"} value={"base"}> SOLD </option>
 										<option key={"optioncounter_total"} value={"counter"}> BOUGHT </option>
 									</select>
@@ -174,10 +163,12 @@ var RippleOffersExercisedSummary = React.createClass({
 								: "" }
 							</th>							
 					
-	                    </thead>     
-	                    <tbody>
-	                      	{rows_total}    
-	                    </tbody>
+	                    </thead>  
+		                    <tbody>
+	                    		{ !this.state.isloading ?    
+		                    	  	{rows_total}    
+	                    		: "" }
+		                    </tbody>
               		</Table>
 				</div>
 			</div>);
@@ -201,11 +192,21 @@ var RippleOffersExercisedSummary = React.createClass({
 	},
 
 	_onChangeRippleOffersExercisedSummary: function() {
-		// var key = this.props.attributes.reportnumber;
-		// this.address= "address" + key;
 		var data = getRippleoffersexercisedsummaryState(this.address);
 		var defaultcurrency = Object.keys(data.rippleoffersexercisedsummary[this.address].summary.top10[this.state.selectedtypeoffer])[0];
-		this.setState({ rippleoffersexercisedsummary:data.rippleoffersexercisedsummary, selectedcurrency:defaultcurrency});
+		var isloading = false;
+
+		this.setState({ 
+			rippleoffersexercisedsummary: data.rippleoffersexercisedsummary, 
+			selectedcurrency: defaultcurrency,
+			isloading: isloading
+		});
+	},
+
+	_onLoading: function() {
+		this.setState({
+			isloading:true
+		});
 	}
 
 });

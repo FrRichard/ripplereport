@@ -10,8 +10,6 @@ function RippleaccountProxy(params) {
 RippleaccountProxy.prototype.init = function(callback) {
 	var self = this;
 	this.app.all('/ripple/id/*', function(req, res) {
-		// console.log('api proxy : ' + self.apiProxyHost + req.url);
-		
 		var options = {
 			method: req.method,
 			url: self.rippleaccountProxyHost + req.query.id,
@@ -33,7 +31,7 @@ RippleaccountProxy.prototype.init = function(callback) {
 				res.send(500, 'something went wrong')
 			} 
 		
-			res.send(response.statusCode, body);
+			res.status(response.statusCode).send(body);
 		};
 		request(options, callback);
 	});

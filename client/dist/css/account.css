@@ -9191,11 +9191,3 @@ body {
   text-align: left;
   margin-left: 40px;
   font-size: 24px; }
-
-.fiatselector {
-  float: left;
-  display: inline;
-  text-align: right;
-  height: 35px;
-  width: 95px;
-  margin-left: 0; }

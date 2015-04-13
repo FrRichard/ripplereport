@@ -22,10 +22,16 @@ function getRippletransactionsState(key) {
 var RippleAccountTransactionsSummary = React.createClass({
 
 	getInitialState: function() {
-		rippletransactions = {};
-		selectedpaymenttype = "received";
-		selectedpaymenttype_total = "received";
-		return { rippletransactions:rippletransactions, selectedpaymenttype:selectedpaymenttype, selectedpaymenttype_total:selectedpaymenttype_total};
+		var rippletransactions = {};
+		var selectedpaymenttype = "received";
+		var selectedpaymenttype_total = "received";
+		var isloading = true;
+		return { 
+			rippletransactions:rippletransactions, 
+			selectedpaymenttype:selectedpaymenttype, 
+			selectedpaymenttype_total:selectedpaymenttype_total,
+			isloading:isloading
+		};
 	},
 
 
@@ -37,6 +43,7 @@ var RippleAccountTransactionsSummary = React.createClass({
 		var key = this.props.attributes.reportnumber;
 		var address = "address" + key;
 		RippleaccounttransactionsStore.addChangeListener(address, this._onChangeRippleaccounttransactionssummary);
+		RippleaccounttransactionsStore.addChangeListener("isloading", this._onLoading);
 	},
 
 	componentWillUnmount: function() {
@@ -133,17 +140,18 @@ var RippleAccountTransactionsSummary = React.createClass({
            			</div>
            		</div>			
 				<div className="panel-body" style={ofexsum_top10}>
+						{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
 						    <Table striped bordered condensed hover  >
 			                    <thead>
 									<th colSpan={2}> 
 										<span style={ofexsum_titlestyle}>Top 10 payments </span>
-										{ this.state.rippletransactions[this.address] ?
+										{ !this.state.isloading ?
 											<span>
-												<select style={doubleselectorstyle} onChange={this.onSelectPaymentType} value={this.state.selectedpaymenttype}>
+												<select className="customSelector" style={doubleselectorstyle} onChange={this.onSelectPaymentType} value={this.state.selectedpaymenttype}>
 													<option key={"optionsent"} value={"sent"}> SENT </option>
 													<option key={"optionreceived"} value={"received"}> RECEIVED </option>
 												</select>
-												<select onChange={this.onSelectCurrency} style={doubleselectorstyle} value={this.state.selectedcurrency}>
+												<select className="customSelector" onChange={this.onSelectCurrency} style={doubleselectorstyle} value={this.state.selectedcurrency}>
 													{optioncurrencies}
 												</select>
 											</span>
@@ -152,22 +160,25 @@ var RippleAccountTransactionsSummary = React.createClass({
 							
 			                    </thead>     
 			                    <tbody>
-			                       {rows}  
+			                    	{ !this.state.loading ?
+			                       		{rows}  
+			                    	: ""}
 			                    </tbody>
 		              		</Table>
 				</div>
 				<div className="panel-body" style={ofexsum_top10}>
+					{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
 					    <Table striped bordered condensed hover  >
 		                    <thead>
 								<th colSpan={2}> 
 									<span style={ofexsum_titlestyle}>Total payments </span>
-									{ this.state.rippletransactions[this.address] ?
+									{ !this.state.isloading ?
 										<span>
-											<select style={doubleselectorstyle} onChange={this.onSelectPaymentType_total} value={this.state.selectedpaymenttype_total}>
+											<select className="customSelector" style={doubleselectorstyle} onChange={this.onSelectPaymentType_total} value={this.state.selectedpaymenttype_total}>
 												<option key={"optionsent_total"} value={"sent"}> SENT </option>
 												<option key={"optionreceived_total"} value={"received"}> RECEIVED </option>
 											</select>
-											<select onChange={this.onSelectCurrency_total} style={doubleselectorstyle} value={this.state.selectedcurrency_total}>
+											<select className="customSelector" onChange={this.onSelectCurrency_total} style={doubleselectorstyle} value={this.state.selectedcurrency_total}>
 												{optioncurrencies}
 											</select>
 										</span>
@@ -176,7 +187,9 @@ var RippleAccountTransactionsSummary = React.createClass({
 						
 		                    </thead>     
 		                    <tbody>
-		                       {rows2}  
+		                    	{ !this.state.loading ?
+		                       		{rows2}  
+		                    	:""}
 		                    </tbody>
 	              		</Table>
 				</div>
@@ -189,13 +202,21 @@ var RippleAccountTransactionsSummary = React.createClass({
 		this.address= "address" + key;
 		var data = getRippletransactionsState("address" + key);
 		var defaultcurrency = Object.keys(data.rippletransactions[this.address].summary.top10)[0];
+		var isloading = false;
 		this.setState({ 
 			rippletransactions: data.rippletransactions, 
 			selectedcurrency:defaultcurrency, 
 			selectedcurrency_total:defaultcurrency,
 			selectedpaymenttype:"received",
-			selectedpaymenttype_total:"received"
+			selectedpaymenttype_total:"received",
+			isloading: isloading
 		 });
+	},
+
+	_onLoading: function() {
+		this.setState({
+			isloading: true
+		});
 	},
 
 	onSelectPaymentType: function(e) {

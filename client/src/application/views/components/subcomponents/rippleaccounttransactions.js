@@ -1,7 +1,7 @@
 var React = require('react');
 var RippleaccounttransactionsStore = require('RippleaccounttransactionsStore');
 //charts
-var LineChart = require('linechart');
+var LineChart = require('barchart2');
 //css
 var viewcommon = require('ViewCommon');
 
@@ -46,7 +46,7 @@ var RippleAccountTransactions = React.createClass({
 
 		this.chartId= "Overviewcapitalization" +this.props.attributes.key;
 	    if( this.state.rippleaccounttransactions["address" + this.props.attributes.reportnumber] != undefined) {
-	      this.linechart.draw(this.chartId, this.state.rippleaccounttransactions["address" + this.props.attributes.reportnumber].transactions);
+	      // this.linechart.draw(this.chartId, this.state.rippleaccounttransactions["address" + this.props.attributes.reportnumber].transactions);
 	    }
 
 		return ( 

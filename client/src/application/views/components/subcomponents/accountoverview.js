@@ -5,7 +5,8 @@ var AccountActions = require('AccountActions');
 var RippleaccountoverviewsStore = require('RippleaccountoverviewsStore');
 var GridStore = require('GridStore');
 //charts
-var PieChart = require('pie_accountoverview');
+// var PieChart = require('pieChartD3');
+var PieChart = require('pieChart_react');
 //helpers
 var FormatUtils = require("FormatUtils");
 var gatewayNames = require('gatewayNames');
@@ -30,8 +31,9 @@ var AccountOverview = React.createClass({
       selectedcurrency:"",
       currencylist: false
     };
+    var shares = false;
     var isloading = true;
-    return { datasets:datasets, optlist:optlist, isloading:isloading };
+    return { datasets:datasets, optlist:optlist, isloading:isloading, shares:shares };
 	},
 
   componentWillMount: function() {
@@ -39,8 +41,7 @@ var AccountOverview = React.createClass({
 
   componentDidMount: function() {
     var address= "address" + this.props.attributes.reportnumber;
-    // instanciation & initialition du chart
-    this.piechart = new PieChart(this.chartId);
+
     this.dataHelper = new DataHelper();
     // Listener
     RippleaccountoverviewsStore.addChangeListener(address, this._onChangeRippleaccount);
@@ -54,11 +55,6 @@ var AccountOverview = React.createClass({
   render: function() {
     var self=this;
     var toresolve = "address" + this.props.attributes.reportnumber;
-    this.chartId= "Overview" +this.props.attributes.key;
-
-    if( this.state.datasets["address" + this.props.attributes.reportnumber] != undefined) {
-      this.piechart.draw(this.chartId, this.state.shares);
-    }
  
     if(this.state.optlist.currencylist) {
       var optionlist = _.map(this.state.optlist.currencylist, function(currency,i) { 
@@ -68,6 +64,14 @@ var AccountOverview = React.createClass({
         }
         return <option key={"optionaccountoverview"+i} value={[currency.currency, currency.issuer]}>{currency.currency+" "+currency.name}</option> 
       });
+
+      var total = [];
+
+      total.push(<div>Total value in &nbsp;</div>);
+      total.push(<div className="totalfiat"> { this.state.totalfiat.amount } </div> );
+      total.push(<div className="gatewayname"> { this.state.totalfiat.name } </div> );
+      total.push(<div className="issuer"> { this.state.totalfiat.issuer } </div> );
+  
     } else {
       var optionlist = undefined;      
     }
@@ -81,18 +85,22 @@ var AccountOverview = React.createClass({
           </div>
         </div>
         <div className="panel-body">
-          { this.state.isloading ?  <div><img src={'./img/loading2.gif'} /></div> : ''}
-          <div id={this.chartId ? this.chartId: ''}></div>
-          { this.state.optlist.currencylist ?
-          <select className='fiatselector' onChange={this.onSelectCurrency} value={this.state.optlist.selectedcurrency[0]+","+this.state.optlist.selectedcurrency[1]} >
+          { this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
+          {this.state.shares ?
+            <PieChart id={"OverviewChart"}  data={this.state.shares}/>
+          : "" }
+          
+          { this.state.shares ?
+          <select className='customSelector' onChange={this.onSelectCurrency} value={this.state.optlist.selectedcurrency[0]+","+this.state.optlist.selectedcurrency[1]} >
             {optionlist}
           </select> : ""}
-          <div id={"OverviewTotal" + this.props.attributes.key}> 
-            { this.state.optlist.currencylist ? <div>Total value in &nbsp;</div> : ""}
-            { this.state.optlist.currencylist ? <div className="totalfiat"> { this.state.totalfiat.amount } </div> : ""}
-            { this.state.optlist.currencylist ? <div className="gatewayname"> { this.state.totalfiat.name } </div> : "" }
-            { this.state.optlist.currencylist ? <div className="issuer"> { this.state.totalfiat.issuer } </div> : "" }
-          </div>
+
+          {this.state.shares ?
+            <div id={"OverviewTotal" + this.props.attributes.key}> 
+              {total}
+            </div>
+            : ""}
+         
         </div>
       </div>
       );
@@ -126,7 +134,8 @@ var AccountOverview = React.createClass({
 
   _onLoading: function() {
     this.setState({
-      isloading:true
+      isloading:true,
+      shares:false
     });
   },
 

@@ -1,6 +1,7 @@
 var dashboards = require('config_dashboards');
 var rippleaccount = require('config_rippleaccount');
 var rippledataapi = require('config_rippledataapi');
+var historicalapi = require('config_historicalapi');
 
 var apiprefix = "/api/";
 
@@ -9,6 +10,7 @@ var config = {};
 config.dashboards = dashboards;
 config.rippleaccount = rippleaccount;
 config.rippledataapi = rippledataapi;
+config.historicalapi = historicalapi;
 
 config.platform = {};
 config.platform.url = apiprefix + "documentation/platform";

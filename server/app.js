@@ -196,10 +196,17 @@ App.prototype.initStaticContentManager = function() {
 App.prototype.initProxies = function() {
     var proxiesPath = this.options.serverPath + 'middlewares/proxy/';
     var datacalculPath = this.options.serverPath + 'middlewares/datacalcul/';
+    var requestparsingPath = this.options.serverPath + 'middlewares/requestparsing/';
+
     var datacalcul = {
         rippleoffersexercised: require(datacalculPath + 'rippleoffersexercised'),
-        rippletransactions: require(datacalculPath + 'rippletransactions')
+        transactions: require(datacalculPath + 'rippletransactions')
     };
+
+    var requestparsing = {
+        account_transactions: require(requestparsingPath + 'account_transactions')
+    };
+
 
     var ApiProxy = require(proxiesPath + 'apiProxy');
     var apiProxyParams = {
@@ -231,6 +238,15 @@ App.prototype.initProxies = function() {
     };
     this.rippledataapiProxy = new RippledataapiProxy(rippledataapiProxyParams);
 
+    var HistoricalapiProxy = require(proxiesPath + 'historicalapiProxy');
+    var historicalapiProxyParams = {
+        historicalapiProxyHost : this.config.historicalapiproxy.hostUrl,
+        app:this.app,
+        datacalcul: datacalcul,
+        requestparsing: requestparsing
+    }
+    this.historicalapiProxy = new HistoricalapiProxy(historicalapiProxyParams);
+
     var initProxyCallback = function() {
         console.log('Api proxy...OK');
     };
@@ -251,9 +267,15 @@ App.prototype.initProxies = function() {
 
     var initRippledataapiProxyCallback = function() {
         console.log('RippleDataApi proxy ... OK');
-    }
+    };
 
     this.rippledataapiProxy.init(initRippledataapiProxyCallback);
+
+    var initHistoricalapiProxyCallback = function() {
+        console.log('HistoricalApi proxy ... OK');
+    };
+
+    this.historicalapiProxy.init(initHistoricalapiProxyCallback);
 };
 
 App.prototype.initServicesRoutes = function() {

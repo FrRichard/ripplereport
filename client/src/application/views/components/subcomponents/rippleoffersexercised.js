@@ -15,8 +15,9 @@ function getRippleoffersexercisedState(key) {
 var RippleOffersExercised = React.createClass({
 
 	getInitialState: function() {
-		rippleoffersexercised={};
-		return { rippleoffersexercised:rippleoffersexercised};
+		var rippleoffersexercised = {};
+		var isloading = true;
+		return { rippleoffersexercised:rippleoffersexercised, isloading:true };
 	},
 
 	componentWillMount: function() {
@@ -29,7 +30,7 @@ var RippleOffersExercised = React.createClass({
 		// this.linechart = new linechart(this.chartId);
 
 		RippleoffersexercisedStore.addChangeListener(address, this._onChangeRippleOffersExercised);
-
+		RippleoffersexercisedStore.addChangeListener('isloading', this._onLoading);
 	},
 
 	componentWillUnmount: function() {
@@ -40,20 +41,7 @@ var RippleOffersExercised = React.createClass({
 		var self =this;
 		var panelstyle = { height:250+'px'};
 		this.chartId= "OfferExercised" +this.props.attributes.key;
-		// if( this.state.rippleoffersexercised[this.address] != undefined) {
-	 //      var data = this.state.rippleoffersexercised[this.address].results;
-	 //      // piechart.remove(this.chartId);
-	 //      this.linechart.draw(this.chartId, data);
-	 //    }
-
-			// {this.state.rippleoffersexercised[this.address] ?
-			// 		_.map(this.state.rippleoffersexercised[this.address].results,function(offer,i) {
-			// 			return  <ul key={"offerexercisedresult"+i}>
-			// 						<li key="offertest"> { offer.type } </li>
-			// 					</ul>;
-			// 		})
-
-			// 	: ""}
+	
 
 		return (
 			<div className="panel panel-default">
@@ -77,6 +65,12 @@ var RippleOffersExercised = React.createClass({
 		var key = this.props.attributes.reportnumber;
 		this.address= "address" + key;
 		this.setState(getRippleoffersexercisedState("address" + key));
+	},
+
+	_onLoading: function() {
+		this.setState({
+			isloading:true
+		});
 	}
 
 });

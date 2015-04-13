@@ -15,8 +15,6 @@ var RippleIds = Backbone.Collection.extend({
 		var self = this;
 		this.reset();
 
-		AccountActions.loadinggif(toresolves);
-
 		var xhrs = _.map(toresolves, function(toresolve,i) {
 				var j = i + 1
 				var model = new RippleId({id:"address"+j},toresolve);

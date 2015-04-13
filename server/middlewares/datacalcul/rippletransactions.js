@@ -1,5 +1,7 @@
 var _ = require('underscore');
 var Promise = require("promise");
+// var gatewayNames = require("gatewayNames");
+var gatewayNames = require("../../utils/gatewayNames");
 
 function Rippletransactions() {}
 
@@ -48,7 +50,53 @@ Rippletransactions.prototype.calculate = function(data) {
 		});
 	}
 
-	createObjectStructure_promise(data).then(fill_top10(data)).then(orderAndTrunc(data));
+	function cashinout(d) {
+		var accounttransaction = d;
+
+		_.each(gatewayNames, function(gateway) {
+			// filter gatewaysaddress(receiver&sender)
+			var cash = _.filter(accounttransaction.transactions, function(transaction,i) {
+				if(gateway.address == transaction.counterparty) {
+					if(transaction.type == "received") {
+						data.transactions[i]["direction"] = "cashin";
+					} else  {
+						data.transactions[i]["direction"] = "cashout";
+					}
+				} 
+			});
+
+			//filter hotwallets
+			var hotwallets = [];
+			_.each(gateway.hotwallets, function(hotwallet) {
+				_.each(hotwallet, function(address) {
+					hotwallets.push(address);
+				});
+			});
+			hotwallets = _.unique(hotwallets);
+			_.each(hotwallets, function(hotwallet) {
+				var cash = _.filter(accounttransaction.transactions, function(transaction,i) {
+					if(hotwallet == transaction.counterparty) {
+						if(transaction.type == "received") {
+							data.transactions[i]["direction"] = "cashin";
+						} else  {
+							data.transactions[i]["direction"] = "cashout";
+						}
+					}
+				});
+
+			});
+
+			_.each(accounttransaction.transactions, function(transaction) {
+				if(!transaction.direction) {
+					transaction["direction"]="standard";
+				}
+			});
+
+		});
+
+	}
+
+	createObjectStructure_promise(data).then(fill_top10(data)).then(orderAndTrunc(data)).then(cashinout(data));
 
 	return data;
 

@@ -38,18 +38,3 @@ body {
 	float:left;
 }
 
-
-path {
-	stroke: steelblue;
-	stroke-width: 2;
-	fill: none;
-	
-}
-.lineaxis path,
-.lineaxis line {
-	font-size:11px;
-	fill: none;
-	stroke: grey;
-	stroke-width: 1;
-	shape-rendering: crispEdges;
-}

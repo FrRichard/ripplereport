@@ -66,6 +66,7 @@ module.exports = {
 			config: path.join(__dirname, './src/application/config/global'),
 			config_rippleaccount: path.join(__dirname,'./src/application/config/config_rippleaccount'),
 			config_rippledataapi: path.join(__dirname, './src/application/config/config_rippledataapi'),
+			config_historicalapi: path.join(__dirname, './src/application/config/config_historicalapi'),
 
 			// views config
 			config_dashboards: path.join(__dirname, './src/application/views/components/dashboard/config_dashboards'),
@@ -96,11 +97,14 @@ module.exports = {
 			RegisterComponent: path.join(__dirname, './src/application/views/auth/registerComponent'),
 			Settings: path.join(__dirname, './src/application/views/settings/settingsComponent'),
 
-			//charts
-			pie_accountoverview: path.join(__dirname, './src/application/views/charts/pie_accountoverview'),
-			barchart: path.join(__dirname, './src/application/views/charts/barchart.js'),
-			offersexercisedtotal: path.join(__dirname, './src/application/views/charts/offersexercisedtotal'),
-			linechart: path.join(__dirname, './src/application/views/charts/linechart'),
+			//chartsD3
+			pieChartD3: path.join(__dirname, './src/application/views/components/charts/d3/pieChart'),
+			barchart: path.join(__dirname, './src/application/views/components/charts/d3/barchart'),
+			offersexercisedtotal: path.join(__dirname, './src/application/views/components/charts/d3/offersexercisedtotal'),
+			linechart: path.join(__dirname, './src/application/views/components/charts/d3/linechart'),
+			barchart2: path.join(__dirname, './src/application/views/components/charts/d3/barchart2'),
+			//chartsREACT
+			pieChart_react: path.join(__dirname, './src/application/views/components/charts/reactcomponents/pieChart'),
 
 			// components (sub-views)
 			Topbar: path.join(__dirname, './src/application/views/components/topbar/topbar'),

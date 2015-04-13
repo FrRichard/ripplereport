@@ -4,7 +4,7 @@ var RippleexchangeratescapitalizationStore = require('Rippleexchangeratescapital
 var RipplecapitalizationoverviewStore = require('RipplecapitalizationoverviewStore');
 var GridStore = require('GridStore');
 //charts
-var PieChart = require('pie_accountoverview');
+var PieChart = require('pieChart_react');
 //helpers
 var FormatUtils = require("FormatUtils");
 var gatewayNames = require('gatewayNames');
@@ -27,7 +27,9 @@ var CapitalizationOverview = React.createClass({
       selectedcurrency:"",
       currencylist: false
     };
-    return { datasets:datasets, optlist:optlist };
+    var isloading = true;
+    var shares = false;
+    return { datasets:datasets, optlist:optlist, isloading:true, shares:shares };
 	},
 
   componentWillMount: function() {
@@ -38,8 +40,11 @@ var CapitalizationOverview = React.createClass({
     // instanciation & initialition du chart
     this.piechart = new PieChart(this.chartId);
     this.dataHelper = new DataHelper();
+
+  
     // Listener
     RipplecapitalizationoverviewStore.addChangeListener(address, this._onChangeCapitalizationOverview);
+    RipplecapitalizationoverviewStore.addChangeListener("isloading", this._onLoading);
   },
 
   componentWillUnmount: function() {
@@ -48,11 +53,6 @@ var CapitalizationOverview = React.createClass({
 
   render: function() {
     var self=this;
-
-    this.chartId= "Overviewcapitalization" +this.props.attributes.key;
-    if( this.state.datasets["address" + this.props.attributes.reportnumber] != undefined) {
-      this.piechart.draw(this.chartId, this.state.shares);
-    }
  
     if(this.state.optlist.currencylist) {
       var optionlist = _.map(this.state.optlist.currencylist, function(currency,i) { 
@@ -61,12 +61,21 @@ var CapitalizationOverview = React.createClass({
           return <option key={"optioncapitalizationoverview"+i} value={[currency.currency, currency.issuer]} >{currency.currency+" "+currency.name}</option> 
         }
         return <option key={"optioncapitalizationoverview"+i} value={[currency.currency, currency.issuer]}>{currency.currency+" "+currency.name}</option> 
+     
       });
+
+      var total = [];
+      total.push(<div>Total value in &nbsp;</div>);
+      total.push(<div className="totalfiat"> { this.state.totalfiat.amount } </div>);
+      total.push(<div className="gatewayname"> { this.state.totalfiat.name } </div>);
+      total.push(<div className="issuer"> { this.state.totalfiat.issuer } </div>);
+
+
     } else {
       var optionlist = undefined;      
     }
     
- 
+    console.log(this.state);
     
     return (
       <div className="panel panel-default">
@@ -77,17 +86,18 @@ var CapitalizationOverview = React.createClass({
           </div>
         </div>
         <div className="panel-body">
-          <div id={this.chartId ? this.chartId: ''}></div>
-          { this.state.optlist.currencylist ?
-          <select className='fiatselector' onChange={this.onSelectCurrency} value={this.state.optlist.selectedcurrency[0]+","+this.state.optlist.selectedcurrency[1]} >
+        { this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
+        { this.state.shares ? 
+          <PieChart id={"CapitalizationChart"} data={this.state.shares} />
+        : "" }
+          { this.state.shares ?
+          <select className='customSelector' onChange={this.onSelectCurrency} value={this.state.optlist.selectedcurrency[0]+","+this.state.optlist.selectedcurrency[1]} >
             {optionlist}
-          </select> : "" }
+          </select> : "This account didn't issue any IOU" }
+          { this.state.shares ?
           <div id={"OverviewTotal" + this.props.attributes.key}> 
-            { this.state.optlist.currencylist ? <div>Total value in &nbsp;</div> : ""}
-            { this.state.optlist.currencylist ? <div className="totalfiat"> { this.state.totalfiat.amount } </div> : ""}
-            { this.state.optlist.currencylist ? <div className="gatewayname"> { this.state.totalfiat.name } </div> : "" }
-            { this.state.optlist.currencylist ? <div className="issuer"> { this.state.totalfiat.issuer } </div> : "" }
-          </div>
+              {total}
+          </div> : "" }
         </div>
       </div>
       );
@@ -100,29 +110,50 @@ var CapitalizationOverview = React.createClass({
     var address = RipplecapitalizationoverviewStore.getSpecific('address' + key);
     var defaultamountkey = Object.keys(address['address'+key]['totalfiat'])[0];
 
-    var amount = address['address'+key]['totalfiat'][defaultamountkey].totalfiat;
-    var issuer = address['address'+key]['totalfiat'][defaultamountkey].issuer;
-    var shares = address['address'+key]['shares'];
-    var datasets =  address['address'+key]['datasets'];
-    amount = FormatUtils.truncToNdecimal(amount,2);
-    
-    this.setState(
-      { totalfiat:{
-            amount:amount,
-            issuer:issuer
-        },
-        shares:shares,
-        datasets: datasets,
-        optlist: {
-            selectedcurrency:["XRP",""],
-            currencylist: address['address'+key].currencylist
-        }
+    if(address['address'+key].currencylist.length > 0) {
+      var amount = address['address'+key]['totalfiat'][defaultamountkey].totalfiat;
+      var issuer = address['address'+key]['totalfiat'][defaultamountkey].issuer;
+      var shares = address['address'+key]['shares'];
+      var datasets =  address['address'+key]['datasets'];
+      amount = FormatUtils.truncToNdecimal(amount,2);
+      
+      this.setState({ 
+          totalfiat:{
+              amount:amount,
+              issuer:issuer
+          },
+          shares:shares,
+          datasets: datasets,
+          optlist: {
+              selectedcurrency:["XRP",""],
+              currencylist: address['address'+key].currencylist
+          },
+          isloading:false
       });
+    } 
+    else {
+      var shares = false;
+      var isloading = false;
+      var datasets = {}; 
+      var optlist = {
+        selectedcurrency:"",
+        currencylist: false
+      };
+      this.setState({ datasets:datasets, optlist:optlist, shares:shares, isloading:false});
+    }
+  },
+
+  _onLoading: function() {
+    this.setState({
+      isloading:true,
+      shares:false
+    });
   },
 
   onSelectCurrency: function(e) {
 
     var currency = ($(e.target).val()).split(",");
+    console.log("curreeeeencyyyyyy",currency);
     var key = this.props.attributes.reportnumber;
     var address = RipplecapitalizationoverviewStore.getSpecific('address' + key);
     var amount = address['address'+key]['totalfiat'][currency[0]].totalfiat;
