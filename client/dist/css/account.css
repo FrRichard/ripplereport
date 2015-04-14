@@ -6698,7 +6698,7 @@ h1, .h1, h2, .h2, h3, .h3 {
   display: block;
   font-size: 20px;
   line-height: 50px;
-  background: url(../img/logo.png) right 42px no-repeat;
+  /* background: url(../img/logo.png) right 42px no-repeat; */
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   -o-transition: 0.5s;
@@ -9149,23 +9149,19 @@ ul.DTTT_dropdown.dropdown-menu > li:hover > a {
   opacity: 0.3; }
 
 .arc path {
-  stroke: #fff; }
+  stroke-width: 0px; }
 
 .piechart_overview {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: -25px; }
+  display: block; }
 
-.pieoverviewlabels {
-  font-size: 16px; }
+.piechartLabel {
+  font-size: 14px;
+  fill: #83828C; }
 
-.totalfiat {
-  float: left;
-  display: inline;
-  text-align: left;
-  margin-left: 40px;
-  font-size: 24px; }
+.PieChart {
+  left: 50%;
+  position: absolute;
+  transform: translate(-100px, -15px); }
 
 .item {
   display: block;
@@ -9180,14 +9176,5 @@ body {
   width: 100%;
   height: 60px; }
 
-.loader_gif {
-  position: absolute;
-  left: 40%;
-  top: 35%; }
-
-.totalfiat {
-  float: left;
-  display: inline;
-  text-align: left;
-  margin-left: 40px;
-  font-size: 24px; }
+.mainsearch {
+  margin-left: 50px; }

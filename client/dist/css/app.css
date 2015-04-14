@@ -6698,7 +6698,7 @@ h1, .h1, h2, .h2, h3, .h3 {
   display: block;
   font-size: 20px;
   line-height: 50px;
-  background: url(../img/logo.png) right 42px no-repeat;
+  /* background: url(../img/logo.png) right 42px no-repeat; */
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   -o-transition: 0.5s;
@@ -9171,23 +9171,19 @@ ul.DTTT_dropdown.dropdown-menu > li:hover > a {
   display: none; }
 
 .arc path {
-  stroke: #fff; }
+  stroke-width: 0px; }
 
 .piechart_overview {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: -25px; }
+  display: block; }
 
-.pieoverviewlabels {
-  font-size: 16px; }
+.piechartLabel {
+  font-size: 14px;
+  fill: #83828C; }
 
-.totalfiat {
-  float: left;
-  display: inline;
-  text-align: left;
-  margin-left: 40px;
-  font-size: 24px; }
+.PieChart {
+  left: 50%;
+  position: absolute;
+  transform: translate(-100px, -15px); }
 
 path {
   stroke: steelblue;
@@ -9227,6 +9223,35 @@ path {
   vertical-align: middle;
   font-size: 20px; }
 
+.totalfiat {
+  font-size: 20px;
+  float: left;
+  padding-top: 5px;
+  margin-left: 0px; }
+
+.totalcurrencyimg {
+  padding-top: 5px;
+  margin-left: 10px;
+  float: left; }
+
+#balanceoverviewselector {
+  width: 180px; }
+
+.totalvaluetitle {
+  display: inline; }
+
+.networthcontainer {
+  height: 80px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #B8C6B8;
+  padding: 10px; }
+
+.currencyimgoverview {
+  height: 24px;
+  width: 24px;
+  transform: translateY(-10%); }
+
 .loading {
   height: 60px;
   display: block;
@@ -9238,8 +9263,10 @@ path {
 .customSelector {
   display: inline-block;
   padding: 4px 3px 3px 5px;
+  max-width: 200px;
   margin: 0;
   font: inherit;
+  font-size: 14px;
   line-height: 1.2;
   background: #FFFFFF;
   color: #004756;
@@ -9265,6 +9292,9 @@ path {
   position: absolute;
   right: 6px;
   top: 23px; }
+
+.toptop {
+  margin-left: 70px; }
 
 .item {
   display: block;

@@ -165,19 +165,56 @@
 			// dollars
 			case 'USD':
 				symbol = "$";
+				image = "./img/currencies/USD.svg";
 				break;
 				// bitcoin
+			case 'CAD':
+				symbol = "$";
+				image = "./img/currencies/CAD.svg";
+				break;
+			//or
+			case 'XAU':
+				symbol = "XAU";
+				image = "./img/currencies/XAU.svg";
+				break;
+			//argent
+			case 'XAG':
+				symbol = "XAG";
+				image = "./img/currencies/XAG.svg";
+				break;
+			//brasil real
+			case 'BRL':
+				symbol = "BRL";
+				image = "./img/currencies/BRL.svg";
+				break;
 			case 'BTC':
 				symbol = "Ƀ";
-				image: "CHEMIN/images/Logoscrypto/Bitcoin-64x64.png";
+				image = "./img/currencies/BTC.svg";
 				break;
 				// euro
 			case 'EUR':
 				symbol = "€";
+				image = "./img/currencies/EUR.svg";
+				break;
+				//korean won
+			case 'KRW':
+				symbol = "KRW";
+				image = "./img/currencies/KRW.svg";
+				break;
+				//mexique pesos
+			case 'MXN':
+				symbol = "MXN";
+				image = "./img/currencies/MXN.svg";
+				break;
+				//singapour dollar
+			case 'SGD':
+				symbol = "$";
+				image = "./img/currencies/SGD.svg";
 				break;
 				// yuan
 			case 'CNY':
 				symbol = "¥";
+				image = "./img/currencies/CNY.svg";
 				break;
 				// rouble
 			case 'RUR':
@@ -186,10 +223,17 @@
 				// Japanese yen
 			case 'JPY':
 				symbol = '¥';
+				image = "./img/currencies/JPY.svg";
 				break;
 				// Pound
 			case 'GBP':
 				symbol = '£';
+				image = "./img/currencies/GBP.svg";
+				break;
+				//stellar
+			case 'STR':
+				symbol = "STR";
+				image = "./img/currencies/STR.svg";
 				break;
 				// feathercoin
 			case 'FTC':
@@ -199,7 +243,7 @@
 				// litecoin
 			case 'LTC':
 				symbol = "Ł";
-				image: "CHEMIN/images/Logoscrypto/Litecoin-64x64.png";
+				image = "./img/currencies/OTHER.svg";
 				break;
 				// Dogecoin
 			case 'DOGE':
@@ -237,7 +281,7 @@
 				// 42
 			case 'XRP':
 				symbol = "XRP";
-				image: "CHEMIN/images/Logoscrypto/xrp.jpg";
+				image = "./img/currencies/XRP.svg";
 				break;
 				// 42
 			case '42':
@@ -621,7 +665,7 @@
 				symbol = "ZET";
 				break;
 		}
-		return symbol;
+		return {symbol:symbol,image:image};
 	};
 
 // 	return FormatUtils;

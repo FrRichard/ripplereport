@@ -6,7 +6,9 @@
 @import "../charts/allcharts";
 @import "../subcomponents/allsubcomponents";
 
-
+.toptop {
+	margin-left:70px;
+}
 
 .item {
   display: block; 
@@ -33,8 +35,8 @@ body {
   width:70%;
 }
 
-
 #ripplelogo {
 	float:left;
 }
+
 

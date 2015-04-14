@@ -63,7 +63,6 @@ function registerRippleCapitalization(caps) {
 }
 
 function calculateShares(toresolve,dataset) {
-	console.log("dataaaaaaaaaaaaaaaaaaSEEEET",dataset);
   var data = [];
 	_.map(dataset.ripplecapitalizations,function(cap) {
 		if( cap.amount > 0 ) {
@@ -71,35 +70,23 @@ function calculateShares(toresolve,dataset) {
 		 	 // Chercher l'équivalent de la currency en XRP pour pie chart proportionnelle à la valeur de chaque actif
 			_.each(dataset.rippleexchangerates, function(account,i) {
 					if(_.isObject(account)) {
-						// console.log("acccccccoooouuunnnt",account);
 						if( cap.currency == account.base.currency && cap.issuer == account.base.issuer ) {
 							var xrpequivalent = cap.amount*account.last;          
 							balance.xrpequ = xrpequivalent; 
 						} 
 					}
 			});
-			// remplir les autres par défaut valeur nominale (puisque pas de taux change)
-	
-			// 	if(balance.xrpequ == "") {
-			// 	console.log("misssssiiiinngggg",balance);
-			// 	console.log("caaaaaaaaaaap",cap,cap.amount);
-			// 			balance.xrpequ = cap.amount;
-			// 			data.push(balance);
-			// 			console.log("ballllllllance",balance);
-			// 			console.log("dataaaaaaa",data);
-			// 	}
-			// });
 		 
 		data.push(balance);
 		} 
 	});
-
+	// combler les trous valeur numéraire si tx de change absent (ious persos) 
 	_.each(data, function(d,i) {
 		if(d.xrpequ == "") {
 			d.xrpequ = d.balance;
 		}
 	});
-	console.log(data);
+
 	data.sort(function(a,b) {
 		if (a.currency < b.currency) 
 		  return -1;

@@ -65,10 +65,13 @@ var CapitalizationOverview = React.createClass({
       });
 
       var total = [];
-      total.push(<div>Total value in &nbsp;</div>);
-      total.push(<div className="totalfiat"> { this.state.totalfiat.amount } </div>);
-      total.push(<div className="gatewayname"> { this.state.totalfiat.name } </div>);
-      total.push(<div className="issuer"> { this.state.totalfiat.issuer } </div>);
+      var currencyimgsrc =FormatUtils.formatCurrencyLabel(this.state.optlist.selectedcurrency[0]).image;
+      var currencyimg = <img className="currencyimgoverview" src={currencyimgsrc}/> 
+      total.push(<div className="totalfiat">{currencyimg} {FormatUtils.formatValue(this.state.totalfiat.amount)} </div>);
+      // total.push(<div>Total value in &nbsp;</div>);
+      // total.push(<div className="totalcurrencyimg">{this.state.optlist.selectedcurrency[0]}</div>);
+      // total.push(<div className="gatewayname"> { this.state.totalfiat.name } </div>);
+      // total.push(<div className="issuer"> { this.state.totalfiat.issuer } </div>);
 
 
     } else {
@@ -87,18 +90,27 @@ var CapitalizationOverview = React.createClass({
         </div>
         <div className="panel-body">
         { this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
+        {!this.state.isloading ?
+            <div className="networthcontainer"> 
+              <div className="totalvaluetitle">Net worth in &nbsp;</div>
+              { this.state.shares ?
+                <select className='customSelector' onChange={this.onSelectCurrency} value={this.state.optlist.selectedcurrency[0]+","+this.state.optlist.selectedcurrency[1]} >
+                  {optionlist}
+                </select> 
+              : "This account didn't issue any IOU" }
+
+              { this.state.shares ?
+                <div id={"OverviewTotal" + this.props.attributes.key}> 
+                    {total}
+                </div>
+              : "" }
+            </div>
+        :""}
+       
         { this.state.shares ? 
           <PieChart id={"CapitalizationChart"} data={this.state.shares} />
         : "" }
-          { this.state.shares ?
-          <select className='customSelector' onChange={this.onSelectCurrency} value={this.state.optlist.selectedcurrency[0]+","+this.state.optlist.selectedcurrency[1]} >
-            {optionlist}
-          </select> : "This account didn't issue any IOU" }
-          { this.state.shares ?
-          <div id={"OverviewTotal" + this.props.attributes.key}> 
-              {total}
-          </div> : "" }
-        </div>
+          </div> 
       </div>
       );
 
@@ -125,7 +137,7 @@ var CapitalizationOverview = React.createClass({
           shares:shares,
           datasets: datasets,
           optlist: {
-              selectedcurrency:["XRP",""],
+              selectedcurrency:[defaultamountkey,issuer],
               currencylist: address['address'+key].currencylist
           },
           isloading:false
@@ -153,7 +165,6 @@ var CapitalizationOverview = React.createClass({
   onSelectCurrency: function(e) {
 
     var currency = ($(e.target).val()).split(",");
-    console.log("curreeeeencyyyyyy",currency);
     var key = this.props.attributes.reportnumber;
     var address = RipplecapitalizationoverviewStore.getSpecific('address' + key);
     var amount = address['address'+key]['totalfiat'][currency[0]].totalfiat;

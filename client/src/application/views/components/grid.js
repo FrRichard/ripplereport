@@ -11,7 +11,7 @@ var GridElements = React.createClass({
     componentDidMount: function() {
       var self=this;
       var gridster = $(this.getDOMNode()).gridster({
-        widget_margins: [10, 10],
+        widget_margins: [5, 5],
         widget_base_dimensions: [350, 100],
         resize: {
             enabled: false
