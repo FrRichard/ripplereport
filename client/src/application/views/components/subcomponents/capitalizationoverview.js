@@ -41,7 +41,6 @@ var CapitalizationOverview = React.createClass({
     this.piechart = new PieChart(this.chartId);
     this.dataHelper = new DataHelper();
 
-  
     // Listener
     RipplecapitalizationoverviewStore.addChangeListener(address, this._onChangeCapitalizationOverview);
     RipplecapitalizationoverviewStore.addChangeListener("isloading", this._onLoading);
@@ -106,7 +105,7 @@ var CapitalizationOverview = React.createClass({
         :""}
        
         { this.state.shares ? 
-          <PieChart id={"CapitalizationChart"} data={this.state.shares} />
+          <PieChart id={"CapitalizationOverviewChart"} data={this.state.shares} />
         : "" }
           </div> 
       </div>

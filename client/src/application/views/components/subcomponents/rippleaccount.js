@@ -232,15 +232,15 @@ var RippleAccount = React.createClass({
       var currency = params[0];
       var issuer = params[1];
       d3.selectAll("#BalanceOverviewChart .arc").style("opacity",0.5);
-      d3.select("#balanceoverview"+currency+issuer).style("opacity",1);
-      d3.select("#balanceoverview"+currency+issuer).select(".piecharthiddenLabel").style("visibility","visible");
+      d3.select("#BalanceOverviewChart"+currency+issuer).style("opacity",1);
+      d3.select("#BalanceOverviewChart"+currency+issuer).select(".piecharthiddenLabel").style("visibility","visible");
     },
 
     _onMouseOutLines: function(params) {
       var currency = params[0];
       var issuer = params[1];
       d3.selectAll("#BalanceOverviewChart .arc").style("opacity",1);
-      d3.select("#balanceoverview"+currency+issuer).select(".piecharthiddenLabel").style("visibility","hidden");
+      d3.select("#BalanceOverviewChart"+currency+issuer).select(".piecharthiddenLabel").style("visibility","hidden");
     }
 
 });

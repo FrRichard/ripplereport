@@ -45,7 +45,7 @@ var RippleCapitalization = React.createClass({
 		var rows = [];
 		if(this.state.ripplecapitalization[this.address]) {
 			_.each(this.state.ripplecapitalization[this.address], function(cap,i) {
-
+				console.log("caaaaaaaaaaaaaaaaaaaaaaaaaaap",cap);
 				var hotwallets = [];
 				_.each(cap['hotwallets'], function(hotwallet) {
 					hotwallets.push(
@@ -54,7 +54,7 @@ var RippleCapitalization = React.createClass({
 				});
 				if(cap['amount'] != 0) {
 					rows.push(
-					<tr key={"capitalizationresult_"+i}>
+					<tr key={"capitalizationresult_"+i} onMouseOver={self.mouseOverLinesHandler([cap['currency'],cap['issuer']])}    onMouseOut={self.mouseOutLinesHandler([cap['currency'],cap['issuer']])}>
 		              <td key={"capitalizationcurrency"+i}> {cap['currency']}  </td>
 		              <td key={"capitalizationamount"+i}> {cap['amount']} </td>
 		              <td key={"capitalizationhotwallets"+i}> {hotwallets} </td>
@@ -108,7 +108,36 @@ var RippleCapitalization = React.createClass({
 		this.setState({
 			isloading:true
 		});
-	}
+	},
+
+	mouseOverLinesHandler: function(params) {
+      var self = this;
+      return function() {
+        self._onMouseOverLines(params);
+      }
+    },
+
+    mouseOutLinesHandler: function(params) {
+      var self = this;
+      return function() {
+        self._onMouseOutLines(params);
+      }
+    },
+
+    _onMouseOverLines : function(params) {
+      var currency = params[0];
+      var issuer = params[1];
+      d3.selectAll("#CapitalizationOverviewChart .arc").style("opacity",0.5);
+      d3.select("#CapitalizationOverviewChart"+currency+issuer).style("opacity",1);
+      d3.select("#CapitalizationOverviewChart"+currency+issuer).select(".piecharthiddenLabel").style("visibility","visible");
+    },
+
+    _onMouseOutLines: function(params) {
+      var currency = params[0];
+      var issuer = params[1];
+      d3.selectAll("#CapitalizationOverviewChart .arc").style("opacity",1);
+      d3.select("#CapitalizationOverviewChart"+currency+issuer).select(".piecharthiddenLabel").style("visibility","hidden");
+    }
 
 });
 
