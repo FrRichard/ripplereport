@@ -19,18 +19,26 @@ var CollapsableRow = React.createClass({
     	this.setState({expanded:!this.state.expanded});
   	},
   	render: function(){
-  		// console.log("rooooooooooooooooooooooow",this.props);
   		var rowstyle = viewcommon.collapsablerow;
 	    var styles = this.getCollapsableClassSet();
 	    var text = this.isExpanded() ? 'Hide' : 'Show';
-	    return (
-	      <div onClick={this.onHandleToggle} style={rowstyle}>
-	        { this.props.content }
-	        <div ref='panel' className={classSet(styles)}>
-	          {this.props.children}
-	        </div>
-	      </div>
-	    );
+	    if(this.props.type != "td") {
+		    return (
+		      <div onClick={this.onHandleToggle} style={rowstyle}>
+		        { this.props.content }
+		        <div ref='panel' className={classSet(styles)}>
+		          {this.props.children}
+		        </div>
+		      </div>
+		    );
+		} else if(this.props.type == "td") {
+			return (
+		      <tr onClick={this.onHandleToggle} style={rowstyle}>
+		      	<td>{this.props.content}</td>
+		      	<tr colSpan="5" ref='panel' className={classSet(styles)}><td>{this.props.children}</td></tr>
+		      </tr>
+		    );
+		}
 	}
 });
 

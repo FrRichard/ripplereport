@@ -9158,10 +9158,13 @@ ul.DTTT_dropdown.dropdown-menu > li:hover > a {
   font-size: 14px;
   fill: #83828C; }
 
+.piecharthiddenLabel {
+  visibility: hidden; }
+
 .PieChart {
   left: 50%;
   position: absolute;
-  transform: translate(-100px, -15px); }
+  transform: translate(-120px, -15px); }
 
 .item {
   display: block;

@@ -5,14 +5,19 @@ var RipplelinesStore = require('RipplelinesStore');
 var RippleinfosStore = require('RippleinfosStore');
 var GridStore = require('GridStore');
 var Loading = require('Loading');
+var d3 = require("d3");
+//Utils
 var FormatUtils = require("FormatUtils");
 var gatewayNames = require('gatewayNames');
+//css
 var viewcommon = require('ViewCommon');
 // React-bootstrap
 // var Accordion = require('react-bootstrap').Accordion;
 // var PanelGroup = require('react-bootstrap').PanelGroup;
 var Panel = require('react-bootstrap').Panel;
 var Table = require('react-bootstrap').Table;
+//common
+var CollapsableRow = require('CollapsableRow');
 
 
 function isLoading(key) {
@@ -86,28 +91,42 @@ var RippleAccount = React.createClass({
     render: function() {
       var self=this;
       this.address= "address" + this.props.attributes.reportnumber;
-
+      console.log(this.state);
       var panelstyle = viewcommon.panellist;
       var linestyle = { 'margin-bottom': 5 +'px'};
       var rows = [];
+
+      // pushing xrp balance
+      if(this.state.rippleinfos[this.address]) {
+        var xrpamount =this.state.rippleinfos[this.address].account_data.Balance/Math.pow(10,6);
+        rows.push(
+          <tr onMouseOver={self.mouseOverLinesHandler(['XRP',""])} key={"rippleacount"+rows.length} onMouseOut={self.mouseOutLinesHandler(['XRP',""])}>
+              <td key={"rippleaccouncurrency"+(rows.length)}>XRP</td>
+              <td key={"rippleaccountbalance"+(rows.length)}> {FormatUtils.formatValue(xrpamount)} </td>
+          </tr>
+        );
+      }
+      // pushing lines balances
       if(this.state.ripplelines[this.address] ) {
         _.each(this.state.ripplelines[this.address].lines, function(line,i) {
-           rows.push(                   
-            <tr key={"rippleacount"+i}>
-              <td key={"rippleaccouncurrency"+i}> {line['currency']}  </td>
-              <td key={"rippleaccountbalance"+i}> {line['balance']} </td>
-              <td key={"rippleaccountaccount"+i}> {line['account']} </td>
-              <td key={"rippleaccountline"+i}> {line['limit']} </td>
-              <td key={"rippleaccountlimit_peer"+i}> {line['limit_peer']} </td>
-              <td key={"rippleaccountno_ripple"+i}> {line['no_ripple']} </td>
-            </tr>)
+          if(line['balance'] > 0) {
+            if(line['no_ripple'] == true) { var noripple = <i className="fa fa-times checkwrong"></i>; } else { var noripple = <i className="fa fa-check checkright"></i>; }
+            rows.push(     
+              <tr onMouseOver={self.mouseOverLinesHandler([line['currency'],line['account']])}    onMouseOut={self.mouseOutLinesHandler([line['currency'],line['account']])}>              
+                  <td key={"rippleaccouncurrency"+(i+1)}> {line['currency']}</td>
+                  <td key={"rippleaccountbalance"+(i+1)}> {FormatUtils.formatValue(line['balance'])} </td>
+                  <td key={"rippleaccountaccount"+(i+1)}> {line['account']} </td>
+                  <td key={"rippleaccountname"+(i+1)}> {line['name']} </td>
+                  <td className="check" key={"rippleaccountno_ripple"+(i+1)}> {noripple} </td>
+              </tr>
+            );
+          }
         }); 
       }
-
-              // {this.state.rippleinfos[this.address] ?
-              //       <div>XRP Balance: {(this.state.rippleinfos[this.address].account_data.Balance)/Math.pow(10,6)} xrp    
-              //       </div> 
-              //     :"Enter a name or an address in the searchbar" }
+              // var hiddencontent = "awagagaga";
+              // var testcontent = <CollapsableRow key={"colalpsebalance"+i} content={[line['currency'],line['name']]} type={"td"} > {hiddencontent} </CollapsableRow> ;
+       // <CollapsableRow key={"colalpsebalance"+i} content={line['currency']} type={"td"} >  awagagaga </CollapsableRow> 
+              // <CollapsableRow key={"colalpsebalance"+i} content={testcontent} >  awagagaga</CollapsableRow>
       return (
         <div className="panel panel-default">
           <div className="panel-heading clearfix">
@@ -134,9 +153,8 @@ var RippleAccount = React.createClass({
                       <th> Currency </th>
                       <th> Amount </th>
                       <th> Issuer </th>
-                      <th> Limit </th>
-                      <th> Limit Peer </th>
-                      <th> No-Ripple </th>
+                      <th> Name </th>
+                      <th> Rippling </th>
                     </thead>     
                     <tbody>
                       {rows}    
@@ -194,6 +212,35 @@ var RippleAccount = React.createClass({
     _onChangeRippleinfos: function() {
       var key = this.props.attributes.reportnumber;
       this.setState(getRippleinfosState("address"+key));
+    },
+
+    mouseOverLinesHandler: function(params) {
+      var self = this;
+      return function() {
+        self._onMouseOverLines(params);
+      }
+    },
+
+    mouseOutLinesHandler: function(params) {
+      var self = this;
+      return function() {
+        self._onMouseOutLines(params);
+      }
+    },
+
+    _onMouseOverLines : function(params) {
+      var currency = params[0];
+      var issuer = params[1];
+      d3.selectAll("#BalanceOverviewChart .arc").style("opacity",0.5);
+      d3.select("#balanceoverview"+currency+issuer).style("opacity",1);
+      d3.select("#balanceoverview"+currency+issuer).select(".piecharthiddenLabel").style("visibility","visible");
+    },
+
+    _onMouseOutLines: function(params) {
+      var currency = params[0];
+      var issuer = params[1];
+      d3.selectAll("#BalanceOverviewChart .arc").style("opacity",1);
+      d3.select("#balanceoverview"+currency+issuer).select(".piecharthiddenLabel").style("visibility","hidden");
     }
 
 });
