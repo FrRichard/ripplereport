@@ -9226,6 +9226,37 @@ path {
   vertical-align: middle;
   font-size: 20px; }
 
+.offersexerciseddate {
+  float: right; }
+
+.offersexercisedamount {
+  font-color: black;
+  color: black;
+  float: left; }
+
+.offersexercisedissuer {
+  float: left;
+  font-size: 10px;
+  color: black;
+  display: block; }
+
+.offerexercisedhaspaid {
+  float: left; }
+
+.offerexercisedgotpaid {
+  float: left; }
+
+.offersexercisedissuer_gotpaid {
+  float: left;
+  font-size: 10px; }
+
+.offersexercisednumberorders {
+  float: left;
+  display: block; }
+
+.offersexercisedaverageamount {
+  display: block; }
+
 .totalfiat {
   font-size: 20px;
   float: left;

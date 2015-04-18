@@ -91,7 +91,6 @@ var RippleAccount = React.createClass({
     render: function() {
       var self=this;
       this.address= "address" + this.props.attributes.reportnumber;
-      console.log(this.state);
       var panelstyle = viewcommon.panellist;
       var linestyle = { 'margin-bottom': 5 +'px'};
       var rows = [];

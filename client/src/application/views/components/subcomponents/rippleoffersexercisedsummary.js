@@ -11,6 +11,8 @@ var Accordion = require('react-bootstrap').Accordion;
 var viewcommon =require('ViewCommon');
 //common
 var CollapsableRow = require('CollapsableRow');
+//utils
+var FormatUtils = require("FormatUtils");
 //charts
 var barcharttotal = require('offersexercisedtotal');
 
@@ -71,21 +73,56 @@ var RippleOffersExercisedSummary = React.createClass({
 	     // var name = _.filter(gatewayNames,function(gateway) {
       //   return gateway.address == share.issuer;
    		 // });
+		console.log("offferrrr_exercisedST2AAATE",this.state);
 	
 		if(this.state.rippleoffersexercisedsummary[this.address] ) {
-       		var optioncurrencies = _.map(this.state.rippleoffersexercisedsummary[this.address].summary.currencies[this.state.selectedtypeoffer] ,function(issuers,currency) {
+			var summarybase =Object.keys(this.state.rippleoffersexercisedsummary[this.address].summary.currencies["base"]);
+			var summarycounter =Object.keys(this.state.rippleoffersexercisedsummary[this.address].summary.currencies["counter"]);
+			var currencylist = _.uniq(summarybase.concat(summarycounter));
+			
+       		var optioncurrencies = _.map(currencylist ,function(currency) {
 				return <option key={"optionofferexercised"+currency} value={currency}>{currency}</option> 
 			});
 
 			var top10 = this.state.rippleoffersexercisedsummary[this.address].summary.top10[this.state.selectedtypeoffer][this.state.selectedcurrency];
 
        		 _.each(top10, function(offer,i) {
-       		 	var content = <span > {offer[self.state.selectedtypeoffer].amount} issuer:{offer[self.state.selectedtypeoffer].issuer} {offer.time} </span>;
+       		 	offer.date = moment(offer.time).format('MMMM Do YYYY, h:mm:ss a');
+       		 	if(offer[self.state.selectedtypeoffer].currency == "XRP") {
+       		 		var issuer = "";
+       		 	} else {
+       		 		var issuer = "Issuer: " +offer[self.state.selectedtypeoffer].issuer;
+       		 	}
+       		 	var content = 
+       		 		<span > 
+       		 			<span className="offersexercisedamount">{offer[self.state.selectedtypeoffer].currency} &nbsp;{FormatUtils.formatValue(offer[self.state.selectedtypeoffer].amount)}</span> 
+       		 			<span className="offersexerciseddate">{offer.date}</span>  
+       		 			<span className="offersexercisedissuer">{issuer}</span> 
+       		 		</span>;
 
        		 	if(self.state.selectedtypeoffer == "counter") {
-       		 		var hiddencontent = <span> Has paid: { offer["base"].amount } { offer["base"].currency } issuer: { offer["base"].issuer } </span>;
+       		 		if(offer["base"].currency == "XRP") {
+       		 			var issuer = ""
+       		 		} else {
+       		 			var issuer = "Issuer: " +offer["base"].issuer;
+       		 		}
+       		 		var hiddencontent = 
+       		 			<span>
+       		 				<span className="offerexercisedhaspaid"> Has paid: { FormatUtils.formatValue(offer["base"].amount) } { offer["base"].currency }   </span>
+       		 				<span className="offersexercisedissuer"> { issuer } </span>
+       		 			</span>
        		 	} else {
-       		 		var hiddencontent = <span> Got paid: { offer["counter"].amount } { offer["counter"].currency } issuer: { offer["counter"].issuer } </span>;       
+       		 		if(offer["counter"].currency == "XRP") {
+       		 			var issuer = ""
+       		 		} else {
+       		 			var issuer = "Issuer: " +offer["counter"].issuer;
+       		 		}
+       		 		var hiddencontent = 
+       		 			<span>
+       		 				<span className="offerexercisedgotpaid"> Got paid: { FormatUtils.formatValue(offer["counter"].amount) } { offer["counter"].currency } </span>
+       		 				<span className="offersexercisedissuer_gotpaid"> {issuer} </span>
+       		 			</span>;
+
        		 	}
 				rows.push(   
 					<tr className="offerexercisedrow"> 
@@ -98,8 +135,25 @@ var RippleOffersExercisedSummary = React.createClass({
        		
        		_.each(total, function(issuers,currency) {
        			_.map(issuers, function(d,issuer,i) {
-       				var content = <span> {currency}:{d.amount} issuer:{issuer} </span>;
-       				var hiddencontent = <span>Number of orders:{d.ordernumber} Average amount:{d.averageamount} </span>;
+       				if(currency == "XRP") {
+	       				var content = 
+	       					<span>
+	       						<span className="offersexercisedamount"> {currency} {FormatUtils.formatValue(d.amount)}  </span>
+	       					</span>;
+       		 		} else {
+       		 			var issuer = "Issuer: " +issuer;
+       		 			var content = 
+	       					<span>
+	       						<span className="offersexercisedamount"> {currency} {FormatUtils.formatValue(d.amount)}  </span><br/>
+	       						<span className="offersexercisedissuer"> {issuer} </span>
+	       					</span>;
+       		 		}
+       				var hiddencontent =
+       					<span>
+       						<br/>
+       						<div className="offersexercisednumberorders"> Number of orders: {FormatUtils.formatValue(d.ordernumber)} </div> <br/>
+       						<span className="offersexercisedaverageamount"> Average amount: {FormatUtils.formatValue(d.averageamount)} </span>
+       					</span>;
        				rows_total.push(
        					<tr className="offerexercisedrow"> 
 							<td>  <CollapsableRow key={"offerexercised_total_"+issuer+i} content={content} offertype={self.state.selectedtypeoffer}> {hiddencontent} </CollapsableRow>
@@ -122,7 +176,7 @@ var RippleOffersExercisedSummary = React.createClass({
            		</div>
            		<div className="panel-body" style={ofexsum_top10}>
            			{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
-				    <Table striped bordered condensed hover  >
+				    <Table striped bordered condensed hover className="offerexercisedtop10table" >
 	                    <thead>
 							<th colSpan={2}> 
 								<span style={ofexsum_titlestyle}>Top 10 trades </span>
@@ -149,7 +203,7 @@ var RippleOffersExercisedSummary = React.createClass({
 				</div>
 				<div className="panel-body" style={ofexsum_top10}>
 					{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
-				    <Table striped bordered condensed hover  >
+				    <Table striped bordered condensed hover id="offerexercisedtotaltable" >
 	                    <thead>
 							<th colSpan={2}> 
 								<span style={ofexsum_titlestyle}>Total traded </span>

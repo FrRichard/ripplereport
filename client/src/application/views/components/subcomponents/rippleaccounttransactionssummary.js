@@ -9,7 +9,10 @@ var Accordion = require('react-bootstrap').Accordion;
 var viewcommon =require('ViewCommon');
 //common
 var CollapsableRow = require('CollapsableRow');
-
+//Utils
+var FormatUtils = require("FormatUtils");
+var gatewayNames = require('gatewayNames');
+var moment = require('moment');
 
 function getRippletransactionsState(key) {
 	var rippletransactions= RippleaccounttransactionsStore.getSpecific(key);
@@ -54,10 +57,11 @@ var RippleAccountTransactionsSummary = React.createClass({
 		var self =this;
 		var ofexsum_titlestyle = viewcommon.ofexsum_title;
 		var ofexsum_top10 = viewcommon.ofexsum_top10;
+		var ofexsum_top10table = viewcommon.ofexsum_top10table;
 		var doubleselectorstyle = viewcommon.doubleselector;
 		var rows = [];
 		var rows2 = [];
-
+		console.log(this.state);
 		this.address= "address" + this.props.attributes.reportnumber;
 
 		if(this.state.rippletransactions[this.address]) {
@@ -70,12 +74,13 @@ var RippleAccountTransactionsSummary = React.createClass({
 
 			_.each(top10, function(payment,i){
 				if(payment.type == "received") {
-					var content = <span> {payment.currency}: {payment.amount} sender:{payment.counterparty} </span>;
+					var content = <span> {payment.currency}: {FormatUtils.formatValue(payment.amount)} sender:{payment.counterparty} </span>;
 				} else {
-					var content = <span> {payment.currency}: {payment.amount} receiver:{payment.counterparty} </span>;
+					var content = <span> {payment.currency}: {FormatUtils.formatValue(payment.amount)} receiver:{payment.counterparty} </span>;
 				}
 
-				var hiddencontent = <span> {payment.time} issuer: {payment.issuer} </span>;
+				payment.date = moment(payment.time).format('MMMM Do YYYY, h:mm:ss a');
+				var hiddencontent = <span> {payment.date} issuer: {payment.issuer} </span>;
 
 				rows.push(   
 					<tr className="offerexercisedrow"> 
@@ -101,7 +106,7 @@ var RippleAccountTransactionsSummary = React.createClass({
 				var selectedpaymenttype_total = self.state.selectedpaymenttype_total;
 				if(self.state.selectedcurrency_total != "XRP") { 
 					if(issuer[self.state.selectedpaymenttype_total]) {
-						var content = <span> {self.state.selectedcurrency_total}: {issuer[self.state.selectedpaymenttype_total].amount}
+						var content = <span> {self.state.selectedcurrency_total}: {FormatUtils.formatValue(issuer[self.state.selectedpaymenttype_total].amount)}
 						Number of payments: {issuer[self.state.selectedpaymenttype_total].count} issuer: {issuerkey} </span>;
 						
 						rows2.push(
@@ -113,7 +118,7 @@ var RippleAccountTransactionsSummary = React.createClass({
 					} else { emptyfield(); }
 				} else {
 					if(currency_total[self.state.selectedpaymenttype_total]) {
-						var content = <span> {self.state.selectedcurrency_total}: {currency_total[self.state.selectedpaymenttype_total].amount} 
+						var content = <span> {self.state.selectedcurrency_total}: {FormatUtils.formatValue(currency_total[self.state.selectedpaymenttype_total].amount)} 
 						Number of payments: {currency_total[self.state.selectedpaymenttype_total].count} </span>
 
 						rows2.push(
