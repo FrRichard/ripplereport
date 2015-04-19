@@ -110,11 +110,12 @@ var RippleAccount = React.createClass({
         _.each(this.state.ripplelines[this.address].lines, function(line,i) {
           if(line['balance'] > 0) {
             if(line['no_ripple'] == true) { var noripple = <i className="fa fa-times checkwrong"></i>; } else { var noripple = <i className="fa fa-check checkright"></i>; }
+            var address = { address:line['account']};
             rows.push(     
               <tr onMouseOver={self.mouseOverLinesHandler([line['currency'],line['account']])}    onMouseOut={self.mouseOutLinesHandler([line['currency'],line['account']])}>              
                   <td key={"rippleaccouncurrency"+(i+1)}> {line['currency']}</td>
                   <td key={"rippleaccountbalance"+(i+1)}> {FormatUtils.formatValue(line['balance'])} </td>
-                  <td key={"rippleaccountaccount"+(i+1)}> {line['account']} </td>
+                  <td key={"rippleaccountaccount"+(i+1)}> <a href={"/app?"+JSON.stringify(address)} target="_blank" value={line['account']}> {line['account']} </a> </td>
                   <td key={"rippleaccountname"+(i+1)}> {line['name']} </td>
                   <td className="check" key={"rippleaccountno_ripple"+(i+1)}> {noripple} </td>
               </tr>

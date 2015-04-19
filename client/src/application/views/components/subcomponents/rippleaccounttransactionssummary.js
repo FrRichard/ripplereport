@@ -5,6 +5,7 @@ var Panel = require('react-bootstrap').Panel;
 var Table = require('react-bootstrap').Table;
 var PanelGroup = require('react-bootstrap').PanelGroup;
 var Accordion = require('react-bootstrap').Accordion;
+var Button = require('react-bootstrap').Button;
 // css
 var viewcommon =require('ViewCommon');
 //common
@@ -61,7 +62,7 @@ var RippleAccountTransactionsSummary = React.createClass({
 		var doubleselectorstyle = viewcommon.doubleselector;
 		var rows = [];
 		var rows2 = [];
-		console.log(this.state);
+		// console.log(this.state);
 		this.address= "address" + this.props.attributes.reportnumber;
 
 		if(this.state.rippletransactions[this.address]) {
@@ -73,17 +74,53 @@ var RippleAccountTransactionsSummary = React.createClass({
 			var top10 = this.state.rippletransactions[this.address].summary.top10[this.state.selectedcurrency][this.state.selectedpaymenttype];
 
 			_.each(top10, function(payment,i){
-				if(payment.type == "received") {
-					var content = <span> {payment.currency}: {FormatUtils.formatValue(payment.amount)} sender:{payment.counterparty} </span>;
+				
+				payment.date = moment(payment.time).format('MMMM Do YYYY, h:mm:ss a');
+				if( payment.direction == "cashin") {
+					var paymentdirection = "paymentcashin";
+					var directioncom ="directioncashin";
+					var paymentd = "Cash In";
+				} else if( payment.direction == "cashout") {
+					var paymentdirection = "paymentcashout";
+					var directioncom = "directioncashout";
+					var paymentd = "Cash Out";
 				} else {
-					var content = <span> {payment.currency}: {FormatUtils.formatValue(payment.amount)} receiver:{payment.counterparty} </span>;
+					var paymentdirection = "";
+					var directioncom="directionstandard";
+					var paymentd = "Standard";
+				}
+				if(payment.type == "received") {
+					var address = { address:payment.counterparty};
+					var content = 
+						<span>
+							<span className="offersexercisedamount">{payment.currency} {FormatUtils.formatValue(payment.amount)}</span>
+							<span className="offersexerciseddate">{payment.date}</span>
+							<span className="offersexercisedissuer"> Sender: <a href={"/app?"+JSON.stringify(address)} target="_blank" value={payment.counterparty}> {payment.counterparty}</a></span>
+							<span className="direction"> Direction: <span className={directioncom}> {paymentd} </span> </span>
+						</span>;
+				} else {
+					var address = { address:payment.counterparty};
+					var content = 
+						<span>
+							<span className="offersexercisedamount">{payment.currency} {FormatUtils.formatValue(payment.amount)}</span>
+							<span className="offersexerciseddate">{payment.date}</span>
+							<span className="offersexercisedissuer">Receiver:<a href={"/app?"+JSON.stringify(address)} target="_blank" value={payment.counterparty}> {payment.counterparty}</a></span>
+							<span className="direction"> Direction: <span className={directioncom}> {paymentd} </span> </span>
+						</span>;
+				}
+				if(payment.currency == 'XRP') {
+					var hiddencontent = <span></span>; 
+				} else {
+					var address = { address:payment.issuer};
+					var hiddencontent = 
+						<span className="offersexercisedissuer">
+							Issuer: <a href={"/app?"+JSON.stringify(address)} target="_blank" value={payment.issuer}>{payment.issuer}</a>
+						</span>;
 				}
 
-				payment.date = moment(payment.time).format('MMMM Do YYYY, h:mm:ss a');
-				var hiddencontent = <span> {payment.date} issuer: {payment.issuer} </span>;
 
 				rows.push(   
-					<tr className="offerexercisedrow"> 
+					<tr className={"offerexercisedrow " +paymentdirection}> 
 							<td>  <CollapsableRow content={content} offertype={self.state.selectedpaymenttype}> {hiddencontent} </CollapsableRow>
 						</td>
 					</tr>
@@ -106,8 +143,15 @@ var RippleAccountTransactionsSummary = React.createClass({
 				var selectedpaymenttype_total = self.state.selectedpaymenttype_total;
 				if(self.state.selectedcurrency_total != "XRP") { 
 					if(issuer[self.state.selectedpaymenttype_total]) {
-						var content = <span> {self.state.selectedcurrency_total}: {FormatUtils.formatValue(issuer[self.state.selectedpaymenttype_total].amount)}
-						Number of payments: {issuer[self.state.selectedpaymenttype_total].count} issuer: {issuerkey} </span>;
+						var Issuer = <a href={"/app?"+JSON.stringify(issuerkey)} target="_blank" value={issuerkey}> {issuerkey}</a>;
+       		 			var com = "Issuer: ";
+
+						var content = 
+							<span>
+								<span className="offersexercisedamount"> {self.state.selectedcurrency_total}  {FormatUtils.formatValue(issuer[self.state.selectedpaymenttype_total].amount)} </span>
+								<span className="transactionnumber"> Number of payments: {issuer[self.state.selectedpaymenttype_total].count} </span>
+								<span className="offersexercisedissuer"> {com} {Issuer}  </span>
+							</span>;
 						
 						rows2.push(
 							<tr className="offerexercisedrow"> 
@@ -116,10 +160,13 @@ var RippleAccountTransactionsSummary = React.createClass({
 							</tr>
 						);
 					} else { emptyfield(); }
-				} else {
+				} else if(self.state.selectedcurrency_total == "XRP"){
 					if(currency_total[self.state.selectedpaymenttype_total]) {
-						var content = <span> {self.state.selectedcurrency_total}: {FormatUtils.formatValue(currency_total[self.state.selectedpaymenttype_total].amount)} 
-						Number of payments: {currency_total[self.state.selectedpaymenttype_total].count} </span>
+						var content = 
+							<span>
+								<span className="offersexercisedamount"> {self.state.selectedcurrency_total} {FormatUtils.formatValue(currency_total[self.state.selectedpaymenttype_total].amount)} </span>
+								<span className="transactionnumber"> Number of payments: {currency_total[self.state.selectedpaymenttype_total].count} </span>
+							</span>;
 
 						rows2.push(
 							<tr className="offerexercisedrow"> 
@@ -146,7 +193,7 @@ var RippleAccountTransactionsSummary = React.createClass({
            		</div>			
 				<div className="panel-body" style={ofexsum_top10}>
 						{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
-						    <Table striped bordered condensed hover  >
+						    <Table bordered condensed hover  >
 			                    <thead>
 									<th colSpan={2}> 
 										<span style={ofexsum_titlestyle}>Top 10 payments </span>
@@ -173,7 +220,7 @@ var RippleAccountTransactionsSummary = React.createClass({
 				</div>
 				<div className="panel-body" style={ofexsum_top10}>
 					{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
-					    <Table striped bordered condensed hover  >
+					    <Table bordered condensed hover  >
 		                    <thead>
 								<th colSpan={2}> 
 									<span style={ofexsum_titlestyle}>Total payments </span>

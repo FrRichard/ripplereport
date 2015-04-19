@@ -9227,18 +9227,19 @@ path {
   font-size: 20px; }
 
 .offersexerciseddate {
-  float: right; }
+  float: right;
+  font-size: 12px; }
 
 .offersexercisedamount {
   font-color: black;
-  color: black;
-  float: left; }
+  color: black; }
 
 .offersexercisedissuer {
   float: left;
   font-size: 10px;
   color: black;
-  display: block; }
+  display: block;
+  margin-top: 3px; }
 
 .offerexercisedhaspaid {
   float: left; }
@@ -9256,6 +9257,10 @@ path {
 
 .offersexercisedaverageamount {
   display: block; }
+
+.offersexercisedtxhash {
+  font-size: 8px;
+  width-max: 50px; }
 
 .totalfiat {
   font-size: 20px;
@@ -9285,6 +9290,28 @@ path {
   height: 24px;
   width: 24px;
   transform: translateY(-10%); }
+
+.transactionnumber {
+  float: right; }
+
+.paymentcashin {
+  background-color: rgba(51, 153, 51, 0.25); }
+
+.paymentcashout {
+  background-color: rgba(176, 30, 46, 0.25); }
+
+.directioncashout {
+  color: red; }
+
+.directioncashin {
+  color: green; }
+
+.directionstandard {
+  color: blue; }
+
+.direction {
+  float: left;
+  display: block; }
 
 .loading {
   height: 60px;

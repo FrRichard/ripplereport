@@ -15,7 +15,7 @@ var CollapsableRow = React.createClass({
     	return this.refs.panel.getDOMNode().scrollHeight;
 	},
 	onHandleToggle: function(e){
-    	e.preventDefault();
+    	// e.preventDefault();
     	this.setState({expanded:!this.state.expanded});
   	},
   	render: function(){

@@ -135,6 +135,7 @@ module.exports = {
 
 
 			//subcomponent helpers
+			AdaptGrid: path.join(__dirname, './src/application/views/components/adaptGrid'),
 			SubcomponentSelector: path.join(__dirname, './src/application/views/components/subcomponentselector'),
 			GridElements: path.join(__dirname, './src/application/views/components/grid'),
 			Loading: path.join(__dirname, './src/application/views/components/loading_animation'),

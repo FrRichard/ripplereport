@@ -9,6 +9,7 @@ var PieChart = require('pieChart_react');
 var FormatUtils = require("FormatUtils");
 var gatewayNames = require('gatewayNames');
 var DataHelper = require('DataHelper');
+var adaptgrid = require('AdaptGrid');
 
 
 function getRipplecapitalizationState(key) {
@@ -40,7 +41,7 @@ var CapitalizationOverview = React.createClass({
     // instanciation & initialition du chart
     this.piechart = new PieChart(this.chartId);
     this.dataHelper = new DataHelper();
-
+    this.AdaptGrid = new adaptgrid();
     // Listener
     RipplecapitalizationoverviewStore.addChangeListener(address, this._onChangeCapitalizationOverview);
     RipplecapitalizationoverviewStore.addChangeListener("isloading", this._onLoading);
@@ -149,6 +150,7 @@ var CapitalizationOverview = React.createClass({
         currencylist: false
       };
       this.setState({ datasets:datasets, optlist:optlist, shares:shares, isloading:false});
+      // this._onEmptyCap("capitalizationoverview");
     }
   },
 
@@ -176,6 +178,11 @@ var CapitalizationOverview = React.createClass({
             currencylist: address['address'+key].currencylist
         }
       });
+  },
+
+ _onEmptyCap: function(id) {
+    
+    this.AdaptGrid.reorganize(id);
   }
 
 

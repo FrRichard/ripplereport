@@ -4,6 +4,7 @@ var RipplecapitalizationStore = require('RipplecapitalizationStore');
 var Panel = require('react-bootstrap').Panel;
 var Table = require('react-bootstrap').Table;
 var viewcommon = require('ViewCommon');
+var adaptgrid= require('AdaptGrid');
 
 
 function getRipplecapitalizationState(key) {
@@ -30,6 +31,7 @@ var RippleCapitalization = React.createClass({
 	componentDidMount: function() {
 		var key = this.props.attributes.reportnumber;
 		var address = "address" + key;
+		this.AdaptGrid = new adaptgrid();
 		RipplecapitalizationStore.addChangeListener(address, this._onChangeRipplecapitalization);
 		RipplecapitalizationStore.addChangeListener("isloading", this._onLoading);
 	},
@@ -45,11 +47,11 @@ var RippleCapitalization = React.createClass({
 		var rows = [];
 		if(this.state.ripplecapitalization[this.address]) {
 			_.each(this.state.ripplecapitalization[this.address], function(cap,i) {
-				console.log("caaaaaaaaaaaaaaaaaaaaaaaaaaap",cap);
 				var hotwallets = [];
 				_.each(cap['hotwallets'], function(hotwallet) {
+					var address = { address:hotwallet };
 					hotwallets.push(
-						<span> {hotwallet} </span>
+						<span>  <a href={"/app?"+JSON.stringify(address)} target="_blank" value={hotwallet}> {hotwallet} </a> </span>
 					);
 				});
 				if(cap['amount'] != 0) {
@@ -101,6 +103,7 @@ var RippleCapitalization = React.createClass({
 		} else {
 			this.setState({ ripplecapitalization:false,
 			isloading:isloading});
+			// this._onEmptyCap(["ripplecapitalization","capitalizationoverview"]);
 		}
 	},
 
@@ -137,6 +140,11 @@ var RippleCapitalization = React.createClass({
       var issuer = params[1];
       d3.selectAll("#CapitalizationOverviewChart .arc").style("opacity",1);
       d3.select("#CapitalizationOverviewChart"+currency+issuer).select(".piecharthiddenLabel").style("visibility","hidden");
+    },
+
+    _onEmptyCap: function(id) {
+    	
+    	this.AdaptGrid.reorganize(id);
     }
 
 });

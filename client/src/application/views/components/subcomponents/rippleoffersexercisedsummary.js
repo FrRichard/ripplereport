@@ -73,7 +73,7 @@ var RippleOffersExercisedSummary = React.createClass({
 	     // var name = _.filter(gatewayNames,function(gateway) {
       //   return gateway.address == share.issuer;
    		 // });
-		console.log("offferrrr_exercisedST2AAATE",this.state);
+		// console.log("offferrrr_exercisedST2AAATE",this.state);
 	
 		if(this.state.rippleoffersexercisedsummary[this.address] ) {
 			var summarybase =Object.keys(this.state.rippleoffersexercisedsummary[this.address].summary.currencies["base"]);
@@ -90,37 +90,48 @@ var RippleOffersExercisedSummary = React.createClass({
        		 	offer.date = moment(offer.time).format('MMMM Do YYYY, h:mm:ss a');
        		 	if(offer[self.state.selectedtypeoffer].currency == "XRP") {
        		 		var issuer = "";
+       		 		var com="";
        		 	} else {
-       		 		var issuer = "Issuer: " +offer[self.state.selectedtypeoffer].issuer;
+       		 		var address = { address:offer[self.state.selectedtypeoffer].issuer};
+       		 		var com = "Issuer: ";
+       		 		var issuer = <a href={"/app?"+JSON.stringify(address)} target="_blank" value={offer[self.state.selectedtypeoffer].issuer}> {offer[self.state.selectedtypeoffer].issuer}</a>;
        		 	}
+
        		 	var content = 
        		 		<span > 
        		 			<span className="offersexercisedamount">{offer[self.state.selectedtypeoffer].currency} &nbsp;{FormatUtils.formatValue(offer[self.state.selectedtypeoffer].amount)}</span> 
        		 			<span className="offersexerciseddate">{offer.date}</span>  
-       		 			<span className="offersexercisedissuer">{issuer}</span> 
+       		 			<span className="offersexercisedissuer"> {com} {issuer} </span>
        		 		</span>;
 
        		 	if(self.state.selectedtypeoffer == "counter") {
        		 		if(offer["base"].currency == "XRP") {
-       		 			var issuer = ""
+       		 			var issuer = "";
+       		 			var com = "";
        		 		} else {
-       		 			var issuer = "Issuer: " +offer["base"].issuer;
+       		 			var address = { address:offer["base"].issuer};
+       		 			var issuer = <a href={"/app?"+JSON.stringify(address)} target="_blank" value={offer["base"].issuer}> {offer["base"].issuer}</a>;
+       		 			var com = "Issuer: ";
        		 		}
        		 		var hiddencontent = 
        		 			<span>
        		 				<span className="offerexercisedhaspaid"> Has paid: { FormatUtils.formatValue(offer["base"].amount) } { offer["base"].currency }   </span>
-       		 				<span className="offersexercisedissuer"> { issuer } </span>
+       		 				<span className="offersexercisedissuer"> {com} { issuer } </span>
+       		 				<span className="offersexercisedtxhash"> {offer.txHash}</span>
        		 			</span>
        		 	} else {
        		 		if(offer["counter"].currency == "XRP") {
-       		 			var issuer = ""
+       		 			var issuer = "";
+       		 			var com = "";
        		 		} else {
-       		 			var issuer = "Issuer: " +offer["counter"].issuer;
+       		 			var address = { address:offer["counter"].issuer};
+       		 			var issuer = <a href={"/app?"+JSON.stringify(address)} target="_blank" value={offer["counter"].issuer}> {offer["counter"].issuer}</a>;
+       		 			var com = "Issuer: ";
        		 		}
        		 		var hiddencontent = 
        		 			<span>
        		 				<span className="offerexercisedgotpaid"> Got paid: { FormatUtils.formatValue(offer["counter"].amount) } { offer["counter"].currency } </span>
-       		 				<span className="offersexercisedissuer_gotpaid"> {issuer} </span>
+       		 				<span className="offersexercisedissuer_gotpaid"> {com} {issuer} </span>
        		 			</span>;
 
        		 	}
@@ -140,20 +151,28 @@ var RippleOffersExercisedSummary = React.createClass({
 	       					<span>
 	       						<span className="offersexercisedamount"> {currency} {FormatUtils.formatValue(d.amount)}  </span>
 	       					</span>;
+	       				var hiddencontent =
+	       					<span>
+	       						<div className="offersexercisednumberorders"> Number of orders: {FormatUtils.formatValue(d.ordernumber)} </div> <br/>
+	       						<span className="offersexercisedaverageamount"> Average amount: {FormatUtils.formatValue(d.averageamount)} </span>
+	       					</span>;
        		 		} else {
-       		 			var issuer = "Issuer: " +issuer;
+       		 			var address = { address:issuer};
+       		 			var issuer = <a href={"/app?"+JSON.stringify(address)} target="_blank" value={issuer}> {issuer}</a>;
+       		 			var com = "Issuer: ";
        		 			var content = 
 	       					<span>
 	       						<span className="offersexercisedamount"> {currency} {FormatUtils.formatValue(d.amount)}  </span><br/>
-	       						<span className="offersexercisedissuer"> {issuer} </span>
+	       						<span className="offersexercisedissuer"> {com}{issuer} </span>
+	       					</span>;
+	       				var hiddencontent =
+	       					<span>
+	       						<br/>
+	       						<div className="offersexercisednumberorders"> Number of orders: {FormatUtils.formatValue(d.ordernumber)} </div> <br/>
+	       						<span className="offersexercisedaverageamount"> Average amount: {FormatUtils.formatValue(d.averageamount)} </span>
 	       					</span>;
        		 		}
-       				var hiddencontent =
-       					<span>
-       						<br/>
-       						<div className="offersexercisednumberorders"> Number of orders: {FormatUtils.formatValue(d.ordernumber)} </div> <br/>
-       						<span className="offersexercisedaverageamount"> Average amount: {FormatUtils.formatValue(d.averageamount)} </span>
-       					</span>;
+      
        				rows_total.push(
        					<tr className="offerexercisedrow"> 
 							<td>  <CollapsableRow key={"offerexercised_total_"+issuer+i} content={content} offertype={self.state.selectedtypeoffer}> {hiddencontent} </CollapsableRow>
