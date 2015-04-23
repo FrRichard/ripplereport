@@ -1,8 +1,42 @@
-
+FormatUtils = require('FormatUtils');
+var moment = require('moment');
 
    var DataHelper = function() {};
 
-   DataHelper.prototype.overviewPieChart = function(datasets) {
+   DataHelper.prototype.transactionsGriddle = function(transactions) {
+      _.each(transactions, function(transaction) {
+         transaction.amount = FormatUtils.formatValue(transaction.amount);
+         transaction.time = moment(transaction.time).format('MMMM Do YYYY, h:mm:ss a');
+      });
+
+      return transactions;
+   };
+
+   DataHelper.prototype.PieChart_bignumber = function(data) {
+      var result = [];
+
+      if(data.cashin > 0) {
+         result.push({ 
+            amount: data.cashin,
+            type: "Cash In"
+         });
+      }
+
+      if(data.cashout > 0) {
+         result.push( {
+            amount: data.cashout,
+            type: "Cash Out"
+         });
+      }
+
+      if(data.standard > 0) {
+         result.push({
+            amount: data.standard,
+            type: "Standard"
+         });
+      }
+      
+      return result;   
    };
 
    DataHelper.prototype.BarChart = function(datasets) {

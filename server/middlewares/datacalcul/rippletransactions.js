@@ -11,11 +11,17 @@ Rippletransactions.prototype.calculate = function(data) {
 
 	var createObjectStructure_promise = new Promise.denodeify(function createObjectStructure(data) {
 		data.summary.top10 = {};
+		data.summary.totalcash = {};
 		_.each(data.summary, function(sum,currency) {
-			if(currency != "top10") {
+			if(currency != "top10" && currency != "totalcash") {
 				data.summary.top10[currency] = {
 					sent : [],
 					received : []
+				};
+				data.summary.totalcash[currency] = {
+					cashin:0,
+					cashout:0,
+					standard:0
 				};
 			}
 		});
@@ -96,7 +102,24 @@ Rippletransactions.prototype.calculate = function(data) {
 
 	}
 
-	createObjectStructure_promise(data).then(fill_top10(data)).then(orderAndTrunc(data)).then(cashinout(data));
+	function totalcash(d) {
+		_.each(d.transactions, function(transaction) {
+			if(transaction.direction =="cashin") {
+				data.summary.totalcash[transaction.currency]["cashin"] += transaction.amount;
+			} else if(transaction.direction == "cashout") {
+				data.summary.totalcash[transaction.currency]["cashout"] += transaction.amount;
+			} else if(transaction.direction == "standard") {
+				data.summary.totalcash[transaction.currency]["standard"] += transaction.amount;
+			}
+		});
+
+	}
+
+	createObjectStructure_promise(data)
+		.then(fill_top10(data))
+		.then(orderAndTrunc(data))
+		.then(cashinout(data))
+		.then(totalcash(data));
 
 	return data;
 

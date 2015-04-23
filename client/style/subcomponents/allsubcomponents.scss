@@ -2,6 +2,7 @@
 @import "./rippleoffersexercisedsummary";
 @import "./balanceoverview";
 @import "./transactionssummary";
+@import "./transactions";
 
 .loading {
 	height:60px;
@@ -9,7 +10,6 @@
 	top:50%;
 	left:50%;
 	transform: translate(-50%,-50%);
-
 	position: absolute;
 }
 

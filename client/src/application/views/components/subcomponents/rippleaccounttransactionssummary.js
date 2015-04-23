@@ -161,6 +161,7 @@ var RippleAccountTransactionsSummary = React.createClass({
 						);
 					} else { emptyfield(); }
 				} else if(self.state.selectedcurrency_total == "XRP"){
+					
 					if(currency_total[self.state.selectedpaymenttype_total]) {
 						var content = 
 							<span>

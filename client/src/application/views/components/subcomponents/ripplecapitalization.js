@@ -5,6 +5,8 @@ var Panel = require('react-bootstrap').Panel;
 var Table = require('react-bootstrap').Table;
 var viewcommon = require('ViewCommon');
 var adaptgrid= require('AdaptGrid');
+//utils
+var FormatUtils = require("FormatUtils");
 
 
 function getRipplecapitalizationState(key) {
@@ -58,7 +60,7 @@ var RippleCapitalization = React.createClass({
 					rows.push(
 					<tr key={"capitalizationresult_"+i} onMouseOver={self.mouseOverLinesHandler([cap['currency'],cap['issuer']])}    onMouseOut={self.mouseOutLinesHandler([cap['currency'],cap['issuer']])}>
 		              <td key={"capitalizationcurrency"+i}> {cap['currency']}  </td>
-		              <td key={"capitalizationamount"+i}> {cap['amount']} </td>
+		              <td key={"capitalizationamount"+i}> {FormatUtils.formatValue(cap['amount'])} </td>
 		              <td key={"capitalizationhotwallets"+i}> {hotwallets} </td>
 		            </tr>);
 				}

@@ -14,6 +14,11 @@ var viewcommon = {
 		fontSize:'14'
 	},
 
+	panellist_cuthalf: {
+		height:400+'px',
+		width:350+'px'
+	},
+
 	doubleselector : {
 		display:"inline",
 		float:"right",

@@ -107,7 +107,7 @@ var AccountOverview = React.createClass({
           :""}
 
           {this.state.shares ?
-            <PieChart id={"BalanceOverviewChart"}  data={this.state.shares}/>
+            <PieChart id={"BalanceOverviewChart"} size={[200,200]}  data={this.state.shares}/>
           : "" }
          
         </div>

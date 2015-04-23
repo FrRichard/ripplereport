@@ -63,6 +63,9 @@ RippleoffersexercisedStore.dispatcherIndex = Dispatcher.register(function(payloa
   		 case Constants.ActionTypes.ISLOADING:
 			RippleoffersexercisedStore.emitLoading('isloading');
 			break;
+		// case Constants.ActionTypes.ASK_RIPPLEOFFERSEXERCISED_SUM:
+		// 	console.log("summmmmmmmmmmmmmmm",action.result);
+		// 	break;
   	}
 
 

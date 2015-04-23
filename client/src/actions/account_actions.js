@@ -32,6 +32,7 @@ var AccountActions = {
 			});
 			
 			self.rippleoffersexercised(rippleidcollection);
+			self.rippleoffersexercised_sum(rippleidcollection,"sum");
 			self.ripplecapitalization(rippleidcollection);
 			self.rippleaccounttransactions(rippleidcollection);
 			self.rippleaccounttransactionstats(rippleidcollection);
@@ -86,7 +87,7 @@ var AccountActions = {
 
 	},
 
-	rippleoffersexercised: function(accounts,period) {
+	rippleoffersexercised: function(accounts, period) {
 		var self = this;
 
 		var collection = new rippleoffersexercised();
@@ -96,6 +97,21 @@ var AccountActions = {
 				result: collection
 			});
 		})
+	},
+
+	rippleoffersexercised_sum: function(account, period) {
+		var self = this;
+
+		var collection = new rippleoffersexercised();
+		collection.createOffersexercisedList(account.toJSON(),period).then(function() {
+			Dispatcher.handleViewAction({
+				actionType: Constants.ActionTypes.ASK_RIPPLEOFFERSEXERCISED_SUM,
+				result: collection
+			});
+			console.log("colllecccitoonnn",collection);
+		});
+
+
 	},
 
 	rippleaccounttransactions: function(accounts) {

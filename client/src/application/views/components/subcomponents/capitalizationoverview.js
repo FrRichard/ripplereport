@@ -106,7 +106,7 @@ var CapitalizationOverview = React.createClass({
         :""}
        
         { this.state.shares ? 
-          <PieChart id={"CapitalizationOverviewChart"} data={this.state.shares} />
+          <PieChart id={"CapitalizationOverviewChart"} size={[200,200]} data={this.state.shares} />
         : "" }
           </div> 
       </div>

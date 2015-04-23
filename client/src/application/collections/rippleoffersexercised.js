@@ -13,11 +13,15 @@ var RippleOffersExercised = Backbone.Collection.extend({
 		var self = this;
 		this.reset();
 		if(period == undefined) {
-			period = config.rippledataapi.default_period;
+			var period = config.rippledataapi.default_period;
+			var timeIncrement = null;
+		} else if(period =="sum") {
+			var period = config.rippledataapi.default_period_sum;
+			var timeIncrement = "day";
 		}
 
 		var xhrs = _.map(accounts, function(account) {
-			var model = new RippleOfferExercised({id:account.id},account.address,period);
+			var model = new RippleOfferExercised({id:account.id},account.address,period,timeIncrement);
 			var xhr = model.fetch({
 				success: function(model,response) {
 					self.add(model);

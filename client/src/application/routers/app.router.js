@@ -38,7 +38,6 @@ var Router = Backbone.Router.extend({
     },
 
     report: function(params) {
-        console.log("aaaaaaaagaggaga");
         var dashboard_config=GridStore.getConf('currentconf').conf;
 
         React.render(<Account dashboard_config={ dashboard_config} />, document.getElementById('app'));
