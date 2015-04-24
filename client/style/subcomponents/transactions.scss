@@ -1,0 +1,70 @@
+
+.allsmallpie {
+	width: 100px;
+	display:inline;
+	float:left;
+}
+
+.alltransactions {
+	float:right;
+	width:400px;
+	font-size:12px;
+	margin-right:0px;
+}
+
+.maintitleminipie {
+	margin-top:25px;
+	width:200px;
+	margin-left:15px;
+	margin-top:10px;
+	display:inline;
+	font-size:16px;
+	color:#124A51;
+	font-weight:bold;
+}
+.maintitlealltransactions {
+	margin-top:25px;
+	width:200px;
+	margin-left:40px;
+	margin-top:25px;
+	display:inline;
+	font-size:16px;
+	color:#124A51;
+	font-weight:bold;
+}
+
+.transactioncurrencytitle {
+	font-size: 20px;  
+	position: relative;
+  	top: 50%;
+ 	transform: translateY(-50%);
+}
+.PieChart_bignumber {
+	position: relative;
+  	top: 50%;
+ 	transform: translateY(-75%);
+}
+
+.transactionsmallpie {
+	height:110px;
+}
+
+.totalcashinoutt {
+	font-size: 12px;  
+	top:-96%;
+	left:145px;
+	position:relative;
+	line-height:1;
+}
+
+.totalcashin {
+	color:rgb(51, 153, 51);
+}
+
+.totalcashout {
+	color:rgb(176, 30, 46);
+}
+
+.totalstandard {
+	color:#124A51;
+}

@@ -1,0 +1,28 @@
+.transactionnumber {
+	float:right;
+}
+
+.paymentcashin {
+	background-color:rgba(51, 153, 51, 0.25);
+}
+
+.paymentcashout {
+	background-color:rgba(176, 30, 46, 0.25);
+}
+
+.directioncashout {
+	color:red;
+}
+
+.directioncashin {
+	color:green;
+}
+
+.directionstandard {
+	color:blue;
+}
+
+.direction {
+	float:left;
+	display:block;
+}
