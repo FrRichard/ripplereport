@@ -41,6 +41,7 @@
     "redis": "*",
     "request": "*",
     "ripple-lib": "^0.9.3",
+    "ripple-lib-transactionparser": "^0.3.2",
     "slang": "*",
     "socket.io": "*",
     "socket.io-client": "*",
