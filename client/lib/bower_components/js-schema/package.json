@@ -2,7 +2,9 @@
   "author": "Gábor Molnár <gabor@molnar.es>",
   "contributors": [
     "Alan James",
-    "Kuba Wyrobek"
+    "Kuba Wyrobek",
+    "Mikael Berg",
+    "Alex Ivanov"
   ],
   "name": "js-schema",
   "description": "A simple and intuitive object validation library",
@@ -13,7 +15,7 @@
     "validation",
     "validator"
   ],
-  "version": "0.7.0",
+  "version": "0.7.2",
   "homepage": "https://github.com/molnarg/js-schema",
   "repository": {
     "type": "git",
@@ -22,6 +24,7 @@
   "devDependencies": {
     "browserify": "*",
     "uglify-js": "*",
+    "underscore": "^1.7.0",
     "vows": "^0.7.0"
   },
   "engines": {

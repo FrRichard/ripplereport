@@ -1,4 +1,4 @@
-//  Chance.js 0.6.1
+//  Chance.js 0.7.3
 //  http://chancejs.com
 //  (c) 2013 Victor Quinn
 //  Chance may be freely distributed or modified under the MIT license.
@@ -22,27 +22,42 @@
             return new Chance(seed);
         }
 
-        if (seed !== undefined) {
-            // If we were passed a generator rather than a seed, use it.
-            if (typeof seed === 'function') {
-                this.random = seed;
+        // if user has provided a function, use that as the generator
+        if (typeof seed === 'function') {
+            this.random = seed;
+            return this;
+        }
+
+        var seedling;
+
+        if (arguments.length) {
+            // set a starting value of zero so we can add to it
+            this.seed = 0;
+        }
+        // otherwise, leave this.seed blank so that MT will recieve a blank
+
+        for (var i = 0; i < arguments.length; i++) {
+            seedling = 0;
+            if (typeof arguments[i] === 'string') {
+                for (var j = 0; j < arguments[i].length; j++) {
+                    seedling += (arguments[i].length - j) * arguments[i].charCodeAt(j);
+                }
             } else {
-                this.seed = seed;
+                seedling = arguments[i];
             }
+            this.seed += (arguments.length - i) * seedling;
         }
 
         // If no generator function was provided, use our MT
-        if (typeof this.random === 'undefined') {
-            this.mt = this.mersenne_twister(seed);
-            this.random = function () {
-                return this.mt.random(this.seed);
-            };
-        }
+        this.mt = this.mersenne_twister(this.seed);
+        this.random = function () {
+            return this.mt.random(this.seed);
+        };
 
         return this;
     }
 
-    Chance.prototype.VERSION = "0.6.1";
+    Chance.prototype.VERSION = "0.7.3";
 
     // Random helper functions
     function initOptions(options, defaults) {
@@ -64,6 +79,24 @@
             throw new RangeError(errorMessage);
         }
     }
+
+    /**
+     * Encode the input string with Base64.
+     */
+    var base64 = function() {
+        throw new Error('No Base64 encoder available.');
+    };
+
+    // Select proper Base64 encoder.
+    (function determineBase64Encoder() {
+        if (typeof btoa === 'function') {
+            base64 = btoa;
+        } else if (typeof Buffer === 'function') {
+            base64 = function(input) {
+                return new Buffer(input).toString('base64');
+            };
+        }
+    })();
 
     // -- Basics --
 
@@ -232,11 +265,16 @@
      *  Gives an array of n random terms
      *  @param fn the function that generates something random
      *  @param n number of terms to generate
-     *  @param options options for the function fn. 
      *  There can be more parameters after these. All additional parameters are provided to the given function
      */
-    Chance.prototype.n = function(fn, n, options) {
-        var i = n || 1, arr = [], params = slice.call(arguments, 2);
+    Chance.prototype.n = function(fn, n) {
+        if (typeof n === 'undefined') {
+            n = 1;
+        }
+        var i = n, arr = [], params = slice.call(arguments, 2);
+
+        // Providing a negative count should result in a noop.
+        i = Math.max( 0, i );
 
         for (null; i--; null) {
             arr.push(fn.apply(this, params));
@@ -255,6 +293,9 @@
     };
 
     Chance.prototype.pick = function (arr, count) {
+        if (arr.length === 0) {
+            throw new RangeError("Chance: Cannot pick() from an empty array");
+        }
         if (!count || count === 1) {
             return arr[this.natural({max: arr.length - 1})];
         } else {
@@ -284,6 +325,15 @@
     Chance.prototype.weighted = function(arr, weights) {
         if (arr.length !== weights.length) {
             throw new RangeError("Chance: length of array and weights must match");
+        }
+
+        // Handle weights that are less or equal to zero.
+        for (var weightIndex = weights.length - 1; weightIndex >= 0; --weightIndex) {
+            // If the weight is less or equal to zero, remove it and the value.
+            if (weights[weightIndex] <= 0) {
+                arr.splice(weightIndex,1);
+                weights.splice(weightIndex,1);
+            }
         }
 
         // If any of the weights are less than 1, we want to scale them up to whole
@@ -495,12 +545,17 @@
             name = this.prefix(options) + ' ' + name;
         }
 
+        if (options.suffix) {
+            name = name + ' ' + this.suffix(options);
+        }
+
         return name;
     };
 
     // Return the list of available name prefixes based on supplied gender.
     Chance.prototype.name_prefixes = function (gender) {
         gender = gender || "all";
+        gender = gender.toLowerCase();
 
         var prefixes = [
             { name: 'Doctor', abbreviation: 'Dr.' }
@@ -546,44 +601,100 @@
         return ssn;
     };
 
+    // Return the list of available name suffixes
+    Chance.prototype.name_suffixes = function () {
+        var suffixes = [
+            { name: 'Doctor of Osteopathic Medicine', abbreviation: 'D.O.' },
+            { name: 'Doctor of Philosophy', abbreviation: 'Ph.D.' },
+            { name: 'Esquire', abbreviation: 'Esq.' },
+            { name: 'Junior', abbreviation: 'Jr.' },
+            { name: 'Juris Doctor', abbreviation: 'J.D.' },
+            { name: 'Master of Arts', abbreviation: 'M.A.' },
+            { name: 'Master of Business Administration', abbreviation: 'M.B.A.' },
+            { name: 'Master of Science', abbreviation: 'M.S.' },
+            { name: 'Medical Doctor', abbreviation: 'M.D.' },
+            { name: 'Senior', abbreviation: 'Sr.' },
+            { name: 'The Third', abbreviation: 'III' },
+            { name: 'The Fourth', abbreviation: 'IV' }
+        ];
+        return suffixes;
+    };
+
+    // Alias for name_suffix
+    Chance.prototype.suffix = function (options) {
+        return this.name_suffix(options);
+    };
+
+    Chance.prototype.name_suffix = function (options) {
+        options = initOptions(options);
+        return options.full ?
+            this.pick(this.name_suffixes()).name :
+            this.pick(this.name_suffixes()).abbreviation;
+    };
+
     // -- End Person --
 
-    // -- Web --
+    // -- Mobile --
     // Android GCM Registration ID
-    Chance.prototype.android_id = function (options) {
+    Chance.prototype.android_id = function () {
         return "APA91" + this.string({ pool: "0123456789abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_", length: 178 });
     };
 
     // Apple Push Token
-    Chance.prototype.apple_token = function (options) {
+    Chance.prototype.apple_token = function () {
         return this.string({ pool: "abcdef1234567890", length: 64 });
     };
 
+    // Windows Phone 8 ANID2
+    Chance.prototype.wp8_anid2 = function () {
+        return base64( this.hash( { length : 32 } ) );
+    };
+
+    // Windows Phone 7 ANID
+    Chance.prototype.wp7_anid = function () {
+        return 'A=' + this.guid().replace(/-/g, '').toUpperCase() + '&E=' + this.hash({ length:3 }) + '&W=' + this.integer({ min:0, max:9 });
+    };
+
+    // BlackBerry Device PIN
+    Chance.prototype.bb_pin = function () {
+        return this.hash({ length: 8 });
+    };
+
+    // -- End Mobile --
+
+    // -- Web --
     Chance.prototype.color = function (options) {
         function gray(value, delimiter) {
             return [value, value, value].join(delimiter || '');
         }
 
-        options = initOptions(options, {format: this.pick(['hex', 'shorthex', 'rgb']), grayscale: false});
+        options = initOptions(options, {format: this.pick(['hex', 'shorthex', 'rgb', '0x']), grayscale: false, casing: 'lower'});
         var isGrayscale = options.grayscale;
+        var colorValue;
 
         if (options.format === 'hex') {
-            return '#' + (isGrayscale ? gray(this.hash({length: 2})) : this.hash({length: 6}));
-        }
+            colorValue = '#' + (isGrayscale ? gray(this.hash({length: 2})) : this.hash({length: 6}));
 
-        if (options.format === 'shorthex') {
-            return '#' + (isGrayscale ? gray(this.hash({length: 1})) : this.hash({length: 3}));
-        }
+        } else if (options.format === 'shorthex') {
+            colorValue = '#' + (isGrayscale ? gray(this.hash({length: 1})) : this.hash({length: 3}));
 
-        if (options.format === 'rgb') {
+        } else if (options.format === 'rgb') {
             if (isGrayscale) {
-                return 'rgb(' + gray(this.natural({max: 255}), ',') + ')';
+                colorValue = 'rgb(' + gray(this.natural({max: 255}), ',') + ')';
             } else {
-                return 'rgb(' + this.natural({max: 255}) + ',' + this.natural({max: 255}) + ',' + this.natural({max: 255}) + ')';
+                colorValue = 'rgb(' + this.natural({max: 255}) + ',' + this.natural({max: 255}) + ',' + this.natural({max: 255}) + ')';
             }
+        } else if (options.format === '0x') {
+            colorValue = '0x' + (isGrayscale ? gray(this.hash({length: 2})) : this.hash({length: 6}));
+        } else {
+            throw new Error('Invalid format provided. Please provide one of "hex", "shorthex", "rgb" or "0x".');
         }
 
-        throw new Error('Invalid format provided. Please provide one of "hex", "shorthex", or "rgb"');
+        if (options.casing === 'upper' ) {
+            colorValue = colorValue.toUpperCase();
+        }
+
+        return colorValue;
     };
 
     Chance.prototype.domain = function (options) {
@@ -642,6 +753,15 @@
         return '@' + this.word();
     };
 
+    Chance.prototype.url = function (options) {
+        options = initOptions(options, { protocol: "http", domain: this.domain(options), domain_prefix: "", path: this.word(), extensions: []});
+
+        var extension = options.extensions.length > 0 ? "." + this.pick(options.extensions) : "";
+        var domain = options.domain_prefix ? options.domain_prefix + "." + options.domain : options.domain;
+
+        return options.protocol + "://" + domain + "/" + options.path + extension;
+    };
+
     // -- End Web --
 
     // -- Location --
@@ -673,6 +793,16 @@
     Chance.prototype.coordinates = function (options) {
         options = initOptions(options);
         return this.latitude(options) + ', ' + this.longitude(options);
+    };
+
+    Chance.prototype.countries = function () {
+        return this.get("countries");
+    };
+
+    Chance.prototype.country = function (options) {
+        options = initOptions(options);
+        var country = this.pick(this.countries());
+        return options.full ? country.name : country.abbreviation;
     };
 
     Chance.prototype.depth = function (options) {
@@ -719,10 +849,11 @@
         if (!options.formatted) {
             options.parens = false;
         }
+        var phone;
         switch (options.country) {
             case 'fr':
                 if (!options.mobile) {
-                    numPick = chance.pick([
+                    numPick = this.pick([
                         // Valid zone and département codes.
                         '01' + this.pick(['30', '34', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '53', '55', '56', '58', '60', '64', '69', '70', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83']) + self.string({ pool: '0123456789', length: 6}),
                         '02' + this.pick(['14', '18', '22', '23', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '40', '41', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '56', '57', '61', '62', '69', '72', '76', '77', '78', '85', '90', '96', '97', '98', '99']) + self.string({ pool: '0123456789', length: 6}),
@@ -731,14 +862,15 @@
                         '05' + this.pick(['08', '16', '17', '19', '24', '31', '32', '33', '34', '35', '40', '45', '46', '47', '49', '53', '55', '56', '57', '58', '59', '61', '62', '63', '64', '65', '67', '79', '81', '82', '86', '87', '90', '94']) + self.string({ pool: '0123456789', length: 6}),
                         '09' + self.string({ pool: '0123456789', length: 8}),
                     ]);
-                    return options.formatted ? numPick.match(/../g).join(' ') : numPick;
+                    phone = options.formatted ? numPick.match(/../g).join(' ') : numPick;
                 } else {
                     numPick = this.pick(['06', '07']) + self.string({ pool: '0123456789', length: 8});
-                    return options.formatted ? numPick.match(/../g).join(' ') : numPick;
+                    phone = options.formatted ? numPick.match(/../g).join(' ') : numPick;
                 }
+                break;
             case 'uk':
                 if (!options.mobile) {
-                    numPick = chance.pick([
+                    numPick = this.pick([
                         //valid area codes of major cities/counties followed by random numbers in required format.
                         { area: '01' + this.character({ pool: '234569' }) + '1 ', sections: [3,4] },
                         { area: '020 ' + this.character({ pool: '378' }), sections: [3,4] },
@@ -754,22 +886,24 @@
                         { area: '018' + this.pick(['27','37','84','97']) + ' ', sections: [5] },
                         { area: '019' + this.pick(['00','05','35','46','49','63','95']) + ' ', sections: [5] }
                     ]);
-                    return options.formatted ? ukNum(numPick) : ukNum(numPick).replace(' ', '', 'g');
+                    phone = options.formatted ? ukNum(numPick) : ukNum(numPick).replace(' ', '', 'g');
                 } else {
-                    numPick = chance.pick([
+                    numPick = this.pick([
                         { area: '07' + this.pick(['4','5','7','8','9']), sections: [2,6] },
                         { area: '07624 ', sections: [6] }
                     ]);
-                    return options.formatted ? ukNum(numPick) : ukNum(numPick).replace(' ', '');
+                    phone = options.formatted ? ukNum(numPick) : ukNum(numPick).replace(' ', '');
                 }
+                break;
             case 'us':
                 var areacode = this.areacode(options).toString();
                 var exchange = this.natural({ min: 2, max: 9 }).toString() +
                     this.natural({ min: 0, max: 9 }).toString() +
                     this.natural({ min: 0, max: 9 }).toString();
                 var subscriber = this.natural({ min: 1000, max: 9999 }).toString(); // this could be random [0-9]{4}
-                return options.formatted ? areacode + ' ' + exchange + '-' + subscriber : areacode + exchange + subscriber;
+                phone = options.formatted ? areacode + ' ' + exchange + '-' + subscriber : areacode + exchange + subscriber;
         }
+        return phone;
     };
 
     Chance.prototype.postal = function () {
@@ -862,24 +996,38 @@
     };
 
     Chance.prototype.date = function (options) {
-        var m = this.month({raw: true}),
-            date_string;
+        var date_string, date;
 
-        options = initOptions(options, {
-            year: parseInt(this.year(), 10),
-            // Necessary to subtract 1 because Date() 0-indexes month but not day or year
-            // for some reason.
-            month: m.numeric - 1,
-            day: this.natural({min: 1, max: m.days}),
-            hour: this.hour(),
-            minute: this.minute(),
-            second: this.second(),
-            millisecond: this.millisecond(),
-            american: true,
-            string: false
-        });
+        // If interval is specified we ignore preset
+        if(options && (options.min || options.max)) {
+            options = initOptions(options, {
+                american: true,
+                string: false
+            });
+            var min = typeof options.min !== "undefined" ? options.min.getTime() : 1;
+            // 100,000,000 days measured relative to midnight at the beginning of 01 January, 1970 UTC. http://es5.github.io/#x15.9.1.1
+            var max = typeof options.max !== "undefined" ? options.max.getTime() : 8640000000000000;
 
-        var date = new Date(options.year, options.month, options.day, options.hour, options.minute, options.second, options.millisecond);
+            date = new Date(this.natural({min: min, max: max}));
+        } else {
+            var m = this.month({raw: true});
+
+            options = initOptions(options, {
+                year: parseInt(this.year(), 10),
+                // Necessary to subtract 1 because Date() 0-indexes month but not day or year
+                // for some reason.
+                month: m.numeric - 1,
+                day: this.natural({min: 1, max: m.days}),
+                hour: this.hour(),
+                minute: this.minute(),
+                second: this.second(),
+                millisecond: this.millisecond(),
+                american: true,
+                string: false
+            });
+
+            date = new Date(options.year, options.month, options.day, options.hour, options.minute, options.second, options.millisecond);
+        }
 
         if (options.american) {
             // Adding 1 to the month is necessary because Date() 0-indexes
@@ -897,22 +1045,38 @@
     };
 
     Chance.prototype.hour = function (options) {
-        options = initOptions(options);
-        var max = options.twentyfour ? 24 : 12;
-        return this.natural({min: 1, max: max});
+        options = initOptions(options, {min: 1, max: options && options.twentyfour ? 24 : 12});
+
+        testRange(options.min < 1, "Chance: Min cannot be less than 1.");
+        testRange(options.twentyfour && options.max > 24, "Chance: Max cannot be greater than 24 for twentyfour option.");
+        testRange(!options.twentyfour && options.max > 12, "Chance: Max cannot be greater than 12.");
+        testRange(options.min > options.max, "Chance: Min cannot be greater than Max.");
+
+        return this.natural({min: options.min, max: options.max});
     };
 
     Chance.prototype.millisecond = function () {
         return this.natural({max: 999});
     };
 
-    Chance.prototype.minute = Chance.prototype.second = function () {
-        return this.natural({max: 59});
+    Chance.prototype.minute = Chance.prototype.second = function (options) {
+        options = initOptions(options, {min: 0, max: 59});
+
+        testRange(options.min < 0, "Chance: Min cannot be less than 0.");
+        testRange(options.max > 59, "Chance: Max cannot be greater than 59.");
+        testRange(options.min > options.max, "Chance: Min cannot be greater than Max.");
+
+        return this.natural({min: options.min, max: options.max});
     };
 
     Chance.prototype.month = function (options) {
-        options = initOptions(options);
-        var month = this.pick(this.months());
+        options = initOptions(options, {min: 1, max: 12});
+
+        testRange(options.min < 1, "Chance: Min cannot be less than 1.");
+        testRange(options.max > 12, "Chance: Max cannot be greater than 12.");
+        testRange(options.min > options.max, "Chance: Min cannot be greater than Max.");
+
+        var month = this.pick(this.months().slice(options.min - 1, options.max));
         return options.raw ? month : month.name;
     };
 
@@ -1132,7 +1296,7 @@
                    this.string({ pool: guid_pool, length: 12 });
         return guid;
     };
-    
+
     // Hash
     Chance.prototype.hash = function (options) {
         options = initOptions(options, {length : 40, casing: 'lower'});
@@ -1173,6 +1337,9 @@
         },
 
         lastNames: ['Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor', 'Anderson', 'Thomas', 'Jackson', 'White', 'Harris', 'Martin', 'Thompson', 'Garcia', 'Martinez', 'Robinson', 'Clark', 'Rodriguez', 'Lewis', 'Lee', 'Walker', 'Hall', 'Allen', 'Young', 'Hernandez', 'King', 'Wright', 'Lopez', 'Hill', 'Scott', 'Green', 'Adams', 'Baker', 'Gonzalez', 'Nelson', 'Carter', 'Mitchell', 'Perez', 'Roberts', 'Turner', 'Phillips', 'Campbell', 'Parker', 'Evans', 'Edwards', 'Collins', 'Stewart', 'Sanchez', 'Morris', 'Rogers', 'Reed', 'Cook', 'Morgan', 'Bell', 'Murphy', 'Bailey', 'Rivera', 'Cooper', 'Richardson', 'Cox', 'Howard', 'Ward', 'Torres', 'Peterson', 'Gray', 'Ramirez', 'James', 'Watson', 'Brooks', 'Kelly', 'Sanders', 'Price', 'Bennett', 'Wood', 'Barnes', 'Ross', 'Henderson', 'Coleman', 'Jenkins', 'Perry', 'Powell', 'Long', 'Patterson', 'Hughes', 'Flores', 'Washington', 'Butler', 'Simmons', 'Foster', 'Gonzales', 'Bryant', 'Alexander', 'Russell', 'Griffin', 'Diaz', 'Hayes', 'Myers', 'Ford', 'Hamilton', 'Graham', 'Sullivan', 'Wallace', 'Woods', 'Cole', 'West', 'Jordan', 'Owens', 'Reynolds', 'Fisher', 'Ellis', 'Harrison', 'Gibson', 'McDonald', 'Cruz', 'Marshall', 'Ortiz', 'Gomez', 'Murray', 'Freeman', 'Wells', 'Webb', 'Simpson', 'Stevens', 'Tucker', 'Porter', 'Hunter', 'Hicks', 'Crawford', 'Henry', 'Boyd', 'Mason', 'Morales', 'Kennedy', 'Warren', 'Dixon', 'Ramos', 'Reyes', 'Burns', 'Gordon', 'Shaw', 'Holmes', 'Rice', 'Robertson', 'Hunt', 'Black', 'Daniels', 'Palmer', 'Mills', 'Nichols', 'Grant', 'Knight', 'Ferguson', 'Rose', 'Stone', 'Hawkins', 'Dunn', 'Perkins', 'Hudson', 'Spencer', 'Gardner', 'Stephens', 'Payne', 'Pierce', 'Berry', 'Matthews', 'Arnold', 'Wagner', 'Willis', 'Ray', 'Watkins', 'Olson', 'Carroll', 'Duncan', 'Snyder', 'Hart', 'Cunningham', 'Bradley', 'Lane', 'Andrews', 'Ruiz', 'Harper', 'Fox', 'Riley', 'Armstrong', 'Carpenter', 'Weaver', 'Greene', 'Lawrence', 'Elliott', 'Chavez', 'Sims', 'Austin', 'Peters', 'Kelley', 'Franklin', 'Lawson', 'Fields', 'Gutierrez', 'Ryan', 'Schmidt', 'Carr', 'Vasquez', 'Castillo', 'Wheeler', 'Chapman', 'Oliver', 'Montgomery', 'Richards', 'Williamson', 'Johnston', 'Banks', 'Meyer', 'Bishop', 'McCoy', 'Howell', 'Alvarez', 'Morrison', 'Hansen', 'Fernandez', 'Garza', 'Harvey', 'Little', 'Burton', 'Stanley', 'Nguyen', 'George', 'Jacobs', 'Reid', 'Kim', 'Fuller', 'Lynch', 'Dean', 'Gilbert', 'Garrett', 'Romero', 'Welch', 'Larson', 'Frazier', 'Burke', 'Hanson', 'Day', 'Mendoza', 'Moreno', 'Bowman', 'Medina', 'Fowler', 'Brewer', 'Hoffman', 'Carlson', 'Silva', 'Pearson', 'Holland', 'Douglas', 'Fleming', 'Jensen', 'Vargas', 'Byrd', 'Davidson', 'Hopkins', 'May', 'Terry', 'Herrera', 'Wade', 'Soto', 'Walters', 'Curtis', 'Neal', 'Caldwell', 'Lowe', 'Jennings', 'Barnett', 'Graves', 'Jimenez', 'Horton', 'Shelton', 'Barrett', 'Obrien', 'Castro', 'Sutton', 'Gregory', 'McKinney', 'Lucas', 'Miles', 'Craig', 'Rodriquez', 'Chambers', 'Holt', 'Lambert', 'Fletcher', 'Watts', 'Bates', 'Hale', 'Rhodes', 'Pena', 'Beck', 'Newman', 'Haynes', 'McDaniel', 'Mendez', 'Bush', 'Vaughn', 'Parks', 'Dawson', 'Santiago', 'Norris', 'Hardy', 'Love', 'Steele', 'Curry', 'Powers', 'Schultz', 'Barker', 'Guzman', 'Page', 'Munoz', 'Ball', 'Keller', 'Chandler', 'Weber', 'Leonard', 'Walsh', 'Lyons', 'Ramsey', 'Wolfe', 'Schneider', 'Mullins', 'Benson', 'Sharp', 'Bowen', 'Daniel', 'Barber', 'Cummings', 'Hines', 'Baldwin', 'Griffith', 'Valdez', 'Hubbard', 'Salazar', 'Reeves', 'Warner', 'Stevenson', 'Burgess', 'Santos', 'Tate', 'Cross', 'Garner', 'Mann', 'Mack', 'Moss', 'Thornton', 'Dennis', 'McGee', 'Farmer', 'Delgado', 'Aguilar', 'Vega', 'Glover', 'Manning', 'Cohen', 'Harmon', 'Rodgers', 'Robbins', 'Newton', 'Todd', 'Blair', 'Higgins', 'Ingram', 'Reese', 'Cannon', 'Strickland', 'Townsend', 'Potter', 'Goodwin', 'Walton', 'Rowe', 'Hampton', 'Ortega', 'Patton', 'Swanson', 'Joseph', 'Francis', 'Goodman', 'Maldonado', 'Yates', 'Becker', 'Erickson', 'Hodges', 'Rios', 'Conner', 'Adkins', 'Webster', 'Norman', 'Malone', 'Hammond', 'Flowers', 'Cobb', 'Moody', 'Quinn', 'Blake', 'Maxwell', 'Pope', 'Floyd', 'Osborne', 'Paul', 'McCarthy', 'Guerrero', 'Lindsey', 'Estrada', 'Sandoval', 'Gibbs', 'Tyler', 'Gross', 'Fitzgerald', 'Stokes', 'Doyle', 'Sherman', 'Saunders', 'Wise', 'Colon', 'Gill', 'Alvarado', 'Greer', 'Padilla', 'Simon', 'Waters', 'Nunez', 'Ballard', 'Schwartz', 'McBride', 'Houston', 'Christensen', 'Klein', 'Pratt', 'Briggs', 'Parsons', 'McLaughlin', 'Zimmerman', 'French', 'Buchanan', 'Moran', 'Copeland', 'Roy', 'Pittman', 'Brady', 'McCormick', 'Holloway', 'Brock', 'Poole', 'Frank', 'Logan', 'Owen', 'Bass', 'Marsh', 'Drake', 'Wong', 'Jefferson', 'Park', 'Morton', 'Abbott', 'Sparks', 'Patrick', 'Norton', 'Huff', 'Clayton', 'Massey', 'Lloyd', 'Figueroa', 'Carson', 'Bowers', 'Roberson', 'Barton', 'Tran', 'Lamb', 'Harrington', 'Casey', 'Boone', 'Cortez', 'Clarke', 'Mathis', 'Singleton', 'Wilkins', 'Cain', 'Bryan', 'Underwood', 'Hogan', 'McKenzie', 'Collier', 'Luna', 'Phelps', 'McGuire', 'Allison', 'Bridges', 'Wilkerson', 'Nash', 'Summers', 'Atkins'],
+
+        // Data taken from https://github.com/umpirsky/country-list/blob/master/country/cldr/en_US/country.json
+        countries: [{"name":"Afghanistan","abbreviation":"AF"},{"name":"Albania","abbreviation":"AL"},{"name":"Algeria","abbreviation":"DZ"},{"name":"American Samoa","abbreviation":"AS"},{"name":"Andorra","abbreviation":"AD"},{"name":"Angola","abbreviation":"AO"},{"name":"Anguilla","abbreviation":"AI"},{"name":"Antarctica","abbreviation":"AQ"},{"name":"Antigua and Barbuda","abbreviation":"AG"},{"name":"Argentina","abbreviation":"AR"},{"name":"Armenia","abbreviation":"AM"},{"name":"Aruba","abbreviation":"AW"},{"name":"Australia","abbreviation":"AU"},{"name":"Austria","abbreviation":"AT"},{"name":"Azerbaijan","abbreviation":"AZ"},{"name":"Bahamas","abbreviation":"BS"},{"name":"Bahrain","abbreviation":"BH"},{"name":"Bangladesh","abbreviation":"BD"},{"name":"Barbados","abbreviation":"BB"},{"name":"Belarus","abbreviation":"BY"},{"name":"Belgium","abbreviation":"BE"},{"name":"Belize","abbreviation":"BZ"},{"name":"Benin","abbreviation":"BJ"},{"name":"Bermuda","abbreviation":"BM"},{"name":"Bhutan","abbreviation":"BT"},{"name":"Bolivia","abbreviation":"BO"},{"name":"Bosnia and Herzegovina","abbreviation":"BA"},{"name":"Botswana","abbreviation":"BW"},{"name":"Bouvet Island","abbreviation":"BV"},{"name":"Brazil","abbreviation":"BR"},{"name":"British Antarctic Territory","abbreviation":"BQ"},{"name":"British Indian Ocean Territory","abbreviation":"IO"},{"name":"British Virgin Islands","abbreviation":"VG"},{"name":"Brunei","abbreviation":"BN"},{"name":"Bulgaria","abbreviation":"BG"},{"name":"Burkina Faso","abbreviation":"BF"},{"name":"Burundi","abbreviation":"BI"},{"name":"Cambodia","abbreviation":"KH"},{"name":"Cameroon","abbreviation":"CM"},{"name":"Canada","abbreviation":"CA"},{"name":"Canton and Enderbury Islands","abbreviation":"CT"},{"name":"Cape Verde","abbreviation":"CV"},{"name":"Cayman Islands","abbreviation":"KY"},{"name":"Central African Republic","abbreviation":"CF"},{"name":"Chad","abbreviation":"TD"},{"name":"Chile","abbreviation":"CL"},{"name":"China","abbreviation":"CN"},{"name":"Christmas Island","abbreviation":"CX"},{"name":"Cocos [Keeling] Islands","abbreviation":"CC"},{"name":"Colombia","abbreviation":"CO"},{"name":"Comoros","abbreviation":"KM"},{"name":"Congo - Brazzaville","abbreviation":"CG"},{"name":"Congo - Kinshasa","abbreviation":"CD"},{"name":"Cook Islands","abbreviation":"CK"},{"name":"Costa Rica","abbreviation":"CR"},{"name":"Croatia","abbreviation":"HR"},{"name":"Cuba","abbreviation":"CU"},{"name":"Cyprus","abbreviation":"CY"},{"name":"Czech Republic","abbreviation":"CZ"},{"name":"Côte d’Ivoire","abbreviation":"CI"},{"name":"Denmark","abbreviation":"DK"},{"name":"Djibouti","abbreviation":"DJ"},{"name":"Dominica","abbreviation":"DM"},{"name":"Dominican Republic","abbreviation":"DO"},{"name":"Dronning Maud Land","abbreviation":"NQ"},{"name":"East Germany","abbreviation":"DD"},{"name":"Ecuador","abbreviation":"EC"},{"name":"Egypt","abbreviation":"EG"},{"name":"El Salvador","abbreviation":"SV"},{"name":"Equatorial Guinea","abbreviation":"GQ"},{"name":"Eritrea","abbreviation":"ER"},{"name":"Estonia","abbreviation":"EE"},{"name":"Ethiopia","abbreviation":"ET"},{"name":"Falkland Islands","abbreviation":"FK"},{"name":"Faroe Islands","abbreviation":"FO"},{"name":"Fiji","abbreviation":"FJ"},{"name":"Finland","abbreviation":"FI"},{"name":"France","abbreviation":"FR"},{"name":"French Guiana","abbreviation":"GF"},{"name":"French Polynesia","abbreviation":"PF"},{"name":"French Southern Territories","abbreviation":"TF"},{"name":"French Southern and Antarctic Territories","abbreviation":"FQ"},{"name":"Gabon","abbreviation":"GA"},{"name":"Gambia","abbreviation":"GM"},{"name":"Georgia","abbreviation":"GE"},{"name":"Germany","abbreviation":"DE"},{"name":"Ghana","abbreviation":"GH"},{"name":"Gibraltar","abbreviation":"GI"},{"name":"Greece","abbreviation":"GR"},{"name":"Greenland","abbreviation":"GL"},{"name":"Grenada","abbreviation":"GD"},{"name":"Guadeloupe","abbreviation":"GP"},{"name":"Guam","abbreviation":"GU"},{"name":"Guatemala","abbreviation":"GT"},{"name":"Guernsey","abbreviation":"GG"},{"name":"Guinea","abbreviation":"GN"},{"name":"Guinea-Bissau","abbreviation":"GW"},{"name":"Guyana","abbreviation":"GY"},{"name":"Haiti","abbreviation":"HT"},{"name":"Heard Island and McDonald Islands","abbreviation":"HM"},{"name":"Honduras","abbreviation":"HN"},{"name":"Hong Kong SAR China","abbreviation":"HK"},{"name":"Hungary","abbreviation":"HU"},{"name":"Iceland","abbreviation":"IS"},{"name":"India","abbreviation":"IN"},{"name":"Indonesia","abbreviation":"ID"},{"name":"Iran","abbreviation":"IR"},{"name":"Iraq","abbreviation":"IQ"},{"name":"Ireland","abbreviation":"IE"},{"name":"Isle of Man","abbreviation":"IM"},{"name":"Israel","abbreviation":"IL"},{"name":"Italy","abbreviation":"IT"},{"name":"Jamaica","abbreviation":"JM"},{"name":"Japan","abbreviation":"JP"},{"name":"Jersey","abbreviation":"JE"},{"name":"Johnston Island","abbreviation":"JT"},{"name":"Jordan","abbreviation":"JO"},{"name":"Kazakhstan","abbreviation":"KZ"},{"name":"Kenya","abbreviation":"KE"},{"name":"Kiribati","abbreviation":"KI"},{"name":"Kuwait","abbreviation":"KW"},{"name":"Kyrgyzstan","abbreviation":"KG"},{"name":"Laos","abbreviation":"LA"},{"name":"Latvia","abbreviation":"LV"},{"name":"Lebanon","abbreviation":"LB"},{"name":"Lesotho","abbreviation":"LS"},{"name":"Liberia","abbreviation":"LR"},{"name":"Libya","abbreviation":"LY"},{"name":"Liechtenstein","abbreviation":"LI"},{"name":"Lithuania","abbreviation":"LT"},{"name":"Luxembourg","abbreviation":"LU"},{"name":"Macau SAR China","abbreviation":"MO"},{"name":"Macedonia","abbreviation":"MK"},{"name":"Madagascar","abbreviation":"MG"},{"name":"Malawi","abbreviation":"MW"},{"name":"Malaysia","abbreviation":"MY"},{"name":"Maldives","abbreviation":"MV"},{"name":"Mali","abbreviation":"ML"},{"name":"Malta","abbreviation":"MT"},{"name":"Marshall Islands","abbreviation":"MH"},{"name":"Martinique","abbreviation":"MQ"},{"name":"Mauritania","abbreviation":"MR"},{"name":"Mauritius","abbreviation":"MU"},{"name":"Mayotte","abbreviation":"YT"},{"name":"Metropolitan France","abbreviation":"FX"},{"name":"Mexico","abbreviation":"MX"},{"name":"Micronesia","abbreviation":"FM"},{"name":"Midway Islands","abbreviation":"MI"},{"name":"Moldova","abbreviation":"MD"},{"name":"Monaco","abbreviation":"MC"},{"name":"Mongolia","abbreviation":"MN"},{"name":"Montenegro","abbreviation":"ME"},{"name":"Montserrat","abbreviation":"MS"},{"name":"Morocco","abbreviation":"MA"},{"name":"Mozambique","abbreviation":"MZ"},{"name":"Myanmar [Burma]","abbreviation":"MM"},{"name":"Namibia","abbreviation":"NA"},{"name":"Nauru","abbreviation":"NR"},{"name":"Nepal","abbreviation":"NP"},{"name":"Netherlands","abbreviation":"NL"},{"name":"Netherlands Antilles","abbreviation":"AN"},{"name":"Neutral Zone","abbreviation":"NT"},{"name":"New Caledonia","abbreviation":"NC"},{"name":"New Zealand","abbreviation":"NZ"},{"name":"Nicaragua","abbreviation":"NI"},{"name":"Niger","abbreviation":"NE"},{"name":"Nigeria","abbreviation":"NG"},{"name":"Niue","abbreviation":"NU"},{"name":"Norfolk Island","abbreviation":"NF"},{"name":"North Korea","abbreviation":"KP"},{"name":"North Vietnam","abbreviation":"VD"},{"name":"Northern Mariana Islands","abbreviation":"MP"},{"name":"Norway","abbreviation":"NO"},{"name":"Oman","abbreviation":"OM"},{"name":"Pacific Islands Trust Territory","abbreviation":"PC"},{"name":"Pakistan","abbreviation":"PK"},{"name":"Palau","abbreviation":"PW"},{"name":"Palestinian Territories","abbreviation":"PS"},{"name":"Panama","abbreviation":"PA"},{"name":"Panama Canal Zone","abbreviation":"PZ"},{"name":"Papua New Guinea","abbreviation":"PG"},{"name":"Paraguay","abbreviation":"PY"},{"name":"People's Democratic Republic of Yemen","abbreviation":"YD"},{"name":"Peru","abbreviation":"PE"},{"name":"Philippines","abbreviation":"PH"},{"name":"Pitcairn Islands","abbreviation":"PN"},{"name":"Poland","abbreviation":"PL"},{"name":"Portugal","abbreviation":"PT"},{"name":"Puerto Rico","abbreviation":"PR"},{"name":"Qatar","abbreviation":"QA"},{"name":"Romania","abbreviation":"RO"},{"name":"Russia","abbreviation":"RU"},{"name":"Rwanda","abbreviation":"RW"},{"name":"Réunion","abbreviation":"RE"},{"name":"Saint Barthélemy","abbreviation":"BL"},{"name":"Saint Helena","abbreviation":"SH"},{"name":"Saint Kitts and Nevis","abbreviation":"KN"},{"name":"Saint Lucia","abbreviation":"LC"},{"name":"Saint Martin","abbreviation":"MF"},{"name":"Saint Pierre and Miquelon","abbreviation":"PM"},{"name":"Saint Vincent and the Grenadines","abbreviation":"VC"},{"name":"Samoa","abbreviation":"WS"},{"name":"San Marino","abbreviation":"SM"},{"name":"Saudi Arabia","abbreviation":"SA"},{"name":"Senegal","abbreviation":"SN"},{"name":"Serbia","abbreviation":"RS"},{"name":"Serbia and Montenegro","abbreviation":"CS"},{"name":"Seychelles","abbreviation":"SC"},{"name":"Sierra Leone","abbreviation":"SL"},{"name":"Singapore","abbreviation":"SG"},{"name":"Slovakia","abbreviation":"SK"},{"name":"Slovenia","abbreviation":"SI"},{"name":"Solomon Islands","abbreviation":"SB"},{"name":"Somalia","abbreviation":"SO"},{"name":"South Africa","abbreviation":"ZA"},{"name":"South Georgia and the South Sandwich Islands","abbreviation":"GS"},{"name":"South Korea","abbreviation":"KR"},{"name":"Spain","abbreviation":"ES"},{"name":"Sri Lanka","abbreviation":"LK"},{"name":"Sudan","abbreviation":"SD"},{"name":"Suriname","abbreviation":"SR"},{"name":"Svalbard and Jan Mayen","abbreviation":"SJ"},{"name":"Swaziland","abbreviation":"SZ"},{"name":"Sweden","abbreviation":"SE"},{"name":"Switzerland","abbreviation":"CH"},{"name":"Syria","abbreviation":"SY"},{"name":"São Tomé and Príncipe","abbreviation":"ST"},{"name":"Taiwan","abbreviation":"TW"},{"name":"Tajikistan","abbreviation":"TJ"},{"name":"Tanzania","abbreviation":"TZ"},{"name":"Thailand","abbreviation":"TH"},{"name":"Timor-Leste","abbreviation":"TL"},{"name":"Togo","abbreviation":"TG"},{"name":"Tokelau","abbreviation":"TK"},{"name":"Tonga","abbreviation":"TO"},{"name":"Trinidad and Tobago","abbreviation":"TT"},{"name":"Tunisia","abbreviation":"TN"},{"name":"Turkey","abbreviation":"TR"},{"name":"Turkmenistan","abbreviation":"TM"},{"name":"Turks and Caicos Islands","abbreviation":"TC"},{"name":"Tuvalu","abbreviation":"TV"},{"name":"U.S. Minor Outlying Islands","abbreviation":"UM"},{"name":"U.S. Miscellaneous Pacific Islands","abbreviation":"PU"},{"name":"U.S. Virgin Islands","abbreviation":"VI"},{"name":"Uganda","abbreviation":"UG"},{"name":"Ukraine","abbreviation":"UA"},{"name":"Union of Soviet Socialist Republics","abbreviation":"SU"},{"name":"United Arab Emirates","abbreviation":"AE"},{"name":"United Kingdom","abbreviation":"GB"},{"name":"United States","abbreviation":"US"},{"name":"Unknown or Invalid Region","abbreviation":"ZZ"},{"name":"Uruguay","abbreviation":"UY"},{"name":"Uzbekistan","abbreviation":"UZ"},{"name":"Vanuatu","abbreviation":"VU"},{"name":"Vatican City","abbreviation":"VA"},{"name":"Venezuela","abbreviation":"VE"},{"name":"Vietnam","abbreviation":"VN"},{"name":"Wake Island","abbreviation":"WK"},{"name":"Wallis and Futuna","abbreviation":"WF"},{"name":"Western Sahara","abbreviation":"EH"},{"name":"Yemen","abbreviation":"YE"},{"name":"Zambia","abbreviation":"ZM"},{"name":"Zimbabwe","abbreviation":"ZW"},{"name":"Åland Islands","abbreviation":"AX"}],
 
         provinces: [
             {name: 'Alberta', abbreviation: 'AB'},
@@ -1521,6 +1688,7 @@
 
     function _copyObject(source, target) {
       var keys = o_keys(source);
+      var key;
 
       for (var i = 0, l = keys.length; i < l; i++) {
         key = keys[i];

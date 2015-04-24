@@ -1,6 +1,17 @@
 Version history
 ===============
 
+### 0.7.2 (2014-12-02) ###
+ * Reverting the object pattern fix released in 0.7.1 because of breaking error reporting functionality
+
+### 0.7.1 (2014-11-09) ###
+ * A bugfix for OrSchema `errors()` method (thanks to Kuba Wyrobek)
+ * Type checking for `Array.of()` that prevents misusages like:
+   `Array.of(schema, length)` or `Array.of(schema, minLength, maxLength)` (thanks to Kuba Wyrobek)
+ * A bugfix for the object pattern to handle `{ "+.+" : String }` and similar patterns correctly
+   (thanks to Alex Ivanov)
+ * The `String.of()` extension now has `.` as default instead of `[a-zA-Z0-9]` (thanks to Mikael Berg)
+
 ### 0.7.0 (2014-09-01) ###
  * Support for error reporting
  * Addition of .jshintrc file for code style consistency

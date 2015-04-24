@@ -29,5 +29,6 @@
     "commit": "bf0306cfb86bdc8785df201454292ee9f6d49763"
   },
   "_source": "git://github.com/victorquinn/chancejs.git",
-  "_target": "*"
+  "_target": "*",
+  "_originalSource": "chance"
 }

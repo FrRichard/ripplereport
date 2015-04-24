@@ -26,5 +26,6 @@
     "commit": "bd9dc1c6cde62b9401eeabdcb12cda070fd6ddbe"
   },
   "_source": "git://github.com/molnarg/js-schema.git",
-  "_target": "*"
+  "_target": "*",
+  "_originalSource": "js-schema"
 }

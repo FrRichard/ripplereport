@@ -10,7 +10,7 @@ define(['Chance', 'mocha', 'chai', 'underscore'], function (Chance, mocha, chai,
                 data = chance.get("lastNames");
                 expect(data).to.be.an('array');
             });
-            
+
             it("set custom data", function () {
                 cData = {lastNames: ["customName", "testLast"]};
                 chance.set(cData);
@@ -19,7 +19,7 @@ define(['Chance', 'mocha', 'chai', 'underscore'], function (Chance, mocha, chai,
                 expect(data).to.have.length(2);
             });
         });
-        
+
         describe("Bool", function () {
             it("returns a random boolean", function () {
                 bool = chance.bool();
@@ -289,6 +289,17 @@ define(['Chance', 'mocha', 'chai', 'underscore'], function (Chance, mocha, chai,
         var seed, chance1, chance2;
 
         describe("random", function () {
+            it("does return differing results if differing seeds provided", function (done) {
+                chance1 = new Chance(12345);
+                // Wait 5 ms before creating chance2 else sometimes they happen on the same
+                // tick and end up with the same seed!
+                setTimeout(function () {
+                    chance2 = new Chance(54321);
+                    expect(chance1.random()).to.not.equal(chance2.random());
+                    done();
+                }, 5);
+            });
+
             it("does not return repeatable results if no seed provided", function (done) {
                 chance1 = new Chance();
                 // Wait 5 ms before creating chance2 else sometimes they happen on the same
@@ -309,6 +320,35 @@ define(['Chance', 'mocha', 'chai', 'underscore'], function (Chance, mocha, chai,
 
                 _(1000).times(function () {
                     expect(chance1.random()).to.equal(chance2.random());
+                });
+            });
+
+            it("returns repeatable results if a string is provided as a seed", function () {
+                seed = "foo";
+                chance1 = new Chance(seed);
+                chance2 = new Chance(seed);
+
+                _(1000).times(function () {
+                    expect(chance1.random()).to.equal(chance2.random());
+                });
+            });
+
+            it("returns different results if two different strings are provided", function () {
+                chance1 = new Chance("foo");
+                chance2 = new Chance("baz");
+
+                _(1000).times(function () {
+                    expect(chance1.random()).to.not.equal(chance2.random());
+                });
+            });
+
+            it("returns different results if multiple arguments are provided", function () {
+                seed = new Date().getTime();
+                chance1 = new Chance(seed, "foo");
+                chance2 = new Chance(seed, "bar");
+
+                _(1000).times(function () {
+                    expect(chance1.random()).to.not.equal(chance2.random());
                 });
             });
         });

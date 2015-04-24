@@ -16,5 +16,6 @@
     "commit": "79faa50ca65a0bc302ff93518215c015b4d3004c"
   },
   "_source": "git://github.com/sytelus/CryptoJS.git",
-  "_target": "*"
+  "_target": "*",
+  "_originalSource": "cryptojslib"
 }

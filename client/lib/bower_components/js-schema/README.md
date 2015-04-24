@@ -5,7 +5,7 @@ js-schema is a new way of describing object schemas in JavaScript. It has a clea
 and it is capable of serializing to/from the popular JSON Schema format. The typical use case is
 declarative object validation.
 
-**Latest release**: 0.7.0 (2014/09/01)
+**Latest release**: 0.7.2 (2014/12/02)
 
 Features
 ========
@@ -69,7 +69,7 @@ Usage
 =====
 
 Include js-schema in your project with `var schema = require('js-schema');` in node.js or with
-`<script src="js-schema.min.js"></script>` in the browser.
+`<script src="js-schema.min.js"></script>` in the browser. AMD module loading is also supported.
 
 The first parameter passed to the `schema` function describes the schema, and the return value
 is a new function called validator. Then the validator can be used to check any object against
@@ -220,8 +220,8 @@ The `String.of` method has three signatures:
 `charset` must be given in a format that can be directly inserted in a regular expression when
 wrapped by `[]`. For example, `'abc'` means a character set containing the first 3 lowercase letters
 of the english alphabet, while `'a-zA-C'` means a character set of all english lowercase letters,
-and the first 3 uppercase letters. If `charset` is `undefined` then the `a-zA-Z0-9` character set
-is used.
+and the first 3 uppercase letters. If `charset` is `undefined` or `null` then there's no restriction on
+the character set.
 
 ### Arrays ###
 
@@ -256,8 +256,10 @@ Feel free to open an issue or send a pull request if you would like to help impr
 
 People who made significant contributions so far:
 
- * (Alan James)[https://github.com/alanjames1987]
- * (Kuba Wyrobek)[https://github.com/parhelium]
+ * [Alan James](https://github.com/alanjames1987)
+ * [Kuba Wyrobek](https://github.com/parhelium)
+ * [Mikael Berg](https://github.com/mikberg)
+ * [Alex Ivanov](https://github.com/alex-ivanov)
 
 Installation
 ============
