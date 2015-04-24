@@ -1,6 +1,7 @@
 var React = require('react');
 var RippleoffersexercisedStore = require('RippleoffersexercisedStore');
 var linechart = require('linechart');
+//afa
 //react-bootstrap
 var Panel = require('react-bootstrap').Panel;
 
