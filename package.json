@@ -21,6 +21,7 @@
     "express": "*",
     "griddle-react": "^0.2.12",
     "http-auth": "*",
+    "jade": "^1.9.2",
     "jwt-simple": "*",
     "keymirror": "*",
     "lodash": "*",
