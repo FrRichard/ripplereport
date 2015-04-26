@@ -56,6 +56,8 @@ RippledataapiProxy.prototype.init = function(callback) {
 	});
 
 	this.app.get('/ripple/dataapi/account_offers_exercised/*', function(req,res) {
+		// var self= this;
+		// this.req = req.query;
 		var parameters = req.query.account;
 		var options = {
 			method: 'POST',
@@ -67,23 +69,41 @@ RippledataapiProxy.prototype.init = function(callback) {
 			body:parameters
 
 		};
+		// console.log("reqqqqqqqqqqqqqqqqq",JSON.parse(req.query.account).timeIncrement);
+		if(JSON.parse(req.query.account).timeIncrement == null) {
+			var callback = function(error, response, body) {
+				// console.log("timmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmeeee",self.req.timeIncrement);
+				if (error) {
+					console.log('error', error);
+					res.send(500, 'something went wrong');
+				}
+				var rippleoffersexercised = new self.datacalcul.rippleoffersexercised;
 
-		var callback = function(error, response, body) {
-			if (error) {
-				console.log('error', error);
-				res.send(500, 'something went wrong');
+				try {
+					var data = JSON.parse(body);
+				} catch(e) {
+					console.log("api is taking too long !",body,e);
+					var datas = "error!";
+				}
+				try { var datas = rippleoffersexercised.calculate(data); } catch(e) { console.log("it's not gonna calculate  !",e)}
+				// console.dir(data);
+				res.status(response.statusCode).send(datas);
 			}
-			var rippleoffersexercised = new self.datacalcul.rippleoffersexercised;
+		} else  {
+			var callback = function(error, response, body) {
+				if (error) {
+					console.log('error', error);
+					res.send(500, 'something went wrong');
+				}
+				try {
+					var data = JSON.parse(body);
+				} catch(e) {
+					console.log("parsing error!")
+					var data = "error!"
+				}
+				res.status(response.statusCode).send(data);
 
-			try {
-				var data = JSON.parse(body);
-			} catch(e) {
-				console.log("api is taking too long !",body,e);
-				var datas = "error!";
 			}
-			try { var datas = rippleoffersexercised.calculate(data); } catch(e) { console.log("it's not gonna calculate  !",e)}
-			// console.dir(data);
-			res.status(response.statusCode).send(datas);
 		}
 		request(options, callback);
 

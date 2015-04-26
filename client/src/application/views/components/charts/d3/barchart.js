@@ -2,17 +2,17 @@ var d3 = require('d3');
 var DataHelper = require("DataHelper");
 var SvgCommon = require('SvgCommon');
 
-function BarChart(chartId, data) {
+function BarChart(el, data, id, size) {
 	this.dataHelper = new DataHelper();
-	this.initChart(chartId);
+	this.initChart(el, data, id, size);
 }
 
-BarChart.prototype.initChart = function(chartId) {
+BarChart.prototype.initChart = function(el, data, id, size) {
 	var self = this;
 	this.margin = {top: 0, right: 0, bottom: 20, left: 0};
-	this.width = 200 - this.margin.left - this.margin.right;
-	this.height = 160 - this.margin.top - this.margin.bottom;
-	this.svg = d3.select('#' + chartId)
+	this.width = size[0] - this.margin.left - this.margin.right;
+	this.height = size[1] - this.margin.top - this.margin.bottom;
+	this.svg = d3.select(el)
 			.append("svg")
 				.attr("width", this.width + this.margin.left + this.margin.right)
 				.attr("height", this.height + this.margin.top + this.margin.bottom)
@@ -32,13 +32,18 @@ BarChart.prototype.initChart = function(chartId) {
 	//     .orient("left");
 
 	this.colors = SvgCommon.colors.orders;
+
+	this.update(el, data, id);
 }
 
 BarChart.prototype.parse = function(data) {
 	this.data =this.dataHelper.BarChart(data);
 }
+BarChart.prototype.update = function(el,data,id) {
+	this.draw(el,data,id);
+}
 
-BarChart.prototype.draw = function(chartId,datas) {
+BarChart.prototype.draw = function(el, datas, id) {
 	var self = this;
 	//Parsing
 	this.parse(datas);

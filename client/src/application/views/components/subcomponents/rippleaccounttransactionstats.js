@@ -1,7 +1,8 @@
 var React = require('react');
 var RippleaccounttransactionstatsStore = require('RippleaccounttransactionstatsStore');
-var BarChart = require('barchart');
+var BarChart = require('barChart_react');
 var Table = require('react-bootstrap').Table;
+var ViewCommon = require('ViewCommon');
 
 
 function getRippleaccounttransactionstatsState(key) {
@@ -28,7 +29,7 @@ var RippleAccountTransactionStats = React.createClass({
 		var key = this.props.attributes.reportnumber;
 		var address = "address" + key;
 		// instanciation & initialition du chart
-   		this.barchart = new BarChart(this.chartId);
+   		//this.barchart = new BarChart(this.chartId);
    		// store listener
 		RippleaccounttransactionstatsStore.addChangeListener(address, this._onChangeRippleaccounttransactionstats);
 	},
@@ -50,7 +51,7 @@ var RippleAccountTransactionStats = React.createClass({
 		if( this.state.rippleaccounttransactionstats["address" + this.props.attributes.reportnumber] != undefined) {
 			//Chart
 			this.datasets = this.state.rippleaccounttransactionstats["address" + this.props.attributes.reportnumber].results;
-     		this.barchart.draw(this.chartId, this.datasets);
+     		var barchart= <BarChart id={"transactionsstatschart"} size={[230,160]} data={this.datasets} />
      		//Table rows
  			rows.push(
  				<tr key="transactionstatsresults">
@@ -75,7 +76,8 @@ var RippleAccountTransactionStats = React.createClass({
 	          	</div>
 	          	<div className="panel-body" style={panelstyle}>
 	          		<div id={this.chartId ? this.chartId: ''} className="transactionstats"></div>
-	          		  <Table striped bordered condensed hover>
+	          		{barchart}
+	          		 <Table striped bordered condensed hover>
 	                    <thead>
 	                      <th> AccountSet </th>
 	                      <th> TrustSet </th>

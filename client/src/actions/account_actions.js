@@ -108,7 +108,6 @@ var AccountActions = {
 				actionType: Constants.ActionTypes.ASK_RIPPLEOFFERSEXERCISED_SUM,
 				result: collection
 			});
-			console.log("colllecccitoonnn",collection);
 		});
 
 

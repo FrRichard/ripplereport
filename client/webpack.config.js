@@ -100,13 +100,15 @@ module.exports = {
 			//chartsD3
 			pieChartD3: path.join(__dirname, './src/application/views/components/charts/d3/pieChart'),
 			pieChartBigNumberD3: path.join(__dirname, './src/application/views/components/charts/d3/pieChart_bignumber'),
-			barchart: path.join(__dirname, './src/application/views/components/charts/d3/barchart'),
+			barChartD3: path.join(__dirname, './src/application/views/components/charts/d3/barchart'),
 			offersexercisedtotal: path.join(__dirname, './src/application/views/components/charts/d3/offersexercisedtotal'),
-			linechart: path.join(__dirname, './src/application/views/components/charts/d3/linechart'),
-			barchart2: path.join(__dirname, './src/application/views/components/charts/d3/barchart2'),
+			lineChart: path.join(__dirname, './src/application/views/components/charts/d3/linechart'),
+			barChart2D3: path.join(__dirname, './src/application/views/components/charts/d3/barchart2'),
 			//chartsREACT
 			pieChart_react: path.join(__dirname, './src/application/views/components/charts/reactcomponents/pieChart'),
 			pieChart_bignumber_react: path.join(__dirname, './src/application/views/components/charts/reactcomponents/pieChart_bignumber'),
+			barChart_react: path.join(__dirname, './src/application/views/components/charts/reactcomponents/barChart'),
+			barChart2_react: path.join(__dirname, './src/application/views/components/charts/reactcomponents/barChart2'),
 			// components (sub-views)
 			Topbar: path.join(__dirname, './src/application/views/components/topbar/topbar'),
 			Footer: path.join(__dirname, './src/application/views/components/footer/footer'),

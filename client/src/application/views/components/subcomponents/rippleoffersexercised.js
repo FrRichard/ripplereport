@@ -1,7 +1,8 @@
 var React = require('react');
 var RippleoffersexercisedStore = require('RippleoffersexercisedStore');
-var linechart = require('linechart');
-//afa
+var BarChart = require('barChart2_react');
+//css
+var ViewCommon = require('ViewCommon');
 //react-bootstrap
 var Panel = require('react-bootstrap').Panel;
 
@@ -40,9 +41,12 @@ var RippleOffersExercised = React.createClass({
 
 	render: function() {
 		var self =this;
-		var panelstyle = { height:250+'px'};
+		var panelstyle = ViewCommon.linechart;
 		this.chartId= "OfferExercised" +this.props.attributes.key;
-	
+		console.log("staaaaaaaaaaaaaaaaaate",this.state);
+		if(this.state.rippleoffersexercised[this.address]) {
+			var chart = <BarChart id={this.chartId} size={[650,300]} data={this.state.rippleoffersexercised[this.address].globalorders.results} />
+		}
 
 		return (
 			<div className="panel panel-default">
@@ -55,7 +59,7 @@ var RippleOffersExercised = React.createClass({
            			</div>
            		</div>
            		<div className="panel-body" style={panelstyle}>
-           			<div id={this.chartId ? this.chartId: ''}></div>
+           			{chart}
 				</div>
 			</div>);
 

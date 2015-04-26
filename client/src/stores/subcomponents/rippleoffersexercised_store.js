@@ -7,13 +7,22 @@ var CHANGE_EVENT = 'change';
 var _RippleOffersExercised = {};
 
 
-function registerOffersExercised(result) {
+function registerOffersExercised(result,sum) {
 	var offersexercised = result.toJSON();
 
-	_.each(offersexercised, function(offerexercised) {
-		_RippleOffersExercised[offerexercised.id] = offerexercised;
-	});
-	console.log("_RippleOffersExercisedSTORE",_RippleOffersExercised);
+	if(sum) {
+		var offersexercised_sum = result.toJSON();
+		_.each(offersexercised_sum, function(sum) {
+			if(!_RippleOffersExercised[sum.id]) {
+				_RippleOffersExercised[sum.id] = {};
+			}
+			_RippleOffersExercised[sum.id]["globalorders"] = sum;
+		});
+	} else {
+		_.each(offersexercised, function(offerexercised) {
+			_.extend(_RippleOffersExercised[offerexercised.id], offerexercised);
+		});
+	}
 };
 
 var RippleoffersexercisedStore = assign({}, EventEmitter.prototype, {
@@ -31,6 +40,7 @@ var RippleoffersexercisedStore = assign({}, EventEmitter.prototype, {
 	emitChange: function(result) {
 		var self=this;
 		var addresses = result.toJSON();
+		console.log("addresssssessss",addresses);
 		_.each(addresses, function(address) {
 			self.emit(address.id);
 		});
@@ -63,9 +73,11 @@ RippleoffersexercisedStore.dispatcherIndex = Dispatcher.register(function(payloa
   		 case Constants.ActionTypes.ISLOADING:
 			RippleoffersexercisedStore.emitLoading('isloading');
 			break;
-		// case Constants.ActionTypes.ASK_RIPPLEOFFERSEXERCISED_SUM:
-		// 	console.log("summmmmmmmmmmmmmmm",action.result);
-		// 	break;
+		case Constants.ActionTypes.ASK_RIPPLEOFFERSEXERCISED_SUM:
+			// console.log("summmmmmmmmmmmmmmm",action.result);
+			registerOffersExercised(action.result,true);
+			// RippleoffersexercisedStore.emitChange(action.result); 
+			break;
   	}
 
 
