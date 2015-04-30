@@ -3,8 +3,9 @@ var Config = require('config');
 var AccountActions = require('AccountActions');
 var DashboardActions = require('DashboardActions');
 var RippledataActions = require('RippledataActions')
-var RippledataActions = require('RippledataActions');
 var approuter = require('AppRouter');
+var gatewaysnames = require('gatewayNames');
+var EventsController = require('EventsController');
 /** @jsx React.DOM */
 
 
@@ -20,10 +21,19 @@ var SearchBar = React.createClass({
 		var conf = Config.dashboards.account;
 		conf['reportnumber']= toresolve.length;
 		DashboardActions.registerconf(conf);
+		_.each(gatewaysnames, function(gateway) {
+			if(toresolve[0] == gateway.address || toresolve[0] == gateway.name) {
+				conf = Config.dashboards.gateway;
+				DashboardActions.registerconf(conf);
+			}
+		});
 
+		// in this order to avoid dispatch in a dispatch
+		AccountActions.rippleid(toresolve);
 		Backbone.history.navigate('report',{trigger: true, replace: true});
 
-		AccountActions.rippleid(toresolve);
+
+
 		// RippledataActions.markettraders(null,true); //FULL MARKETTRADERS
 
 		// var params = {

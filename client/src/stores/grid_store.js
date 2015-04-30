@@ -16,6 +16,7 @@ function registercurrentref(gridster) {
 
 function registerconf(conf) {
 	_Grids['currentconf'] = conf;
+	console.log("_GRIDSTORE",_Grids);
 };
 
 var GridStore = assign({}, EventEmitter.prototype, {
@@ -46,7 +47,6 @@ var GridStore = assign({}, EventEmitter.prototype, {
 
 	addChangeListener: function(callback) {
 		this.on(CHANGE_EVENT, callback);
-
 	},
 
 	removeChangeListener: function(callback) {
@@ -70,10 +70,10 @@ Dispatcher.register(function(payload) {
 
   		 case Constants.ActionTypes.REGISTER_CONF:
   		 	registerconf(action.result);
+  			GridStore.emitChange();
   		 	break;
   	}
 
-  	GridStore.emitChange();
 
   	return true;
 });

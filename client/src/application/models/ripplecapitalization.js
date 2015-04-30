@@ -17,10 +17,10 @@ var RippleCapitalization = Backbone.Model.extend({
 			      {"currency":"DOG", "issuer":issuer},
 			      {"currency":"MXN", "issuer":issuer},
 			      {"currency":"CAD", "issuer":issuer},
-			      {"currency":"BRL", "issuer":issuer},
-			      {"currency":"SGD", "issuer":issuer},
-			      {"currency":"XAG", "issuer":issuer},
-			      {"currency":"XAU", "issuer":issuer}
+			      {"currency":"BRL", "issuer":issuer}
+			      // {"currency":"SGD", "issuer":issuer},
+			      // {"currency":"XAG", "issuer":issuer},
+			      // {"currency":"XAU", "issuer":issuer}
 			          // {"currency":"XAU", "issuer":issuer},
 			]
 		}

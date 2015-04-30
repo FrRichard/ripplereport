@@ -9,7 +9,7 @@ var _RippleOffersExercised = {};
 
 function registerOffersExercised(result,sum) {
 	var offersexercised = result.toJSON();
-
+	console.log("offersexercisesssssssssssssssssssssssssssssss",offersexercised);
 	if(sum) {
 		var offersexercised_sum = result.toJSON();
 		_.each(offersexercised_sum, function(sum) {
@@ -20,9 +20,13 @@ function registerOffersExercised(result,sum) {
 		});
 	} else {
 		_.each(offersexercised, function(offerexercised) {
+			if(!_RippleOffersExercised[offerexercised.id]) {
+					_RippleOffersExercised[offerexercised.id] = {};
+			}
 			_.extend(_RippleOffersExercised[offerexercised.id], offerexercised);
 		});
 	}
+	console.log("_OFFERSEXERCISEDSTORE",_RippleOffersExercised,result);
 };
 
 var RippleoffersexercisedStore = assign({}, EventEmitter.prototype, {
@@ -37,13 +41,18 @@ var RippleoffersexercisedStore = assign({}, EventEmitter.prototype, {
 		return res;
 	},
 
-	emitChange: function(result) {
+	emitChange: function(result,sum) {
 		var self=this;
 		var addresses = result.toJSON();
-		console.log("addresssssessss",addresses);
-		_.each(addresses, function(address) {
-			self.emit(address.id);
-		});
+		if(sum) {
+			_.each(addresses, function(address) {
+				self.emit(address.id+'sum');
+			});
+		} else {
+			_.each(addresses, function(address) {
+				self.emit(address.id);
+			});
+		}
 	},
 
 	emitLoading: function(event) {
@@ -76,6 +85,7 @@ RippleoffersexercisedStore.dispatcherIndex = Dispatcher.register(function(payloa
 		case Constants.ActionTypes.ASK_RIPPLEOFFERSEXERCISED_SUM:
 			// console.log("summmmmmmmmmmmmmmm",action.result);
 			registerOffersExercised(action.result,true);
+			RippleoffersexercisedStore.emitChange(action.result,"true");
 			// RippleoffersexercisedStore.emitChange(action.result); 
 			break;
   	}

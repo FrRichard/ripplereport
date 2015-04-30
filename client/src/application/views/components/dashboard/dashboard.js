@@ -35,6 +35,7 @@ var Dashboard = React.createClass({
 
   render: function() {
     var dashboard_config = this.props.dashboard_config.items;  
+  
     var reportnumber = this.props.dashboard_config.reportnumber;
     var Items = subcomponentselector.selector(dashboard_config);
 

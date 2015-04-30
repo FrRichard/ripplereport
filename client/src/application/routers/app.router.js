@@ -5,6 +5,8 @@ var config = require('config');
 var GridStore = require('GridStore');
 var DashboardActions = require('DashboardActions');
 var AccountActions = require('AccountActions');
+var gatewaysnames = require('gatewayNames');
+var Config = require('config');
 
 var Router = Backbone.Router.extend({
 
@@ -23,24 +25,25 @@ var Router = Backbone.Router.extend({
     app: function(params) {
         if(params) {
             var param = JSON.parse(params);
-            console.log("paraaaAPPPPPAPAPAPAP",param.address);
+            toresolve = [param.address];
             var conf = config.dashboards.account;
-            toresolve= [param.address];
             conf['reportnumber']= toresolve.length;
             DashboardActions.registerconf(conf);
-            Backbone.history.navigate('report',{trigger: true, replace: true});
+            _.each(gatewaysnames, function(gateway) {
+                if(toresolve == gateway.address || toresolve == gateway.name) {
+                    conf = Config.dashboards.gateway;
+                    DashboardActions.registerconf(conf);
+                }
+            });
             AccountActions.rippleid(toresolve); 
+            Backbone.history.navigate('report',{trigger: true, replace: true});
         } else {
-            var dashboard_config = config.dashboards.account;
-
-        	React.render(<App dashboard_config={ dashboard_config } />, document.getElementById('app'));
+            React.render(<App/>, document.getElementById('app'));
         }
     },
 
-    report: function(params) {
-        var dashboard_config=GridStore.getConf('currentconf').conf;
-
-        React.render(<Account dashboard_config={ dashboard_config} />, document.getElementById('app'));
+    report: function(params) {    
+        React.render(<Account  />, document.getElementById('app'));
     },
 
     render: function(callback) {

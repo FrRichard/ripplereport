@@ -208,6 +208,7 @@ module.exports = {
 			//routers
 			AccountRouter: path.join(__dirname,'./src/application/routers/account.router'),
 			AppRouter: path.join(__dirname, './src/application/routers/app.router'),
+			EventsController: path.join(__dirname, './src/application/routers/eventscontroller'),
 			// Internal libs
 			gridster: path.join(__dirname, './lib/internal-libs/jquery.gridster/gridster'),
 			gridsterResponsive: path.join(__dirname, './lib/internal-libs/gridster-responsive/gridster.responsive'),

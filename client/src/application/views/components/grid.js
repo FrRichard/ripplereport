@@ -5,6 +5,7 @@ var GridStore = require('GridStore');
 var GridElements = React.createClass({
 
     render: function() {
+      this.updateGrid();
       return (<ul />);
     },
 
@@ -54,7 +55,15 @@ var GridElements = React.createClass({
         DashboardActions.registerCurrentRef(gridster);
       });
 
+    },
+
+    updateGrid: function() {
+      _.each(this.props.items, function(item) {
+          $('#'+item.props.attributes.key).attr('data-row',item.props.attributes.row);
+      });
     }
+
+
 });
 
 module.exports = GridElements;

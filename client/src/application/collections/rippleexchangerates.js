@@ -15,19 +15,29 @@ var RippleExchangerates = Backbone.Collection.extend({
 
 		// request formating
 		var ratesqueries ={};
-		_.each(accountslines, function(accountlines) {
-			var pairs = _.map(accountlines.lines, function(line)  {
+		_.each(accountslines, function(accountline) {
+			console.log('acccountliiiiinnnnne',accountline);
+			var lines = [];
+			_.each(accountline.lines, function(line,i) {
+				if(line.balance > 0) {
+					console.log("loliiiibbbbbbnnnne",line);
+					lines.push(accountline.lines[i]);
+				}
+			});
+			console.log('acccountliiiiinnnnne2222222222',lines);
+			var pairs = _.map(lines, function(line)  {
 				range = "year";
 				pair = {};
 				pair["base"]= { currency:line.currency, issuer:line.account };
 				pair["counter"]= { currency:"XRP" };
 
 				return pair;
+
 			});
-			ratesqueries[accountlines.id] = {};
-			ratesqueries[accountlines.id]["pairs"]=pairs;
-			ratesqueries[accountlines.id]["range"] = range;
-			ratesqueries[accountlines.id]["id"] = accountlines.id;
+			ratesqueries[accountline.id] = {};
+			ratesqueries[accountline.id]["pairs"]=pairs;
+			ratesqueries[accountline.id]["range"] = range;
+			ratesqueries[accountline.id]["id"] = accountline.id;
 		});
 
 		

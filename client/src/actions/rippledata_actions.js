@@ -30,7 +30,8 @@ var RippledataActions = {
 	     	if(i!="id") {
 		        lines["lines"].push( {
 		          account: cap.issuer,
-		          currency:cap.currency
+		          currency:cap.currency,
+		          balance:1
 		        });
 		    }
 	     });

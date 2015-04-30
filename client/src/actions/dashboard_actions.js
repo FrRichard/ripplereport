@@ -1,12 +1,16 @@
 var Constants = require('Constants');
 var Dispatcher = require('Dispatcher');
-
+var GridStore = require('GridStore');
+// var Account = require('Account');
+var React = require('react');
 
 
 var DashboardActions = {
 	
 	update: function(newconf) {
-
+		var dashboard_config=GridStore.getConf('currentconf').conf;
+        // React.render(<Account dashboard_config={ dashboard_config} />, document.getElementById('app'));
+        return dashboard_config;
 	},
 
 	registerCurrentRef: function(nodes) {
@@ -24,6 +28,7 @@ var DashboardActions = {
 	},
 
 	registerconf: function(conf) {
+		console.log("regiszter cooooooooooooooooooooooooooooooooonnnnnnnnnnnnnnnf");
 		Dispatcher.handleViewAction({
 			actionType: Constants.ActionTypes.REGISTER_CONF,
 			result: { conf:conf }

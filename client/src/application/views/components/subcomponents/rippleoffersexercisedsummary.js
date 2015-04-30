@@ -266,14 +266,26 @@ var RippleOffersExercisedSummary = React.createClass({
 
 	_onChangeRippleOffersExercisedSummary: function() {
 		var data = getRippleoffersexercisedsummaryState(this.address);
-		var defaultcurrency = Object.keys(data.rippleoffersexercisedsummary[this.address].summary.top10[this.state.selectedtypeoffer])[0];
-		var isloading = false;
+		console.log("dataaaaaaaaaaaa",data);
+		if(data.rippleoffersexercisedsummary[this.address].results.length != 0 ) {
+			var defaultcurrency = Object.keys(data.rippleoffersexercisedsummary[this.address].summary.top10[this.state.selectedtypeoffer])[0];
+			var isloading = false;
+			var isempty = false;
+			this.setState({ 
+				rippleoffersexercisedsummary: data.rippleoffersexercisedsummary, 
+				selectedcurrency: defaultcurrency,
+				isloading: isloading,
+				isempty: isempty
+			});
+		} else {
+			var isloading = false;
+			var isempty = true;
+			this.setState({
+				isloading: isloading,
+				isempty: isempty
+			})
+		}
 
-		this.setState({ 
-			rippleoffersexercisedsummary: data.rippleoffersexercisedsummary, 
-			selectedcurrency: defaultcurrency,
-			isloading: isloading
-		});
 	},
 
 	_onLoading: function() {
