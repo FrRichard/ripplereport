@@ -49,7 +49,7 @@ var Config = {
 	          width: 2,
 	          height: 4,
 	          col: 2,
-	          row: 8,
+	          row: 11,
 	          datatype:"rippleoffersexercised"
 	        },
 	        {
@@ -59,7 +59,7 @@ var Config = {
 	          width: 1,
 	          height: 4,
 	          col: 1,
-	          row: 8,
+	          row: 11,
 	          datatype:"rippleoffersexercisedsummary"
 	        },
 	        {
@@ -69,7 +69,7 @@ var Config = {
 	          width: 2,
 	          height: 4,
 	          col: 2,
-	          row:12,
+	          row:7,
 	          datatype:"rippleaccounttransactions"
 	        },
 	        {
@@ -79,7 +79,7 @@ var Config = {
 	          width: 1,
 	          height: 4,
 	          col: 1,
-	          row: 12,
+	          row: 7,
 	          datatype:"rippleaccounttransactionssummary"
 	        },
 	        {
@@ -89,7 +89,7 @@ var Config = {
 	          width: 2,
 	          height: 3,
 	          col: 1,
-	          row: 16,
+	          row: 15,
 	          datatype:"rippleaccountoffers"
 	        },
 	        {
@@ -99,7 +99,7 @@ var Config = {
 	          width: 1,
 	          height: 3,
 	          col: 3,
-	          row: 16,
+	          row: 15,
 	          datatype:"rippleaccounttransactionstats",
 	          chart:"barchart"
 	        }]
