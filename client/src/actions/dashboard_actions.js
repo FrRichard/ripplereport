@@ -28,7 +28,6 @@ var DashboardActions = {
 	},
 
 	registerconf: function(conf) {
-		console.log("regiszter cooooooooooooooooooooooooooooooooonnnnnnnnnnnnnnnf");
 		Dispatcher.handleViewAction({
 			actionType: Constants.ActionTypes.REGISTER_CONF,
 			result: { conf:conf }

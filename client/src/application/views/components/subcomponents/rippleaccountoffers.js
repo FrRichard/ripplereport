@@ -49,7 +49,7 @@ var RippleAccountOffers = React.createClass({
 		var self =this;
 		var panelstyle = ViewCommon.panellist;
 		var rows = [];
-
+		this.address= "address" + this.props.attributes.reportnumber;
 		if(this.state.rippleaccountoffers["address" + this.props.attributes.reportnumber] != undefined) {
 			this.data = this.datahelper.accountoffers(this.state.rippleaccountoffers["address" + this.props.attributes.reportnumber]);
 			_.each(this.data, function(d,i) {
@@ -75,23 +75,26 @@ var RippleAccountOffers = React.createClass({
            		</div>
            		<div className="panel-body" style={panelstyle}>
            			{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
-	          		{ !this.state.isloading ?
-		          		<Table striped bordered condensed hover>
-			   			    <thead>
-			                  <th> Offers </th>
-			                  <th> Base</th>
-			                  <th> Counter </th>
-			                  <th> Rate </th>
-			                </thead>     
-		                    <tbody>
-		                      {rows}    
-		                    </tbody>
-		                </Table>
-	                : "" }
+           			{ !this.state.isloading ?
+		          		this.state.rippleaccountoffers[this.address] ?
+		          			 this.state.rippleaccountoffers[this.address].offers.length > 0 ?
+				          		<Table striped bordered condensed hover>
+					   			    <thead>
+					                  <th> Offers </th>
+					                  <th> Base</th>
+					                  <th> Counter</th>
+					                  <th> Rate </th>
+					                </thead>     
+				                    <tbody>
+				                      {rows}    
+				                    </tbody>
+				                </Table>
+			                : <div className="didntissueiou"> This account has no ongoing offers </div> 
+		                : "" 
+		            : "" }
            		</div>
 			</div>);
 
-		this.address= "address" + this.props.attributes.reportnumber;
 	},
 
 	_onChangeRippleAccountOffers: function() {

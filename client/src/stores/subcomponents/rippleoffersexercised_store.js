@@ -9,7 +9,6 @@ var _RippleOffersExercised = {};
 
 function registerOffersExercised(result,sum) {
 	var offersexercised = result.toJSON();
-	console.log("offersexercisesssssssssssssssssssssssssssssss",offersexercised);
 	if(sum) {
 		var offersexercised_sum = result.toJSON();
 		_.each(offersexercised_sum, function(sum) {
@@ -26,7 +25,7 @@ function registerOffersExercised(result,sum) {
 			_.extend(_RippleOffersExercised[offerexercised.id], offerexercised);
 		});
 	}
-	console.log("_OFFERSEXERCISEDSTORE",_RippleOffersExercised,result);
+	console.log("_OFFERSEXERCISEDSTORE",_RippleOffersExercised);
 };
 
 var RippleoffersexercisedStore = assign({}, EventEmitter.prototype, {
@@ -83,7 +82,6 @@ RippleoffersexercisedStore.dispatcherIndex = Dispatcher.register(function(payloa
 			RippleoffersexercisedStore.emitLoading('isloading');
 			break;
 		case Constants.ActionTypes.ASK_RIPPLEOFFERSEXERCISED_SUM:
-			// console.log("summmmmmmmmmmmmmmm",action.result);
 			registerOffersExercised(action.result,true);
 			RippleoffersexercisedStore.emitChange(action.result,"true");
 			// RippleoffersexercisedStore.emitChange(action.result); 

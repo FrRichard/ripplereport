@@ -14,7 +14,16 @@ var RippleInfos = Backbone.Collection.extend({
 		this.reset();
 		
 		xhrs = _.map(toresolves, function(toresolve,i) {
-			var model = new RippleInfo({id:toresolve.id},toresolve.address);
+			var j = i + 1;
+			if(toresolve.id) {
+				var id = toresolve.id;
+				var address = toresolve.address;
+			} else {
+				var id = "address" +j ;
+				var address = toresolve;
+			}
+
+			var model = new RippleInfo({id:id},address);
 			var xhr = model.fetch({
 				success: function(model,response) {
 					self.add(model);

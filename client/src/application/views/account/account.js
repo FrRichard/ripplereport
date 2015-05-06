@@ -6,6 +6,8 @@ var Footer = require('Footer');
 var Dashboard = require('Dashboard');
 var Searchbar = require('Searchbar_account');
 var GridStore = require('GridStore');
+var RippleidStore = require('RippleidStore');
+var AccountActions = require('AccountActions');
 
 
 function getDashboardState() {
@@ -28,7 +30,9 @@ var Account = React.createClass({
     },
 
 	componentDidMount: function() {
-		GridStore.addChangeListener(this._onChangeGrid);
+        // var idcollection = RippleidStore.getSpecific("address1")["address1"]["raw"];
+        // AccountActions.viewready(idcollection);
+        GridStore.addChangeListener(this._onChangeGrid);
 	},
 	
     render: function() {

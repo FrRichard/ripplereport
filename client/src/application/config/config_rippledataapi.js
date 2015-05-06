@@ -19,11 +19,11 @@ var Config = {
 		urlModel: "/ripple/dataapi/market_traders/?params="
 	},
 	default_period: {
-		startTime: moment().subtract(1, 'months').format('lll'),
+		startTime: moment().subtract('months', 1).format('lll'),
 		endTime: moment().format('lll')
 	},
 	default_period_sum: {
-		startTime: moment().subtract(1, 'year').format('lll'),
+		startTime: moment().subtract('year', 1).format('lll'),
 		endTime: moment().format('lll')
 	}
 };

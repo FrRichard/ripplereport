@@ -47,10 +47,11 @@ RippleaccountProxy.prototype.init = function(callback) {
 		var parameters = { account: req.query.id };
 		remote.request("account_info",parameters, function(err, acc) {
 			if(err) {
-				console.log("acount_info_error",err);
+				console.log("acount_info_error",err.remote.error);
+				res.send(err);
+			} else {
+				res.send(acc);
 			}
-
-			res.send(acc);
 		});
 
 	

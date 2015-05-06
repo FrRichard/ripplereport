@@ -42,28 +42,8 @@ var Config = {
 	          datatype:"capitalizationoverview",
 	          chart:"pie_accountoverview"
 	        },
-	              {
+	        {
 	          key: 'keyfact5',
-	          title:'Offers Exercised',
-	          icon:'fa fa-area-chart',
-	          width: 2,
-	          height: 4,
-	          col: 2,
-	          row: 11,
-	          datatype:"rippleoffersexercised"
-	        },
-	        {
-	          key: 'keyfact6',
-	          title:'Offers Exercised Summary',
-	          icon:'fa fa-area-chart',
-	          width: 1,
-	          height: 4,
-	          col: 1,
-	          row: 11,
-	          datatype:"rippleoffersexercisedsummary"
-	        },
-	        {
-	          key: 'keyfact7',
 	          title:'Payments',
 	          icon:'fa fa-exchange',
 	          width: 2,
@@ -73,7 +53,7 @@ var Config = {
 	          datatype:"rippleaccounttransactions"
 	        },
 	        {
-	          key: 'keyfact8',
+	          key: 'keyfact6',
 	          title:'Payments Summary',
 	          icon:'fa fa-exchange',
 	          width: 1,
@@ -81,6 +61,26 @@ var Config = {
 	          col: 1,
 	          row: 7,
 	          datatype:"rippleaccounttransactionssummary"
+	        },
+	        {
+	          key: 'keyfact7',
+	          title:'Offers Exercised',
+	          icon:'fa fa-area-chart',
+	          width: 2,
+	          height: 4,
+	          col: 2,
+	          row: 11,
+	          datatype:"rippleoffersexercised"
+	        },
+	        {
+	          key: 'keyfact8',
+	          title:'Offers Exercised Summary',
+	          icon:'fa fa-area-chart',
+	          width: 1,
+	          height: 4,
+	          col: 1,
+	          row: 11,
+	          datatype:"rippleoffersexercisedsummary"
 	        },
 	        {
 	          key: 'keyfact9',
@@ -129,43 +129,43 @@ var Config = {
 	        },
 	        {
 	          key: 'keyfact5',
-	          title:'Offers Exercised',
-	          icon:'fa fa-area-chart',
-	          width: 2,
-	          height: 4,
-	          col: 2,
-	          row: 4,
-	          datatype:"rippleoffersexercised"
-	        },
-	        {
-	          key: 'keyfact6',
-	          title:'Offers Exercised Summary',
-	          icon:'fa fa-area-chart',
-	          width: 1,
-	          height: 4,
-	          col: 1,
-	          row: 4,
-	          datatype:"rippleoffersexercisedsummary"
-	        },
-	        {
-	          key: 'keyfact7',
 	          title:'Payments',
 	          icon:'fa fa-exchange',
 	          width: 2,
 	          height: 4,
 	          col: 2,
-	          row:8,
+	          row:4,
 	          datatype:"rippleaccounttransactions"
 	        },
 	        {
-	          key: 'keyfact8',
+	          key: 'keyfact6',
 	          title:'Payments Summary',
 	          icon:'fa fa-exchange',
 	          width: 1,
 	          height: 4,
 	          col: 1,
-	          row: 8,
+	          row: 4,
 	          datatype:"rippleaccounttransactionssummary"
+	        },
+	        {
+	          key: 'keyfact7',
+	          title:'Offers Exercised',
+	          icon:'fa fa-area-chart',
+	          width: 2,
+	          height: 4,
+	          col: 2,
+	          row: 8,
+	          datatype:"rippleoffersexercised"
+	        },
+	        {
+	          key: 'keyfact8',
+	          title:'Offers Exercised Summary',
+	          icon:'fa fa-area-chart',
+	          width: 1,
+	          height: 4,
+	          col: 1,
+	          row: 8,
+	          datatype:"rippleoffersexercisedsummary"
 	        },
 	        {
 	          key: 'keyfact9',

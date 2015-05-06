@@ -77,18 +77,20 @@ var RippleCapitalization = React.createClass({
 		        </div>
         		<div className="panel-body" style={panelstyle}>
         		{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
-				{ this.state.ripplecapitalization ?
-					<Table striped bordered condensed hover>
-	                    <thead>
-	                      <th> Currency </th>
-	                      <th> Amount </th>
-	                      <th> Hotwallets </th>
-	                    </thead>     
-	                    <tbody>
-	                      {rows}    
-	                    </tbody>
-             		</Table>
-             	: "This account didn't issued any IOUs" }
+        		{ !this.state.isloading ?
+					this.state.ripplecapitalization ?
+						<Table striped bordered condensed hover>
+		                    <thead>
+		                      <th> Currency </th>
+		                      <th> Amount </th>
+		                      <th> Hotwallets </th>
+		                    </thead>     
+		                    <tbody>
+		                      {rows}    
+		                    </tbody>
+	             		</Table>
+	             	: <div className="didntissueiou"> This account didn't issued any IOUs </div>
+	            : "" }
 				</div>
 			</div>
 		);

@@ -266,7 +266,6 @@ var RippleOffersExercisedSummary = React.createClass({
 
 	_onChangeRippleOffersExercisedSummary: function() {
 		var data = getRippleoffersexercisedsummaryState(this.address);
-		console.log("dataaaaaaaaaaaa",data);
 		if(data.rippleoffersexercisedsummary[this.address].results.length != 0 ) {
 			var defaultcurrency = Object.keys(data.rippleoffersexercisedsummary[this.address].summary.top10[this.state.selectedtypeoffer])[0];
 			var isloading = false;

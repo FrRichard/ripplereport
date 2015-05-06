@@ -213,26 +213,33 @@ var isReady = {};
 RippleaccountoverviewsStore.dispatcherIndex = Dispatcher.register(function(payload) {
 	var action = payload.action;
 	var result;
-	
+
+	if(action.init) {
+		if(action.init == "address") {
+			isReady = {	id: false, lines:false, exchangerates:false };
+			initDatasets(RippleinfosStore.getAll());
+		} else {
+			isReady = {	id: false, lines:false, exchangerates:false };
+			initDatasets(RippleidStore.getAll());
+		}
+	}
 	switch(action.actionType) {
 		// case Constants.ActionTypes.ASK_RIPPLEACCOUNTOVERVIEW:
 		case Constants.ActionTypes.ASK_RIPPLEID:
 			Dispatcher.waitFor([
 				RippleidStore.dispatcherIndex
 			])
-			isReady = {	infos: false, lines:false, exchangerates:false };
-
+			isReady.id = true;
 			allStoreReady(isReady,action);
-			initDatasets(RippleidStore.getAll());
+			// initDatasets(RippleidStore.getAll());
 			break;
 
 		case Constants.ActionTypes.ASK_RIPPLEINFOS:
 			Dispatcher.waitFor([
 				RippleinfosStore.dispatcherIndex
 			])
-			registerRippleInfos(RippleinfosStore.getAll());
-			isReady.infos = true;
 			allStoreReady(isReady,action);
+			registerRippleInfos(RippleinfosStore.getAll());
 			break;
 
 		case Constants.ActionTypes.ASK_RIPPLELINES:

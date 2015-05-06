@@ -19,6 +19,8 @@ var Table = require('react-bootstrap').Table;
 //common
 var CollapsableRow = require('CollapsableRow');
 
+var AccountActions = require('AccountActions');
+
 
 function isLoading(key) {
 
@@ -55,13 +57,14 @@ function getRippleinfosState(key) {
 }
 
 var RippleAccount = React.createClass({
-
     getInitialState: function() {
-      rippleids={};
-      rippleinfos={};
-      ripplelines={};
-      isloading=true;
+      var key =  this.props.attributes.reportnumber;
 
+      rippleids=getRippleidState("address"+key)["rippleids"];
+      rippleinfos=getRippleinfosState("address"+key)["rippleinfos"];
+      ripplelines=getRipplelinesState("address"+key)["ripplelines"];
+      isloading=true;
+      console.log("RIPPLEIDVIEWWWW",rippleids);
       return { rippleids:rippleids, rippleinfos:rippleinfos, ripplelines:ripplelines, isloading:isloading };
  
     },
@@ -79,7 +82,6 @@ var RippleAccount = React.createClass({
       RippleidStore.addChangeListener(address,this._onChangeRippleid);
       RipplelinesStore.addChangeListener(address,this._onChangeRipplelines);
       RippleinfosStore.addChangeListener(address,this._onChangeRippleinfos);
-      
     },
     
     componentWillUnmount: function() {
@@ -100,8 +102,8 @@ var RippleAccount = React.createClass({
         var xrpamount =this.state.rippleinfos[this.address].account_data.Balance/Math.pow(10,6);
         rows.push(
           <tr onMouseOver={self.mouseOverLinesHandler(['XRP',""])} key={"rippleacount"+rows.length} onMouseOut={self.mouseOutLinesHandler(['XRP',""])}>
-              <td key={"rippleaccouncurrency"+(rows.length)}>XRP</td>
-              <td key={"rippleaccountbalance"+(rows.length)}> {FormatUtils.formatValue(xrpamount)} </td>
+              <td key={"rippleaccouncurrencyxrp"+(rows.length)}>XRP</td>
+              <td key={"rippleaccountbalancexrp"+(rows.length)}> {FormatUtils.formatValue(xrpamount)} </td>
           </tr>
         );
       }
@@ -112,7 +114,7 @@ var RippleAccount = React.createClass({
             if(line['no_ripple'] == true) { var noripple = <i className="fa fa-times checkwrong"></i>; } else { var noripple = <i className="fa fa-check checkright"></i>; }
             var address = { address:line['account']};
             rows.push(     
-              <tr onMouseOver={self.mouseOverLinesHandler([line['currency'],line['account']])}    onMouseOut={self.mouseOutLinesHandler([line['currency'],line['account']])}>              
+              <tr key={"accounttable"+(i+1)} onMouseOver={self.mouseOverLinesHandler([line['currency'],line['account']])}    onMouseOut={self.mouseOutLinesHandler([line['currency'],line['account']])}>              
                   <td key={"rippleaccouncurrency"+(i+1)}> {line['currency']}</td>
                   <td key={"rippleaccountbalance"+(i+1)}> {FormatUtils.formatValue(line['balance'])} </td>
                   <td key={"rippleaccountaccount"+(i+1)}> <a href={"/app?"+JSON.stringify(address)} target="_blank" value={line['account']}> {line['account']} </a> </td>
@@ -123,6 +125,8 @@ var RippleAccount = React.createClass({
           }
         }); 
       }
+
+      // console.log("accccouuntnSTAAAAAAAAAAAAAAAAAATE",this.state);
               // var hiddencontent = "awagagaga";
               // var testcontent = <CollapsableRow key={"colalpsebalance"+i} content={[line['currency'],line['name']]} type={"td"} > {hiddencontent} </CollapsableRow> ;
        // <CollapsableRow key={"colalpsebalance"+i} content={line['currency']} type={"td"} >  awagagaga </CollapsableRow> 

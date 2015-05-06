@@ -22,7 +22,8 @@ var RippleAccountTransactions = React.createClass({
 
 	getInitialState: function() {
 		rippleaccounttransactions={};
-		return { rippleaccounttransactions:rippleaccounttransactions};
+		isloading = true;
+		return { rippleaccounttransactions:rippleaccounttransactions, isloading:isloading};
 	},
 
 
@@ -34,6 +35,7 @@ var RippleAccountTransactions = React.createClass({
 		var key = this.props.attributes.reportnumber;
 		var address = "address" + key;
 		//Listener
+		RippleaccounttransactionsStore.addChangeListener('isloading', this._onLoading);
 		RippleaccounttransactionsStore.addChangeListener(address, this._onChangeRippleaccounttransactions);
 		// instanciate stuff
 		this.DataHelper = new datahelper();
@@ -49,35 +51,28 @@ var RippleAccountTransactions = React.createClass({
 		var panelstyle = viewcommon.linechart;
 
 		this.chartId= "Overviewcapitalization" +this.props.attributes.key;
-	    if( this.state.rippleaccounttransactions["address" + this.props.attributes.reportnumber] != undefined) {
-	      // this.linechart.draw(this.chartId, this.state.rippleaccounttransactions["address" + this.props.attributes.reportnumber].transactions);
-	    }
-           // 			{ this.state.rippleaccounttransactions[this.address].summary.totalcash.length >0 ? 
-			        //   <PieChart id={"CapitalizationOverviewChart"} size={[200,200]} data={this.state.shares} />
-			        // : "" }
+
 		var AllPies = [];
-					// <Griddle results={fakeData} tableClassName="table" showFilter={true}
- // showSettings={true} columns={["name", "city", "state", "country"]}/>
 
 		if(this.state.rippleaccounttransactions[this.address]) {
 			var totalcashs = this.state.rippleaccounttransactions[this.address].summary.totalcash;
 			_.each(totalcashs, function(totalcash,key) {
 				var todraw = self.DataHelper.PieChart_bignumber(totalcash);
 				var currencyimgsrc =FormatUtils.formatCurrencyLabel(key).image;
-	      		var currencyimg = <img className="currencyimgoverview" src={currencyimgsrc}/> 
+	      		var currencyimg = <img key={"currencyimg"+key} className="currencyimgoverview" src={currencyimgsrc}/> 
 				if(todraw.length>0) {
 					if(todraw[0].amount > 0 || todraw[1].amount > 0) {
 						AllPies.push(
-							<div className="transactionsmallpie">
-								<div className="transactioncurrencytitle">
+							<div key={"smallpie"+key} className="transactionsmallpie">
+								<div key={"transactioncurrencytitle"+key} className="transactioncurrencytitle">
 									{currencyimg} &nbsp;
 									{key} 
 								</div>
 								<PieChart id={"Cashinout_"+key} size={[100,100]} data={todraw} />
 								<div className="totalcashinoutt">
-									<span className="totalcashin">Cash In: {FormatUtils.formatValue(totalcash.cashin)} </span><br/>
-									<span className="totalcashout">Cash Out: {FormatUtils.formatValue(totalcash.cashout)} </span><br/>
-									<span className="totalstandard">Standard: {FormatUtils.formatValue(totalcash.standard)} </span>
+									<span key= {"cashin"+key} className="totalcashin">Cash In: {FormatUtils.formatValue(totalcash.cashin)} </span><br/>
+									<span key ={"cashout" +key} className="totalcashout">Cash Out: {FormatUtils.formatValue(totalcash.cashout)} </span><br/>
+									<span key={"standard"+key} className="totalstandard">Standard: {FormatUtils.formatValue(totalcash.standard)} </span>
 								</div>
 							</div>
 						);
@@ -100,29 +95,44 @@ var RippleAccountTransactions = React.createClass({
 						</span>
            			</div>
            		</div>
-           		<h4 className="maintitleminipie"> Payment Sum and Directions </h4>
-           		<h4 className="maintitlealltransactions "> All Payments </h4>
-           		<div className="panel-body" style={panelstyle}>
-           			<div className="allsmallpie">
-           		 		{AllPies}
-           		 	</div>
-           		 	<div className="alltransactions">
-	           		 	{ this.state.rippleaccounttransactions[this.address] ? 
-	           		 		<Griddle results={this.state.rippleaccounttransactions[this.address].transactions}
-	           		 			columns={["currency", "amount", "direction", "time"]} resultsPerPage={5}/>
-	           		 	: "" }
-           		 	</div>
-				</div>
+           		{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
+           		{ !this.state.isloading ?
+           			this.state.rippleaccounttransactions[this.address] ?
+           				this.state.rippleaccounttransactions[this.address].transactions.length > 0 ?
+			           		<div className="panel-body" style={panelstyle}>
+			           		<h4 className="maintitleminipie"> Payment Sum and Directions </h4>
+				           		<h4 className="maintitlealltransactions "> All Payments </h4>
+				           			<div className="allsmallpie">
+				           		 		{AllPies}
+				           		 	</div>
+				           		 	<div className="alltransactions">
+					           		 		<Griddle results={this.state.rippleaccounttransactions[this.address].transactions}
+					           		 			columns={["currency", "amount", "direction", "time"]} resultsPerPage={5}/>
+				           		 	</div>
+							</div>
+						:  <div className="didntissueiou"> This account didn't make any payment </div> 
+					: ""
+				: ""}
 
 			</div>);
 
-		this.address= "address" + this.props.attributes.reportnumber;
 	},
+
+	_onLoading: function() {
+		this.setState({
+			isloading:true
+		});
+    },
 
 	_onChangeRippleaccounttransactions: function() {
 		var key = this.props.attributes.reportnumber;
 		this.address= "address" + key;
-		this.setState(getRippleaccounttransactionsState("address" + key));
+		var isloading = false;
+		var rippleaccounttransactions = getRippleaccounttransactionsState("address" + key).rippleaccounttransactions;
+		this.setState({
+			rippleaccounttransactions: rippleaccounttransactions,
+			isloading: isloading
+		});
 	}
 
 });

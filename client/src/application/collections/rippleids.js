@@ -11,13 +11,20 @@ var RippleIds = Backbone.Collection.extend({
 	},
 
 	createIdList: function(toresolves) {
-		var AccountActions = require('AccountActions');
 		var self = this;
 		this.reset();
 
 		var xhrs = _.map(toresolves, function(toresolve,i) {
-				var j = i + 1
-				var model = new RippleId({id:"address"+j},toresolve);
+				var j = i + 1;
+				if(toresolve.id) {
+					var id = toresolve.id;
+					var address = toresolve.address;
+				} else {
+					var id = "address" +j ;
+					var address = toresolve;
+				}
+
+				var model = new RippleId({id:id}, address);
 				var xhr = model.fetch({
 					success: function(model,response) {
 						if (model.attributes.exists == false) {

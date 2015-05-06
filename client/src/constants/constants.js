@@ -21,7 +21,9 @@ module.exports = {
     REGISTER_CONF: null,
     ADD_WIDGET: null,
     REMOVE_WIDGET: null,
-    ISLOADING: null
+    ISLOADING: null,
+    WRONGADDRESS:null,
+    RIGHTADDRESS:null
   }),
 
   PayloadSources: keyMirror({

@@ -85,6 +85,7 @@ module.exports = {
 			// Utils
 			FormatUtils: path.join(__dirname, './src/application/utils/FormatUtils'),
 			gatewayNames: path.join(__dirname, './src/application/utils/gatewayNames'),
+			addressvalidator: path.join(__dirname, './src/application/utils/addressvalidator'),
 			
 			//SVG & views common styles
 			SvgCommon: path.join(__dirname, './style/charts/svgcommon'),
@@ -138,6 +139,7 @@ module.exports = {
 
 
 			//subcomponent helpers
+			AddressExists: path.join(__dirname, './src/application/views/components/addressexists'),
 			AdaptGrid: path.join(__dirname, './src/application/views/components/adaptGrid'),
 			SubcomponentSelector: path.join(__dirname, './src/application/views/components/subcomponentselector'),
 			GridElements: path.join(__dirname, './src/application/views/components/grid'),
@@ -231,6 +233,9 @@ module.exports = {
 			classie: path.join(__dirname, './lib/internal-libs/home/classie'),
 			cbpAnimatedHeader: path.join(__dirname, './lib/internal-libs/home/cbpAnimatedHeader'),
 			jqueryEasing: path.join(__dirname, './lib/internal-libs/home/jquery.easing'),
+
+			// Other
+			intZ: path.join(__dirname, './lib/other/int')
 		}
 	},
 

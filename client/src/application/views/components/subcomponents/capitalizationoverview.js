@@ -67,7 +67,7 @@ var CapitalizationOverview = React.createClass({
       var total = [];
       var currencyimgsrc =FormatUtils.formatCurrencyLabel(this.state.optlist.selectedcurrency[0]).image;
       var currencyimg = <img className="currencyimgoverview" src={currencyimgsrc}/> 
-      total.push(<div className="totalfiat">{currencyimg} {FormatUtils.formatValue(this.state.totalfiat.amount)} </div>);
+      total.push(<div key={"totalcapitalization"} className="totalfiat">{currencyimg} {FormatUtils.formatValue(this.state.totalfiat.amount)} </div>);
       // total.push(<div>Total value in &nbsp;</div>);
       // total.push(<div className="totalcurrencyimg">{this.state.optlist.selectedcurrency[0]}</div>);
       // total.push(<div className="gatewayname"> { this.state.totalfiat.name } </div>);
@@ -88,22 +88,21 @@ var CapitalizationOverview = React.createClass({
         </div>
         <div className="panel-body">
         { this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
-        {!this.state.isloading ?
-            <div className="networthcontainer"> 
-              <div className="totalvaluetitle">Net worth in &nbsp;</div>
-              { this.state.shares ?
-                <select className='customSelector' onChange={this.onSelectCurrency} value={this.state.optlist.selectedcurrency[0]+","+this.state.optlist.selectedcurrency[1]} >
-                  {optionlist}
-                </select> 
-              : "This account didn't issue any IOU" }
 
-              { this.state.shares ?
-                <div id={"OverviewTotal" + this.props.attributes.key}> 
-                    {total}
-                </div>
-              : "" }
-            </div>
-        :""}
+        { !this.state.isloading ?
+          this.state.shares ?
+              <div className="networthcontainer"> 
+                  <div className="totalvaluetitle">Net worth in &nbsp;</div>
+                  <select className='customSelector' onChange={this.onSelectCurrency} value={this.state.optlist.selectedcurrency[0]+","+this.state.optlist.selectedcurrency[1]} >
+                    {optionlist}
+                  </select> 
+                  <div id={"OverviewTotal" + this.props.attributes.key}> 
+                      {total}
+                  </div>
+              </div>
+          : <div className="didntissueiou"> This account didn't issue any IOU </div> 
+        : "" }
+
        
         { this.state.shares ? 
           <PieChart id={"CapitalizationOverviewChart"} size={[200,200]} data={this.state.shares} />

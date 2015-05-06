@@ -14,32 +14,112 @@ var RippledataActions = require("RippledataActions");
 
 var AccountActions = {
 
-	rippleid: function(toresolve,gridsterKeys) {
+	idtrack: function(toresolve) {
 		var self = this;
+		Dispatcher.handleServerAction({
+			actionType:Constants.ActionTypes.ISLOADING
+		});
+		var rippleidcollection = new rippleids();
+		rippleidcollection.createIdList(toresolve).then(function() {	
+			console.log("IDCOLLECTION",rippleidcollection.toJSON());
+			if(rippleidcollection.toJSON()[0].exists) {
+				Dispatcher.handleViewAction({
+					actionType: Constants.ActionTypes.ASK_RIPPLEID,
+					result: rippleidcollection,
+					init: "id"
+				});
+				Dispatcher.handleViewAction({
+					actionType: Constants.ActionTypes.RIGHTADDRESS,
+					result: rippleidcollection
+				});
+				
+			} else {
+				Dispatcher.handleServerAction({
+					actionType: Constants.ActionTypes.WRONGADDRESS,
+					result: rippleidcollection
+				});
+			}
+		});
+	},
+
+	addresstrack: function(toresolve) {
+		console.log("addresstrazckactions",toresolve);
+		var self = this;
+		var rippleinfoscollection = new rippleinfos();
 
 		Dispatcher.handleServerAction({
 			actionType:Constants.ActionTypes.ISLOADING
 		});
 
-		toresolves = toresolve;
+		rippleinfoscollection.createInfosList(toresolve).then(function() {	
+			console.log("rippleinfocollection",rippleinfoscollection.toJSON());
+			var checkexistence = rippleinfoscollection.toJSON();
+			if(checkexistence[0].error) {
+				Dispatcher.handleViewAction({
+						actionType: Constants.ActionTypes.WRONGADDRESS,
+						result: rippleinfoscollection
+				});
+			} else {
+				Dispatcher.handleViewAction({
+					actionType: Constants.ActionTypes.ASK_RIPPLEINFOS,
+					result: rippleinfoscollection,
+					init: "address"
+				});
+				Dispatcher.handleViewAction({
+						actionType: Constants.ActionTypes.RIGHTADDRESS,
+						result: rippleinfoscollection
+				});
+			}
+		
+		});	
+	},
+
+	rippleinfos: function(toresolve) {
+		var self = this;
+		var rippleinfoscollection = new rippleinfos();
+		rippleinfoscollection.createInfosList(toresolve).then(function() {	
+			Dispatcher.handleViewAction({
+				actionType: Constants.ActionTypes.ASK_RIPPLEINFOS,
+				result: rippleinfoscollection
+			});	
+		});
+	},
+
+	rippleid: function(toresolve) {
+		var self = this;
 
 		var rippleidcollection = new rippleids();
-
-		rippleidcollection.createIdList(toresolves,gridsterKeys).then(function() {	
+		rippleidcollection.createIdList(toresolve).then(function() {	
 			Dispatcher.handleViewAction({
 				actionType: Constants.ActionTypes.ASK_RIPPLEID,
 				result: rippleidcollection
 			});
-			
-			self.rippleoffersexercised(rippleidcollection);
-			self.rippleoffersexercised_sum(rippleidcollection,"sum");
-			self.ripplecapitalization(rippleidcollection);
-			self.rippleaccounttransactions(rippleidcollection);
-			self.rippleaccounttransactionstats(rippleidcollection);
-			self.rippleaccountoffers(rippleidcollection);
-			self.ripplelines(rippleidcollection);
-			self.rippleinfos(rippleidcollection);
 		});
+
+	},
+
+	viewready: function(address,type) {
+		var self = this;
+		console.log("ADDRESS",address);
+		if(type == "address") {
+			self.rippleid( address.infos );
+			self.rippleoffersexercised( address.infos );
+			self.rippleoffersexercised_sum( address.infos, "sum" );
+			self.ripplecapitalization( address.infos );
+			self.rippleaccounttransactions( address.infos );
+			self.rippleaccounttransactionstats( address.infos );
+			self.rippleaccountoffers( address.infos );
+			self.ripplelines( address.infos );
+		} else {
+			self.rippleoffersexercised( address.raw.toJSON() );
+			self.rippleoffersexercised_sum( address.raw.toJSON(), "sum" );
+			self.ripplecapitalization( address.raw.toJSON() );
+			self.rippleaccounttransactions( address.raw.toJSON() );
+			self.rippleaccounttransactionstats( address.raw.toJSON() );
+			self.rippleaccountoffers( address.raw.toJSON() );
+			self.ripplelines( address.raw.toJSON() );
+			self.rippleinfos( address.raw.toJSON() );
+		}
 	},
 
 	ripplelines: function(toresolve) {
@@ -48,7 +128,7 @@ var AccountActions = {
 
 		var ripplelinescollection = new ripplelines();
 
-		ripplelinescollection.createLinesList(toresolve.toJSON()).then(function() {	
+		ripplelinescollection.createLinesList(toresolve).then(function() {	
 			Dispatcher.handleViewAction({
 				actionType: Constants.ActionTypes.ASK_RIPPLELINES,
 				result: ripplelinescollection
@@ -58,26 +138,13 @@ var AccountActions = {
 
 	},
 
-	rippleinfos: function(toresolve) {
-		var self = this;
-		var rippleinfoscollection = new rippleinfos();
-		// console.log("TORESOLVE_actionINFOS",toresolve);
-		rippleinfoscollection.createInfosList(toresolve.toJSON()).then(function() {	
-
-			Dispatcher.handleViewAction({
-				actionType: Constants.ActionTypes.ASK_RIPPLEINFOS,
-				result: rippleinfoscollection
-			});
-		
-		});	
-	},
 
 
 	ripplecapitalization: function(issuers) {
 		var self = this;
 
 		var collection= new ripplecapitalizations();
-		collection.createIssuercapitalizationList(issuers.toJSON()).then(function() {
+		collection.createIssuercapitalizationList(issuers).then(function() {
 			Dispatcher.handleViewAction({
 				actionType: Constants.ActionTypes.ASK_RIPPLECAPITALIZATION,
 				result:collection
@@ -89,9 +156,8 @@ var AccountActions = {
 
 	rippleoffersexercised: function(accounts, period) {
 		var self = this;
-
 		var collection = new rippleoffersexercised();
-		collection.createOffersexercisedList(accounts.toJSON(),period).then(function() {
+		collection.createOffersexercisedList(accounts, period).then(function() {
 			Dispatcher.handleViewAction({
 				actionType: Constants.ActionTypes.ASK_RIPPLEOFFERSEXERCISED,
 				result: collection
@@ -101,9 +167,8 @@ var AccountActions = {
 
 	rippleoffersexercised_sum: function(account, period) {
 		var self = this;
-
 		var collection = new rippleoffersexercised();
-		collection.createOffersexercisedList(account.toJSON(),period).then(function() {
+		collection.createOffersexercisedList(account, period).then(function() {
 			Dispatcher.handleViewAction({
 				actionType: Constants.ActionTypes.ASK_RIPPLEOFFERSEXERCISED_SUM,
 				result: collection
@@ -117,7 +182,7 @@ var AccountActions = {
 		var self = this;
 
 		var collection = new rippleaccounttransactions();
-		collection.createAccountTransactionsList(accounts.toJSON()).then(function() {
+		collection.createAccountTransactionsList(accounts).then(function() {
 			Dispatcher.handleViewAction({
 				actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS,
 				result: collection
@@ -129,7 +194,7 @@ var AccountActions = {
 	rippleaccounttransactionstats: function(accounts) {
 		var self = this;
 		var collection = new rippleaccounttransactionstats();
-		collection.createAccountTransactionStatsList(accounts.toJSON()).then(function() {
+		collection.createAccountTransactionStatsList(accounts).then(function() {
 			Dispatcher.handleViewAction({
 				actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONSTATS,
 				result: collection
@@ -140,7 +205,7 @@ var AccountActions = {
 	rippleaccountoffers: function(accounts) {
 		var self = this;
 		var collection = new rippleaccountoffers();
-		collection.createAccountOffersList(accounts.toJSON()).then(function() {
+		collection.createAccountOffersList(accounts).then(function() {
 			Dispatcher.handleViewAction({
 				actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTOFFERS,
 				result: collection

@@ -23,7 +23,8 @@ function registerId(result) {
 
 	_.each(addresses, function(addr) {
 		_RippleIddatas[addr.id] = addr;
-		_RippleIddatas[addr.id]["loading"]=false;
+		_RippleIddatas[addr.id]["loading"] = false;
+		_RippleIddatas[addr.id]["raw"] = result;
 	});
 	
 	console.log("_RippleIdStore",_RippleIddatas);
@@ -67,8 +68,8 @@ var RippleidStore = assign({}, EventEmitter.prototype, {
 		this.on(address, callback);
 	},
 
-	removeChangeListener: function(callback) {
-		this.removeListener(CHANGE_EVENT, callback);
+	removeChangeListener: function(event,callback) {
+		this.removeListener(event, callback);
 	},
 
 	
@@ -81,18 +82,26 @@ RippleidStore.dispatcherIndex = Dispatcher.register(function(payload) {
   	var result;
 
   	switch(action.actionType) {
-  		 case Constants.ActionTypes.ASK_RIPPLEID:	 
+  		case Constants.ActionTypes.ASK_RIPPLEID:	
   		 	registerId(action.result);	
   		 	RippleidStore.emitChange(action.result); 		
   		 	break;
 
-  		 case Constants.ActionTypes.LOADING_GIF:
+  		case Constants.ActionTypes.LOADING_GIF:
   		 	loadFlag(action.toresolves);
   		 	RippleidStore.emitLoad();
   		 	break;
 
-  		 case Constants.ActionTypes.ISLOADING:
+  		case Constants.ActionTypes.ISLOADING:
 			RippleidStore.emitLoading('isloading');
+			break;
+
+		case Constants.ActionTypes.WRONGADDRESS:
+			RippleidStore.emitLoading("wrongaddress");
+			break;
+
+		case Constants.ActionTypes.RIGHTADDRESS:
+			RippleidStore.emitLoading("rightaddress");
 			break;
   	}
 

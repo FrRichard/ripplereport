@@ -10,10 +10,13 @@ var _RippleInfos = {};
 function registerInfo(result) {
 
 	var infos = result.toJSON();
-	// console.log(infos);
 
 	_.each(infos, function(info) {
 		_RippleInfos[info.id] = info;
+		_RippleInfos[info.id].infos = [{
+			address: info.account_data.Account,
+			id: info.id,
+		}];
 	});
 	console.log("_RippleInfosStore",_RippleInfos);
 	// console.log("REGISTERINFO_result",result);
