@@ -42,6 +42,10 @@ var RippleinfosStore = assign({}, EventEmitter.prototype, {
 		});
 	},
 
+	emitEvent: function(event) {
+		this.emit(event);
+	},
+
 	addChangeListener: function(address,callback) {
 		this.on(address, callback);
 	},
@@ -60,8 +64,13 @@ RippleinfosStore.dispatcherIndex = Dispatcher.register(function(payload) {
   	switch(action.actionType) {
   		 case Constants.ActionTypes.ASK_RIPPLEINFOS:	
   		 	registerInfo(action.result); 	
+  		 	console.log("==========+++> INFOSSTORE has been REGISTERED");
   		 	RippleinfosStore.emitChange(action.result); 		
   		 	break;
+  		 case Constants.ActionTypes.RIGHTADDRESS_INFOS:
+			console.log("=========+++> EMITING RIGHT from INFOSSTORE")
+			RippleinfosStore.emitEvent("rightaddress_frominfosstore");
+			break;
   	}
 
 

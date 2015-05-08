@@ -20,11 +20,17 @@ var queue = async.queue( function (task, callback) {
 AppDispatcher = assign(dispatcher, {
     handleServerAction: function (action) {
         queue.push({source : 'SERVER_ACTION', action : action});
+        // console.log(queue);
     },
     handleViewAction: function (action) {
         queue.push({source: 'VIEW_ACTION', action : action});
+		// console.log(queue);
     }
 });
+
+
+module.exports = AppDispatcher;
+
 
 // var AppDispatcher = assign(new Dispatcher() , {
 
@@ -47,6 +53,3 @@ AppDispatcher = assign(dispatcher, {
 // 	}
 
 // });
-
-
-module.exports = AppDispatcher;

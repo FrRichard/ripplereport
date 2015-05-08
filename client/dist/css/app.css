@@ -9393,6 +9393,15 @@ path {
   border-spacing: 10px;
   padding: 10px; }
 
+.loading_search {
+  height: 15px;
+  display: inline;
+  position: absolute;
+  top: -50%; }
+
+.searchbutton {
+  float: left; }
+
 .loading {
   height: 60px;
   display: block;

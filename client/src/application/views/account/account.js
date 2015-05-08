@@ -4,7 +4,7 @@ var Topbar = require('Topbar');
 var SideMenu = require('SideMenu');
 var Footer = require('Footer');
 var Dashboard = require('Dashboard');
-var Searchbar = require('Searchbar_account');
+var S = require('Searchbar_account');
 var GridStore = require('GridStore');
 var RippleidStore = require('RippleidStore');
 var AccountActions = require('AccountActions');
@@ -23,7 +23,7 @@ var Account = React.createClass({
 
 
     getInitialState: function() {
-        var dashboard = {};
+        var dashboard = GridStore.getConf('currentconf').conf;
 
         return { dashboard:dashboard };
 
@@ -36,13 +36,14 @@ var Account = React.createClass({
 	},
 	
     render: function() {
-        return (
-        <div>
+            console.log("RENDER ACCOUNT",this.state, this.props);
+            var Searchbar = this.props.searchbar;
+        return (<div>
             <Topbar searchbar={Searchbar} />
-        { this.state.dashboard.items ?
+            { this.state.dashboard.items ?
             <Dashboard dashboard_config={ this.state.dashboard } />
-        : ''}
-        </div>
+            : ''}
+            </div>
         );
     },
 

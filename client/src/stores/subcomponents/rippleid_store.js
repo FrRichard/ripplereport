@@ -56,7 +56,7 @@ var RippleidStore = assign({}, EventEmitter.prototype, {
 		});
 	},
 
-	emitLoading: function(event) {
+	emitEvent: function(event) {
 		this.emit(event);
 	},
 
@@ -82,8 +82,9 @@ RippleidStore.dispatcherIndex = Dispatcher.register(function(payload) {
   	var result;
 
   	switch(action.actionType) {
-  		case Constants.ActionTypes.ASK_RIPPLEID:	
+  		case Constants.ActionTypes.ASK_RIPPLEID:
   		 	registerId(action.result);	
+  			console.log("==========+++> IDSTORE has been REGISTERED");	
   		 	RippleidStore.emitChange(action.result); 		
   		 	break;
 
@@ -93,15 +94,16 @@ RippleidStore.dispatcherIndex = Dispatcher.register(function(payload) {
   		 	break;
 
   		case Constants.ActionTypes.ISLOADING:
-			RippleidStore.emitLoading('isloading');
+			RippleidStore.emitEvent('isloading');
 			break;
 
 		case Constants.ActionTypes.WRONGADDRESS:
-			RippleidStore.emitLoading("wrongaddress");
+			RippleidStore.emitEvent("wrongaddress");
 			break;
 
-		case Constants.ActionTypes.RIGHTADDRESS:
-			RippleidStore.emitLoading("rightaddress");
+		case Constants.ActionTypes.RIGHTADDRESS_ID:
+			console.log("=========+++> EMITING RIGHT from IDSTORE")
+			RippleidStore.emitEvent("rightaddress_fromidstore");
 			break;
   	}
 

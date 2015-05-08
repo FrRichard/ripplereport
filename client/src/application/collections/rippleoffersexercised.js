@@ -17,7 +17,7 @@ var RippleOffersExercised = Backbone.Collection.extend({
 			var timeIncrement = null;
 		} else if(period =="sum") {
 			var period = config.rippledataapi.default_period_sum;
-			var timeIncrement = "day";
+			var timeIncrement = "week";
 		}
 
 		var xhrs = _.map(accounts, function(account) {

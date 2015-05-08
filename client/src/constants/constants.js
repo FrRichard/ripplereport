@@ -23,7 +23,8 @@ module.exports = {
     REMOVE_WIDGET: null,
     ISLOADING: null,
     WRONGADDRESS:null,
-    RIGHTADDRESS:null
+    RIGHTADDRESS_ID:null,
+    RIGHTADDRESS_INFOS:null
   }),
 
   PayloadSources: keyMirror({

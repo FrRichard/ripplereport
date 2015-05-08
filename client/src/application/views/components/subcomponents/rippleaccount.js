@@ -64,7 +64,7 @@ var RippleAccount = React.createClass({
       rippleinfos=getRippleinfosState("address"+key)["rippleinfos"];
       ripplelines=getRipplelinesState("address"+key)["ripplelines"];
       isloading=true;
-      console.log("RIPPLEIDVIEWWWW",rippleids);
+      //console.log("RIPPLEIDVIEWWWW",rippleids);
       return { rippleids:rippleids, rippleinfos:rippleinfos, ripplelines:ripplelines, isloading:isloading };
  
     },

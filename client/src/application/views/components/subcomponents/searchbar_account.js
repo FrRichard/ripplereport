@@ -10,7 +10,7 @@ var gatewaysnames = require('gatewayNames');
 var EventsController = require('EventsController');
 var AccountoverviewStore = require('RippleaccountoverviewsStore');
 var addressvalidator = require('addressvalidator');
-var addressexists = require('AddressExists');
+var Account = require('Account');
 /** @jsx React.DOM */
 
 
@@ -27,47 +27,69 @@ function getRippleidState(key) {
 var SearchBar = React.createClass({
 
 	getInitialState: function() {
-		return null;
+		var isloading;
+		return {isloading: false};
 	},
 
-
-	componentDidMount: function() {
-		// console.log(this.address);
-		RippleidStore.addChangeListener("wrongaddress" ,this._onWrongId);
-		RippleidStore.addChangeListener("rightaddress" ,this._onRightId);
-	},
 
 	handleClick: function() {
 		var self = this;
-		var input = $('#search input').val();
-		this.toresolve = input.split(",");
+		this.setState({isloading:true});
+
+
+		// var input = $('#search input').val();
+		// this.toresolve = input.split(",");
+		// console.log("===================+++> USER INPUT",this.toresolve);
+		// this.address = "address" + this.toresolve.length;
+
+		// this.conf = Config.dashboards.account;
+		// this.conf['reportnumber']= this.toresolve.length;
+		// DashboardActions.registerconf(this.conf);				
+
+		// _.each(gatewaysnames, function(gateway) {
+		// 	if(self.toresolve[0] == gateway.address || self.toresolve[0] == gateway.name) {
+		// 		self.conf = Config.dashboards.gateway;
+		// 		self.conf['reportnumber']= self.toresolve.length;
+		// 		DashboardActions.registerconf(self.conf);
+		// 	}
+		// });
 		
-		this.address = "address" + this.toresolve.length;
 
-		this.conf = Config.dashboards.account;
+		// if(addressvalidator.decode(this.toresolve[0])) {
+		// 	console.log("=========================++++>VIEW detects Address");
+		// 	this.type = "address";
+		// 	AccountActions.addresstrack(this.toresolve);
+		// } else if(this.toresolve[0][0] == "~") {
+		// 	console.log("==========================++++>VIEW detects ~name");
+		// 	this.type = "id"
+		// 	AccountActions.idtrack(this.toresolve);
+		// }
 
-		_.each(gatewaysnames, function(gateway) {
-			if(self.toresolve[0] == gateway.address || self.toresolve[0] == gateway.name) {
-				self.conf = Config.dashboards.gateway;
-				//DashboardActions.registerconf(this.conf);
-			}
-		});
+	},
 
-		this.conf['reportnumber']= this.toresolve.length;
 
-			console.log("SEARCHTORESOLVE",this.toresolve[0],this.toresolve[0].length,addressvalidator.decode(this.toresolve[0]));
+	handleKeyPress: function(e) {
+		if (e.which == 13) this.handleClick();
+	},
+
+	render: function(){
+
+		return ( 
+		 <div id="search">
+                  <input onKeyPress={this.handleKeyPress} type="text"  placeholder="Enter a ripple address"/>
+                  <i onClick={this.handleClick}  className="fa fa-search searchbutton">
+	                  {this.state.isloading ?
+	                  	<div><img className="loading_search" src={'./img/loading2.gif'} /></div> 
+	                  : ""}
+                  </i>
+         </div>
+		)
 		
+	}
+});
 
-		if(addressvalidator.decode(this.toresolve[0])) {
-			console.log("ADDRESSTRACK");
-			AccountActions.addresstrack(this.toresolve);
-			this.type = "address";
-		} else {
-			console.log("IDTRACK");
-			this.type = "id"
-			AccountActions.idtrack(this.toresolve);
-		}
-		// Backbone.history.navigate('report',{trigger: true, replace: true});
+module.exports = SearchBar;
+		
 
 
 
@@ -87,36 +109,3 @@ var SearchBar = React.createClass({
 		// 		format:"json"
 		// }
 		// RippledataActions.markettraders([params],false);
-	
-	},
-
-	_onWrongId: function() {
-		console.log("THIS ADDRESS OR NAME DOESN'T EXIST!!!");
-	},
-
-	_onRightId: function() {
-		var params = {
-			conf: this.conf,
-			address: this.address,
-			type: this.type
-		}
-		Backbone.history.navigate('update/'+JSON.stringify(params),{trigger: true});
-	},
-
-	handleKeyPress: function(e) {
-		if (e.which == 13) this.handleClick();
-	},
-
-	render: function(){
-
-		return ( 
-		 <div id="search">
-                  <input onKeyPress={this.handleKeyPress} type="text"  placeholder="Enter a ripple address"/>
-                  <i onClick={this.handleClick}  className="fa fa-search"></i>
-         </div>
-		)
-		
-	}
-});
-
-module.exports = SearchBar;

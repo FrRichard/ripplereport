@@ -16,6 +16,12 @@ function registerOffersExercised(result,sum) {
 				_RippleOffersExercised[sum.id] = {};
 			}
 			_RippleOffersExercised[sum.id]["globalorders"] = sum;
+			_RippleOffersExercised[sum.id]["globalorders"]["total"]= 0; 
+			_.each(	_RippleOffersExercised[sum.id]["globalorders"].results, function(result) {
+				_RippleOffersExercised[sum.id]["globalorders"]["total"] += result.count;
+			} );
+
+
 		});
 	} else {
 		_.each(offersexercised, function(offerexercised) {
@@ -25,7 +31,7 @@ function registerOffersExercised(result,sum) {
 			_.extend(_RippleOffersExercised[offerexercised.id], offerexercised);
 		});
 	}
-	console.log("_OFFERSEXERCISEDSTORE",_RippleOffersExercised);
+	console.log("__RippleOffersExercisedStore",_RippleOffersExercised);
 };
 
 var RippleoffersexercisedStore = assign({}, EventEmitter.prototype, {

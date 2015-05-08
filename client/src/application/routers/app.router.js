@@ -9,29 +9,32 @@ var DashboardActions = require('DashboardActions');
 var AccountActions = require('AccountActions');
 var gatewaysnames = require('gatewayNames');
 var Config = require('config');
-var addressexists = require('AddressExists');
+var addressvalidator = require('addressvalidator');
 
 var Router = Backbone.Router.extend({
 
     routes: {
         "app": "app",
         "report":"report",
-        "update/:params":"update"
+        "update/:params":"update",
+        "account":"account"
     },
 
     initialize: function(params) {
-        	    Backbone.history.start({
+        Backbone.history.start({
             pushState: true
         });
     },
 
     app: function(params) {
      
+        React.render(<App/>, document.getElementById('app'));
         if(params) {
 
-            this.AddressExists = new addressexists;
+        //     this.AddressExists = new addressexists;
 
             var param = JSON.parse(params);
+            console.log("PARAM!",param);
             var toresolve = [param.address];
             var conf = config.dashboards.account;
             DashboardActions.registerconf(conf);
@@ -44,16 +47,17 @@ var Router = Backbone.Router.extend({
             conf['reportnumber']= toresolve.length;
             var address = "address" + toresolve.length;
 
-            var params = {
-                conf: conf,
-                address: address,
-                toresolve: toresolve
+            if(addressvalidator.decode(toresolve[0])) {
+                console.log("=========================++++>VIEW detects Address");
+                this.type = "address";
+                AccountActions.addresstrack(toresolve);
+            } else if(toresolve[0][0] == "~") {
+                console.log("==========================++++>VIEW detects ~name");
+                this.type = "id"
+                AccountActions.idtrack(toresolve);
             }
-            var exists = this.AddressExists.check(params);
 
-        } else {
-            React.render(<App/>, document.getElementById('app'));
-        }
+        } 
     },
 
     report: function(params) {    
@@ -62,28 +66,28 @@ var Router = Backbone.Router.extend({
 
     render: function(callback) {
 
-    },
-
-    update: function(params) {
-        Backbone.history.navigate('report',{trigger: true});
-
-        var params = JSON.parse(params);
-        var conf = params.conf;
-        var address = params.address;
-        var type = params.type;
-
-        React.render(<Account/>, document.getElementById('app'));
-
-        if(type == "address") {
-            console.log("ISSTOREREADYINFOS",RippleinfosStore.getSpecific("address1")[address]);
-            var idcollection = RippleinfosStore.getSpecific("address1")[address];
-        }  else {
-             console.log("ISSTOREREADYIDS",RippleidStore.getSpecific("address1")[address]);
-            var idcollection = RippleidStore.getSpecific("address1")[address];
-        }
-        AccountActions.viewready(idcollection,type);
-        DashboardActions.registerconf(conf);
     }
+
+    // update: function(params) {
+    //     Backbone.history.navigate('#report',{trigger: true});
+
+    //     var params = JSON.parse(params);
+    //     var conf = params.conf;
+    //     var address = params.address;
+    //     var type = params.type;
+
+    //     React.render(<Account/>, document.getElementById('app'));
+    //     console.log("=====+++> ROUTER /update has been TRIGGERED with params:", params);
+    //     if(type == "address") {
+    //         console.log("ISSTOREREADYINFOS",RippleinfosStore.getSpecific("address1")[address]);
+    //         var idcollection = RippleinfosStore.getSpecific("address1")[address];
+    //     }  else {
+    //          console.log("ISSTOREREADYIDS",RippleidStore.getSpecific("address1")[address]);
+    //         var idcollection = RippleidStore.getSpecific("address1")[address];
+    //     }
+    //     AccountActions.viewready(idcollection,type);
+    //     DashboardActions.registerconf(conf);
+    // }
 
 });
 

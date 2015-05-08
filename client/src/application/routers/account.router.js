@@ -10,9 +10,9 @@ var Router = Backbone.Router.extend({
 
     initialize: function(params) {
    
-	    // Backbone.history.start({
-     //        pushState: true
-     //    });
+	    Backbone.history.start({
+            pushState: true
+        });
     },
 
     account: function(params) {
