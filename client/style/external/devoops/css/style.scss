@@ -197,7 +197,30 @@ a.show-sidebar:hover {
   -o-transition: 0.2s;
   transition: 0.2s;
 }
+
 #search > input + i {
+  opacity:0;
+  position: absolute;
+  top: 18px;
+  right: 10px;
+  color: #004756;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+}
+
+#search > input + #searchvalidid {
+  color: #3EA751;
+}
+
+#search > input + #searchwrongid {
+  color: #F40808;
+}
+
+
+
+#search > input + img {
   opacity:0;
   position: absolute;
   top: 18px;
@@ -208,6 +231,7 @@ a.show-sidebar:hover {
   -o-transition: 0.4s;
   transition: 0.4s;
 }
+
 #search > input:focus {
   width:100%;
   outline:none;
@@ -215,6 +239,11 @@ a.show-sidebar:hover {
 #search > input:focus + i {
   opacity:1;
 }
+
+#search > input:focus + img {
+  opacity:1;
+}
+
 .panel-menu {
   margin: 0;
 }

@@ -37,7 +37,7 @@ var AccountActions = {
 				
 			} else {
 				Dispatcher.handleServerAction({
-					actionType: Constants.ActionTypes.WRONGADDRESS,
+					actionType: Constants.ActionTypes.WRONGADDRESS_ID,
 					result: rippleidcollection
 				});
 			}
@@ -55,7 +55,7 @@ var AccountActions = {
 			var checkexistence = rippleinfoscollection.toJSON();
 			if(checkexistence[0].error) {
 				Dispatcher.handleViewAction({
-						actionType: Constants.ActionTypes.WRONGADDRESS,
+						actionType: Constants.ActionTypes.WRONGADDRESS_INFOS,
 						result: rippleinfoscollection
 				});
 			} else {

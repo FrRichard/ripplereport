@@ -97,8 +97,8 @@ RippleidStore.dispatcherIndex = Dispatcher.register(function(payload) {
 			RippleidStore.emitEvent('isloading');
 			break;
 
-		case Constants.ActionTypes.WRONGADDRESS:
-			RippleidStore.emitEvent("wrongaddress");
+		case Constants.ActionTypes.WRONGADDRESS_ID:
+			RippleidStore.emitEvent("wrongaddress_fromidstore");
 			break;
 
 		case Constants.ActionTypes.RIGHTADDRESS_ID:

@@ -22,8 +22,9 @@ module.exports = {
     ADD_WIDGET: null,
     REMOVE_WIDGET: null,
     ISLOADING: null,
-    WRONGADDRESS:null,
+    WRONGADDRESS_ID:null,
     RIGHTADDRESS_ID:null,
+    WRONGADDRESS_INFOS:null,
     RIGHTADDRESS_INFOS:null
   }),
 

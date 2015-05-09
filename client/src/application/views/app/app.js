@@ -45,7 +45,7 @@ var App = React.createClass({
 						        			<img id="ripplelogo" src={'./img/Greenripple.png'}  style={logostyle}/>
 						        			<p id="rippletitle" style={titlestyle}> Ripple Report </p>
 						        		</div>
-						        		<Searchbar origine={"APP!"}/>
+						        		<Searchbar/>
 						    		</Panel>
 					    	</div>
 				    	</div>
@@ -54,7 +54,7 @@ var App = React.createClass({
 		}
 
 		if(this.state.page == "report") {
-			var page = <Account searchbar={Searchbar}/>;
+			var page = <Account searchbar={Searchbar} isvalid={true} />;
 			// var page = <div> MEs couilles! </div>;
 		}
 

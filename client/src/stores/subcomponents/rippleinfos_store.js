@@ -68,8 +68,12 @@ RippleinfosStore.dispatcherIndex = Dispatcher.register(function(payload) {
   		 	RippleinfosStore.emitChange(action.result); 		
   		 	break;
   		 case Constants.ActionTypes.RIGHTADDRESS_INFOS:
-			console.log("=========+++> EMITING RIGHT from INFOSSTORE")
+			console.log("=========+++> EMITING RIGHT from INFOSSTORE");
 			RippleinfosStore.emitEvent("rightaddress_frominfosstore");
+			break;
+		case Constants.ActionTypes.WRONGADDRESS_INFOS:
+			console.log("=========+++> EMITING RIGHT from INFOSSTORE");
+			RippleinfosStore.emitEvent("wrongaddress_frominfosstore");
 			break;
   	}
 
