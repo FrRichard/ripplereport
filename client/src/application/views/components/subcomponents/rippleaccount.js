@@ -126,11 +126,6 @@ var RippleAccount = React.createClass({
         }); 
       }
 
-      // console.log("accccouuntnSTAAAAAAAAAAAAAAAAAATE",this.state);
-              // var hiddencontent = "awagagaga";
-              // var testcontent = <CollapsableRow key={"colalpsebalance"+i} content={[line['currency'],line['name']]} type={"td"} > {hiddencontent} </CollapsableRow> ;
-       // <CollapsableRow key={"colalpsebalance"+i} content={line['currency']} type={"td"} >  awagagaga </CollapsableRow> 
-              // <CollapsableRow key={"colalpsebalance"+i} content={testcontent} >  awagagaga</CollapsableRow>
       return (
         <div className="panel panel-default">
           <div className="panel-heading clearfix">
@@ -235,16 +230,44 @@ var RippleAccount = React.createClass({
     _onMouseOverLines : function(params) {
       var currency = params[0];
       var issuer = params[1];
-      d3.selectAll("#BalanceOverviewChart .arc").style("opacity",0.5);
-      d3.select("#BalanceOverviewChart"+currency+issuer).style("opacity",1);
-      d3.select("#BalanceOverviewChart"+currency+issuer).select(".piecharthiddenLabel").style("visibility","visible");
+      d3.selectAll("#BalanceOverviewChart .arc").style("opacity",0.25);
+
+      var d3selection = this.isOther(params);
+
+      d3.select(d3selection).style("opacity",1);
+      d3.select(d3selection).selectAll(".piechartLabel").style({
+          "fill":"#004756"
+      });
+      d3.select(d3selection).selectAll(".piecharthiddenLabel").style({
+        "visibility":"visible",
+        "fill":"#004756"
+        });
     },
 
     _onMouseOutLines: function(params) {
       var currency = params[0];
       var issuer = params[1];
       d3.selectAll("#BalanceOverviewChart .arc").style("opacity",1);
-      d3.select("#BalanceOverviewChart"+currency+issuer).select(".piecharthiddenLabel").style("visibility","hidden");
+
+      var d3selection = this.isOther(params);
+
+      d3.select(d3selection).selectAll(".piecharthiddenLabel").style("visibility","hidden");
+      d3.select(d3selection).selectAll(".piechartLabel").style({
+          "fill":"#83828C"
+      });
+    },
+
+    isOther: function(params) {
+      var currency = params[0];
+      var issuer = params[1];
+
+      if(d3.select("#BalanceOverviewChart"+currency+issuer)[0][0] == null) {
+        var d3selection = "#BalanceOverviewChartother";
+      } else  {
+        var d3selection = "#BalanceOverviewChart"+currency+issuer;
+      }
+
+        return d3selection;
     }
 
 });

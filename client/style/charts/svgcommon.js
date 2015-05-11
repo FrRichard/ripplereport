@@ -9,6 +9,8 @@ var svgcommon = {
 			CNY:'#A21A1C',
 			KRW:'#6496C8',
 			XRP:'#346AA9',
+			GBP:"rgb(43, 216, 131)",
+			other:'#CCCCCC',
 			default:'##D3D3D3'
 		},
 

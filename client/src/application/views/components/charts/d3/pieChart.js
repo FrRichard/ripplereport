@@ -18,7 +18,7 @@ PieChart.prototype.initChart = function(el,data,id,size) {
 	this.height = size[1];
 	this.margin = {top: 0, right: 20, bottom: 0, left: 20};
 	this.radius = Math.min(this.width,this.height)/2;
-	this.labelRadius = this.width*0.35;
+	this.labelRadius = this.width*0.40;
 	this.svg = d3.select(el).append("svg")
 			.attr("width", self.width + this.margin.right + this.margin.left)
 			.attr("height",self.height + this.margin.top + this.margin.bottom)
@@ -33,19 +33,63 @@ PieChart.prototype.initChart = function(el,data,id,size) {
 		.outerRadius(this.radius-40)
 		.innerRadius(25);
 
-	this.update(el,data,id);
+	this.datas = this.parse(data);
+	this.update(el,this.datas,id);
 }
 
 PieChart.prototype.update = function(el,data,id) {
 	this.draw(el,data,id);
 }
 
+PieChart.prototype.parse = function(data) {
+	var total = 0;
+	var oneprct = 0;
+	var result = [];
+
+	_.each(data, function(d) {
+		total += d.xrpequ;
+	});
+
+	function compare (a,b) {
+		if(a.xrpequ < b.xrpequ) {
+			return -1;
+		}
+		if(a.xrpequ > b.xrpequ) {
+			return 1;
+		}
+		return 0;
+	}
+
+	sorteddata = data.sort(compare);
+
+	_.some(sorteddata, function(d,i) {
+		oneprct += d.xrpequ;
+		if(oneprct >= (total/100) > 0) {
+			if((oneprct - d.xrpequ) >0) {
+				sorteddata.push({
+					currency:"other",
+					xrpequ: oneprct - d.xrpequ
+				});
+				result = sorteddata.slice(i);
+				return true;
+			} else {
+				result = sorteddata;
+				return true;
+			}
+		} 
+	});
+
+	result.reverse();
+
+	return result;
+}
+
 PieChart.prototype.draw = function(el,datas,id) {
 	var self = this;
-	this.dota = datas;
+	this.datas = datas;
 	this.id = id;
 	this.total = 0;
-	_.each(this.dota, function(d) {
+	_.each(this.datas, function(d) {
 		self.total += d.xrpequ;
 	});
 
@@ -59,7 +103,7 @@ PieChart.prototype.draw = function(el,datas,id) {
 	this.svg.selectAll('g .arc').remove();
 		
 	this.g = this.svg.selectAll(".arc")
-			.data(this.pie(self.dota));
+			.data(this.pie(self.datas));
 
 	this.g.enter().append("g")
 		.attr("class","arc")
@@ -74,56 +118,94 @@ PieChart.prototype.draw = function(el,datas,id) {
 
 
 	this.g.append("path")
-			.attr("d",this.arc)
-			.style("fill", function(d) { return self.colors[d.data.currency] } )
-			.on("mouseover" , function() {
-				d3.selectAll("#"+self.id +" .arc").style("opacity",0.5);
-				d3.select(this.parentNode).style("opacity",1);
-				d3.select(this.parentNode).select(".piecharthiddenLabel").style("visibility","visible");
-			})
-			.on("mouseout", function() {
-				d3.selectAll("#"+self.id +" .arc").style("opacity",1);
-				d3.select(this.parentNode).select(".piecharthiddenLabel").style("visibility","hidden");
+		.attr("d",this.arc)
+		.style("fill", function(d) { return self.colors[d.data.currency] } )
+		.on("mouseover" , function() {
+			d3.selectAll("#"+self.id +" .arc").style({
+				"opacity":"0.25",
+			});
+			d3.select(this.parentNode).style({
+				"opacity":1
 			});
 
-	this.g.append("text")
-		// .attr("text-anchor", function(d) {
-		//     // are we past the center?
-		//     return (d.endAngle + d.startAngle)/2 > Math.PI ? "end" : "start";
-		// })	
+			d3.select(this.parentNode).selectAll(".piechartLabel").style({
+				"fill":"#004756"
+			});
+
+			d3.select(this.parentNode).selectAll(".piecharthiddenLabel").style({
+				"visibility":"visible",
+				"fill":"#004756"
+			});
+		})
+		.on("mouseout", function() {
+			d3.selectAll("#"+self.id +" .arc").style("opacity",1);
+			d3.select(this.parentNode).selectAll(".piecharthiddenLabel").style("visibility","hidden");
+			d3.select(this.parentNode).selectAll(".piechartLabel").style({
+				"fill":"#83828C"
+			});
+		});
+
+	this.g.append("text")	
 		.text(function(d) {
 			return d.data.currency;
 		})
 		.attr("transform", function(d) {
-		    var c = self.arc.centroid(d),
-		        x = c[0],
-		        y = c[1],
-		        // pythagorean theorem for hypotenuse
-		        h = Math.sqrt(x*x + y*y);
-		    return "translate(" + (x/h * self.labelRadius) +  ',' +
-		       (y/h * self.labelRadius) +  ")"; 
+			if(datas.length == 1) {
+				var c = self.arc.centroid(d);
+				var x = c[0] + this.getBBox().width/7;
+			    var y = c[1] * 1.6;
+
+				return "translate(" + x + "," + y + ")";
+			} else {
+			    var c = self.arc.centroid(d);
+			    c[0] = c[0] * 1.8;
+			    c[1] = c[1] *1.8;
+			   	var x = c[0];
+			    var y = c[1];
+				return "translate(" + x + "," + y + ")";
+			}
 		})
-		.attr("text-anchor", function(d) {
-    		// are we past the center?
-    		return (d.endAngle + d.startAngle)/2 > Math.PI ?
-        	"end" : "start";
+		.attr("dy", function() {
+			return (this.getBBox().height/4);
+		})
+		.attr("dx", function() {
+			return -this.getBBox().width/2;
 		})
 		.attr("class","piechartLabel")
 		.append('tspan').text(function(d) {
 			var prct = Math.trunc((d.data.xrpequ/self.total)*10000)/100;
 			return prct+"%";
 		})
-		.attr("text-anchor", function(d) {
-    		// are we past the center?
-    		return (d.endAngle + d.startAngle)/2 > Math.PI ?
-        	"end" : "start";
+		.attr('dx',function() {
+			return d3.select(this.parentNode)[0][0].dx.baseVal[0].value*1.8;
 		})
-		.attr('x',0)
-		.attr('dy',15)
+		.attr('dy',12)
 		.attr("class","piecharthiddenLabel");
 
+	// console.log("PIECHARTLABEL",d3.selectAll(".piechartLabel"));
+	var piechartlabel = d3.selectAll(".piechartLabel");
+	var prev;
 
-	// this.g.exit().remove();
+	_.each(piechartlabel[0], function(label,i) {
+		// console.log("LABEL!",d3.select(label).attr("class","piecharthiddenLabel"));
+		// console.log(label.getBoundingClientRect(),i);
+		
+		if(i > 0) {
+			var thisbb = label.getBoundingClientRect();
+			var prevbb = prev.getBoundingClientRect();
+			// console.log("===========+++>AJUST!",label,thisbb,prevbb);
+			if(!(thisbb.right < prevbb.left || 
+                thisbb.left > prevbb.right || 
+                thisbb.bottom < prevbb.top || 
+                thisbb.top > prevbb.bottom)) {
+			 		d3.select(label).attr("class","piecharthiddenLabel");
+			 }
+		}
+
+		prev = label;
+
+	});
+	
 };
 
 PieChart.prototype.nodata = function(el) {

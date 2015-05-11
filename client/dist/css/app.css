@@ -9203,11 +9203,12 @@ ul.DTTT_dropdown.dropdown-menu > li:hover > a {
   display: block; }
 
 .piechartLabel {
-  font-size: 14px;
+  font-size: 12px;
   fill: #83828C; }
 
 .piecharthiddenLabel {
-  visibility: hidden; }
+  visibility: hidden;
+  font-size: 12px; }
 
 .PieChart {
   left: 50%;
