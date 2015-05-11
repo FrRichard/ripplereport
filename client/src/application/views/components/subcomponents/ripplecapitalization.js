@@ -89,7 +89,7 @@ var RippleCapitalization = React.createClass({
 		                      {rows}    
 		                    </tbody>
 	             		</Table>
-	             	: <div className="didntissueiou"> This account didn't issued any IOUs </div>
+	             	: <div className="didntissueiou"> This account didnt issued any IOUs </div>
 	            : "" }
 				</div>
 			</div>
@@ -134,21 +134,46 @@ var RippleCapitalization = React.createClass({
     _onMouseOverLines : function(params) {
       var currency = params[0];
       var issuer = params[1];
+      var d3selection = this.isOther(params);
+
       d3.selectAll("#CapitalizationOverviewChart .arc").style("opacity",0.5);
-      d3.select("#CapitalizationOverviewChart"+currency+issuer).style("opacity",1);
-      d3.select("#CapitalizationOverviewChart"+currency+issuer).select(".piecharthiddenLabel").style("visibility","visible");
+      d3.select(d3selection).style("opacity",1);
+      d3.select(d3selection).selectAll(".piechartLabel").style({
+          "fill":"#004756"
+      });
+      d3.select(d3selection).selectAll(".piecharthiddenLabel").style({
+      		"visibility":"visible",
+      		"fill":"#004756"
+      });
     },
 
     _onMouseOutLines: function(params) {
       var currency = params[0];
       var issuer = params[1];
+      var d3selection = this.isOther(params);
       d3.selectAll("#CapitalizationOverviewChart .arc").style("opacity",1);
-      d3.select("#CapitalizationOverviewChart"+currency+issuer).select(".piecharthiddenLabel").style("visibility","hidden");
+      d3.select(d3selection).selectAll(".piecharthiddenLabel").style("visibility","hidden");
+      d3.select(d3selection).selectAll(".piechartLabel").style({
+          "fill":"#83828C"
+      });
     },
 
     _onEmptyCap: function(id) {
     	
     	this.AdaptGrid.reorganize(id);
+    },
+
+    isOther: function(params) {
+      var currency = params[0];
+      var issuer = params[1];
+
+      if(d3.select("#CapitalizationOverviewChart"+currency+issuer)[0][0] == null) {
+        var d3selection = "#CapitalizationOverviewChartother";
+      } else  {
+        var d3selection = "#CapitalizationOverviewChart"+currency+issuer;
+      }
+
+        return d3selection;
     }
 
 });
