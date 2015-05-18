@@ -86,10 +86,7 @@ var RippleAccountOffers = React.createClass({
 						<td key={"accountoffercurrency"+i}> <span>{ FormatUtils.formatValue(d.taker_gets.value) }</span> <span> { d.taker_gets.currency } </span> </td>
 						<td key={"accountoffervalue"+i}> <span> { FormatUtils.formatValue(d.taker_pays.value) } </span> <span> { d.taker_pays.currency } </span> </td>
 						<td key={"accountofferrate"+i}> { FormatUtils.formatValue(d.rate) } </td>
-						<td key={"accountofferissuer"+i}>
-							 <a href={"/app?"+JSON.stringify(taker_gets_issuer)} target='_blank'>{d.taker_gets.name}</a>/
-							 <a href={"/app?"+JSON.stringify(taker_pays_issuer)} target='_blank'>{d.taker_pays.name}</a> 
-						</td>
+						<td key={"accountofferissuer"+i}><a href={"/app?"+JSON.stringify(taker_gets_issuer)} target='_blank'>{d.taker_gets.name}</a>/ <a href={"/app?"+JSON.stringify(taker_pays_issuer)} target='_blank'>{d.taker_pays.name}</a> </td>
 					</tr>
 				)
 			});

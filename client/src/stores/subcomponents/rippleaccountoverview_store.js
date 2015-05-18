@@ -144,6 +144,12 @@ function calculateFiatTotal(shares,fiat,issuer) {
     result.totalfiat = xrpshare[0].balance;
     result.issuer = "";
 
+    // _.each(shares, function(share) {
+    // 	if(share.currency != 'XRP') {
+    // 		result.totalfiat += share.xrpequ;
+    // 	}
+    // });
+
     return result ;
   }
 
