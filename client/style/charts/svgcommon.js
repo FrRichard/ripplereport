@@ -16,7 +16,8 @@ var svgcommon = {
 
 		orders: {
 			Created:'#339933',
-			Cancelled:'#b01e2e'
+			Cancelled:'#b01e2e',
+			Exchanged:'#124A51'
 		}
 	}
 

@@ -6,10 +6,10 @@ var PieChart = require('pieChart_bignumber_react');
 //css
 var viewcommon = require('ViewCommon');
 //helper
+var moment = require("moment");
 var datahelper = require('DataHelper');
 var FormatUtils = require("FormatUtils");
 var Table = require('reactabular').Table;
-
 var table_funct = require('table_funct');
 
 
@@ -38,50 +38,17 @@ var RippleAccountTransactions = React.createClass({
 
 		isloading = true;
 
-	var data = [
-//     {
-//         nome: 'React.js',
-//         type: 'library',
-//         description: 'Awesome library for handling view.',
-//     	test: "a",
-//         followers: 23252,
-//         hidden: { 
-//         	nome:"here are some hidden details!!!",
-//         	type: "hidden"
-//         },
-//         worksWithReactabular: true
-//     },
-//     {
-//         nome: 'Angular.js',
-//         type: 'framework',
-//         description: 'Swiss-knife of frameworks. Kitchen sink not included.',
-//     	test: 'b',
-//         followers: 35159,
-//         hidden: { 
-//         	nome:"WOW such details!!!",
-//         	type: "hidden"
-//          },
-//         worksWithReactabular: true
-//     },
-//     {
-//         nome: 'Aurelia',
-//         type: 'framework',
-//         description: 'Framework for the next generation.',
-//     	test: 'c',
-//         followers: 229.12365497,
-//         hidden: { 
-//         	nome: "HERE SOME DETAILS !!!",
-//         	type: "hidden"
-//         },
-//         worksWithReactabular: true
-//     }
-];
+	var data = [];
 
 var columns = [
     {
         property: 'time',
         header: 'Date',
-       	cell: (nome) => <div className="hiddencell">{nome}</div>		
+       	cell: (time) => {
+       		return {
+       			value:<div>{moment(time).format('MMMM Do YYYY, h:mm:ss a')}</div>		
+       		}
+       	}
     },
     {
         property: 'currency',
@@ -99,7 +66,21 @@ var columns = [
     {
         property: 'direction',
         header: 'Direction',
-        //cell: (followers) => FormatUtils.formatValue(followers)
+        cell: (direction) => {
+        	if(direction == "standard") {
+        		return {
+        			value: <div style={{color:'#124A51'}}> {direction} </div>
+        		}
+        	} else if(direction == "cashout") {
+        		return {
+        			value: <div style={{color:'#b01e2e'}}> {direction} </div>
+        		}
+        	} else {
+        		return {
+        			value: <div style={{color:'#339933'}}> {direction} </div>
+        		}
+        	}
+        }
     },
     {
         header: ' ',
