@@ -40,6 +40,7 @@
     "promise": "^7.0.1",
     "q": "*",
     "react-data-components": "^0.3.0",
+    "reactabular": "^0.5.2",
     "redis": "*",
     "request": "*",
     "ripple-lib": "^0.9.3",

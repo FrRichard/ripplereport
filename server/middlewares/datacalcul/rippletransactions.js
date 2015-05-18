@@ -8,7 +8,6 @@ function Rippletransactions() {}
 Rippletransactions.prototype.calculate = function(data) {
 	var data = data;
 
-
 	var createObjectStructure_promise = new Promise.denodeify(function createObjectStructure(data) {
 		data.summary.top10 = {};
 		data.summary.totalcash = {};

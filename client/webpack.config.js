@@ -136,6 +136,7 @@ module.exports = {
 
 			//common - inner element needed for subcomponents
 			CollapsableRow: path.join(__dirname, './src/application/views/components/common/collapsablerow'),
+			table_funct:  path.join(__dirname, './src/application/views/components/common/table_funct'),
 
 
 			//subcomponent helpers
@@ -143,7 +144,6 @@ module.exports = {
 			AdaptGrid: path.join(__dirname, './src/application/views/components/adaptGrid'),
 			SubcomponentSelector: path.join(__dirname, './src/application/views/components/subcomponentselector'),
 			GridElements: path.join(__dirname, './src/application/views/components/grid'),
-			Loading: path.join(__dirname, './src/application/views/components/loading_animation'),
 
 			// Mixin
 			StoreMixin: path.join(__dirname, './src/stores/mixin/storeMixin'),

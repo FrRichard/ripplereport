@@ -6,6 +6,7 @@ var util = require('util');
 function AccountTransactions() {}
 
 AccountTransactions.prototype.parse = function(data,account) {
+	// console.log("dataaaaaaaaabefore PARSING",data);
 	var result = {
 		account:account,
 		startTime: data.transactions[0].date,
@@ -45,7 +46,10 @@ AccountTransactions.prototype.parse = function(data,account) {
 	};
 
 	_.each(data.transactions, function(transac,i) {
+			var pparsedTransac = transactionParser.parseBalanceChanges(transac.meta);
+			console.log("PARSEDTRANSACTIONS", pparsedTransac);
 		if(transac.tx.Destination == account || transac.tx.Account == account) {
+			console.log("uuuuuuh");
 			var parsedTransac = transactionParser.parseBalanceChanges(transac.meta);
 			if(transac.tx.Destination == account) {
 				if(!_.isObject(transac.tx.Amount)) {
@@ -64,6 +68,21 @@ AccountTransactions.prototype.parse = function(data,account) {
 				
 				fillSummary(currency,issuer,type,amount);
 
+				var time = transac.date;
+				var txHash = transac.hash;
+				var ledgerIndex = transac.ledger_index;
+
+				result.transactions.push({
+					currency:currency,
+					issuer:issuer,
+					type:type,
+					amount:amount,
+					counterparty:counterparty,
+					time:time,
+					txHash:txHash,
+					ledgerIndex:ledgerIndex
+				});
+
 			} else if(transac.tx.Account == account) {
 				
 				if(!_.isObject(transac.tx.SendMax)) {
@@ -80,26 +99,27 @@ AccountTransactions.prototype.parse = function(data,account) {
 				var type = "sent";
 				var counterparty = transac.tx.Destination;
 				fillSummary(currency,issuer,type,amount);
+				
+				var time = transac.date;
+				var txHash = transac.hash;
+				var ledgerIndex = transac.ledger_index;
+
+				result.transactions.push({
+					currency:currency,
+					issuer:issuer,
+					type:type,
+					amount:amount,
+					counterparty:counterparty,
+					time:time,
+					txHash:txHash,
+					ledgerIndex:ledgerIndex
+				});
+
 			}
 			
-			var time = transac.date;
-			var txHash = transac.hash;
-			var ledgerIndex = transac.ledger_index;
-
-			result.transactions.push({
-				currency:currency,
-				issuer:issuer,
-				type:type,
-				amount:amount,
-				counterparty:counterparty,
-				time:time,
-				txHash:txHash,
-				ledgerIndex:ledgerIndex
-			});
-		}
-
-		
+		}		
 	});
+
 	
 	// console.log("result",result,"length",result.transactions.length);
  

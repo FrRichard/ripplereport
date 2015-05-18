@@ -4,7 +4,7 @@ var RippleidStore = require('RippleidStore');
 var RipplelinesStore = require('RipplelinesStore');
 var RippleinfosStore = require('RippleinfosStore');
 var GridStore = require('GridStore');
-var Loading = require('Loading');
+
 var d3 = require("d3");
 //Utils
 var FormatUtils = require("FormatUtils");

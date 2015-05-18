@@ -8,7 +8,12 @@ var viewcommon = require('ViewCommon');
 //helper
 var datahelper = require('DataHelper');
 var FormatUtils = require("FormatUtils");
-var Griddle = require('griddle-react');
+var Table = require('reactabular').Table;
+
+var table_funct = require('table_funct');
+
+
+
 
 function getRippleaccounttransactionsState(key) {
 	var rippleaccounttransactions= RippleaccounttransactionsStore.getSpecific(key);
@@ -18,12 +23,118 @@ function getRippleaccounttransactionsState(key) {
 	}
 }
 
+
+
 var RippleAccountTransactions = React.createClass({
 
 	getInitialState: function() {
-		rippleaccounttransactions={};
+		var self = this;
+		this.address= "address" + this.props.attributes.reportnumber;
+		if(getRippleaccounttransactionsState(this.address)) {
+			var rippleaccounttransactions = getRippleaccounttransactionsState(this.address).rippleaccounttransactions;
+		} else {
+			var rippleaccounttransactions={};
+		}
+
 		isloading = true;
-		return { rippleaccounttransactions:rippleaccounttransactions, isloading:isloading};
+
+	var data = [
+//     {
+//         nome: 'React.js',
+//         type: 'library',
+//         description: 'Awesome library for handling view.',
+//     	test: "a",
+//         followers: 23252,
+//         hidden: { 
+//         	nome:"here are some hidden details!!!",
+//         	type: "hidden"
+//         },
+//         worksWithReactabular: true
+//     },
+//     {
+//         nome: 'Angular.js',
+//         type: 'framework',
+//         description: 'Swiss-knife of frameworks. Kitchen sink not included.',
+//     	test: 'b',
+//         followers: 35159,
+//         hidden: { 
+//         	nome:"WOW such details!!!",
+//         	type: "hidden"
+//          },
+//         worksWithReactabular: true
+//     },
+//     {
+//         nome: 'Aurelia',
+//         type: 'framework',
+//         description: 'Framework for the next generation.',
+//     	test: 'c',
+//         followers: 229.12365497,
+//         hidden: { 
+//         	nome: "HERE SOME DETAILS !!!",
+//         	type: "hidden"
+//         },
+//         worksWithReactabular: true
+//     }
+];
+
+var columns = [
+    {
+        property: 'time',
+        header: 'Date',
+       	cell: (nome) => <div className="hiddencell">{nome}</div>		
+    },
+    {
+        property: 'currency',
+        header: 'Currency'
+    },
+	{
+		property:'amount',
+		header: 'Amount',
+		cell: (amount) => FormatUtils.formatValue(amount)
+	},
+    {
+        property: 'type',
+        header: 'Type'
+    },
+    {
+        property: 'direction',
+        header: 'Direction',
+        //cell: (followers) => FormatUtils.formatValue(followers)
+    },
+    {
+        header: ' ',
+        cell: (value, celldata, rowIndex, property) => {
+
+            var collapse = table_funct.collapsable;
+            // var details = collapse.details;
+            // var button;
+            var issuer = { address:celldata[rowIndex].hiddenprops.issuer };
+            var counterparty = { address:celldata[rowIndex].hiddenprops.counterparty };
+            var txhash = { txhash:celldata[rowIndex].hiddenprops.txHash };
+            var ledgerindex = { ledgerindex:celldata[rowIndex].hiddenprops.ledgerIndex };
+            // !collapse.iscollapsed ?  button = "fa fa-chevron-down" :  button = ""; 
+    		var content = "<tr>" +
+    			" <td style='max-width:0px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;'> <span> LedgerIndex: <a href=/app?"+JSON.stringify(ledgerindex)+" target='_blank'>" + celldata[rowIndex].hiddenprops.ledgerIndex +"</a> </span>" +
+    			"</br><span > TxHash: <a href=/app?"+JSON.stringify(txhash)+" target='_blank'>  " + celldata[rowIndex].hiddenprops.txHash +" </a> </span></td>" + 
+    			"<td  style='max-width:0px; white-space:nowrap;' ><span> Issuer: <a href=/app?"+JSON.stringify(issuer)+" target='_blank'>  " + celldata[rowIndex].hiddenprops.issuer +" </a> </span>" + 
+    			"</br><span> Counterparty: <a href=/app?"+JSON.stringify(counterparty)+" target='_blank'>  " + celldata[rowIndex].hiddenprops.counterparty +" </a> </span></td>" + 
+    			"</tr>";
+            var handler = function(e) {
+            	return function(e) {
+            		collapse(e,content);
+            	}(e);
+            }
+
+            return {
+                value: <span>
+                    <i onClick={handler} className="fa fa-chevron-down transactiondetailbutton" style={{cursor: 'pointer'}}></i>
+                </span>
+            };
+        }
+    }
+    
+];
+		return { rippleaccounttransactions:rippleaccounttransactions, isloading:isloading, data:data, columns:columns};
 	},
 
 
@@ -39,6 +150,7 @@ var RippleAccountTransactions = React.createClass({
 		RippleaccounttransactionsStore.addChangeListener(address, this._onChangeRippleaccounttransactions);
 		// instanciate stuff
 		this.DataHelper = new datahelper();
+
 	},
 
 	componentWillUnmount: function() {
@@ -53,6 +165,10 @@ var RippleAccountTransactions = React.createClass({
 		this.chartId= "Overviewcapitalization" +this.props.attributes.key;
 
 		var AllPies = [];
+		// console.log("TRANSACTIONSTAAAAAAAAAAAAAAAATE",this.state);
+	
+		//table functions
+		var header = table_funct.header.call(this, this.state.columns, this.state.data);
 
 		if(this.state.rippleaccounttransactions[this.address]) {
 			var totalcashs = this.state.rippleaccounttransactions[this.address].summary.totalcash;
@@ -84,7 +200,6 @@ var RippleAccountTransactions = React.createClass({
 		if(this.state.rippleaccounttransactions[this.address]) {
 			var formatedtransactions =  this.DataHelper.transactionsGriddle(this.state.rippleaccounttransactions[this.address].transactions);
 		}
-
 		return ( 
 			<div className="panel panel-default">
 				 <div className="panel-heading clearfix">
@@ -100,17 +215,18 @@ var RippleAccountTransactions = React.createClass({
            			this.state.rippleaccounttransactions[this.address] ?
            				this.state.rippleaccounttransactions[this.address].transactions.length > 0 ?
 			           		<div className="panel-body" style={panelstyle}>
-			           		<h4 className="maintitleminipie"> Payment Sum and Directions </h4>
-				           		<h4 className="maintitlealltransactions "> All Payments </h4>
-				           			<div className="allsmallpie">
-				           		 		{AllPies}
+			           			<div className="allsmallpie">
+				           			<h4 className="maintitleminipie"> Payment Sum and Directions </h4>
+			           		 		{AllPies}
+			           		 	</div>
+			           		 	<div className="alltransactionss">
+				           			<h4 className="maintitlealltransactions "> All Payments </h4>
+				           			<div className="griddletransactionss">
+				           				<Table className="pure-table layoutfixed" columns={this.state.columns} data={this.state.data} header={header}/>
 				           		 	</div>
-				           		 	<div className="alltransactions">
-					           		 		<Griddle results={this.state.rippleaccounttransactions[this.address].transactions}
-					           		 			columns={["currency", "amount", "direction", "time"]} resultsPerPage={5}/>
-				           		 	</div>
+			           		 	</div>
 							</div>
-						:  <div className="didntissueiou"> This account didn't make any payment </div> 
+						:  <div className="didntissueiou"> This account didnt make any payment </div> 
 					: ""
 				: ""}
 
@@ -129,11 +245,16 @@ var RippleAccountTransactions = React.createClass({
 		this.address= "address" + key;
 		var isloading = false;
 		var rippleaccounttransactions = getRippleaccounttransactionsState("address" + key).rippleaccounttransactions;
+		var data = table_funct.filldata(rippleaccounttransactions[this.address].transactions, ["amount", "time", "direction", "type", "currency"], ["issuer", "counterparty", "txHash", "ledgerIndex"]);
+		console.log("data",data);
 		this.setState({
 			rippleaccounttransactions: rippleaccounttransactions,
+			data:data,
 			isloading: isloading
 		});
+				$('.transactiondetailbutton').parents('td').addClass('transactiondetailbutton');
 	}
+
 
 });
 
