@@ -3,6 +3,23 @@
 	text-align:center;
 }
 
+.search-container {
+	float:left;
+	color:#124A51;
+	font-size:12px;
+}
+
+.per-page-container {
+	display:inline;
+	float:right;
+	color:#124A51;
+	font-size:12px;
+}
+
+.pagination {
+	margin:0px;
+	font-size:12px;
+}
 
 .tablelineoverflow {
 	max-width:0px;
@@ -47,10 +64,12 @@
 }
 .maintitlealltransactions {
 	width:200px;
-	display:inline;
 	font-size:15px;
 	color:#124A51;
 	font-weight:bold;
+	padding-top:20px;
+	padding-bottom:0px;
+	padding-left:20px;
 }
 
 .transactioncurrencytitle {
