@@ -222,10 +222,10 @@ RippleaccountoverviewsStore.dispatcherIndex = Dispatcher.register(function(paylo
 
 	if(action.init) {
 		if(action.init == "address") {
-			isReady = {	id: false, lines:false, exchangerates:false };
+			isReady = {	id: false, lines:false, exchangerates:false, infos:false};
 			initDatasets(RippleinfosStore.getAll());
 		} else {
-			isReady = {	id: false, lines:false, exchangerates:false };
+			isReady = {	id: false, lines:false, exchangerates:false, infos:false };
 			initDatasets(RippleidStore.getAll());
 		}
 	}
@@ -237,15 +237,15 @@ RippleaccountoverviewsStore.dispatcherIndex = Dispatcher.register(function(paylo
 			])
 			isReady.id = true;
 			allStoreReady(isReady,action);
-			// initDatasets(RippleidStore.getAll());
 			break;
 
 		case Constants.ActionTypes.ASK_RIPPLEINFOS:
 			Dispatcher.waitFor([
 				RippleinfosStore.dispatcherIndex
 			])
-			allStoreReady(isReady,action);
 			registerRippleInfos(RippleinfosStore.getAll());
+			isReady.infos = true;
+			allStoreReady(isReady,action);
 			break;
 
 		case Constants.ActionTypes.ASK_RIPPLELINES:

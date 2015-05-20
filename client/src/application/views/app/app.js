@@ -43,7 +43,7 @@ var App = React.createClass({
 						        	<Panel  style={{height: 130 }} >
 						        		<div>
 						        			<img id="ripplelogo" src={'./img/Greenripple.png'}  style={logostyle}/>
-						        			<p id="rippletitle" style={titlestyle}> Ripple Report </p>
+						        			<p id="rippletitle" style={titlestyle}> Ledger Monitor </p>
 						        		</div>
 						        		<Searchbar/>
 						    		</Panel>

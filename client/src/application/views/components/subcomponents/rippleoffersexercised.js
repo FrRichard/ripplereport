@@ -43,8 +43,9 @@ var RippleOffersExercised = React.createClass({
 		var self =this;
 		var panelstyle = ViewCommon.linechart;
 		this.chartId= "OfferExercised" +this.props.attributes.key;
-		// console.log("staaaaaaaaaaaaaaaaaate",this.state);
+
 		if(this.state.rippleoffersexercised[this.address]) {
+			console.log("STAAAAAAAAAAAAAAAATE",this.state.rippleoffersexercised[this.address].globalorders.results.length);
 			var chart = <BarChart id={this.chartId} size={[550,230]} data={this.state.rippleoffersexercised[this.address].globalorders.results} />
 		}
 
@@ -67,6 +68,7 @@ var RippleOffersExercised = React.createClass({
 	},
 
 	_onChangeRippleOffersExercised: function() {
+		console.log("UPDAAAAAAAAAAAAAAAAAAAAAAAAAATE_DATA_VIEW!!!");
 		var key = this.props.attributes.reportnumber;
 		this.address= "address" + key;
 		this.setState(getRippleoffersexercisedState("address" + key));

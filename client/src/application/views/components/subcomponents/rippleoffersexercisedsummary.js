@@ -73,7 +73,6 @@ var RippleOffersExercisedSummary = React.createClass({
 	     // var name = _.filter(gatewayNames,function(gateway) {
       //   return gateway.address == share.issuer;
    		 // });
-		// console.log("offferrrr_exercisedST2AAATE",this.state);
 	
 		if(this.state.rippleoffersexercisedsummary[this.address] ) {
 			var summarybase =Object.keys(this.state.rippleoffersexercisedsummary[this.address].summary.currencies["base"]);
@@ -86,7 +85,7 @@ var RippleOffersExercisedSummary = React.createClass({
 
 			var top10 = this.state.rippleoffersexercisedsummary[this.address].summary.top10[this.state.selectedtypeoffer][this.state.selectedcurrency];
 
-       		 _.each(top10, function(offer,i) {
+       		_.each(top10, function(offer,i) {
        		 	offer.date = moment(offer.time).format('MMMM Do YYYY, h:mm:ss a');
        		 	if(offer[self.state.selectedtypeoffer].currency == "XRP") {
        		 		var issuer = "";
@@ -183,6 +182,7 @@ var RippleOffersExercisedSummary = React.createClass({
 
 
 		}
+
 		return (
 			<div className="panel panel-default">
 				<div className="panel-heading clearfix">
@@ -195,54 +195,57 @@ var RippleOffersExercisedSummary = React.createClass({
            		</div>
            		<div className="panel-body" style={ofexsum_top10}>
            			{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
-				    <Table striped bordered condensed hover className="offerexercisedtop10table" >
-	                    <thead>
-							<th colSpan={2}> 
-								<span style={ofexsum_titlestyle}>Top 10 trades </span>
-								{ !this.state.isloading ?
-									<span>
-										<select className="customSelector" style={doubleselectorstyle} onChange={this.onSelectTypeOffer} value={this.state.selectedtypeoffer}>
-											<option key={"optionbase"} value={"base"}> SOLD </option>
-											<option key={"optioncounter"} value={"counter"}> BOUGHT </option>
-										</select>
-										<select className="customSelector" onChange={this.onSelectCurrency} style={doubleselectorstyle} value={this.state.selectedcurrency}>
-											{optioncurrencies}
-										</select>
-									</span>
-								: "" }
-							</th>							
-					
-	                    </thead> 
-		                    <tbody>
-	                    		{ !this.state.isloading ?    
-		                      		{rows}    
-	                    		:"" }
-		                    </tbody>
-              		</Table>
+						{ !this.state.isloading ?
+								this.state.rippleoffersexercisedsummary[this.address]?
+									this.state.rippleoffersexercisedsummary[this.address].results.length > 0 ?
+									    <Table striped bordered condensed hover className="offerexercisedtop10table" >
+						                    <thead>
+												<th colSpan={2}> 
+													<span style={ofexsum_titlestyle}>Top 10 trades </span>
+														<span>
+															<select className="customSelector" style={doubleselectorstyle} onChange={this.onSelectTypeOffer} value={this.state.selectedtypeoffer}>
+																<option key={"optionbase"} value={"base"}> SOLD </option>
+																<option key={"optioncounter"} value={"counter"}> BOUGHT </option>
+															</select>
+															<select className="customSelector" onChange={this.onSelectCurrency} style={doubleselectorstyle} value={this.state.selectedcurrency}>
+																{optioncurrencies}
+															</select>
+														</span>
+												</th>							
+										
+						                    </thead> 
+							                    <tbody>
+							                      		{rows}            
+							                    </tbody>
+					              		</Table>
+				              		:  <div className="didntissueiou"> This account didnt exercised any offer </div>
+				              	: ""
+						: "" }
 				</div>
 				<div className="panel-body" style={ofexsum_top10}>
-					{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
-				    <Table striped bordered condensed hover id="offerexercisedtotaltable" >
-	                    <thead>
-							<th colSpan={2}> 
-								<span style={ofexsum_titlestyle}>Total traded </span>
-								{ !this.state.isloading ?
-									<span>
-									<select className="customSelector" style={doubleselectorstyle} onChange={this.onSelectTypeOffer_total} value={this.state.selectedtypeoffer_total}>
-										<option key={"optionbase_total"} value={"base"}> SOLD </option>
-										<option key={"optioncounter_total"} value={"counter"}> BOUGHT </option>
-									</select>
-									</span>
-								: "" }
-							</th>							
-					
-	                    </thead>  
-		                    <tbody>
-	                    		{ !this.state.isloading ?    
-		                    	  	{rows_total}    
-	                    		: "" }
-		                    </tbody>
-              		</Table>
+					{ !this.state.isloading ?
+							this.state.rippleoffersexercisedsummary[this.address]?
+								this.state.rippleoffersexercisedsummary[this.address].results.length > 0 ?
+								    <Table striped bordered condensed hover id="offerexercisedtotaltable" >
+					                    <thead>
+											<th colSpan={2}> 
+												<span style={ofexsum_titlestyle}>Total traded </span>
+													<span>
+													<select className="customSelector" style={doubleselectorstyle} onChange={this.onSelectTypeOffer_total} value={this.state.selectedtypeoffer_total}>
+														<option key={"optionbase_total"} value={"base"}> SOLD </option>
+														<option key={"optioncounter_total"} value={"counter"}> BOUGHT </option>
+													</select>
+													</span>
+											</th>							
+									
+					                    </thead>  
+						                    <tbody>
+						                    	{rows_total}    
+						                    </tbody>
+				              		</Table>
+			              		: ""
+			              	: ""
+					: "" }
 				</div>
 			</div>);
 
