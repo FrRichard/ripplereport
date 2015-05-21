@@ -17,7 +17,7 @@ var webpackConfig = require("./client/webpack.config.js");
 gulp.task("install", ["bower", "build"]);
 gulp.task("test-client", ["mocha", "casper"]);
 gulp.task("dev", ["watch-sass", 'dev-demon']);
-gulp.task("build", ["clean", "sass", "build:prod"]);
+gulp.task("build", ["clean", "sass", "build:prod","dev-demon"]);
 gulp.task("doc", ["jsdoc"]);
 
 gulp.task('dev-demon', function(cb) {
