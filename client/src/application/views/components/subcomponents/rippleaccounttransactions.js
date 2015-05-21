@@ -63,7 +63,7 @@ var RippleAccountTransactions = React.createClass({
 		       			value:<div>{moment(time).format('MMMM Do YYYY, h:mm:ss a')}</div>		
 		       		}
 		       	},
-		       	search: (time) => time
+		       	search: (time) => moment(time).format('MMMM Do YYYY, h:mm:ss a')
 		    },
 		    {
 		        property: 'currency',
@@ -205,6 +205,10 @@ var RippleAccountTransactions = React.createClass({
 				var formatedtransactions =  this.DataHelper.transactionsGriddle(this.state.rippleaccounttransactions[this.address].transactions);
 			}
 
+				           			// <h4 className="maintitlealltransactions "> All Payments </h4>
+				     //       			<div className='per-page-container'>
+									//     Per page <input type='text' defaultValue={this.state.pagination.perPage} onChange={this.onPerPage}></input>
+									// </div>
 		return ( 
 			<div className="panel panel-default">
 				 <div className="panel-heading clearfix">
@@ -225,12 +229,8 @@ var RippleAccountTransactions = React.createClass({
 			           		 		{AllPies}
 			           		 	</div>
 			           		 	<div className="alltransactionss">
-				           			<h4 className="maintitlealltransactions "> All Payments </h4>
 				           			<div className='search-container'>
 									    Search <Search ref={'search'} columns={this.state.columns} onChange={this.setState.bind(this)}></Search>
-									</div>
-				           			<div className='per-page-container'>
-									    Per page <input type='text' defaultValue={this.state.pagination.perPage} onChange={this.onPerPage}></input>
 									</div>
 			
 				           			<Table className="pure-table layoutfixed" columns={this.state.columns} data={paginated.data} header={header}/>

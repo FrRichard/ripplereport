@@ -43,7 +43,7 @@ barChart.prototype.update = function(el, data, id, size) {
 barChart.prototype.draw = function(chartId,data) {
 	var self = this;
 	this.data = data;
-	console.log("chartdataaaaaaaaaaaaaa",this.data);
+
 	this.x.domain([moment().subtract('year',1).format('x'),
 				   parseInt(d3.max(this.data, function(d) { return (moment(d.time).format('x'));}))*1.0001
 					]);
