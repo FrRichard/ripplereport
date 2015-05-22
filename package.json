@@ -15,7 +15,7 @@
     "proxy"
   ],
 "scripts": { 
-  "start": "node app", 
+  "start": "node webserver.js", 
   "postinstall": "gulp build --watch" 
 },
   "dependencies": {
