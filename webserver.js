@@ -8,8 +8,8 @@ var port = argv.p || process.env.PORT || 9090;
 var isDev = argv.d || false;
 var isDeployed = argv.b || false;
 // var isDev = true;
-var isDeployed = true;
-var port = 80;
+isDeployed = true;
+
 
 console.log('');
 console.log('Webserver - Heartbit');
