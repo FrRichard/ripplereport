@@ -9,7 +9,7 @@ var isDev = argv.d || false;
 var isDeployed = argv.b || false;
 // var isDev = true;
 var isDeployed = true;
-var port = 9090;
+var port = 8080;
 
 console.log('');
 console.log('Webserver - Heartbit');
