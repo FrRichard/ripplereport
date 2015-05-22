@@ -191,12 +191,7 @@ App.prototype.initStaticContentManager = function() {
             }
         });
         server.listen(8081, "localhost", function() {});
-    } else if (this.options.isDeployed) { 
-        var proxy = require('proxy-middleware');
-        var url = require('url');
-        // console.log(__drina)
-        // this.app.get('/dist/js/app', proxy(url.parse('/')));
-    }
+    } 
 };
 
 App.prototype.initProxies = function() {
