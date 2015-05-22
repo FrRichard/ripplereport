@@ -6,7 +6,7 @@ function StaticContentManager(params) {
 };
 
 StaticContentManager.prototype.init = function(callback) {
-	this.app.use(express.static(this.clientPath + '/', {
+	this.app.use(express.static(this.clientPath + '/dist', {
 		maxAge: 0
 	}));
 	if (callback) {
