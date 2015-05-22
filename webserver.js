@@ -3,9 +3,11 @@ var cluster = require('cluster');
 
 var argv = require('minimist')(process.argv.slice(2));
 console.dir(argv);
+console.log(argv.p,argv.d,argv['_'][0]);
 var port = argv.p || process.env.PORT || 9090;
 var isDev = argv.d || false;
 var isDeployed = argv.b || false;
+var isDev = true;
 
 console.log('');
 console.log('Webserver - Heartbit');
