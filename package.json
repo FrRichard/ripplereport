@@ -14,10 +14,6 @@
     "server",
     "proxy"
   ],
-"scripts": { 
-  "start": "node webserver.js", 
-  "postinstall": "gulp build --watch" 
-},
   "dependencies": {
     "body-parser": "*",
     "bower": "^1.4.1",
