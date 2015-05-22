@@ -7,7 +7,9 @@ console.log(argv.p,argv.d,argv['_'][0]);
 var port = argv.p || process.env.PORT || 9090;
 var isDev = argv.d || false;
 var isDeployed = argv.b || false;
+// var isDev = true;
 var isDeployed = true;
+var port = 8080;
 
 console.log('');
 console.log('Webserver - Heartbit');

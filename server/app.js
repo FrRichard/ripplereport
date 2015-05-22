@@ -92,6 +92,7 @@ App.prototype.initRedisAndCacheManager = function() {
 };
 
 App.prototype.initExpressServer = function() {
+    console.log('uhuu');
     var deferred = Q.defer();
     var express = require('express');
     var http = require('http');
@@ -190,8 +191,8 @@ App.prototype.initStaticContentManager = function() {
             }
         });
         server.listen(8081, "localhost", function() {});
-    } else if (this.options.isDeployed) {
-        
+    } else if (this.options.isDeployed) { 
+        // this.app.use('/app', require('./dist/app'))
     }
 };
 
