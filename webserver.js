@@ -7,8 +7,8 @@ console.log(argv.p,argv.d,argv['_'][0]);
 var port = argv.p || process.env.PORT || 9090;
 var isDev = argv.d || false;
 var isDeployed = argv.b || false;
-// var isDev = true;
-isDeployed = true;
+var isDev = true;
+// isDeployed = true;
 
 
 console.log('');
