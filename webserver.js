@@ -16,7 +16,7 @@ console.log('Dev ?', isDev);
 
 var webapp = process.cwd() + '/';
 var webapp_server_path = webapp + 'server/';
-var webapp_client_path = webapp + 'client/';
+var webapp_client_path = webapp + 'client/dist/';
 
 console.log('');
 console.log('Client path : ', webapp_client_path, '\nServer path : ', webapp_server_path);
