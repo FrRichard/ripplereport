@@ -190,6 +190,8 @@ App.prototype.initStaticContentManager = function() {
             }
         });
         server.listen(8081, "localhost", function() {});
+    } else if (this.options.isDeployed) {
+        
     }
 };
 
