@@ -1,4 +1,4 @@
-<script>
+
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -7,7 +7,7 @@
   ga('create', 'UA-63331712-1', 'auto');
   ga('send', 'pageview');
 
-</script>
+
 
 (function e(t,n){if(typeof exports==="object"&&typeof module==="object")module.exports=n();else if(typeof define==="function"&&define.amd)define(n);else{var r=n();for(var i in r)(typeof exports==="object"?exports:t)[i]=r[i]}})(this,function(){return function(e){var t={};function n(r){if(t[r])return t[r].exports;var i=t[r]={exports:{},id:r,loaded:false};e[r].call(i.exports,i,i.exports,n);i.loaded=true;return i.exports}n.m=e;n.c=t;n.p="dist/js/";return n(0)}([function(e,t,n){e.exports=n(1)},function(e,t,n){var r=n(6);new r},,,,,function(e,t,n){(function(t,r){var i=n(14);var a=n(16);var s=n(15);var o=n(17);var u=n(18);var l=n(24);var c=n(19);var f=n(20);var p=n(21);var d=n(22);var h=n(17);var m=n(23);var v=t.Router.extend({routes:{app:"app",report:"report","update/:params":"update",account:"account"},initialize:function(e){t.history.start({pushState:true})},app:function(e){i.render(i.createElement(a,null),document.getElementById("app"));if(e){var t=JSON.parse(e);console.log("PARAM!",t);var n=[t.address];var s=o.dashboards.account;f.registerconf(s);r.each(d,function(e){if(t.address==e.address||t.address==e.name){s=h.dashboards.gateway;f.registerconf(s)}});s["reportnumber"]=n.length;var u="address"+n.length;if(m.decode(n[0])){console.log("=========================++++>VIEW detects Address");this.type="address";p.addresstrack(n)}else if(n[0][0]=="~"){console.log("==========================++++>VIEW detects ~name");this.type="id";p.idtrack(n)}}},report:function(e){},render:function(e){}});e.exports=v}).call(t,n(27),n(25))},,,function(e,t,n){var r,i;/*!
 	 * jQuery JavaScript Library v2.1.3
