@@ -102,7 +102,7 @@ var SearchBar = React.createClass({
 		// var searchlogo = <div> COUCOU! </div>;
 		return ( 
 		 <div id="search">
-			<input onKeyPress={this.handleKeyPress} type="text"  placeholder="Enter a ripple address" className="searchinput"/>			
+			<input onKeyPress={this.handleKeyPress} type="text"  placeholder="Enter a ripple address or a ~name" className="searchinput"/>			
 			{searchlogo}
 			{errormsg}
          </div>
