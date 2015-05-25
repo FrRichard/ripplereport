@@ -132,7 +132,7 @@ var RippleAccountTransactionsSummary = React.createClass({
 				function emptyfield() {
 					rows2.push(
 						<tr key={"transactionsum_nothing_table"} className="offerexercisedrow"> 
-							<td key={"transactionsum_nothing"+moment()}>  Nothing ! Go fuck yourself !
+							<td key={"transactionsum_nothing"+moment()}>  No transactions for this currency!
 							</td>
 						</tr>
 					);
