@@ -10406,7 +10406,8 @@ striping:
 .search-container {
   float: left;
   color: #124A51;
-  font-size: 12px; }
+  font-size: 12px;
+  margin-top: 20px; }
 
 .per-page-container {
   display: inline;
