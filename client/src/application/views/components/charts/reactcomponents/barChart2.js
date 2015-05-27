@@ -5,7 +5,6 @@ var barChartD3 = require('barChart2D3');
 var pieChart = React.createClass({
 
 	componentDidMount: function() {
-		console.log("INNNNIIIIIIIIIIIIIIIIIIIIITTTTTTHE_BARCHART!!!!!");
 		var el = React.findDOMNode(this);
 		this.barChartD3 = new barChartD3(el, this.getChartState().data, this.getChartState().id,this.getChartState().size);
 	},
@@ -22,7 +21,6 @@ var pieChart = React.createClass({
 	},
 
 	getChartState: function() {
-		console.log("PROPSSSSDATAAAAAAAAA",this.props.data.length);
 		return {
 			data: this.props.data,
 			id: this.props.id,

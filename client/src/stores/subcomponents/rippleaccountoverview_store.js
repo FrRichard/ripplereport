@@ -134,7 +134,7 @@ function calculateFiatTotal(shares,fiat,issuer) {
   var result = {};
   result.totalfiat = 0;
   var rate; 
-
+  console.log("FIAAAAT",fiat);
   // Cas si uniquement des XRP comme balance
   if (fiat== "XRP" ) {
     var xrpshare = _.filter(shares, function(share) {
@@ -144,11 +144,12 @@ function calculateFiatTotal(shares,fiat,issuer) {
     result.totalfiat = xrpshare[0].balance;
     result.issuer = "";
 
-    // _.each(shares, function(share) {
-    // 	if(share.currency != 'XRP') {
-    // 		result.totalfiat += share.xrpequ;
-    // 	}
-    // });
+    _.each(shares, function(share) {
+    	if(share.currency != 'XRP') {
+    		result.totalfiat += share.xrpequ;
+    		console.log(result.totalfiat);
+    	}
+    });
 
     return result ;
   }
