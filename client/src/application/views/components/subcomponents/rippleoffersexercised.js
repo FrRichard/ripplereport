@@ -47,7 +47,6 @@ var RippleOffersExercised = React.createClass({
 		if(this.state.rippleoffersexercised[this.address]) {
 			var chart = <BarChart id={this.chartId} size={[550,230]} data={this.state.rippleoffersexercised[this.address].globalorders.results} />
 		}
-
 		return (
 			<div className="panel panel-default">
 				 <div className="panel-heading clearfix">
@@ -58,9 +57,14 @@ var RippleOffersExercised = React.createClass({
 						</span>
            			</div>
            		</div>
-           		<div className="panel-body" style={panelstyle}>
-           			{chart}
-				</div>
+           		{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
+           		{ !this.state.isloading ?
+           			this.state.rippleoffersexercised[this.address].globalorders.results.length > 0 ?
+		           		<div className="panel-body" style={panelstyle}>
+		           			{chart}
+						</div>
+					:  <div className="didntissueiou"> This account didnt exercised any offer </div>
+				: "" }
 			</div>);
 
 		this.address= "address" + this.props.attributes.reportnumber;
@@ -69,7 +73,12 @@ var RippleOffersExercised = React.createClass({
 	_onChangeRippleOffersExercised: function() {
 		var key = this.props.attributes.reportnumber;
 		this.address= "address" + key;
+		var rippleoffersexercised = getRippleoffersexercisedState(this.address)['rippleoffersexercised'];
 		this.setState(getRippleoffersexercisedState("address" + key));
+		this.setState( {
+			rippleoffersexercised: rippleoffersexercised,
+			isloading:false
+		});
 	},
 
 	_onLoading: function() {

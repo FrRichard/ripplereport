@@ -219,7 +219,7 @@ var RippleOffersExercisedSummary = React.createClass({
 							                    </tbody>
 					              		</Table>
 				              		:  <div className="didntissueiou"> This account didnt exercised any offer </div>
-				              	: ""
+				              	:  <div className="didntissueiou"> This account didnt exercised any offer </div>
 						: "" }
 				</div>
 				<div className="panel-body" style={ofexsum_top10}>
