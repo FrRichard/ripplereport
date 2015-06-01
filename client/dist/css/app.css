@@ -10532,6 +10532,26 @@ striping:
 #ripplelogo {
   float: left; }
 
+.transaction_header_title {
+  color: #004756; }
+
+.transaction_field {
+  color: #004756; }
+
+.transaction_header {
+  margin-left: 10%;
+  float: left;
+  width: 40%;
+  height: 11em;
+  font-size: 0.75em; }
+
+.transaction_memo {
+  margin-right: 10%;
+  font-size: 0.75em;
+  width: 40%;
+  height: 11em;
+  float: right; }
+
 .loading {
   height: 60px;
   display: block;
