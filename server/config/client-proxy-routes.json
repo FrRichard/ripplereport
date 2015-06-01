@@ -2,6 +2,7 @@
     "unprotectedRoutes": {
         "/": "file:template/home.jade",
         "/app": "file:template/app.jade",
+        "/transaction": "file:template/app.jade",
         "/login": "file:template/login.jade",
         "/register": "file:template/register.jade",
         "/account": "file:template/account.jade"

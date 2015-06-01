@@ -2,7 +2,7 @@ var Constants = require('Constants');
 var Dispatcher = require('Dispatcher');
 var rippleexchangerates = require('rippleexchangerates');
 var ripplemarkettraders = require('ripplemarkettraders');
-
+var transactions= require('transactions');
 
 var RippledataActions = {
 
@@ -60,6 +60,21 @@ var RippledataActions = {
 				result: collection
 			});
 		
+		});
+	},
+
+	transaction: function(params) {
+
+		var collection = new transactions("address1", params);
+
+		collection.createTransactionList(params).then(function() {
+			Dispatcher.handleViewAction({
+				actionType: Constants.ActionTypes.ASK_TRANSACTION,
+				result:collection
+			});
+			Dispatcher.handleServerAction({
+				actionType:Constants.ActionTypes.TX_ISLOADING
+			});
 		});
 	}
 

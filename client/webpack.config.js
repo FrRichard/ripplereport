@@ -93,6 +93,7 @@ module.exports = {
 
 			// Views
 			App: path.join(__dirname, './src/application/views/app/app'),
+			Transaction: path.join(__dirname, './src/application/views/transaction/transaction'),
 			Account: path.join(__dirname, './src/application/views/account/account'),
 			AuthComponent: path.join(__dirname, './src/application/views/auth/authComponent'),
 			RegisterComponent: path.join(__dirname, './src/application/views/auth/registerComponent'),
@@ -129,6 +130,7 @@ module.exports = {
 			RippleAccountTransactionStats: path.join(__dirname, './src/application/views/components/subcomponents/rippleaccounttransactionstats'),
 			TestItem2: path.join(__dirname, './src/application/views/components/subcomponents/testitem2'),
 			Searchbar_account: path.join(__dirname, './src/application/views/components/subcomponents/searchbar_account'),
+			Searchbar_transaction: path.join(__dirname, './src/application/views/components/subcomponents/searchbar_transaction'),
 			AbstractSubcomponent: path.join(__dirname, './src/application/views/components/subcomponents/abstractsubcomponent'),
 			DropDown: path.join(__dirname, './src/application/views/components/subcomponents/dropdown'),
 			AccountOverview: path.join(__dirname, './src/application/views/components/subcomponents/accountoverview'),
@@ -168,6 +170,7 @@ module.exports = {
 			RippleaccountoffersStore: path.join(__dirname, './src/stores/subcomponents/rippleaccountoffers_store'),
 			RippleaccounttransactionstatsStore: path.join(__dirname, './src/stores/subcomponents/rippleaccounttransactionstats_store'),
 			RipplemarkettradersStore: path.join(__dirname, './src/stores/subcomponents/ripplemarkettraders_store'),
+			TransactionStore: path.join(__dirname, './src/stores/subcomponents/transaction_store'),
 
 			// Constants
 			Constants: path.join(__dirname, './src/constants/constants'),
@@ -191,6 +194,7 @@ module.exports = {
 			rippleaccountoffers: path.join(__dirname, './src/application/collections/rippleaccountoffers'),
 			rippleaccounttransactionstats: path.join(__dirname, './src/application/collections/rippleaccounttransactionstats'),
 			ripplemarkettraders: path.join(__dirname, './src/application/collections/ripplemarkettraders'),
+			transactions: path.join(__dirname, './src/application/collections/transactions'),
 			grids: path.join(__dirname, './src/application/collections/grids'),
 
 			//models
@@ -204,6 +208,7 @@ module.exports = {
 			rippleaccountoffer: path.join(__dirname, './src/application/models/rippleaccountoffer'),
 			rippleaccounttransactionstat: path.join(__dirname, './src/application/models/rippleaccounttransactionstat'),
 			ripplemarkettrader: path.join(__dirname, './src/application/models/ripplemarkettrader'),
+			transaction: path.join(__dirname, './src/application/models/transaction'),
 
 			grid: path.join(__dirname, './src/application/models/grid'),
 
@@ -220,7 +225,7 @@ module.exports = {
 			backbone: path.join(__dirname, './lib/bower_components/backbone/backbone'),
 			bootstrap: path.join(__dirname, './lib/bower_components/bootstrap/dist/js/bootstrap'),
 			jquery: path.join(__dirname, './lib/bower_components/jquery/dist/jquery'),
-			lodash: path.join(__dirname, './lib/bower_components/lodash/dist/lodash.underscore'),
+			lodash: path.join(__dirname, './lib/bower_components/lodash/dist/lodash'),
 			modernizr: path.join(__dirname, './lib/bower_components/modernizr/modernizr'),
 			jsSchema: path.join(__dirname, './lib/bower_components/js-schema/js-schema.debug'),
 			chance: path.join(__dirname, './lib/bower_components/chance/chance'),

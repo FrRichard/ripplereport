@@ -1,23 +1,27 @@
 var React = require("react");
+var Config = require('config');
+//View
 var App = require('App');
-var Account = require('Account');
-var config = require('config');
+var Transaction = require('Transaction');
+
+//Store
 var GridStore = require('GridStore');
 var RippleidStore = require('RippleidStore');
 var RippleinfosStore =require('RippleinfosStore');
+
+//actions
 var DashboardActions = require('DashboardActions');
 var AccountActions = require('AccountActions');
+var RippledataActions = require('RippledataActions');
+//helper
 var gatewaysnames = require('gatewayNames');
-var Config = require('config');
 var addressvalidator = require('addressvalidator');
 
 var Router = Backbone.Router.extend({
 
     routes: {
         "app": "app",
-        "report":"report",
-        "update/:params":"update",
-        "account":"account"
+        "transaction":"transaction"
     },
 
     initialize: function(params) {
@@ -27,7 +31,6 @@ var Router = Backbone.Router.extend({
     },
 
     app: function(params) {
-     
         React.render(<App/>, document.getElementById('app'));
         if(params) {
 
@@ -36,7 +39,7 @@ var Router = Backbone.Router.extend({
             var param = JSON.parse(params);
             console.log("PARAM!",param);
             var toresolve = [param.address];
-            var conf = config.dashboards.account;
+            var conf = Config.dashboards.account;
             DashboardActions.registerconf(conf);
             _.each(gatewaysnames, function(gateway) {
                 if(param.address == gateway.address || param.address == gateway.name) {
@@ -60,34 +63,19 @@ var Router = Backbone.Router.extend({
         } 
     },
 
-    report: function(params) {    
- 
+    transaction: function(params) {
+        console.log(params);
+        if(params) {
+            var params = JSON.parse(params);
+            RippledataActions.transaction([params]);
+        } 
+        React.render(<Transaction />, document.getElementById('app'));
     },
 
     render: function(callback) {
 
     }
 
-    // update: function(params) {
-    //     Backbone.history.navigate('#report',{trigger: true});
-
-    //     var params = JSON.parse(params);
-    //     var conf = params.conf;
-    //     var address = params.address;
-    //     var type = params.type;
-
-    //     React.render(<Account/>, document.getElementById('app'));
-    //     console.log("=====+++> ROUTER /update has been TRIGGERED with params:", params);
-    //     if(type == "address") {
-    //         console.log("ISSTOREREADYINFOS",RippleinfosStore.getSpecific("address1")[address]);
-    //         var idcollection = RippleinfosStore.getSpecific("address1")[address];
-    //     }  else {
-    //          console.log("ISSTOREREADYIDS",RippleidStore.getSpecific("address1")[address]);
-    //         var idcollection = RippleidStore.getSpecific("address1")[address];
-    //     }
-    //     AccountActions.viewready(idcollection,type);
-    //     DashboardActions.registerconf(conf);
-    // }
 
 });
 

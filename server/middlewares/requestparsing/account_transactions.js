@@ -46,10 +46,11 @@ AccountTransactions.prototype.parse = function(data,account) {
 	};
 
 	_.each(data.transactions, function(transac,i) {
+			console.log("METAAAAAAAAAAAAAAAAAAAAAAAAAAA",transac.meta);
 			var pparsedTransac = transactionParser.parseBalanceChanges(transac.meta);
-			console.log("PARSEDTRANSACTIONS", pparsedTransac);
+
 		if(transac.tx.Destination == account || transac.tx.Account == account) {
-			console.log("uuuuuuh");
+
 			var parsedTransac = transactionParser.parseBalanceChanges(transac.meta);
 			if(transac.tx.Destination == account) {
 				if(!_.isObject(transac.tx.Amount)) {

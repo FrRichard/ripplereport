@@ -115,7 +115,7 @@ var RippleAccountTransactions = React.createClass({
 		            // !collapse.iscollapsed ?  button = "fa fa-chevron-down" :  button = ""; 
 		    		var content = "<tr>" +
 		    			" <td style='max-width:0px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;'> <span> LedgerIndex: <a href=/app?"+JSON.stringify(ledgerindex)+" target='_blank'>" + celldata[rowIndex].hiddenprops.ledgerIndex +"</a> </span>" +
-		    			"</br><span > TxHash: <a href=/app?"+JSON.stringify(txhash)+" target='_blank'>  " + celldata[rowIndex].hiddenprops.txHash +" </a> </span></td>" + 
+		    			"</br><span > TxHash: <a href=/transaction?"+JSON.stringify(txhash)+" target='_blank'>  " + celldata[rowIndex].hiddenprops.txHash +" </a> </span></td>" + 
 		    			"<td  style='max-width:0px; white-space:nowrap; border:0px;' ><span> Issuer: <a href=/app?"+JSON.stringify(issuer)+" target='_blank'>  " + celldata[rowIndex].hiddenprops.issuer +" </a> </span>" + 
 		    			"</br><span> Counterparty: <a href=/app?"+JSON.stringify(counterparty)+" target='_blank'>  " + celldata[rowIndex].hiddenprops.counterparty +" </a> </span></td>" + 
 		    			"</tr>";
