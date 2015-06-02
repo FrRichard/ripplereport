@@ -99,9 +99,8 @@ var SearchBar = React.createClass({
 			var errormsg = <div className ="errormsg"> This ~name or address has not been found </div>;
 		}
 
-		// var searchlogo = <div> COUCOU! </div>;
 		return ( 
-		 <div id="search">
+		 <div id="search" className="search_account">
 			<input onKeyPress={this.handleKeyPress} type="text"  placeholder="Enter a ripple address or a ~name" className="searchinput"/>			
 			{searchlogo}
 			{errormsg}

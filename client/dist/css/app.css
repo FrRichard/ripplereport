@@ -10558,6 +10558,9 @@ striping:
   height: 15px;
   width: 15px; }
 
+.search_account {
+  width: 60%; }
+
 #searchvalidid {
   color: #3EA751;
   display: inline;
@@ -10572,11 +10575,20 @@ striping:
 #bigsearch {
   width: 50%; }
 
-#search {
-  width: 70%; }
-
 #ripplelogo {
   float: left; }
+
+#searchwrongid {
+  float: left;
+  display: inline; }
+
+.transaction_errormsg {
+  color: #F40808;
+  display: inline;
+  margin-left: 0.8em; }
+
+.search_transaction {
+  width: 40%; }
 
 .top_bar {
   margin-left: 9%;
