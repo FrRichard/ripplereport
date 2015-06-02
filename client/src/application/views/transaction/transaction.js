@@ -54,8 +54,7 @@ var Transaction = React.createClass({
 				         	<div id="top-panel" >
 						        	<Panel  style={{height: 130 }} >
 						        		<div>
-						        			<i className="fa fa-exchange" > </i>
-						        			<p id="rippletitle"> Transaction Monitor </p>
+						        			<p id="rippletitle" className="search_transaction_title"> Transaction Monitor </p>
 						        		</div>
 						        		<Searchbar/>
 						    		</Panel>
