@@ -6702,7 +6702,8 @@ h1, .h1, h2, .h2, h3, .h3 {
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   -o-transition: 0.5s;
-  transition: 0.5s; }
+  transition: 0.5s;
+  margin-left: 2em; }
 
 #logo a:hover {
   background-position: right 25px;

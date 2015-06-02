@@ -1,5 +1,6 @@
 var _ = require('underscore');
 var Promise = require("promise");
+
 function Rippleoffersexercised() {}
 
 Rippleoffersexercised.prototype.calculate = function(data) {

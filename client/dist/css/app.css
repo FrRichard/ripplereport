@@ -6702,7 +6702,8 @@ h1, .h1, h2, .h2, h3, .h3 {
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   -o-transition: 0.5s;
-  transition: 0.5s; }
+  transition: 0.5s;
+  margin-left: 2em; }
 
 #logo a:hover {
   background-position: right 25px;
@@ -9168,6 +9169,51 @@ ul.DTTT_dropdown.dropdown-menu > li:hover > a {
   border: 1px dashed #000;
   opacity: 0.3; }
 
+/* Syntax highlighting for JSON objects */
+ul.json-dict, ol.json-array {
+  list-style-type: none;
+  margin: 0 0 0 1px;
+  border-left: 1px dotted #ccc;
+  padding-left: 2em; }
+
+.json-string {
+  color: #0B7500; }
+
+.json-literal {
+  color: #1A01CC;
+  font-weight: bold; }
+
+/* Toggle button */
+a.json-toggle {
+  position: relative;
+  color: inherit;
+  text-decoration: none; }
+
+a.json-toggle:focus {
+  outline: none; }
+
+a.json-toggle:before {
+  color: #aaa;
+  content: "\25BC";
+  /* down arrow */
+  position: absolute;
+  display: inline-block;
+  width: 1em;
+  left: -1em; }
+
+a.json-toggle.collapsed:before {
+  content: "\25B6";
+  /* left arrow */ }
+
+/* Collapsable placeholder links */
+a.json-placeholder {
+  color: #aaa;
+  padding: 0 1em;
+  text-decoration: none; }
+
+a.json-placeholder:hover {
+  text-decoration: underline; }
+
 /*!
 Pure v0.6.0
 Copyright 2014 Yahoo! Inc. All rights reserved.
@@ -10532,6 +10578,13 @@ striping:
 #ripplelogo {
   float: left; }
 
+.top_bar {
+  margin-left: 9%;
+  margin-right: 9%; }
+
+.top_sidebar {
+  margin-left: 2em; }
+
 .transaction_header_title {
   color: #004756; }
 
@@ -10540,6 +10593,17 @@ striping:
 
 .transaction_field_special {
   font-weight: bold; }
+
+.transaction_reducedaddress {
+  width: 4em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  margin-top: -1.5em; }
+
+.transaction_account {
+  margin-right: 1em;
+  font-size: 0.8em; }
 
 .transaction_field_medium {
   color: #004756;
@@ -10581,6 +10645,17 @@ td.transaction_field_title {
   height: 21em;
   float: left; }
 
+.transaction_otheraccounts {
+  margin-left: 10%;
+  font-size: 1em;
+  width: 29.75%;
+  height: 21em;
+  float: left; }
+
+.transaction_otheraccounts_table {
+  width: 30em;
+  font-size: 0.75em; }
+
 .transaction_tod_block {
   margin-bottom: 1em; }
 
@@ -10599,6 +10674,18 @@ td.transaction_field_title {
 .transaction_table_gateway {
   margin-bottom: 1em;
   width: 52.3em; }
+
+.currency_floatright {
+  float: right; }
+
+.rawjson_panel {
+  margin-right: 10%;
+  font-size: 1em;
+  /* width:49.75%;
+	height:21em; */
+  float: right;
+  overflow-x: scroll;
+  font-size: 0.8em; }
 
 .loading {
   height: 60px;
@@ -10649,9 +10736,6 @@ td.transaction_field_title {
 
 .checkright {
   color: #339933; }
-
-.toptop {
-  margin-left: 70px; }
 
 .item {
   display: block;

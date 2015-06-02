@@ -97,6 +97,7 @@ var AccountActions = {
 				actionType: Constants.ActionTypes.ASK_RIPPLEID,
 				result: rippleidcollection
 			});
+				console.log("RIPPLEIDCOLLECTON",rippleidcollection);
 		});
 
 	},

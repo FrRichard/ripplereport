@@ -46,7 +46,6 @@ AccountTransactions.prototype.parse = function(data,account) {
 	};
 
 	_.each(data.transactions, function(transac,i) {
-			console.log("METAAAAAAAAAAAAAAAAAAAAAAAAAAA",transac.meta);
 			var pparsedTransac = transactionParser.parseBalanceChanges(transac.meta);
 
 		if(transac.tx.Destination == account || transac.tx.Account == account) {

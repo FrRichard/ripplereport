@@ -141,6 +141,7 @@ module.exports = {
 			//common - inner element needed for subcomponents
 			CollapsableRow: path.join(__dirname, './src/application/views/components/common/collapsablerow'),
 			table_funct:  path.join(__dirname, './src/application/views/components/common/table_funct'),
+			RawJson: path.join(__dirname, './src/application/views/components/common/rawjson'),
 
 
 			//subcomponent helpers
@@ -211,7 +212,6 @@ module.exports = {
 			rippleaccounttransactionstat: path.join(__dirname, './src/application/models/rippleaccounttransactionstat'),
 			ripplemarkettrader: path.join(__dirname, './src/application/models/ripplemarkettrader'),
 			transaction: path.join(__dirname, './src/application/models/transaction'),
-
 			grid: path.join(__dirname, './src/application/models/grid'),
 
 			//routers
@@ -222,6 +222,7 @@ module.exports = {
 			gridster: path.join(__dirname, './lib/internal-libs/jquery.gridster/gridster'),
 			gridsterResponsive: path.join(__dirname, './lib/internal-libs/gridster-responsive/gridster.responsive'),
 			ChartEngine: path.join(__dirname, './lib/internal-libs/chartEngine/ChartEngine'),
+			jsonViewer: path.join(__dirname, './lib/internal-libs/jquery.json-viewer/jquery.json-viewer'),
 
 			// External libs
 			backbone: path.join(__dirname, './lib/bower_components/backbone/backbone'),
