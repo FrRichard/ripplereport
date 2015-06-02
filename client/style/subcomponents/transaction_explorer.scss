@@ -1,0 +1,110 @@
+.transaction_header_title {
+	color:#004756;
+}
+
+.transaction_field {
+	color:#004756;
+}
+
+.transaction_field_special {
+	font-weight:bold;
+}
+
+.transaction_reducedaddress {
+	width:4em;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	display:block;
+	margin-top:-1.5em;
+}
+
+.transaction_account {
+	margin-right:1em;
+	font-size:0.8em;
+}
+
+.transaction_field_medium {
+	color:#004756;
+	font-weight:bold;
+	font-size: 1.2em; 
+}
+
+.transaction_field_medium_black {
+	color:#2F3637;
+	font-weight:bold;
+	font-size: 1.2em;
+}
+
+td.transaction_field_title {
+	color:#2F3637;
+	font-size: 1.1em;
+	font-weight:bold;
+}
+
+.transaction_header {
+	margin-left:10%;
+	margin-right:0.25%;
+	float:left;
+	width:59.75%;
+	height:14em;
+	font-size: 0.75em;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+
+.transaction_memo {
+	margin-right:10%;
+	margin-left:0.25%;
+	font-size: 0.75em;
+	width:19.75%;
+	height:14em;
+	float:right;
+}
+
+.transaction_termsoftrade {
+	margin-left:10%;
+	font-size:1em;
+	width:29.75%;
+	height:21em;
+	float:left;
+}
+
+.transaction_otheraccounts {
+	margin-left:10%;
+	font-size:1em;
+	width:29.75%;
+	height:21em;
+	float:left;
+}
+
+.transaction_otheraccounts_table {
+	width:30em;	
+	font-size:0.75em;
+}
+
+.transaction_tod_block {
+	margin-bottom:1em;
+}
+
+.transaction_tod_block_issuer {
+	font-size:0.75em;
+}
+
+.transaction_gateways {
+	margin-right:10%;
+	margin-left:0.25%;
+	font-size:0.75em;
+	width:49.75%;
+	height:28em;
+	float:right;
+	overflow-y:scroll;
+}
+
+.transaction_table_gateway {
+	margin-bottom:1em;
+	width:52.3em;
+}
+
+.currency_floatright {
+	float:right;
+}
