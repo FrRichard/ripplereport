@@ -54,7 +54,7 @@ var Transaction = React.createClass({
 				         	<div id="top-panel" >
 						        	<Panel  style={{height: 130 }} >
 						        		<div>
-						        			<p id="rippletitle" className="search_transaction_title"> Transaction Monitor </p>
+						        			<p id="rippletitle" className="search_transaction_title"> Transaction Viewer </p>
 						        		</div>
 						        		<Searchbar/>
 						    		</Panel>

@@ -10666,7 +10666,8 @@ td.transaction_field_title {
   font-size: 1em;
   width: 29.75%;
   height: 21em;
-  float: left; }
+  float: left;
+  overflow-y: scroll; }
 
 .transaction_otheraccounts_table {
   width: 30em;
