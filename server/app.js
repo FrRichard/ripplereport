@@ -44,7 +44,7 @@ App.prototype.initManagers = function() {
 
     return Q.all([
         this.initEventManager(),
-        // this.initRedisAndCacheManager(),
+        this.initRedisAndCacheManager()
         // this.initMongoManager()
     ]);
 };
@@ -73,20 +73,24 @@ App.prototype.initRedisAndCacheManager = function() {
 
     var redisParams = {
         isDeployed: this.options.isDeployed,
-        url: this.config.db.redis,
-    };
-    this.redisManager = require(this.options.serverPath + '/managers/RedisManager');
-    this.cacheManager = require(this.options.serverPath + '/managers/CacheManager');
+        url: this.config.db.redis_local
+    }; 
+    // this.redisManager = require(this.options.serverPath + '/managers/RedisManager');
+    // this.cacheManager = require(this.options.serverPath + '/managers/CacheManager');
 
-    this.redisManager.init(redisParams)
-        .then(function() {
-            self.cacheManager.init(redisParams);
-        })
-        .done(function() {
-            self.redisManager.subscribeToChannels(function() {
+    // this.redisManager.init(redisParams)
+    //     .then(function() {
+    //         self.cacheManager.init(redisParams);
+    //     })
+    //     .done(function() {
+    //         self.redisManager.subscribeToChannels(function() {
                 deferred.resolve();
-            });
-        });
+    //         });
+    //     });
+    this.redisManager = require(this.options.serverPath + '/managers/RedisManager_ripple');
+    console.log("REEEEEEEEEEEEDIIIIIIIIIIIIS", this.redisManager);
+
+    this.redisManager.init(redisParams);
 
     return deferred.promise;
 };
@@ -248,6 +252,12 @@ App.prototype.initProxies = function() {
     }
     this.historicalapiProxy = new HistoricalapiProxy(historicalapiProxyParams);
 
+    var RealtimeProxy = require(proxiesPath + 'realtime');
+    var RealtimeProxyParams = {
+        app:this.app
+    }
+    this.realtimeProxy = new RealtimeProxy(RealtimeProxyParams);
+
     var initProxyCallback = function() {
         console.log('Api proxy...OK');
     };
@@ -277,6 +287,13 @@ App.prototype.initProxies = function() {
     };
 
     this.historicalapiProxy.init(initHistoricalapiProxyCallback);
+
+    var initRealtimeProxyCallback = function() {
+        console.log('Realtime proxy ... OK ');
+    };
+
+    this.realtimeProxy.init(initRealtimeProxyCallback);
+
 };
 
 App.prototype.initServicesRoutes = function() {

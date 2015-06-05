@@ -62,4 +62,10 @@ config.measures = [{
 config.clientproxy = {};
 config.clientproxy.urlRoutes = 'config/client-proxy-routes.json';
 
+/////////////////////////////////////////////////CONFIG REDIS_LOCAL//////////////////////////////////////////////////////:
+config.db.redis_local = "redis://127.0.0.1:6379";
+// config.db.redis_local = "redis://pub-redis-14766.us-east-1-4.3.ec2.garantiadata.com:14766";
+
+
+
 module.exports = config;

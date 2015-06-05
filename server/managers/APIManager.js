@@ -33,7 +33,7 @@ APIManager.prototype.getPlatforms = function(callback) {
 			try {
 				self.platforms = JSON.parse(body);
 			} catch (e) {
-				console.log('CANNOT PARSE PARTFORMS JACKSON !!');
+				console.log('CANNOT PARSE PLARTFORMS JACKSON !!');
 			}
 			callback(self.platforms);
 		});

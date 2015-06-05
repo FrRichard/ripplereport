@@ -96,6 +96,7 @@ module.exports = {
 			// Views
 			App: path.join(__dirname, './src/application/views/app/app'),
 			Transaction: path.join(__dirname, './src/application/views/transaction/transaction'),
+			Price: path.join(__dirname, './src/application/views/price/price'),
 			Account: path.join(__dirname, './src/application/views/account/account'),
 			AuthComponent: path.join(__dirname, './src/application/views/auth/authComponent'),
 			RegisterComponent: path.join(__dirname, './src/application/views/auth/registerComponent'),

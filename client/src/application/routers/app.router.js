@@ -21,7 +21,8 @@ var Router = Backbone.Router.extend({
 
     routes: {
         "app": "app",
-        "transaction":"transaction"
+        "transaction":"transaction",
+        "price":"price"
     },
 
     initialize: function(params) {
@@ -33,11 +34,7 @@ var Router = Backbone.Router.extend({
     app: function(params) {
         React.render(<App/>, document.getElementById('app'));
         if(params) {
-
-        //     this.AddressExists = new addressexists;
-
             var param = JSON.parse(params);
-            console.log("PARAM!",param);
             var toresolve = [param.address];
             var conf = Config.dashboards.account;
             DashboardActions.registerconf(conf);
@@ -64,7 +61,6 @@ var Router = Backbone.Router.extend({
     },
 
     transaction: function(params) {
-        console.log(params);
         if(params) {
             var params = JSON.parse(params);
             RippledataActions.transaction([params]);
@@ -72,7 +68,7 @@ var Router = Backbone.Router.extend({
         React.render(<Transaction />, document.getElementById('app'));
     },
 
-    render: function(callback) {
+    price: function(params) {
 
     }
 

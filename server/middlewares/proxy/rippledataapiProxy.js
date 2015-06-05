@@ -69,10 +69,9 @@ RippledataapiProxy.prototype.init = function(callback) {
 			body:parameters
 
 		};
-		// console.log("reqqqqqqqqqqqqqqqqq",JSON.parse(req.query.account).timeIncrement);
+
 		if(JSON.parse(req.query.account).timeIncrement == null) {
 			var callback = function(error, response, body) {
-				// console.log("timmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmeeee",self.req.timeIncrement);
 				if (error) {
 					console.log('error', error);
 					res.send(500, 'something went wrong');
@@ -86,7 +85,6 @@ RippledataapiProxy.prototype.init = function(callback) {
 					var datas = "error!";
 				}
 				try { var datas = rippleoffersexercised.calculate(data); } catch(e) { console.log("it's not gonna calculate  !",e)}
-				// console.dir(data);
 				res.status(response.statusCode).send(datas);
 			}
 		} else  {
