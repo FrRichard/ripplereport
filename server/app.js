@@ -17,6 +17,7 @@ App.prototype.start = function(options) {
         })
         .then(function() {
             self.initProxies();
+            self.initWebsockets();
             self.initSockets();
             self.initUserAPI();
             self.initClientRoutes();
@@ -76,19 +77,19 @@ App.prototype.initRedisAndCacheManager = function() {
         url: this.config.db.redis_local
     }; 
     // this.redisManager = require(this.options.serverPath + '/managers/RedisManager');
-    // this.cacheManager = require(this.options.serverPath + '/managers/CacheManager');
-
-    // this.redisManager.init(redisParams)
-    //     .then(function() {
-    //         self.cacheManager.init(redisParams);
-    //     })
-    //     .done(function() {
-    //         self.redisManager.subscribeToChannels(function() {
-                deferred.resolve();
-    //         });
-    //     });
+    this.cacheManager = require(this.options.serverPath + '/managers/CacheManager');
     this.redisManager = require(this.options.serverPath + '/managers/RedisManager_ripple');
-    console.log("REEEEEEEEEEEEDIIIIIIIIIIIIS", this.redisManager);
+
+    this.redisManager.init(redisParams)
+        .then(function() {
+            self.cacheManager.init(redisParams);
+        });
+        // .done(function() {
+            // self.redisManager.subscribeToChannels(function() {
+                deferred.resolve();
+            // });
+        // });
+    // console.log("REEEEEEEEEEEEDIIIIIIIIIIIIS", this.redisManager);
 
     this.redisManager.init(redisParams);
 
@@ -294,6 +295,11 @@ App.prototype.initProxies = function() {
 
     this.realtimeProxy.init(initRealtimeProxyCallback);
 
+};
+
+App.prototype.initWebsockets = function() {
+
+    var price = require(this.options.serverPath + '/websockets/ripple_price');
 };
 
 App.prototype.initServicesRoutes = function() {

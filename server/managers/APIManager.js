@@ -75,4 +75,10 @@ APIManager.prototype.getCriteria = function() {
 	return criteria;
 };
 
+APIManager.prototype.getRippleCurrencies = function() {
+	var currencies = ['USD','BTC'];
+	return currencies;
+};
+
+
 module.exports = APIManager.getInstance();
