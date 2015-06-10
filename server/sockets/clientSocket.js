@@ -24,13 +24,74 @@ ClientSocket.prototype.run = function(callback) {
         };
     }
     this.io = io(this.server, params);
-    this.initDataNamespace();
-    this.initNewsfeedNamespace();
+    // this.initDataNamespace();
+    // this.initNewsfeedNamespace();
     // this.initChatNamespace();
+    this.initRipplepriceNamespace();
     if (callback) {
         callback();
     }
 };
+
+var generateRoomnames_rippleprice = function(callback) {
+    var self = this;
+    sep = ":";
+    _.each(config.gateways, function(params, gateway) {
+        _.each(params.currencies, function(currency) {
+            _.each(config.measures.ripple, function(type) {
+                var channel = gateway + sep + params.item + sep + currency + sep +type.key;
+                self.redisClient.subscribe(channel);
+            });
+        });
+    });
+    callback(rooms);
+}
+
+ClientSocket.prototype.initRipplepriceNamespace = function() {
+    var self = this;
+    var max_num_rooms = 1;
+
+    generateRoomnames_rippleprice(function(roomlist) {
+        self.io
+            .of("/rippletrade")
+            .use(function(socket, next) {
+                if (socket) {
+                    console.log('SOCKET RIPPLE_PRICE CONNECTION MIDDLEWARE')
+                    return next();
+                }
+                next(new Error('Authentication error'));
+            })
+            .on('connection', function(socket) {
+                socket.on('enter-dataroom', function(dataroom) {
+
+                })
+
+            });
+
+
+    });
+    // _.each(roomlist, function(room) {
+    //     _.each(room.channels, function(channel) {
+    //         EventManager.on(channel, function(data) {
+    //             if (channel == 'BITSTAMP:BTC:CNY:TRD') {
+    //                 console.log(channel);
+    //                 console.log(room);
+    //             }
+    //             var payload = {
+    //                 key: channel,
+    //                 data: data,
+    //                 dataroom: room.id
+    //             };
+    //             self.io
+    //                 .of("/data")
+    //                 .to(room.id)
+    //                 // .volatile
+    //                 .emit(channel, payload);
+    //         });
+
+    //     })
+    // });
+}
 
 ClientSocket.prototype.initNewsfeedNamespace = function() {
     var self = this;

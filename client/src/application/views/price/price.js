@@ -1,4 +1,5 @@
 var React = require('react');
+var RealtimeActions = require('RealtimeActions');
 
 
 
@@ -26,4 +27,4 @@ var Price =  React.createClass({
 });
 
 
-Module.exports = Price;
+module.exports = Price;

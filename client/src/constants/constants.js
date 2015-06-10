@@ -27,7 +27,9 @@ module.exports = {
     WRONGADDRESS_ID:null,
     RIGHTADDRESS_ID:null,
     WRONGADDRESS_INFOS:null,
-    RIGHTADDRESS_INFOS:null
+    RIGHTADDRESS_INFOS:null,
+    // REAL TIME
+    ASK_PRICE:null
   }),
 
   PayloadSources: keyMirror({

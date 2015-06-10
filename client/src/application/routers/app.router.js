@@ -3,11 +3,15 @@ var Config = require('config');
 //View
 var App = require('App');
 var Transaction = require('Transaction');
+var Price = require('Price');
 
 //Store
 var GridStore = require('GridStore');
 var RippleidStore = require('RippleidStore');
 var RippleinfosStore =require('RippleinfosStore');
+
+//model test
+var RippleTrade = require('ripple_trade');
 
 //actions
 var DashboardActions = require('DashboardActions');
@@ -69,6 +73,8 @@ var Router = Backbone.Router.extend({
     },
 
     price: function(params) {
+
+        React.render(<Price />, document.getElementById('app'));
 
     }
 

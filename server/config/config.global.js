@@ -66,6 +66,50 @@ config.clientproxy.urlRoutes = 'config/client-proxy-routes.json';
 config.db.redis_local = "redis://127.0.0.1:6379";
 // config.db.redis_local = "redis://pub-redis-14766.us-east-1-4.3.ec2.garantiadata.com:14766";
 
+config.measures.ripple = [{
+	key: 'ASK'
+},
+{
+	key:'BID'
+}];
+
+config.gateways = {
+	BITSTAMP: {
+		address: 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B',
+		currencies: ['USD','BTC'],
+		item :'XRP'
+	},
+	SNAPSWAP: {
+		address: 'rMwjYedjc7qqtKYVLiAccJSmCwih4LnE2q',
+		currencies: ['USD','BTC','EUR'],
+		item :'XRP'
+	},
+	TOKYOJPY: {
+		address: 'r94s8px6kSw1uZ1MV98dhSRTvc6VMPoPcN',
+		currencies: ['JPY'],
+		item :'XRP'
+	},
+	RIPPLECHINA: {
+		address: 'razqQKzJRdB4UxFPWf5NEpEG3WMkmwgcXA',
+		currencies: ['CNY'],
+		item :'XRP'
+	},
+	RIPPLESINGAPORE: {
+		address: 'r9Dr5xwkeLegBeXq6ujinjSBLQzQ1zQGjH',
+		currencies: ['SGD'],
+		item :'XRP'
+	},
+	BITSO: {
+		address: 'rG6FZ31hDHN1K5Dkbma3PSB5uVCuVVRzfn',
+		currencies: ['MXN'],
+		item :'XRP'
+	},
+	RIPPEX: {
+		address: 'rfNZPxoZ5Uaamdp339U9dCLWz2T73nZJZH',
+		currencies: ['BRL'],
+		item :'XRP'
+	}
+}
 
 
 module.exports = config;

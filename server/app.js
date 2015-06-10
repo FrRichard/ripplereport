@@ -77,27 +77,23 @@ App.prototype.initRedisAndCacheManager = function() {
         url: this.config.db.redis_local
     }; 
     // this.redisManager = require(this.options.serverPath + '/managers/RedisManager');
-    this.cacheManager = require(this.options.serverPath + '/managers/CacheManager');
+    this.cacheManager = require(this.options.serverPath + '/managers/CacheManager_ripple');
     this.redisManager = require(this.options.serverPath + '/managers/RedisManager_ripple');
 
     this.redisManager.init(redisParams)
         .then(function() {
             self.cacheManager.init(redisParams);
-        });
-        // .done(function() {
-            // self.redisManager.subscribeToChannels(function() {
+        })
+        .done(function() {
+            self.redisManager.subscribeToChannels(function() {
                 deferred.resolve();
-            // });
-        // });
-    // console.log("REEEEEEEEEEEEDIIIIIIIIIIIIS", this.redisManager);
-
-    this.redisManager.init(redisParams);
+            });
+        });
 
     return deferred.promise;
 };
 
 App.prototype.initExpressServer = function() {
-    console.log('uhuu');
     var deferred = Q.defer();
     var express = require('express');
     var http = require('http');
@@ -136,7 +132,7 @@ App.prototype.initSockets = function() {
     var socketsPath = this.options.serverPath + 'sockets/';
 
     switch (this.options.mode) {
-        case "online":
+        case "online": 
             var ClientSocket = require(socketsPath + 'clientSocket');
             var socketParams = {
                 isDebug: this.options.isDebug,
@@ -149,6 +145,7 @@ App.prototype.initSockets = function() {
 
         case "offline":
         default:
+           console.log("OPTIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOONS",this.options.mode); 
             var OfflineClientSocket = require(socketsPath + 'offlineClientSocket');
             var socketParams = {
                 server: this.server,
@@ -299,7 +296,14 @@ App.prototype.initProxies = function() {
 
 App.prototype.initWebsockets = function() {
 
-    var price = require(this.options.serverPath + '/websockets/ripple_price');
+    var redisParams = {
+        isDeployed: this.options.isDeployed,
+        url: this.config.db.redis_local
+    }; 
+
+    var trade = require(this.options.serverPath + '/websockets/ripple_trade');
+    trade.init(redisParams);
+
 };
 
 App.prototype.initServicesRoutes = function() {

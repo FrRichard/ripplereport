@@ -175,6 +175,7 @@ module.exports = {
 			RippleaccounttransactionstatsStore: path.join(__dirname, './src/stores/subcomponents/rippleaccounttransactionstats_store'),
 			RipplemarkettradersStore: path.join(__dirname, './src/stores/subcomponents/ripplemarkettraders_store'),
 			TransactionStore: path.join(__dirname, './src/stores/subcomponents/transaction_store'),
+			RippleTradeStore: path.join(__dirname, '/src/stores/realtime/rippletrade_store'),
 
 			// Constants
 			Constants: path.join(__dirname, './src/constants/constants'),
@@ -186,8 +187,10 @@ module.exports = {
 			AccountActions: path.join(__dirname, './src/actions/account_actions'),
 			RippledataActions: path.join(__dirname,'./src/actions/rippledata_actions'),
 			DashboardActions: path.join(__dirname, './src/actions/dashboard_actions'),
+			RealtimeActions: path.join(__dirname, './src/actions/realtime_actions'),
 
 			//collections
+			ripple_trades: path.join(__dirname, './src/application/collections/realtime/ripple_trades'),
 			ripplelines: path.join(__dirname, './src/application/collections/ripplelines'),
 			rippleids: path.join(__dirname, './src/application/collections/rippleids'),
 			rippleinfos: path.join(__dirname, './src/application/collections/rippleinfos'),
@@ -202,6 +205,7 @@ module.exports = {
 			grids: path.join(__dirname, './src/application/collections/grids'),
 
 			//models
+			ripple_trade: path.join(__dirname, './src/application/models/realtime/ripple_trade'),
 			rippleline: path.join(__dirname, './src/application/models/rippleline'),
 			rippleid: path.join(__dirname, './src/application/models/rippleid'),
 			rippleinfo: path.join(__dirname, './src/application/models/rippleinfo'),
