@@ -68,6 +68,7 @@ RedisManager.prototype.subscribeToChannels = function(callback) {
         console.log(channel,message);
         CacheManager.set(channel, message);
         EventManager.emit(channel, message);
+        EventManager.emit("TEST",message);
     });
 
     if (callback) {

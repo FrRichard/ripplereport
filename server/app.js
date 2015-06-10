@@ -144,14 +144,15 @@ App.prototype.initSockets = function() {
             break;
 
         case "offline":
-        default:
-           console.log("OPTIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOONS",this.options.mode); 
-            var OfflineClientSocket = require(socketsPath + 'offlineClientSocket');
+        default: 
+            // var OfflineClientSocket = require(socketsPath + 'offlineClientSocket');
+            var ClientSocket = require(socketsPath + 'clientSocket');
             var socketParams = {
                 server: this.server,
                 dataPath: this.options.clientPath + 'data/'
             };
-            this.clientSocket = new OfflineClientSocket(socketParams);
+            // this.clientSocket = new OfflineClientSocket(socketParams);
+            this.clientSocket = new ClientSocket(socketParams);
             break;
     }
 

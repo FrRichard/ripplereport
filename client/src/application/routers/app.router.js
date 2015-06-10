@@ -12,6 +12,8 @@ var RippleinfosStore =require('RippleinfosStore');
 
 //model test
 var RippleTrade = require('ripple_trade');
+// socket manager
+var RippleSocketManager = require('RippleSocketManager');
 
 //actions
 var DashboardActions = require('DashboardActions');
@@ -73,7 +75,8 @@ var Router = Backbone.Router.extend({
     },
 
     price: function(params) {
-
+        var tradeModel = new RippleTrade();
+        tradeModel.socketSync();
         React.render(<Price />, document.getElementById('app'));
 
     }

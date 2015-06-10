@@ -189,6 +189,9 @@ module.exports = {
 			DashboardActions: path.join(__dirname, './src/actions/dashboard_actions'),
 			RealtimeActions: path.join(__dirname, './src/actions/realtime_actions'),
 
+			//managers
+			RippleSocketManager:path.join(__dirname, '/src/application/managers/sockets/rippleSocketManager'),
+
 			//collections
 			ripple_trades: path.join(__dirname, './src/application/collections/realtime/ripple_trades'),
 			ripplelines: path.join(__dirname, './src/application/collections/ripplelines'),
@@ -241,6 +244,7 @@ module.exports = {
 			moment: path.join(__dirname, './lib/bower_components/momentjs/moment'),
 			localstorage: path.join(__dirname, './lib/bower_components/store.js/store+json2.min'),
 			d3: path.join(__dirname, './lib/bower_components/d3/d3.min'),
+			// socketio: path.join(__dirname, '/lib/socket.io.min'),
 
 			// Home page libs
 			classie: path.join(__dirname, './lib/internal-libs/home/classie'),

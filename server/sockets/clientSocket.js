@@ -9,10 +9,10 @@ var CacheManager = require('../managers/CacheManager');
 var config = require('../config/');
 
 function ClientSocket(params) {
-    this.isDebug = params.isDebug;
+    // this.isDebug = params.isDebug;
     this.server = params.server;
-    this.apiUrl = params.apiUrl;
-    this.dataPath = params.dataPath;
+    // this.apiUrl = params.apiUrl;
+    // this.dataPath = params.dataPath;
 };
 
 ClientSocket.prototype.run = function(callback) {
@@ -27,49 +27,77 @@ ClientSocket.prototype.run = function(callback) {
     // this.initDataNamespace();
     // this.initNewsfeedNamespace();
     // this.initChatNamespace();
-    this.initRipplepriceNamespace();
+    this.initRippleTradeNamespace();
     if (callback) {
         callback();
     }
 };
 
-var generateRoomnames_rippleprice = function(callback) {
+var generateRoomnames_rippletrade = function(callback) {
     var self = this;
     sep = ":";
+
+    var rooms = [];
     _.each(config.gateways, function(params, gateway) {
         _.each(params.currencies, function(currency) {
+            
+            var channels = [];
             _.each(config.measures.ripple, function(type) {
-                var channel = gateway + sep + params.item + sep + currency + sep +type.key;
-                self.redisClient.subscribe(channel);
+                channels.push(gateway + sep + params.item + sep + currency + sep +type.key);
             });
+
+            var roomid = params.item + sep + currency;
+            var room = _.find(rooms, function(room) {
+                return room.id == roomid;
+            });
+
+            // Room already exists
+            if (room) {
+                room.channels = _.union(room.channels, channels);
+            } else {
+                rooms.push({
+                    id: roomid,
+                    channels: channels
+                });
+            }
         });
     });
     callback(rooms);
+
 }
 
-ClientSocket.prototype.initRipplepriceNamespace = function() {
+ClientSocket.prototype.initRippleTradeNamespace = function() {
     var self = this;
     var max_num_rooms = 1;
 
-    generateRoomnames_rippleprice(function(roomlist) {
-        self.io
-            .of("/rippletrade")
-            .use(function(socket, next) {
-                if (socket) {
-                    console.log('SOCKET RIPPLE_PRICE CONNECTION MIDDLEWARE')
-                    return next();
-                }
-                next(new Error('Authentication error'));
-            })
-            .on('connection', function(socket) {
-                socket.on('enter-dataroom', function(dataroom) {
+ 
+    // generateRoomnames_rippletrade(function(roomlist) {
+    //     self.io
+    //         .of("/rippletrade")
+    //         .use(function(socket, next) {
+    //             if (socket) {
+    //                 console.log('SOCKET RIPPLE_trade CONNECTION MIDDLEWARE')
+    //                 return next();
+    //             }
+    //             next(new Error('Authentication error'));
+    //         })
+    //         .on('connection', function(socket) {
+    //             console.log("SOCKEEEEEEEEEEEEEEEETTT",socket);
+    //             socket.emit('test','WOW!!! SUCH SOCKET!!!');
+    //             // socket.on('enter-dataroom', function(dataroom) {
 
-                })
+    //             // })
 
-            });
+    //         });
 
 
+    // });
+
+    EventManager.on('TEST', function(data) {
+        console.log("EMITTERRRRR",data);
+        self.io.of('/rippletrade').emit('TEST',data);
     });
+
     // _.each(roomlist, function(room) {
     //     _.each(room.channels, function(channel) {
     //         EventManager.on(channel, function(data) {
