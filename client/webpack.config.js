@@ -67,6 +67,7 @@ module.exports = {
 			config_rippleaccount: path.join(__dirname,'./src/application/config/config_rippleaccount'),
 			config_rippledataapi: path.join(__dirname, './src/application/config/config_rippledataapi'),
 			config_historicalapi: path.join(__dirname, './src/application/config/config_historicalapi'),
+			parametersManagerConfig:path.join(__dirname, './src/application/config/parametersManagerConfig'),
 
 			// views config
 			config_dashboards: path.join(__dirname, './src/application/views/components/dashboard/config_dashboards'),
@@ -191,6 +192,7 @@ module.exports = {
 
 			//managers
 			RippleSocketManager:path.join(__dirname, '/src/application/managers/sockets/rippleSocketManager'),
+			ParametersManager:path.join(__dirname, '/src/application/managers/ParametersManager'),
 
 			//collections
 			ripple_trades: path.join(__dirname, './src/application/collections/realtime/ripple_trades'),

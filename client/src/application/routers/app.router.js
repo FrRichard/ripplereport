@@ -12,13 +12,15 @@ var RippleinfosStore =require('RippleinfosStore');
 
 //model test
 var RippleTrade = require('ripple_trade');
-// socket manager
+//  managers
 var RippleSocketManager = require('RippleSocketManager');
+var ParametersManager = require('ParametersManager');
 
 //actions
 var DashboardActions = require('DashboardActions');
 var AccountActions = require('AccountActions');
 var RippledataActions = require('RippledataActions');
+var RealtimeActions = require('RealtimeActions');
 //helper
 var gatewaysnames = require('gatewayNames');
 var addressvalidator = require('addressvalidator');
@@ -75,8 +77,16 @@ var Router = Backbone.Router.extend({
     },
 
     price: function(params) {
-        var tradeModel = new RippleTrade();
-        tradeModel.socketSync();
+        //parameter manager get current
+        console.log(ParametersManager);
+        var currentParams = ParametersManager.getCurrentParams();
+        console.log("CURRENCT_PARAMS!!!",currenctParams);
+        //real_timeActions.connectToRippleTrade(currenctparams)
+         //if params.options.platformas="all" real_timeActions.connectToRippleTrades(currenctparams)
+
+        // Non
+        // var tradeModel = new RippleTrade();
+        // tradeModel.socketSync();
         React.render(<Price />, document.getElementById('app'));
 
     }

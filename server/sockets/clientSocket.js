@@ -71,31 +71,39 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
     var max_num_rooms = 1;
 
  
-    // generateRoomnames_rippletrade(function(roomlist) {
-    //     self.io
-    //         .of("/rippletrade")
-    //         .use(function(socket, next) {
-    //             if (socket) {
-    //                 console.log('SOCKET RIPPLE_trade CONNECTION MIDDLEWARE')
-    //                 return next();
-    //             }
-    //             next(new Error('Authentication error'));
-    //         })
-    //         .on('connection', function(socket) {
-    //             console.log("SOCKEEEEEEEEEEEEEEEETTT",socket);
-    //             socket.emit('test','WOW!!! SUCH SOCKET!!!');
-    //             // socket.on('enter-dataroom', function(dataroom) {
+    generateRoomnames_rippletrade(function(roomlist) {
+        console.log("ROOOOMMLIST=================================+>",roomlist);
+        self.io
+            .of("/rippletrade")
+            .use(function(socket, next) {
+                if (socket) {
+                    console.log('SOCKET RIPPLE_trade CONNECTION MIDDLEWARE')
+                    return next();
+                }
+                next(new Error('Authentication error'));
+            })
+            .on('connection', function(socket) {
+                socket.emit('test','WOW!!! SUCH SOCKET!!!');
+                socket.join("mescouilles");
+                socket.on('enter-dataroom', function(dataroom) {
+                    console.log("DATAROOOOOOOOOOM-enter?",dataroom);
+                    //1.check if room available
+                    //2. ger last trade
+                    //3. socket.join(dataroom,fucntion... => emit(enter-data-room) success =>_.each(room.channels) cachemanager.get(channel) emit(channel,payload)
+                });
 
-    //             // })
+                // socket.on('leave-dataroom', function(dataroom) {
+                    //
+                //})
 
-    //         });
+            });
 
 
-    // });
+    });
 
     EventManager.on('TEST', function(data) {
         console.log("EMITTERRRRR",data);
-        self.io.of('/rippletrade').emit('TEST',data);
+        self.io.of('/rippletrade').to('mescouilles').emit('TEST',data);
     });
 
     // _.each(roomlist, function(room) {
