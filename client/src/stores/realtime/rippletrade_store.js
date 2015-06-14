@@ -50,8 +50,8 @@ var RippleTradeStore = assign({}, EventEmitter.prototype, {
 		this.emit(event);
 	},
 
-	addChangeListener: function(address,callback) {
-		this.on(address, callback);
+	addChangeListener: function(channel,callback) {
+		this.on(channel, callback);
 	},
 
 	removeChangeListener: function(callback) {

@@ -81,6 +81,7 @@ var Router = Backbone.Router.extend({
 
     price: function(params) {
         //parameter manager get current
+        console.log("PRIIIIIIICE_PARAMS!!!", params);
         console.log(ParametersManager);
         ParametersManager.init();
         var currentParams = ParametersManager.getCurrentParams();
@@ -94,6 +95,9 @@ var Router = Backbone.Router.extend({
         // Non
         // var tradeModel = new RippleTrade();
         // tradeModel.socketSync();
+
+        //oui
+        // Backbone.navigate(url/params);
         React.render(<Price />, document.getElementById('app'));
 
     }

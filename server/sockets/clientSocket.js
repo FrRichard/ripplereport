@@ -99,17 +99,17 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
 
             });
 
-            _.each(roomlist, function(room) {
-                _.each(room.channels, function(channel) {
-                    EventManager.on(channel, function(data) {
-                        var data = {
-                            data:data,
-                            channel:channel
-                        };
-                        self.io.of('/rippletrade').to(room.id).emit(channel, data);
-                    });
+        _.each(roomlist, function(room) {
+            _.each(room.channels, function(channel) {
+                EventManager.on(channel, function(data) {
+                    var data = {
+                        data:data,
+                        channel:channel
+                    };
+                    self.io.of('/rippletrade').to(room.id).emit(channel, data);
                 });
             });
+        });
 
 
     });

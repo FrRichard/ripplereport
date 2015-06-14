@@ -32,6 +32,11 @@ ParametersManager.prototype.initInternalParams = function() {
 
 };
 
+ParametersManager.prototype.updateUserInputParams = function(params) {
+    // if (params && params.currency && params.platform && params.item) {
+    //     this.currentParams = params;
+    // }
+};
 
 ParametersManager.prototype.getDefaultPairs = function(item) {
 //  if (typeof config.defaultPairs[item] !== 'undefined') {

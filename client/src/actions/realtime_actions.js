@@ -27,7 +27,7 @@ var RealtimeActions = {
 	},
 
 	updateTradeStore: function(payload) {
-		console.log("UPDATETRADESTORE",payload);
+		console.log("UPDATETRADESTORE",this.payload);
 		var payload = [payload];
 		Dispatcher.handleViewAction({
 			actionType: Constants.ActionTypes.ASK_TRADE,
