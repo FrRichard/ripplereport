@@ -195,7 +195,7 @@ module.exports = {
 			ParametersManager:path.join(__dirname, '/src/application/managers/ParametersManager'),
 
 			//collections
-			ripple_trades: path.join(__dirname, './src/application/collections/realtime/ripple_trades'),
+			rippletrades: path.join(__dirname, './src/application/collections/realtime/ripple_trades'),
 			ripplelines: path.join(__dirname, './src/application/collections/ripplelines'),
 			rippleids: path.join(__dirname, './src/application/collections/rippleids'),
 			rippleinfos: path.join(__dirname, './src/application/collections/rippleinfos'),
@@ -210,7 +210,7 @@ module.exports = {
 			grids: path.join(__dirname, './src/application/collections/grids'),
 
 			//models
-			ripple_trade: path.join(__dirname, './src/application/models/realtime/ripple_trade'),
+			rippletrade: path.join(__dirname, './src/application/models/realtime/ripple_trade'),
 			rippleline: path.join(__dirname, './src/application/models/rippleline'),
 			rippleid: path.join(__dirname, './src/application/models/rippleid'),
 			rippleinfo: path.join(__dirname, './src/application/models/rippleinfo'),

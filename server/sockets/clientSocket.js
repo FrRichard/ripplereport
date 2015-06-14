@@ -90,12 +90,25 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
                     //1.check if room available
                     //2. ger last trade
                     //3. socket.join(dataroom,fucntion... => emit(enter-data-room) success =>_.each(room.channels) cachemanager.get(channel) emit(channel,payload)
+                    socket.join(dataroom);
                 });
 
                 // socket.on('leave-dataroom', function(dataroom) {
                     //
                 //})
 
+            });
+
+            _.each(roomlist, function(room) {
+                _.each(room.channels, function(channel) {
+                    EventManager.on(channel, function(data) {
+                        var data = {
+                            data:data,
+                            channel:channel
+                        };
+                        self.io.of('/rippletrade').to(room.id).emit(channel, data);
+                    });
+                });
             });
 
 

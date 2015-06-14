@@ -8,12 +8,19 @@ var _RippleTrade = {};
 
 
 function registerTrade(result) {
-
-	var trades = result.toJSON();
-	// console.log(infos);
-
+	var trades = result;
 	_.each(trades, function(trade) {
-		_RippleTrade[trade.id] = trade;
+		var pair = trade.item + ':' + trade.currency;
+		if(!_RippleTrade[pair]) {
+			_RippleTrade[pair] = {};
+		}
+		if(!_RippleTrade[pair][trade.platform]) {
+			_RippleTrade[pair][trade.platform] = [];
+		}
+
+		// if(_RippleTrade.length >= 5) { _RippleTrade.pop();}
+		_RippleTrade[pair][trade.platform].unshift(trade);
+
 	});
 	console.log("_RippletradeStore",_RippleTrade);
 };
@@ -32,9 +39,10 @@ var RippleTradeStore = assign({}, EventEmitter.prototype, {
 
 	emitChange: function(result) {
 		var self=this;
-		var currencies = result.toJSON();
-		_.each(currencies, function(currency) {
-			self.emit(currency.id);
+		var trades = result;
+		_.each(trades, function(trade) {
+			var channel = trade.platform + ':' + trade.item + ':' + trade.currency;
+			self.emit(channel);
 		});
 	},
 
@@ -56,10 +64,10 @@ var RippleTradeStore = assign({}, EventEmitter.prototype, {
 RippleTradeStore.dispatcherIndex = Dispatcher.register(function(payload) {
 	var action = payload.action;
   	var result;
- 
+ 	console.log("tradestore!",action.actionType);
   	switch(action.actionType) {
-  		 case Constants.ActionTypes.ASK_PRICE:		
-  		 	registerPrice(action.result); 	
+  		 case Constants.ActionTypes.ASK_TRADE:		
+  		 	registerTrade(action.result); 	
   		 	RippleTradeStore.emitChange(action.result); 	
   		 	break;
   		 case Constants.ActionTypes.ISLOADING:

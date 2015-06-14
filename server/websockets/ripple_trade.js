@@ -66,7 +66,7 @@ Price.prototype.init = function(params) {
 
 			var mybook_bid = remote.book(parameters[gateway].bid);
 			var mybook_ask = remote.book(parameters[gateway].ask);
-			var bidParams ={
+			var bidParams = {
 				currency: currency,
 				gateway: gateway,
 				item: 'XRP',
@@ -97,14 +97,29 @@ Price.prototype.ask_handler = function(params) {
   		if(tg.is_valid() || tp.is_valid()) {
 			console.log("ASK");
 	  //       console.log("Taker_gets",tg.to_human());
-	  //       console.log("Taker_gets ==> to_number",tg.to_number());
+	        // console.log("Taker_gets ==> to_number",tg.to_number());
 	  //       console.log("Taker_pays",tp.to_human());
-	  //       console.log("Taker_pays ==> to_number",tp.to_number());
+	        // console.log("Taker_pays ==> to_number",tp.to_number());
+	        var volumeitem = tg.to_number();
+	        var volumecurrency = tp.to_number();
 	        var price = tp.ratio_human(tg).to_human();
 	        channel = params.gateway + sep + params.item + sep + params.currency + sep + params.type;
-	       	console.log("From Websocket", price, channel);
 
-	        self.redisClient.publish(channel, price);
+	        (params.item == 'XRP') ? volumeitem = volumeitem/Math.pow(10,6) : volumeitem = volumeitem;
+
+	        var payload = {
+	        	price: price,
+	        	volumeitem:volumeitem,
+	        	volumecurrency:volumecurrency,
+	        	item: params.item,
+	        	currency: params.currency,
+	        	type: params.type,
+	        	platform: params.gateway
+	        }
+
+	       	console.log("From Websocket", payload, channel);
+	       	payload = JSON.stringify(payload);
+	        self.redisClient.publish(channel, payload);
 	    }
     }
 	
@@ -118,14 +133,28 @@ Price.prototype.bid_handler = function(params) {
 		if(tg.is_valid() || tp.is_valid()) {
 			console.log("BID");
 	  //       console.log("Taker_gets",tg.to_human());
-	  //       console.log("Taker_gets ==> to_number",tg.to_number());
+	        console.log("Taker_gets ==> to_number",tg.to_number());
 	  //       console.log("Taker_pays",tp.to_human());
-	  //       console.log("Taker_pays ==> to_number",tp.to_number());
+	        console.log("Taker_pays ==> to_number",tp.to_number());
+	        var volumeitem = tp.to_number();
+	        var volumecurrency = tg.to_number();
 	        var price = tg.ratio_human(tp).to_human();
 	        channel = params.gateway + sep + params.item + sep + params.currency + sep + params.type;
-	        console.log("From Websocket", price, channel);
 
-	        self.redisClient.publish(channel, price);
+	        (params.item == 'XRP') ? volumeitem = volumeitem/Math.pow(10,6) : volumeitem = volumeitem;
+
+	        var payload = {
+	        	price: price,
+	        	volumeitem:volumeitem,
+	        	volumecurrency:volumecurrency,
+	        	item: params.item,
+	        	currency: params.currency,
+	        	type: params.type,
+	        	platform: params.gateway
+	        }
+	        console.log("From Websocket", payload, channel);
+	        payload = JSON.stringify(payload);
+	        self.redisClient.publish(channel, payload);
 	    }
     }
 }

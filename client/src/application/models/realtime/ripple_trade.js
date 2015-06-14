@@ -1,6 +1,10 @@
 var config = require('config');
-
+var RealtimeActions = require('RealtimeActions');
 var RippleSocketManager = require('RippleSocketManager');
+
+console.log("aaaaaaaaaaaaaaaaaaaa",RealtimeActions);
+
+
 
 var Trade = Backbone.Model.extend({
 
@@ -9,6 +13,7 @@ var Trade = Backbone.Model.extend({
 	},
 
 	socketSync: function(params) {
+		console.log("TRADE_MODEL_PARAMS!",params);
 		var self = this;
 		this.params = params || this.params || {};
 		console.log("SOCKETSYNC!");
@@ -19,15 +24,18 @@ var Trade = Backbone.Model.extend({
 
 		});
 
-		RippleSocketManager.on('TEST', function(data) {
-			console.log("fromTrade_socket",data);
-		});
+		// RippleSocketManager.on('TEST', function(data) {
+		// 	console.log("fromTrade_socket",data);
+		// });
 
 		//remove old event listener (get old props & remove)
-		// var updateCallback = function(payload) {
-		//       var objTrade = payload.data;
-		//       self.update(objTrade);
-		//   };
+		var updateCallback = function(payload) {
+
+			payload.data = JSON.parse(payload.data);
+			console.log("parsed payload", payload);
+		    var objTrade = payload.data;
+		    self.update(objTrade);
+		 };
 		//   var eventId
 		//   if (this.isListening) {
 
@@ -38,28 +46,34 @@ var Trade = Backbone.Model.extend({
 		this.set('platform', this.params.platform);
 		this.set('currency', this.params.currency);
 		this.set('item', this.params.item);
-		this.set('type', this.params.type);
+		// this.set('type', this.params.type);
 		// SET NEW LISTENER
-		//var eventId = this.eventIdUpdate();
-		// DataSocketManager.on(eventId, updateCallback);
+		var eventId = this.eventIdUpdate('ASK');
+		console.log(eventId);
+		RippleSocketManager.on(eventId, updateCallback);
+		eventId = this.eventIdUpdate('BID');
+		console.log(eventId);
+		RippleSocketManager.on(eventId, updateCallback);
 		// this.isListening = true;
 
 	},
 
 
-	update: function(trade) {
-		if(trade) {
-			// console.log("NEW TRADE!!!!",trade);
-			// SET SERVER DATA PROPS ANSWER (amount, price, date...)
-			// Trigger update
-			// Real_timeACTIONS.updateTrade()
+	update: function(payload) {
+		var self = this;
+		if(payload) {
+			this.set('type', payload.type);
+			this.set('price', payload.price);
+			this.set('volumeitem', payload.volumeitem);
+			this.set('volumecurrency', payload.volumecurrency);
+			RealtimeActions.updateTradeStore(payload);
 		}
 
 	},
 
-	eventIdUpdate: function() {
+	eventIdUpdate: function(type) {
 		var sep = ":";
-		var eventId = this.get('platform') + sep + this.get('item') + sep + this.get('currency') + sep + this.get('type');
+		var eventId = this.get('platform') + sep + this.get('item') + sep + this.get('currency') + sep + type;
 		return eventId;
 	},
 

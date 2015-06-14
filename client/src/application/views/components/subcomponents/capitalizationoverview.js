@@ -13,7 +13,7 @@ var adaptgrid = require('AdaptGrid');
 
 
 function getRipplecapitalizationState(key) {
-  var ripplecapitalization= RipplecapitalizationoverviewStore.getSpecific(key);
+  var ripplecapitalization = RipplecapitalizationoverviewStore.getSpecific(key);
   return {
     id: new Date().getTime(),
     ripplecapitalization:ripplecapitalization

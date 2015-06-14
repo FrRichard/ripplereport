@@ -1,5 +1,5 @@
-var Trade = require('ripple_trade');
-var config = require('config');
+var Trade = require('rippletrade');
+var config = require('parametersManagerConfig');
 
 
 var Trades = Backbone.Collection.extend({
@@ -7,18 +7,25 @@ var Trades = Backbone.Collection.extend({
 
 	initialize: function(options) {
 		var self = this;
-		this.platformas = options.platforms;
 
-		_.each(platforms, function(platform) {
+		if (!options) {
+			options = {};
+		}
+
+		this.platforms = options.platforms || config.rippleDefaultplatforms;
+
+		_.each(this.platforms, function(platform, id) {
+			console.log("PLATEFORMID",platform,id);
 			_.each(platform.pairTrades, function(pair) {
+				console.log("PAIRTRADES",pairTrades);
 				var initParams = {
-					platform: platform.id;
+					platform: platform.id,
 					item: pair.item,
 					currency: pair.currency
 				}
 
 				var trade = new Trade(initParams);
-				self.add(price)
+				self.add(trade)
 			});
 
 		});

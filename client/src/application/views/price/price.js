@@ -1,12 +1,20 @@
 var React = require('react');
 var RealtimeActions = require('RealtimeActions');
+var RippleTradeStore = require('RippleTradeStore');
 
-
+function getRipplePriceState(key) {
+  var rippleprice = RippleTradeStore.getSpecific(key);
+  return {
+    id: new Date().getTime(),
+    rippleprice:rippleprice
+  }
+}
 
 var Price =  React.createClass({
 
 	getInitialState: function() {
-		return { isloaded:false }
+		var isloading = true;
+		return { isloading:isloading }
 	},
 
 	componentDidMount: function() {
@@ -21,7 +29,7 @@ var Price =  React.createClass({
         return (<div> PRice !!  yuhuuu!!</div>);
     },
 
-
+/// LISTENER ON COMPONENT UPDATE !
 
 
 });

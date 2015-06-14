@@ -29,7 +29,7 @@ module.exports = {
     WRONGADDRESS_INFOS:null,
     RIGHTADDRESS_INFOS:null,
     // REAL TIME
-    ASK_PRICE:null
+    ASK_TRADE:null
   }),
 
   PayloadSources: keyMirror({

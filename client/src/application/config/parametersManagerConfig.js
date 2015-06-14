@@ -55,6 +55,29 @@ parametersManagerConfig.defaultplatforms = {
 	}
 };
 
+parametersManagerConfig.rippleDefaultplatforms = {
+	BITSTAMP: {
+		item: 'XRP',
+		currency: 'USD'
+	},
+
+	BITSTAMP: {
+		item: 'XRP',
+		currency: 'BTC'
+	},
+
+	SNAPSWAP: {
+		item: 'XRP',
+		currency: 'USD'
+	},
+
+	SNAPSWAP: {
+		item: 'XRP',
+		currency: 'BTC'
+	}
+};
+
+
 parametersManagerConfig.defaultitems = {
 	BC: {
 		platform: "CRYPTSY",

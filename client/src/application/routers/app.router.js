@@ -9,9 +9,12 @@ var Price = require('Price');
 var GridStore = require('GridStore');
 var RippleidStore = require('RippleidStore');
 var RippleinfosStore =require('RippleinfosStore');
+//model 
+var rippletrade = require('rippletrade');
 
-//model test
-var RippleTrade = require('ripple_trade');
+//collections
+var rippletrades = require('rippletrades');
+
 //  managers
 var RippleSocketManager = require('RippleSocketManager');
 var ParametersManager = require('ParametersManager');
@@ -79,9 +82,13 @@ var Router = Backbone.Router.extend({
     price: function(params) {
         //parameter manager get current
         console.log(ParametersManager);
+        ParametersManager.init();
         var currentParams = ParametersManager.getCurrentParams();
-        console.log("CURRENCT_PARAMS!!!",currenctParams);
-        //real_timeActions.connectToRippleTrade(currenctparams)
+        console.log("CURRENCT_PARAMS!!!",currentParams);
+
+        var Model = new rippletrade(currentParams);
+        Model.socketSync();
+        RealtimeActions.joinDataroom(currentParams);
          //if params.options.platformas="all" real_timeActions.connectToRippleTrades(currenctparams)
 
         // Non
