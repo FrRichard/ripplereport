@@ -31,10 +31,8 @@ var RippleTradeStore = assign({}, EventEmitter.prototype, {
 		return _RippleTrade;
 	},
 
-	getSpecific:function(key) {
-		var res = {};
-		res[key]= _RippleTrade[key];
-		return res;
+	getSpecific:function(pair, platform) {
+		return _RippleTrade[pair][platform];
 	},
 
 	emitChange: function(result) {
@@ -64,7 +62,6 @@ var RippleTradeStore = assign({}, EventEmitter.prototype, {
 RippleTradeStore.dispatcherIndex = Dispatcher.register(function(payload) {
 	var action = payload.action;
   	var result;
- 	console.log("tradestore!",action.actionType);
   	switch(action.actionType) {
   		 case Constants.ActionTypes.ASK_TRADE:		
   		 	registerTrade(action.result); 	
