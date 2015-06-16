@@ -66,15 +66,17 @@ var RippledataActions = {
 	transaction: function(params) {
 
 		var collection = new transactions("address1", params);
-
+		Dispatcher.handleServerAction({
+				actionType:Constants.ActionTypes.TX_ISLOADING
+			});
 		collection.createTransactionList(params).then(function() {
 			Dispatcher.handleViewAction({
 				actionType: Constants.ActionTypes.ASK_TRANSACTION,
 				result:collection
 			});
-			Dispatcher.handleServerAction({
-				actionType:Constants.ActionTypes.TX_ISLOADING
-			});
+			// Dispatcher.handleServerAction({
+			// 	actionType:Constants.ActionTypes.TX_ISLOADING
+			// });
 		});
 	}
 

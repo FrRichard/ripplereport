@@ -8,17 +8,6 @@ var RippleinfosStore = require('RippleinfosStore');
 var Account = require('Account');
 var AccountActions = require('AccountActions');
 
-var titlestyle = {
-	marginLeft:10 +"%", 
-	fontSize: 35+"px" ,
-
-};
-
-var logostyle = {
-	height:40+"px",
-	marginLeft:3+ '%',
-	marginTop:0.5 +'%'
-};
 
 var App = React.createClass({
 
@@ -36,17 +25,17 @@ var App = React.createClass({
     render: function() {
     	if(this.state.page == "welcome") {
 			var page =   
-				<div id="bigsearch" style={{marginLeft: 'auto', marginRight:'auto',marginTop:15+"%"}}>
-			      	<div className="container-fluid expanded-panel">
-			       		<div className="row">
-				         	<div id="top-panel" >
-						        	<Panel  style={{height: 130 }} >
-						        		<div>
-						        			<img id="ripplelogo" src={'./img/Greenripple.png'}  style={logostyle}/>
-						        			<p id="rippletitle" style={titlestyle}> Ledger Monitor </p>
-						        		</div>
-						        		<Searchbar/>
-						    		</Panel>
+				<div id="bigsearch">
+			      	<div className="expanded-panel">
+			       		<div>
+				         	<div>
+					        	<Panel>
+					        		<div>
+					        			<img id="ripplelogo" src={'./img/Greenripple.png'}  />
+					        			<p id="rippletitle" > Ledger Monitor </p>
+					        		</div>
+					        		<Searchbar/>
+					    		</Panel>
 					    	</div>
 				    	</div>
 				    </div>

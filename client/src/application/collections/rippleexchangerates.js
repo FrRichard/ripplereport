@@ -7,6 +7,7 @@ var RippleExchangerates = Backbone.Collection.extend({
 
 	initialize: function() {
 		this.officialcurrencies = ['USD','EUR','JPY','CNY','BRL','CAD','KRW','MXN','SGD','GBP','XAU','XAG'];
+		// this.officialcurrencies = ['USD','EUR','JPY','CNY','BRL'];
 	},
 
 	getExchangerates: function(accountslines) {

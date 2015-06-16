@@ -188,6 +188,7 @@ var AccountActions = {
 
 		var collection = new rippleaccounttransactions();
 		collection.createAccountTransactionsList(accounts).then(function() {
+			console.log("FUUUUUUUUUUUUUUUUUUCKIIIIIN_COOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLECCCCCCCCCCTIOOOOOOOOOOON",collection);
 			Dispatcher.handleViewAction({
 				actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS,
 				result: collection

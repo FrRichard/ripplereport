@@ -182,7 +182,7 @@ a.show-sidebar:hover {
   margin-left: 20px;
 }
 #search > input {
-  width: 80%;
+  width: 120%;
   background: #dfdfdf;
   border: 1px solid #C7C7C7;
   text-shadow:0 1px 1px #EEE;
@@ -191,7 +191,7 @@ a.show-sidebar:hover {
   border-radius: 3px;
   color: #686868;
   line-height: 1em;
-  height: 30px;
+  height: 2em;
   padding: 0 35px 0 10px;
   -webkit-transition: 0.2s;
   -moz-transition: 0.2s;
@@ -202,8 +202,8 @@ a.show-sidebar:hover {
 #search > input + i {
   opacity:0;
   position: absolute;
-  top: 18px;
-  right: 10px;
+  top: 0.5em;
+  right: -2.5em;
   color: #004756;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;
@@ -225,7 +225,7 @@ a.show-sidebar:hover {
   opacity:0;
   position: absolute;
   top: 18px;
-  right: 10px;
+  right: 0px;
   color: #fff;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;
@@ -234,7 +234,7 @@ a.show-sidebar:hover {
 }
 
 #search > input:focus {
-  width:100%;
+  width:120%;
   outline:none;
 }
 #search > input:focus + i {

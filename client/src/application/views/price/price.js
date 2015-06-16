@@ -2,6 +2,7 @@ var React = require('react');
 var RealtimeActions = require('RealtimeActions');
 var RippleTradeStore = require('RippleTradeStore');
 var ParametersManager = require('ParametersManager');
+var FormatUtils = require('FormatUtils');
 
 function getRipplePriceState(key) {
   var rippleprice = RippleTradeStore.getSpecific(key);
@@ -45,12 +46,12 @@ var Price =  React.createClass({
     render: function() {
     	console.log("PRIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIICEEEEEEEEEEEEEEEESTAAAAAAAAAATE",this.state);
         return (
-        	<div> 
+        	<div className="priceView"> 
         		{this.state.data.price ? 
-        			<div>
-	        			<span> {this.state.data.price}  </span>
-	        			<span> {this.state.data.item + '/' + this.state.data.currency} </span>
-	        		</div>
+        			<span>
+	        			<div> {Math.trunc(this.state.data.price*Math.pow(10,8))/Math.pow(10,8)}  </div>
+	        			<div> {this.state.data.item + '/' + this.state.data.currency} </div>
+	        		</span>
 	        		: "FUCK YOU!"
         		}
         	</div>

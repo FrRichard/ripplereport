@@ -68,9 +68,9 @@ AccountTransactions.prototype.parse = function(data,account) {
 				
 				fillSummary(currency,issuer,type,amount);
 
-				var time = transac.date;
-				var txHash = transac.hash;
-				var ledgerIndex = transac.ledger_index;
+				if(transac.date) { var time = transac.date } else { var time = ''};
+				if(transac.hash) { var txHash = transac.hash } else { var txHash = ''};
+				if(transac.ledger_index) {  var ledgerIndex = transac.ledger_index } else { var ledgerIndex = ''};
 
 				result.transactions.push({
 					currency:currency,
@@ -100,9 +100,9 @@ AccountTransactions.prototype.parse = function(data,account) {
 				var counterparty = transac.tx.Destination;
 				fillSummary(currency,issuer,type,amount);
 				
-				var time = transac.date;
-				var txHash = transac.hash;
-				var ledgerIndex = transac.ledger_index;
+				if(transac.date) { var time = transac.date } else { var time = ''};
+				if(transac.hash) { var txHash = transac.hash } else { var txHash = ''};
+				if(transac.ledger_index) {  var ledgerIndex = transac.ledger_index } else { var ledgerIndex = ''};
 
 				result.transactions.push({
 					currency:currency,

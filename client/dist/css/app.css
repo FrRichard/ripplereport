@@ -6855,7 +6855,7 @@ a.show-sidebar:hover {
   margin-left: 20px; }
 
 #search > input {
-  width: 80%;
+  width: 120%;
   background: #dfdfdf;
   border: 1px solid #C7C7C7;
   text-shadow: 0 1px 1px #EEE;
@@ -6864,7 +6864,7 @@ a.show-sidebar:hover {
   border-radius: 3px;
   color: #686868;
   line-height: 1em;
-  height: 30px;
+  height: 2em;
   padding: 0 35px 0 10px;
   -webkit-transition: 0.2s;
   -moz-transition: 0.2s;
@@ -6874,8 +6874,8 @@ a.show-sidebar:hover {
 #search > input + i {
   opacity: 0;
   position: absolute;
-  top: 18px;
-  right: 10px;
+  top: 0.5em;
+  right: -2.5em;
   color: #004756;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;
@@ -6892,7 +6892,7 @@ a.show-sidebar:hover {
   opacity: 0;
   position: absolute;
   top: 18px;
-  right: 10px;
+  right: 0px;
   color: #fff;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;
@@ -6900,7 +6900,7 @@ a.show-sidebar:hover {
   transition: 0.4s; }
 
 #search > input:focus {
-  width: 100%;
+  width: 120%;
   outline: none; }
 
 #search > input:focus + i {
@@ -10555,8 +10555,8 @@ striping:
   padding: 10px; }
 
 .loading_search {
-  height: 15px;
-  width: 15px; }
+  height: 1em;
+  width: 1em; }
 
 .search_account {
   width: 60%; }
@@ -10564,7 +10564,7 @@ striping:
 #searchvalidid {
   color: #3EA751;
   display: inline;
-  font-size: 13px; }
+  font-size: 1em; }
 
 .searchbutton {
   display: inline; }
@@ -10703,6 +10703,56 @@ td.transaction_field_title {
   float: right;
   overflow-x: scroll;
   font-size: 0.8em; }
+
+.priceView {
+  top: 50%;
+  left: 50%;
+  right: 50%;
+  font-size: 3em;
+  position: absolute;
+  margin-top: -1.5em;
+  margin-left: -4em;
+  width: 8em;
+  height: 3em; }
+
+@media screen and (min-width: 1024px) {
+  #ripplelogo {
+    height: 2.5em;
+    margin-left: 3%;
+    margin-top: 1%; }
+  #rippletitle {
+    margin-left: 15%;
+    font-size: 2em; }
+  #bigsearch {
+    margin-left: -15%;
+    margin-top: -9em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30em;
+    height: 9em; } }
+
+@media screen and (max-width: 800px) {
+  #ripplelogo {
+    height: 1em;
+    margin-left: 3%;
+    margin-top: 1%; }
+  #rippletitle {
+    margin-left: 15%;
+    font-size: 1em; }
+  #bigsearch {
+    margin-left: -6em;
+    margin-top: -2.25em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12em;
+    height: 4.5em; }
+  #search > input {
+    height: 2em;
+    font-size: 0.75em; }
+  #search > input + i {
+    top: 0.4em; } }
 
 .loading {
   height: 60px;
