@@ -252,11 +252,11 @@ App.prototype.initProxies = function() {
     }
     this.historicalapiProxy = new HistoricalapiProxy(historicalapiProxyParams);
 
-    var RealtimeProxy = require(proxiesPath + 'realtime');
-    var RealtimeProxyParams = {
-        app:this.app
-    }
-    this.realtimeProxy = new RealtimeProxy(RealtimeProxyParams);
+    // var RealtimeProxy = require(proxiesPath + 'realtime');
+    // var RealtimeProxyParams = {
+    //     app:this.app
+    // }
+    // this.realtimeProxy = new RealtimeProxy(RealtimeProxyParams);
 
     var initProxyCallback = function() {
         console.log('Api proxy...OK');
@@ -288,11 +288,11 @@ App.prototype.initProxies = function() {
 
     this.historicalapiProxy.init(initHistoricalapiProxyCallback);
 
-    var initRealtimeProxyCallback = function() {
-        console.log('Realtime proxy ... OK ');
-    };
+    // var initRealtimeProxyCallback = function() {
+    //     console.log('Realtime proxy ... OK ');
+    // };
 
-    this.realtimeProxy.init(initRealtimeProxyCallback);
+    // this.realtimeProxy.init(initRealtimeProxyCallback);
 
 };
 
@@ -303,8 +303,8 @@ App.prototype.initWebsockets = function() {
         url: this.config.db.redis_local
     }; 
 
-    var trade = require(this.options.serverPath + '/websockets/ripple_trade');
-    trade.init(redisParams);
+    // var trade = require(this.options.serverPath + '/websockets/ripple_trade');
+    // trade.init(redisParams);
 
 };
 
