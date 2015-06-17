@@ -174,7 +174,6 @@ var RippleAccountTransactions = React.createClass({
 			var paginated = Paginator.paginate(filteredData, this.state.pagination);
 			var header = table_funct.header.call(this, this.state.columns, this.state.data);
 			if(this.state.rippleaccounttransactions[this.address]) {
-				console.log("FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUCKIIIIIIIIIIIIIIIIIIIIINGSTAAAAAAAAAAAAAATe", this.state);
 				var totalcashs = this.state.rippleaccounttransactions[this.address].summary.totalcash;
 				_.each(totalcashs, function(totalcash,key) {
 					var todraw = self.DataHelper.PieChart_bignumber(totalcash);

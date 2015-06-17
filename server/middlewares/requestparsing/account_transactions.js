@@ -85,10 +85,14 @@ AccountTransactions.prototype.parse = function(data,account) {
 
 			} else if(transac.tx.Account == account) {
 				
-				if(!_.isObject(transac.tx.SendMax)) {
+				if(!_.isUndefined(transac.tx.SendMax) && !_.isObject(transac.tx.SendMax)) {
+					var currency = 'XRP';
+				} else if(!_.isUndefined(transac.tx.SendMax)) {
+					var currency = transac.tx.SendMax.currency;
+				} else if(_.isUndefined(transac.tx.SendMax) && !_.isObject(transac.tx.Amount)) {
 					var currency = 'XRP';
 				} else {
-					var currency = transac.tx.SendMax.currency;
+					var currency = transac.tx.Amount.currency;
 				}
  
 				var amount = _.filter(parsedTransac[account] , function(t) {

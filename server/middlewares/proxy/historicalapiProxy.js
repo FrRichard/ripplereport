@@ -95,11 +95,11 @@ HistoricalapiProxy.prototype.init = function(callback) {
 						}
 				}
 
-
+				console.log(i + "transactions has been filtered and analyzed");
 				request(options,callback);
 	
 			} else {
-				console.log("FEEEEEEEEEEEEEEEEEEEEEEEEEEEEEETCH ====> END!");
+			
 				try {
 					var transactionsParsing = new self.requestparsing.account_transactions();
 					var transactions = new self.datacalcul.transactions();

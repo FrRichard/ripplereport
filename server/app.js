@@ -44,7 +44,7 @@ App.prototype.initManagers = function() {
     // this.cronJobManager.start();
 
     return Q.all([
-        this.initEventManager(),
+        this.initEventManager()
         // this.initRedisAndCacheManager()
         // this.initMongoManager()
     ]);
@@ -100,6 +100,7 @@ App.prototype.initExpressServer = function() {
 
     this.app = express();
     this.server = http.createServer(this.app);
+    this.server.timeout = 600000;
 
     var morgan = require('morgan');
     var bodyParser = require('body-parser');
