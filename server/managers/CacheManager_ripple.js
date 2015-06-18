@@ -47,14 +47,14 @@ CacheManager.prototype.init = function(params) {
 CacheManager.prototype.get = function(key, callback) {
     console.log('redis get : ', key)
     this.redisClient.get(key, function(err, buffer) {
-        console.log('redis response')
+        console.log('redis response',buffer);
         if (err) {
             console.log('Error client redis', err);
             callback(err);
         } else {
             try {
-                var deserializedDoc = JSON.parse(buffer);
-                callback(deserializedDoc);
+                // var deserializedDoc = JSON.parse(buffer);
+                callback(buffer);
             } catch (ex) {
                 console.log('Cannot parse buffer' + buffer);
                 callback(buffer);

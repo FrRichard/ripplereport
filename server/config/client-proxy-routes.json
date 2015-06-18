@@ -6,7 +6,8 @@
         "/price": "file:template/app.jade",
         "/login": "file:template/login.jade",
         "/register": "file:template/register.jade",
-        "/account": "file:template/account.jade"
+        "/account": "file:template/account.jade",
+        "/features": "file:template/app.jade"
     },
     "protectedRoutes": {
         "/widgets": "file:template/widgets.html",

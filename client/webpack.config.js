@@ -102,6 +102,7 @@ module.exports = {
 			AuthComponent: path.join(__dirname, './src/application/views/auth/authComponent'),
 			RegisterComponent: path.join(__dirname, './src/application/views/auth/registerComponent'),
 			Settings: path.join(__dirname, './src/application/views/settings/settingsComponent'),
+			Features: path.join(__dirname, '/src/application/views/features/features'),
 
 			//chartsD3
 			pieChartD3: path.join(__dirname, './src/application/views/components/charts/d3/pieChart'),
@@ -177,6 +178,7 @@ module.exports = {
 			RipplemarkettradersStore: path.join(__dirname, './src/stores/subcomponents/ripplemarkettraders_store'),
 			TransactionStore: path.join(__dirname, './src/stores/subcomponents/transaction_store'),
 			RippleTradeStore: path.join(__dirname, '/src/stores/realtime/rippletrade_store'),
+			DataroomsStore: path.join(__dirname, '/src/stores/datarooms_store'),
 
 			// Constants
 			Constants: path.join(__dirname, './src/constants/constants'),

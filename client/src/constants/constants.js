@@ -17,9 +17,6 @@ module.exports = {
     ASK_RIPPLEACCOUNTOFFERS:null,
     ASK_RIPPLEMARKETTRADERS:null,
     ASK_TRANSACTION:null,
-    REGISTER_CURRENTREFGRID: null,
-    REGISTER_CURRENTGRID: null,
-    REGISTER_CONF: null,
     ADD_WIDGET: null,
     REMOVE_WIDGET: null,
     ISLOADING: null,
@@ -29,7 +26,13 @@ module.exports = {
     WRONGADDRESS_INFOS:null,
     RIGHTADDRESS_INFOS:null,
     // REAL TIME
-    ASK_TRADE:null
+    ASK_TRADE:null,
+    // GRID
+    REGISTER_CURRENTREFGRID: null,
+    REGISTER_CURRENTGRID: null,
+    REGISTER_CONF: null,
+    //DATAROOMS
+    REGISTER_DATAROOMS:null
   }),
 
   PayloadSources: keyMirror({

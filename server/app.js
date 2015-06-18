@@ -44,8 +44,8 @@ App.prototype.initManagers = function() {
     // this.cronJobManager.start();
 
     return Q.all([
-        this.initEventManager()
-        // this.initRedisAndCacheManager()
+        this.initEventManager(),
+        this.initRedisAndCacheManager()
         // this.initMongoManager()
     ]);
 };
@@ -100,7 +100,7 @@ App.prototype.initExpressServer = function() {
 
     this.app = express();
     this.server = http.createServer(this.app);
-    this.server.timeout = 600000;
+
 
     var morgan = require('morgan');
     var bodyParser = require('body-parser');
@@ -252,11 +252,11 @@ App.prototype.initProxies = function() {
     }
     this.historicalapiProxy = new HistoricalapiProxy(historicalapiProxyParams);
 
-    // var RealtimeProxy = require(proxiesPath + 'realtime');
-    // var RealtimeProxyParams = {
-    //     app:this.app
-    // }
-    // this.realtimeProxy = new RealtimeProxy(RealtimeProxyParams);
+    var RealtimeProxy = require(proxiesPath + 'realtime');
+    var RealtimeProxyParams = {
+        app:this.app
+    }
+    this.realtimeProxy = new RealtimeProxy(RealtimeProxyParams);
 
     var initProxyCallback = function() {
         console.log('Api proxy...OK');
@@ -303,8 +303,8 @@ App.prototype.initWebsockets = function() {
         url: this.config.db.redis_local
     }; 
 
-    // var trade = require(this.options.serverPath + '/websockets/ripple_trade');
-    // trade.init(redisParams);
+    var trade = require(this.options.serverPath + '/websockets/ripple_trade');
+    trade.init(redisParams);
 
 };
 
@@ -344,6 +344,7 @@ App.prototype.run = function() {
     var self = this;
     var port = self.options.port;
     self.server.listen(port);
+    self.server.timeout = 600000;
     console.log('');
     console.log('Webapp listening on port ' + port);
     console.log('Webapp ready!');

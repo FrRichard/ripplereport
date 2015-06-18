@@ -2,6 +2,7 @@ var Constants = require('Constants');
 var Dispatcher = require('Dispatcher');
 var RippleSocketManager = require('RippleSocketManager');
 var RippleTradeStore = require('RippleTradeStore');
+var DataroomsStore = require('DataroomsStore');
 
 
 var RealtimeActions = {
@@ -74,6 +75,24 @@ var RealtimeActions = {
 		});
 
 
+    },
+
+    registerDataroom: function() {
+    	RippleSocketManager.once('enter-dataroom', function(response) {
+            if (response.error) console.log('ENTER DATAROOM ERROR : ', response.error);
+            else {
+            	var datarooms = DataroomsStore.getSpecific('current');
+            	console.log("GET DATAROOMS!",datarooms);
+                if (datarooms.indexOf(response.dataroom) === -1) {
+                    Dispatcher.handleViewAction({
+						actionType: Constants.ActionTypes.REGISTER_DATAROOMS,
+						result: response.dataroom
+					});
+			        // console.log('enter dataroom ok ', response.dataroom);
+                    // console.log('ENTER DATAROOMS ', self.datarooms);
+                }
+            }
+        });
     }
 
 

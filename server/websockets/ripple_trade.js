@@ -95,7 +95,7 @@ Price.prototype.ask_handler = function(params) {
     return function ask(tg, tp) {
 
   		if(tg.is_valid() || tp.is_valid()) {
-			console.log("ASK");
+			// console.log("ASK");
 	  //       console.log("Taker_gets",tg.to_human());
 	        // console.log("Taker_gets ==> to_number",tg.to_number());
 	  //       console.log("Taker_pays",tp.to_human());
@@ -117,7 +117,7 @@ Price.prototype.ask_handler = function(params) {
 	        	platform: params.gateway
 	        }
 
-	       	console.log("From Websocket", payload, channel);
+	       	// console.log("From Websocket", payload, channel);
 	       	payload = JSON.stringify(payload);
 	        self.redisClient.publish(channel, payload);
 	    }
@@ -131,11 +131,11 @@ Price.prototype.bid_handler = function(params) {
     return function bid(tg, tp){
 
 		if(tg.is_valid() || tp.is_valid()) {
-			console.log("BID");
+			// console.log("BID");
 	  //       console.log("Taker_gets",tg.to_human());
-	        console.log("Taker_gets ==> to_number",tg.to_number());
+	        // console.log("Taker_gets ==> to_number",tg.to_number());
 	  //       console.log("Taker_pays",tp.to_human());
-	        console.log("Taker_pays ==> to_number",tp.to_number());
+	        // console.log("Taker_pays ==> to_number",tp.to_number());
 	        var volumeitem = tp.to_number();
 	        var volumecurrency = tg.to_number();
 	        var price = tg.ratio_human(tp).to_human();
@@ -152,7 +152,7 @@ Price.prototype.bid_handler = function(params) {
 	        	type: params.type,
 	        	platform: params.gateway
 	        }
-	        console.log("From Websocket", payload, channel);
+	        // console.log("From Websocket", payload, channel);
 	        payload = JSON.stringify(payload);
 	        self.redisClient.publish(channel, payload);
 	    }

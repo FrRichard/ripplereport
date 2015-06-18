@@ -65,7 +65,7 @@ RedisManager.prototype.subscribeToChannels = function(callback) {
         });
     });
     self.redisClient.on("message", function(channel, message) {
-        console.log("REDIS,CHANNEL,MESSAGE!!",channel,message);
+        // console.log("REDIS,CHANNEL,MESSAGE!!",channel,message);
         CacheManager.set(channel, message);
         EventManager.emit(channel,message);
     });

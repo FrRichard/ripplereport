@@ -4,6 +4,7 @@ var Config = require('config');
 var App = require('App');
 var Transaction = require('Transaction');
 var Price = require('Price');
+var Features = require('Features');
 
 //Store
 var GridStore = require('GridStore');
@@ -33,13 +34,15 @@ var Router = Backbone.Router.extend({
     routes: {
         "app": "app",
         "transaction":"transaction",
-        "price":"price"
+        "price":"price",
+        "features":"features"
     },
 
     initialize: function(params) {
         Backbone.history.start({
             pushState: true
         });
+        this.datarooms = [];
     },
 
     app: function(params) {
@@ -81,15 +84,16 @@ var Router = Backbone.Router.extend({
 
     price: function(params) {
         //parameter manager get current
-        console.log("PRIIIIIIICE_PARAMS!!!", params);
+
         console.log(ParametersManager);
         ParametersManager.init();
         var currentParams = ParametersManager.getCurrentParams();
-        console.log("CURRENCT_PARAMS!!!",currentParams);
 
         var Model = new rippletrade(currentParams);
         Model.socketSync();
         RealtimeActions.joinDataroom(currentParams);
+        RealtimeActions.registerDataroom();
+    
          //if params.options.platformas="all" real_timeActions.connectToRippleTrades(currenctparams)
 
         // Non
@@ -99,6 +103,12 @@ var Router = Backbone.Router.extend({
         //oui
         // Backbone.navigate(url/params);
         React.render(<Price />, document.getElementById('app'));
+
+    },
+
+    features: function(params) {
+        console.log("FEATURES!");
+        React.render(<Features/>, document.getElementById('app'));
 
     }
 

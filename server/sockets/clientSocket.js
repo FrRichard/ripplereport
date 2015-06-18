@@ -5,7 +5,7 @@ var io = require('socket.io');
 
 var EventManager = require('../managers/EventManager');
 var APIManager = require('../managers/APIManager');
-var CacheManager = require('../managers/CacheManager');
+var CacheManager = require('../managers/CacheManager_ripple');
 var config = require('../config/');
 
 function ClientSocket(params) {
@@ -68,7 +68,7 @@ var generateRoomnames_rippletrade = function(callback) {
 
 ClientSocket.prototype.initRippleTradeNamespace = function() {
     var self = this;
-    var max_num_rooms = 1;
+    var max_num_rooms = 5;
 
  
     generateRoomnames_rippletrade(function(roomlist) {
@@ -83,14 +83,69 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
                 next(new Error('Authentication error'));
             })
             .on('connection', function(socket) {
-                socket.emit('test','WOW!!! SUCH SOCKET!!!');
-                socket.join("mescouilles");
+                socket.datarooms = [];
                 socket.on('enter-dataroom', function(dataroom) {
                     console.log("DATAROOOOOOOOOOM-enter?",dataroom);
-                    //1.check if room available
-                    //2. ger last trade
-                    //3. socket.join(dataroom,fucntion... => emit(enter-data-room) success =>_.each(room.channels) cachemanager.get(channel) emit(channel,payload)
-                    socket.join(dataroom);
+
+                    var checkDataroomRequest = function(dataroom) {
+                        var room = _.find(roomlist, function(room) {
+                            return room.id == dataroom;
+                        });
+                        console.log('selected room ', room);
+                        return room;
+                    };
+
+                    // Check if dataroom exists
+                    if (!checkDataroomRequest(dataroom)) {
+                        var payload = {
+                            error: dataroom + ' is not available :/'
+                        };
+                        socket.emit('enter-dataroom', payload);
+                        return false;
+                    }
+
+                    if (socket.datarooms && socket.datarooms.length > max_num_rooms) {
+                        var payload = {
+                            error: 'Max connections socket reached :/'
+                        };
+                        socket.emit('enter-dataroom', payload);
+                        return false;
+                    }
+
+                    var room = _.find(roomlist, function(room) {
+                        return room.id == dataroom;
+                    });
+
+                     _.each(room.channels, function(channel) {
+                        CacheManager.get(channel, function(data) {
+                            var payload = {
+                                key: channel,
+                                data: data,
+                                dataroom: dataroom
+                            };
+                            console.log('Send cache : ', channel);
+                            socket.emit(channel, payload)
+                        });
+                    });
+
+                   
+                    socket.join(dataroom, function(err) {
+                        if (err) {
+                            var payload = {
+                                error: err
+                            };
+                            console.log('err dataroom join : ', err);
+                            socket.emit('enter-dataroom', payload);
+                        } else {
+                            socket.emit('enter-dataroom', {
+                                result: 'success',
+                                dataroom: dataroom
+                            });
+                        }
+                    });
+
+                    socket.datarooms.push(dataroom);
+
                 });
 
                 // socket.on('leave-dataroom', function(dataroom) {
