@@ -2,9 +2,6 @@ var config = require('config');
 var RealtimeActions = require('RealtimeActions');
 var RippleSocketManager = require('RippleSocketManager');
 
-console.log("aaaaaaaaaaaaaaaaaaaa",RealtimeActions);
-
-
 
 var Trade = Backbone.Model.extend({
 
@@ -30,8 +27,8 @@ var Trade = Backbone.Model.extend({
 
 		//remove old event listener (get old props & remove)
 		var updateCallback = function(payload) {
-
-			payload.data = JSON.parse(payload.data);
+			
+			// payload.data = JSON.parse(payload.data);
 			console.log("parsed payload", payload);
 		    var objTrade = payload.data;
 		    self.update(objTrade);
@@ -48,12 +45,21 @@ var Trade = Backbone.Model.extend({
 		this.set('item', this.params.item);
 		// this.set('type', this.params.type);
 		// SET NEW LISTENER
-		var eventId = this.eventIdUpdate('ASK');
-		console.log(eventId);
-		RippleSocketManager.on(eventId, updateCallback);
-		eventId = this.eventIdUpdate('BID');
-		console.log(eventId);
-		RippleSocketManager.on(eventId, updateCallback);
+		RippleSocketManager.on('enter-dataroom', function(payload) {
+			if(payload.isReversed == false) {
+				var eventId = self.eventIdUpdate('ASK');
+				RippleSocketManager.on(eventId, updateCallback);
+				eventId = self.eventIdUpdate('BID');
+				RippleSocketManager.on(eventId, updateCallback);
+			} else {
+				var eventId = self.eventIdUpdate('ASK',true);
+				RippleSocketManager.on(eventId, updateCallback);
+				eventId = self.eventIdUpdate('BID',true);
+				RippleSocketManager.on(eventId, updateCallback);
+			}
+
+		});
+
 		// this.isListening = true;
 
 	},
@@ -71,9 +77,14 @@ var Trade = Backbone.Model.extend({
 
 	},
 
-	eventIdUpdate: function(type) {
+	eventIdUpdate: function(type,reversed) {
 		var sep = ":";
-		var eventId = this.get('platform') + sep + this.get('item') + sep + this.get('currency') + sep + type;
+		if(reversed) {
+			var eventId = this.get('platform') + sep + this.get('currency') + sep + this.get('item') + sep + type; 
+		} else  {
+			var eventId = this.get('platform') + sep + this.get('item') + sep + this.get('currency') + sep + type;
+		}
+
 		return eventId;
 	},
 

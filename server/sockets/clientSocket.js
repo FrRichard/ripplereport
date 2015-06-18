@@ -72,7 +72,6 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
 
  
     generateRoomnames_rippletrade(function(roomlist) {
-        console.log("ROOOOMMLIST=================================+>",roomlist);
         self.io
             .of("/rippletrade")
             .use(function(socket, next) {
@@ -83,16 +82,39 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
                 next(new Error('Authentication error'));
             })
             .on('connection', function(socket) {
+                var self = this;
                 socket.datarooms = [];
+                this.isReversed = false;
                 socket.on('enter-dataroom', function(dataroom) {
-                    console.log("DATAROOOOOOOOOOM-enter?",dataroom);
+
+                    // var reversechannel = function(channel) {
+                    //     var sep = ':';
+                    //     var channel = channel.split(':');
+                    //     var reversedchannel = channel[0] + sep + channel[2] + sep + channel[1] + sep + channel[3];
+                    //     return reversedchannel;
+                    // }
 
                     var checkDataroomRequest = function(dataroom) {
                         var room = _.find(roomlist, function(room) {
+                            self.isReversed = false;
                             return room.id == dataroom;
                         });
-                        console.log('selected room ', room);
-                        return room;
+                        if(room) {
+                            console.log('selected room ', room);
+                            return room;
+                        }
+
+                        if(!room) {
+                            var dataroom = dataroom.split(':');
+                            dataroom = dataroom[1] + ':' + dataroom[0];
+                            var reversedroom = _.find(roomlist, function(room) {
+                                return room.id == dataroom;
+                            });
+                            self.isReversed = true;
+                            console.log('selected room is reversed', reversedroom);
+                            return reversedroom;
+                        }
+                     
                     };
 
                     // Check if dataroom exists
@@ -112,23 +134,51 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
                         return false;
                     }
 
-                    var room = _.find(roomlist, function(room) {
+                    var isroom = _.find(roomlist, function(room) {
+                        self.isReversed = false;
                         return room.id == dataroom;
                     });
+                    if(!isroom) {
+                        var reverseddataroom = dataroom.split(':');
+                        reverseddataroom = reverseddataroom[1] + ':' + reverseddataroom[0];
+                        var room = _.find(roomlist, function(room) {
+                            return room.id == reverseddataroom;
+                        });
+                        var dataroom = room.id;
+                        self.isReversed = true;
+                    } else {
+                        var room = isroom;
+                        var dataroom = room.id;
+                    }
 
-                     _.each(room.channels, function(channel) {
+                    _.each(room.channels, function(channel) {
+                        console.log("ROOOOOOOOOM",room,channel);
+                        console.log("IsReversed? ==>",self.isReversed);
                         CacheManager.get(channel, function(data) {
-                            var payload = {
-                                key: channel,
-                                data: data,
-                                dataroom: dataroom
-                            };
-                            console.log('Send cache : ', channel);
-                            socket.emit(channel, payload)
+                          
+                            if(self.isReversed) {
+                                var data = JSON.parse(data);
+                                data['isReversed'] = true;
+                                var payload = {
+                                    key: channel,
+                                    data: data,
+                                    dataroom: dataroom
+                                };
+                                socket.emit(channel, payload);
+                            } else {
+                                var data = JSON.parse(data);
+                                var payload = {
+                                    key: channel,
+                                    data: data,
+                                    dataroom: dataroom
+                                };
+                                console.log('Send cache : ', channel, payload);
+                                socket.emit(channel, payload);
+                            }
                         });
                     });
 
-                   
+                    console.log("DATAROOOOOm",dataroom);
                     socket.join(dataroom, function(err) {
                         if (err) {
                             var payload = {
@@ -139,7 +189,8 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
                         } else {
                             socket.emit('enter-dataroom', {
                                 result: 'success',
-                                dataroom: dataroom
+                                dataroom: dataroom,
+                                isReversed: self.isReversed
                             });
                         }
                     });
@@ -154,14 +205,18 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
 
             });
 
+        
         _.each(roomlist, function(room) {
             _.each(room.channels, function(channel) {
+                console.log("+++++> channel:",channel);
                 EventManager.on(channel, function(data) {
-                    var data = {
-                        data:data,
-                        channel:channel
+                    var data = JSON.parse(data);
+                    var payload = {
+                        key: channel,
+                        data: data
                     };
-                    self.io.of('/rippletrade').to(room.id).emit(channel, data);
+                    console.log("FUCKING_PAYLOOOOOAD",channel);
+                    self.io.of('/rippletrade').to(room.id).emit(channel, payload);
                 });
             });
         });
@@ -169,10 +224,7 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
 
     });
 
-    EventManager.on('TEST', function(data) {
-        console.log("EMITTERRRRR",data);
-        self.io.of('/rippletrade').to('mescouilles').emit('TEST',data);
-    });
+
 
     // _.each(roomlist, function(room) {
     //     _.each(room.channels, function(channel) {

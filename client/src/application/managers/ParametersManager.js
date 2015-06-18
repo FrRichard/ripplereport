@@ -15,7 +15,7 @@ ParametersManager.prototype.init = function(callback) {
     //     type: 'POST',
     //     success: function() {
             self.initInternalParams();
-    //         self.isInit = true;
+            self.isInit = true;
     //         if (callback) {
     //             callback();
     //         }
@@ -33,9 +33,9 @@ ParametersManager.prototype.initInternalParams = function() {
 };
 
 ParametersManager.prototype.updateUserInputParams = function(params) {
-    // if (params && params.currency && params.platform && params.item) {
-    //     this.currentParams = params;
-    // }
+    if (params && params.currency && params.platform && params.item) {
+        this.currentParams = params;
+    }
 };
 
 ParametersManager.prototype.getDefaultPairs = function(item) {

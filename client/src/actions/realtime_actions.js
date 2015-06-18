@@ -70,8 +70,12 @@ var RealtimeActions = {
             // }
         // });
 
-		RippleSocketManager.on('disconnect', function(dataroom) {
-			RippleSocketManager.emit('enter-dataroom', dataroom);
+		// RippleSocketManager.on('disconnect', function(dataroom) {
+		// 	RippleSocketManager.emit('enter-dataroom', dataroom);
+		// });
+
+		RippleSocketManager.on('enter-dataroom',function(payload) {
+			console.log("ENTER-DATAROOM================================++>",payload);
 		});
 
 

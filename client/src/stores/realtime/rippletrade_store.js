@@ -40,6 +40,7 @@ var RippleTradeStore = assign({}, EventEmitter.prototype, {
 		var trades = result;
 		_.each(trades, function(trade) {
 			var channel = trade.platform + ':' + trade.item + ':' + trade.currency;
+			console.log("STORE_EMIT",channel);
 			self.emit(channel);
 		});
 	},

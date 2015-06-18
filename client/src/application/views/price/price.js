@@ -23,13 +23,15 @@ var Price =  React.createClass({
 		var pair = currentParams.item + sep + currentParams.currency;
 		var platform = currentParams.platform;
 		var data = {};
+        var isReversed = false;
 		return { 
 			isloading: isloading,
 			currentParams: currentParams,
 			channel: channel,
 			pair: pair,
 			platform: platform,
-			data: data
+			data: data,
+            isReversed: isReversed
 		}
 	},
 
@@ -44,16 +46,27 @@ var Price =  React.createClass({
     },
 
     render: function() {
-    	console.log("PRIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIICEEEEEEEEEEEEEEEESTAAAAAAAAAATE",this.state);
+    	console.log("PRICESTATE",this.state);
+
+        if(!this.state.data.price) {
+            var page = <div> This Pair Is Not Available </div>;
+        } else if(this.state.isReversed) {
+            console.log("REVERSED PRICE VIEW!");
+            var page = <span>
+                    <div> {1/this.state.data.price}  </div>
+                    <div> {this.state.data.currency+ '/' + this.state.data.item } </div>
+                </span>;
+        } else {
+            var price = Math.trunc(this.state.data.price*Math.pow(10,8))/Math.pow(10,8);
+            console.log("pppppppppppppprrrrrrrrrrrrrrrrrrriiiiiiiiiiiiiiiiiiiiice",price);
+            var page = <span>
+                        <div> {price}  </div>
+                        <div> {this.state.data.item + '/' + this.state.data.currency} </div>
+                    </span>;
+        }
         return (
         	<div className="priceView"> 
-        		{this.state.data.price ? 
-        			<span>
-	        			<div> {Math.trunc(this.state.data.price*Math.pow(10,8))/Math.pow(10,8)}  </div>
-	        			<div> {this.state.data.item + '/' + this.state.data.currency} </div>
-	        		</span>
-	        		: "FUCK YOU!"
-        		}
+        		{page}
         	</div>
 
 
@@ -61,14 +74,32 @@ var Price =  React.createClass({
         );
     },
 
+    // _onPriceChange: function(price) {
+    // 	var pair = this.state.pair;
+    // 	var platform = this.state.platform;
+    // 	var data = RippleTradeStore.getSpecific(pair, platform)[0];
+    // 	console.log("===================> PRICE CHANGED !!!", data.price);
+    // 	this.setState({
+    // 		data: data
+    // 	});
+    // },
+
     _onPriceChange: function(price) {
-    	var pair = this.state.pair;
-    	var platform = this.state.platform;
-    	var data = RippleTradeStore.getSpecific(pair, platform)[0];
-    	console.log("===================> PRICE CHANGED !!!", price);
-    	this.setState({
-    		data: data
-    	});
+        var pair = this.state.pair;
+        var platform = this.state.platform;
+        var data = RippleTradeStore.getSpecific(pair, platform)[0];
+        console.log("===================> PRICE CHANGED !!!", data);
+        if(data.isReversed) {
+            this.setState({
+                data: data,
+                isReversed: true
+            });
+        } else {
+            this.setState({
+                data: data,
+                isReversed: false
+            });
+        }
     }
 
 /// LISTENER ON COMPONENT UPDATE !

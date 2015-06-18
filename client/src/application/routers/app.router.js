@@ -34,7 +34,7 @@ var Router = Backbone.Router.extend({
     routes: {
         "app": "app",
         "transaction":"transaction",
-        "price":"price",
+        "price/*":"price",
         "features":"features"
     },
 
@@ -84,25 +84,57 @@ var Router = Backbone.Router.extend({
 
     price: function(params) {
         //parameter manager get current
+        var self = this;
+        if(ParametersManager.isInit) {
+            ParametersManager.init();
+        }
 
-        console.log(ParametersManager);
-        ParametersManager.init();
+        if(params) {
+            var params = {
+                item: params.split('/')[0],
+                currency: params.split('/')[1],
+                platform: params.split('/')[2]
+            }
+            ParametersManager.updateUserInputParams(params);
+        }
+
         var currentParams = ParametersManager.getCurrentParams();
-
+        console.log("CURRENT FUCKING PARAMS", currentParams, params);
         var Model = new rippletrade(currentParams);
+        RealtimeActions.registerDataroom();
         Model.socketSync();
         RealtimeActions.joinDataroom(currentParams);
-        RealtimeActions.registerDataroom();
+
+        var up = function(params) {
+                console.log("shiiiiiiiiiiiiiiiiiiiiiiit",params);
+                var self = this;
+                this.params = params;
+                return function(payload) {
+                    console.log(payload);
+                    if(payload.isReversed) {
+                        var params = {
+                            item: self.params.currency,
+                            currency: self.params.item,
+                            platform: self.params.platform,
+                            isReversed: true
+                        };
+
+                        ParametersManager.updateUserInputParams(params);
+                        React.render(<Price />, document.getElementById('app'));
+                    } else {
+                        React.render(<Price />, document.getElementById('app'));
+                    }
+                }
+        }(params);
+
+        var updateGlobalParams = function(payload) {
+            console.log("parazdazdazams",params);
+            return up.call(this,payload,params);
+        };
+
+        
     
-         //if params.options.platformas="all" real_timeActions.connectToRippleTrades(currenctparams)
-
-        // Non
-        // var tradeModel = new RippleTrade();
-        // tradeModel.socketSync();
-
-        //oui
-        // Backbone.navigate(url/params);
-        React.render(<Price />, document.getElementById('app'));
+        RippleSocketManager.on('enter-dataroom', updateGlobalParams);
 
     },
 
