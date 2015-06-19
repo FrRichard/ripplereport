@@ -28,7 +28,6 @@ var RealtimeActions = {
 	},
 
 	updateTradeStore: function(payload) {
-		console.log("UPDATETRADESTORE",payload);
 		var payload = [payload];
 		Dispatcher.handleViewAction({
 			actionType: Constants.ActionTypes.ASK_TRADE,
@@ -82,11 +81,11 @@ var RealtimeActions = {
     },
 
     registerDataroom: function() {
+        this.registerAvailablePairs();
     	RippleSocketManager.once('enter-dataroom', function(response) {
             if (response.error) console.log('ENTER DATAROOM ERROR : ', response.error);
             else {
             	var datarooms = DataroomsStore.getSpecific('current');
-            	console.log("GET DATAROOMS!",datarooms);
                 if (datarooms.indexOf(response.dataroom) === -1) {
                     Dispatcher.handleViewAction({
 						actionType: Constants.ActionTypes.REGISTER_DATAROOMS,
@@ -97,6 +96,17 @@ var RealtimeActions = {
                 }
             }
         });
+    },
+
+    registerAvailablePairs: function() {
+        RippleSocketManager.emit('ripplePairs');
+        RippleSocketManager.on('ripplePairs', function(pairs) {
+            Dispatcher.handleViewAction({
+                        actionType: Constants.ActionTypes.REGISTER_RIPPLEPAIRS,
+                        result: pairs
+            });
+        });
+
     }
 
 

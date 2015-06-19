@@ -46,15 +46,19 @@ ParametersManager.prototype.getDefaultPairs = function(item) {
 
 ParametersManager.prototype.computeUrl = function(params) {
     // return 'app?item=' + params.item + "&platform=" + params.platform + "&currency=" + params.currency;
+    var sep = '/';
+    return 'price?'+ params.item + sep + params.currency + sep +  params.platform;
 };
 
 ParametersManager.prototype.changeGlobalPair = function(pairId, platform) {
-    // var params = {};
-    // params.item = pairId.split("/")[0];
-    // params.currency = pairId.split("/")[1];
+    console.log("paraametersManager: CHANGE GLOBAL PAIR!!",pairId, platform);
+    var params = {};
+    params.item = pairId.split("/")[0];
+    params.currency = pairId.split("/")[1];
+    params.platform = "BITSTAMP";
     // params.platform = platform || this.currentParams.platform;
-    // var url = this.computeUrl(params);
-    // Backbone.history.navigate(url, true);
+    var url = this.computeUrl(params);
+    Backbone.history.navigate(url, true);
     // return false;
 };
 

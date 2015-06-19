@@ -111,5 +111,15 @@ config.gateways = {
 	}
 }
 
+config.ripplePairDefault = {
+	USD: "BITSAMP",
+	EUR: "SNAPSWAP",
+	JPY: "TOKYOJPY",
+	CNY: "RIPPLECHINA",
+	SGD: "RIPPLESINGAPORE",
+	MXN: "BITSO",
+	BRL:"RIPPEX"
+}
+
 
 module.exports = config;

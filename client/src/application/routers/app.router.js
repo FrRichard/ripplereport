@@ -83,7 +83,7 @@ var Router = Backbone.Router.extend({
     },
 
     price: function(params) {
-        //parameter manager get current
+        console.log("APP_ROUTER=====> PRICE:");
         var self = this;
         if(ParametersManager.isInit) {
             ParametersManager.init();
@@ -99,18 +99,16 @@ var Router = Backbone.Router.extend({
         }
 
         var currentParams = ParametersManager.getCurrentParams();
-        console.log("CURRENT FUCKING PARAMS", currentParams, params);
+
         var Model = new rippletrade(currentParams);
         RealtimeActions.registerDataroom();
         Model.socketSync();
         RealtimeActions.joinDataroom(currentParams);
 
         var up = function(params) {
-                console.log("shiiiiiiiiiiiiiiiiiiiiiiit",params);
                 var self = this;
                 this.params = params;
                 return function(payload) {
-                    console.log(payload);
                     if(payload.isReversed) {
                         var params = {
                             item: self.params.currency,
@@ -128,7 +126,6 @@ var Router = Backbone.Router.extend({
         }(params);
 
         var updateGlobalParams = function(payload) {
-            console.log("parazdazdazams",params);
             return up.call(this,payload,params);
         };
 
@@ -139,7 +136,6 @@ var Router = Backbone.Router.extend({
     },
 
     features: function(params) {
-        console.log("FEATURES!");
         React.render(<Features/>, document.getElementById('app'));
 
     }

@@ -18,7 +18,7 @@ function registerTrade(result) {
 			_RippleTrade[pair][trade.platform] = [];
 		}
 
-		// if(_RippleTrade.length >= 5) { _RippleTrade.pop();}
+		if(_RippleTrade[pair][trade.platform].length >= 10) { _RippleTrade[pair][trade.platform].pop();}
 		_RippleTrade[pair][trade.platform].unshift(trade);
 
 	});
@@ -32,6 +32,11 @@ var RippleTradeStore = assign({}, EventEmitter.prototype, {
 	},
 
 	getSpecific:function(pair, platform) {
+		if(!_RippleTrade[pair]) {
+			return "Pair is empty";
+		} else if(!_RippleTrade[pair][platform]) {
+			return "platform is empty";
+		}
 		return _RippleTrade[pair][platform];
 	},
 
@@ -40,7 +45,7 @@ var RippleTradeStore = assign({}, EventEmitter.prototype, {
 		var trades = result;
 		_.each(trades, function(trade) {
 			var channel = trade.platform + ':' + trade.item + ':' + trade.currency;
-			console.log("STORE_EMIT",channel);
+			console.log("emitter_channel:", channel);
 			self.emit(channel);
 		});
 	},
@@ -64,7 +69,7 @@ RippleTradeStore.dispatcherIndex = Dispatcher.register(function(payload) {
 	var action = payload.action;
   	var result;
   	switch(action.actionType) {
-  		 case Constants.ActionTypes.ASK_TRADE:		
+  		 case Constants.ActionTypes.ASK_TRADE:	
   		 	registerTrade(action.result); 	
   		 	RippleTradeStore.emitChange(action.result); 	
   		 	break;

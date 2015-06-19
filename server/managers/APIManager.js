@@ -1,5 +1,5 @@
 var request = require('request');
-
+var config = require('../config');
 var APIManager = function() {
 	if (APIManager.caller != APIManager.getInstance) {
 		throw new Error("This object cannot be instanciated");
@@ -75,10 +75,14 @@ APIManager.prototype.getCriteria = function() {
 	return criteria;
 };
 
-APIManager.prototype.getRippleCurrencies = function() {
-	var currencies = ['USD','BTC'];
-	return currencies;
+APIManager.prototype.getRippleItems = function() {
+	var items = config.gateways
+	return items;
 };
 
+APIManager.prototype.getRipplePairDefault = function() {
+	var pairs = config.ripplePairDefault;
+	return pairs;
+}
 
 module.exports = APIManager.getInstance();

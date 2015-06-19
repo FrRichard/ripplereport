@@ -1,4 +1,5 @@
 var config = require('../config');
+var ApiManager = require('../managers/APIManager');
 var Remote = require('ripple-lib').Remote;
 var EventManager = require('../managers/EventManager');
 var url = require('url');
@@ -28,6 +29,8 @@ Price.prototype.init = function(params) {
         console.log(uh,"REDIS AUTH .... OK");
     });
 
+	var items = ApiManager.getRipplePairDefault();
+	self.redisClient.publish("ripplePairs", JSON.stringify(items));
 
 	console.log("Ripple_websocket INIT .... OK");
 	var remote = new Remote({
@@ -44,7 +47,9 @@ Price.prototype.init = function(params) {
 		});
 	});
 
-	_.each(config.gateways, function(params, gateway) {
+	//publish available pairs
+
+	_.each(items, function(params, gateway) {
 		_.each(params.currencies, function(currency) {
 			var parameters ={};
 			parameters[gateway] = 

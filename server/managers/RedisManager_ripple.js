@@ -64,6 +64,9 @@ RedisManager.prototype.subscribeToChannels = function(callback) {
             });
         });
     });
+    // subscribe apimanager
+    self.redisClient.subscribe("ripplePairs");
+
     self.redisClient.on("message", function(channel, message) {
         console.log("REDIS,CHANNEL,MESSAGE!!",channel);
         CacheManager.set(channel, message);

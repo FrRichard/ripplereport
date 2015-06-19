@@ -32,7 +32,8 @@ module.exports = {
     REGISTER_CURRENTGRID: null,
     REGISTER_CONF: null,
     //DATAROOMS
-    REGISTER_DATAROOMS:null
+    REGISTER_DATAROOMS:null,
+    REGISTER_RIPPLEPAIRS:null
   }),
 
   PayloadSources: keyMirror({

@@ -10,12 +10,11 @@ var Trade = Backbone.Model.extend({
 	},
 
 	socketSync: function(params) {
-		console.log("TRADE_MODEL_PARAMS!",params);
+
 		var self = this;
 		this.params = params || this.params || {};
-		console.log("SOCKETSYNC!");
+
 		// var tradeSocket = io.connect('http://localhost:9090/rippletrade');
-		console.log(RippleSocketManager);
 		RippleSocketManager.on('connect', function (socket) {
 			console.log("CONNECTED TO /rippletrade SOCKET");
 
@@ -29,7 +28,7 @@ var Trade = Backbone.Model.extend({
 		var updateCallback = function(payload) {
 			
 			// payload.data = JSON.parse(payload.data);
-			console.log("parsed payload", payload);
+
 		    var objTrade = payload.data;
 		    self.update(objTrade);
 		 };

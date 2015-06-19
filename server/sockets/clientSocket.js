@@ -4,7 +4,7 @@ var _ = require('underscore');
 var io = require('socket.io');
 
 var EventManager = require('../managers/EventManager');
-var APIManager = require('../managers/APIManager');
+var ApiManager = require('../managers/APIManager');
 var CacheManager = require('../managers/CacheManager_ripple');
 var config = require('../config/');
 
@@ -86,13 +86,6 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
                 socket.datarooms = [];
                 this.isReversed = false;
                 socket.on('enter-dataroom', function(dataroom) {
-
-                    // var reversechannel = function(channel) {
-                    //     var sep = ':';
-                    //     var channel = channel.split(':');
-                    //     var reversedchannel = channel[0] + sep + channel[2] + sep + channel[1] + sep + channel[3];
-                    //     return reversedchannel;
-                    // }
 
                     var checkDataroomRequest = function(dataroom) {
                         var room = _.find(roomlist, function(room) {
@@ -202,6 +195,11 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
                 // socket.on('leave-dataroom', function(dataroom) {
                     //
                 //})
+                socket.on("ripplePairs", function() {
+                    CacheManager.get("ripplePairs", function(pairs) {
+                        socket.emit('ripplePairs',pairs);
+                    });
+                });
 
             });
 
@@ -219,6 +217,12 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
                     self.io.of('/rippletrade').to(room.id).emit(channel, payload);
                 });
             });
+        });
+
+        // global pairs
+        EventManager.on("ripplePairs", function(pairs) {
+            var pairs = JSON.parse(pairs);
+            
         });
 
 
