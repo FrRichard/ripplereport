@@ -288,11 +288,11 @@ App.prototype.initProxies = function() {
 
     this.historicalapiProxy.init(initHistoricalapiProxyCallback);
 
-    // var initRealtimeProxyCallback = function() {
-    //     console.log('Realtime proxy ... OK ');
-    // };
+    var initRealtimeProxyCallback = function() {
+        console.log('Realtime proxy ... OK ');
+    };
 
-    // this.realtimeProxy.init(initRealtimeProxyCallback);
+    this.realtimeProxy.init(initRealtimeProxyCallback);
 
 };
 
