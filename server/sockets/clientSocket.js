@@ -83,10 +83,13 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
             })
             .on('connection', function(socket) {
                 var self = this;
+
                 socket.datarooms = [];
                 this.isReversed = false;
-                socket.on('enter-dataroom', function(dataroom) {
 
+                socket.on('enter-dataroom', function(dataroom) {
+   
+                    console.log('enter fuckling dataroom', dataroom);
                     var checkDataroomRequest = function(dataroom) {
                         var room = _.find(roomlist, function(room) {
                             self.isReversed = false;
@@ -115,7 +118,7 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
                         var payload = {
                             error: dataroom + ' is not available :/'
                         };
-                        socket.emit('enter-dataroom', payload);
+                        // socket.emit('enter-dataroom', payload);
                         return false;
                     }
 
@@ -123,7 +126,7 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
                         var payload = {
                             error: 'Max connections socket reached :/'
                         };
-                        socket.emit('enter-dataroom', payload);
+                        // socket.emit('enter-dataroom', payload);
                         return false;
                     }
 
@@ -165,13 +168,13 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
                                     data: data,
                                     dataroom: dataroom
                                 };
-                                console.log('Send cache : ', channel, payload);
+                                console.log('Send cache : ', channel);
                                 socket.emit(channel, payload);
                             }
                         });
                     });
 
-                    console.log("DATAROOOOOm",dataroom);
+                    
                     socket.join(dataroom, function(err) {
                         if (err) {
                             var payload = {
@@ -180,6 +183,7 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
                             console.log('err dataroom join : ', err);
                             socket.emit('enter-dataroom', payload);
                         } else {
+                            console.log("ENTER-DATAROOM ===========> EMIT !!!");
                             socket.emit('enter-dataroom', {
                                 result: 'success',
                                 dataroom: dataroom,
@@ -191,14 +195,32 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
                     socket.datarooms.push(dataroom);
 
                 });
-
-                // socket.on('leave-dataroom', function(dataroom) {
-                    //
-                //})
-                socket.on("ripplePairs", function() {
+                socket.once("ripplePairs", function() {
                     CacheManager.get("ripplePairs", function(pairs) {
                         socket.emit('ripplePairs',pairs);
                     });
+                });
+
+                socket.on('leave-dataroom', function(dataroom) {
+                    console.log('client want to leave dataroom : ' + dataroom);
+                    if (_.contains(socket.datarooms, dataroom)) {
+                        socket.leave(dataroom, function(err) {
+                            if (err) {
+                                console.log('err dataroom leave : ', err);
+                                socket.emit('leave-dataroom', 'error');
+                            } else {
+                                socket.datarooms = _.filter(socket.datarooms, function(room) {
+                                    return room != dataroom;
+                                })
+                                socket.emit('leave-dataroom', {
+                                    result: 'success',
+                                    dataroom: dataroom
+                                });
+                            }
+                        });
+                    } else {
+                        socket.emit('leave-dataroom', 'error');
+                    }
                 });
 
             });
@@ -213,19 +235,13 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
                         key: channel,
                         data: data
                     };
-                    console.log("FUCKING_PAYLOOOOOAD",channel);
+                    // console.log("FUCKING_PAYLOOOOOAD",channel);
                     self.io.of('/rippletrade').to(room.id).emit(channel, payload);
                 });
             });
         });
 
-        // global pairs
-        EventManager.on("ripplePairs", function(pairs) {
-            var pairs = JSON.parse(pairs);
             
-        });
-
-
     });
 
 
@@ -383,7 +399,7 @@ ClientSocket.prototype.initDataNamespace = function() {
                                 data: data,
                                 dataroom: dataroom
                             };
-                            console.log('Send cache : ', channel);
+                            // console.log('Send cache : ', channel);
                             socket.emit(channel, payload)
                         });
                     });

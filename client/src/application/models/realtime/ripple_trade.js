@@ -14,15 +14,12 @@ var Trade = Backbone.Model.extend({
 		var self = this;
 		this.params = params || this.params || {};
 
-		// var tradeSocket = io.connect('http://localhost:9090/rippletrade');
+		
 		RippleSocketManager.on('connect', function (socket) {
 			console.log("CONNECTED TO /rippletrade SOCKET");
 
 		});
 
-		// RippleSocketManager.on('TEST', function(data) {
-		// 	console.log("fromTrade_socket",data);
-		// });
 
 		//remove old event listener (get old props & remove)
 		var updateCallback = function(payload) {
@@ -30,8 +27,10 @@ var Trade = Backbone.Model.extend({
 			// payload.data = JSON.parse(payload.data);
 
 		    var objTrade = payload.data;
-		    self.update(objTrade);
-		 };
+		    if(objTrade.volumeitem != 0) {
+		    	self.update(objTrade);
+		    }
+		};
 		//   var eventId
 		//   if (this.isListening) {
 
@@ -45,6 +44,7 @@ var Trade = Backbone.Model.extend({
 		// this.set('type', this.params.type);
 		// SET NEW LISTENER
 		RippleSocketManager.on('enter-dataroom', function(payload) {
+			console.log("model====> enterdatarooom",payload);
 			if(payload.isReversed == false) {
 				var eventId = self.eventIdUpdate('ASK');
 				RippleSocketManager.on(eventId, updateCallback);
@@ -55,6 +55,7 @@ var Trade = Backbone.Model.extend({
 				RippleSocketManager.on(eventId, updateCallback);
 				eventId = self.eventIdUpdate('BID',true);
 				RippleSocketManager.on(eventId, updateCallback);
+				console.log("MODEL_CURRENT_LISTENER",eventId);
 			}
 
 		});
@@ -67,6 +68,7 @@ var Trade = Backbone.Model.extend({
 	update: function(payload) {
 		var self = this;
 		if(payload) {
+			console.log("UPDATE_MODEL ========================>",payload);
 			this.set('type', payload.type);
 			this.set('price', payload.price);
 			this.set('volumeitem', payload.volumeitem);

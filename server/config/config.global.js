@@ -63,8 +63,8 @@ config.clientproxy = {};
 config.clientproxy.urlRoutes = 'config/client-proxy-routes.json';
 
 /////////////////////////////////////////////////CONFIG REDIS_LOCAL//////////////////////////////////////////////////////:
-// config.db.redis_local = "redis://127.0.0.1:6379";
-config.db.redis_local = "redis://ledgermonitor.heartbit.io:6379";
+config.db.redis_local = "redis://127.0.0.1:6379";
+// config.db.redis_local = "redis://ledgermonitor.heartbit.io:6379";
 // config.db.redis_local = "redis://pub-redis-14766.us-east-1-4.3.ec2.garantiadata.com:14766";
 
 config.measures.ripple = [{
@@ -113,13 +113,14 @@ config.gateways = {
 }
 
 config.ripplePairDefault = {
-	USD: "BITSAMP",
+	USD: "BITSTAMP",
 	EUR: "SNAPSWAP",
 	JPY: "TOKYOJPY",
 	CNY: "RIPPLECHINA",
 	SGD: "RIPPLESINGAPORE",
 	MXN: "BITSO",
-	BRL:"RIPPEX"
+	BRL:"RIPPEX",
+	BTC:"BITSTAMP"
 }
 
 

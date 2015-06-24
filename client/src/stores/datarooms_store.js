@@ -79,7 +79,7 @@ Dispatcher.register(function(payload) {
 
   		case Constants.ActionTypes.REGISTER_RIPPLEPAIRS:
   		 	registerRipplePairs(action.result);
-  			DataroomsStore.emitChange();
+  			// DataroomsStore.emitChange();
   		 	break;
   	}
 

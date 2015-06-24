@@ -28,6 +28,7 @@ var RealtimeActions = {
 	},
 
 	updateTradeStore: function(payload) {
+        console.log("==============================================+++++++++> updateTradeStore_action");
 		var payload = [payload];
 		Dispatcher.handleViewAction({
 			actionType: Constants.ActionTypes.ASK_TRADE,
@@ -41,6 +42,8 @@ var RealtimeActions = {
         // var self = this;
         // var item = params.item,
         //     currency = params.currency;
+
+
         // _.each(this.datarooms, function(dataroom) {
         //     if (dataRooms.indexOf(dataroom) === -1 || (dataroom.indexOf(item) != -1 && dataroom.indexOf(currency) != -1)) {
         //         DataSocketManager.emit('leave-dataroom', dataroom);
@@ -49,11 +52,17 @@ var RealtimeActions = {
 
     },
 
+    leaveDataroom: function(params) {
+        var sep = ":";
+        var dataroom = params.item + sep + params.currency;
+        RippleSocketManager.emit('leave-dataroom', dataroom);
+    },
+
     joinDataroom: function(params) {
         var self = this;
         // var dataRooms = ParametersManager.getTickerRoom(params);
         // this.clearDatarooms(dataRooms, params);
-
+        console.log("JOINDATAROOM");
         var sep = ':';
         var dataroom = params.item + sep + params.currency;
         var item = params.item,
@@ -80,13 +89,13 @@ var RealtimeActions = {
 
     },
 
-    registerDataroom: function() {
-        this.registerAvailablePairs();
-    	RippleSocketManager.once('enter-dataroom', function(response) {
+    registerDataroom: function() {    
+    	RippleSocketManager.on('enter-dataroom', function(response) {
             if (response.error) console.log('ENTER DATAROOM ERROR : ', response.error);
             else {
             	var datarooms = DataroomsStore.getSpecific('current');
                 if (datarooms.indexOf(response.dataroom) === -1) {
+                    console.log("ACTIONS REGISTER DATAROOM");
                     Dispatcher.handleViewAction({
 						actionType: Constants.ActionTypes.REGISTER_DATAROOMS,
 						result: response.dataroom
@@ -100,7 +109,8 @@ var RealtimeActions = {
 
     registerAvailablePairs: function() {
         RippleSocketManager.emit('ripplePairs');
-        RippleSocketManager.on('ripplePairs', function(pairs) {
+        RippleSocketManager.once('ripplePairs', function(pairs) {
+            console.log("ACTIONS REGISTER AVAILABLE PAIRS");
             Dispatcher.handleViewAction({
                         actionType: Constants.ActionTypes.REGISTER_RIPPLEPAIRS,
                         result: pairs

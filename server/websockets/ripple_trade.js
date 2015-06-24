@@ -29,8 +29,9 @@ Price.prototype.init = function(params) {
         console.log(uh,"REDIS AUTH .... OK");
     });
 
-	var items = ApiManager.getRipplePairDefault();
-	self.redisClient.publish("ripplePairs", JSON.stringify(items));
+    //publish available pairs
+	var RipplePairDefault = ApiManager.getRipplePairDefault();
+	self.redisClient.publish("ripplePairs", JSON.stringify(RipplePairDefault));
 
 	console.log("Ripple_websocket INIT .... OK");
 	var remote = new Remote({
@@ -47,7 +48,8 @@ Price.prototype.init = function(params) {
 		});
 	});
 
-	//publish available pairs
+	//get available items
+	var items = ApiManager.getRippleItems();
 
 	_.each(items, function(params, gateway) {
 		_.each(params.currencies, function(currency) {
@@ -68,6 +70,7 @@ Price.prototype.init = function(params) {
 						issuer_pays: params.address
 					}
 			};
+			// console.log(parameters[gateway]);
 
 			var mybook_bid = remote.book(parameters[gateway].bid);
 			var mybook_ask = remote.book(parameters[gateway].ask);

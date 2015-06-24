@@ -50,12 +50,12 @@ ParametersManager.prototype.computeUrl = function(params) {
     return 'price?'+ params.item + sep + params.currency + sep +  params.platform;
 };
 
-ParametersManager.prototype.changeGlobalPair = function(pairId, platform) {
-    console.log("paraametersManager: CHANGE GLOBAL PAIR!!",pairId, platform);
+ParametersManager.prototype.changeGlobalPair = function(channel) {
+    // console.log("paraametersManager: CHANGE GLOBAL PAIR!!",channel);
     var params = {};
-    params.item = pairId.split("/")[0];
-    params.currency = pairId.split("/")[1];
-    params.platform = "BITSTAMP";
+    params.item = channel.split("/")[0];
+    params.currency = channel.split("/")[1];
+    params.platform = channel.split("/")[2];
     // params.platform = platform || this.currentParams.platform;
     var url = this.computeUrl(params);
     Backbone.history.navigate(url, true);

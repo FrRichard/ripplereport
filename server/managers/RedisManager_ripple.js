@@ -68,7 +68,7 @@ RedisManager.prototype.subscribeToChannels = function(callback) {
     self.redisClient.subscribe("ripplePairs");
 
     self.redisClient.on("message", function(channel, message) {
-        console.log("REDIS,CHANNEL,MESSAGE!!",channel);
+        // console.log("REDIS,CHANNEL,MESSAGE!!",channel);
         CacheManager.set(channel, message);
         EventManager.emit(channel,message);
     });

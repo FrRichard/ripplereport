@@ -32,8 +32,8 @@ SocketManager.prototype.joinDataroom = function(params) {
 
 SocketManager.getInstance = function() {
 	if(instance === null) {
-		// instance = io('http://localhost:9090/rippletrade');
-        instance = io('ledgermonitor.heartbit.io/rippletrade');
+		instance = io('http://localhost:9090/rippletrade');
+        // instance = io('/rippletrade');
 
 		return instance;
 

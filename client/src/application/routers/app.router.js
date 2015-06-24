@@ -83,12 +83,13 @@ var Router = Backbone.Router.extend({
     },
 
     price: function(params) {
-        console.log("APP_ROUTER=====> PRICE:");
+        console.log("----------------------------------------------------------------APP_ROUTER=====> PRICE:-------------------------------------------------------------------------");
         var self = this;
         if(ParametersManager.isInit) {
             ParametersManager.init();
         }
-
+        var oldParams = ParametersManager.getCurrentParams();
+        RealtimeActions.leaveDataroom(oldParams);
         if(params) {
             var params = {
                 item: params.split('/')[0],
@@ -99,29 +100,36 @@ var Router = Backbone.Router.extend({
         }
 
         var currentParams = ParametersManager.getCurrentParams();
+        RealtimeActions.registerDataroom(); //set listener
 
-        var Model = new rippletrade(currentParams);
-        RealtimeActions.registerDataroom();
-        Model.socketSync();
-        RealtimeActions.joinDataroom(currentParams);
+        //     console.log("CURENTPARAAAAAAAAAAAAAAAAAAAAAAAAAAAMMMMMMS",currentParams);
+        if(!this.Model) {
+            this.Model = new rippletrade(currentParams);
+        }
+        if(params) {
+            this.Model.socketSync(params);
+        } else {
+            this.Model.socketSync();
+        }
 
         var up = function(params) {
-                var self = this;
-                this.params = params;
+        //         var self = this;
+        //         this.params = params;
                 return function(payload) {
-                    if(payload.isReversed) {
-                        var params = {
-                            item: self.params.currency,
-                            currency: self.params.item,
-                            platform: self.params.platform,
-                            isReversed: true
-                        };
+        //             if(payload.isReversed) {
+        //                 var params = {
+        //                     item: self.params.currency,
+        //                     currency: self.params.item,
+        //                     platform: self.params.platform,
+        //                     isReversed: true
+        //                 };
 
                         ParametersManager.updateUserInputParams(params);
                         React.render(<Price />, document.getElementById('app'));
-                    } else {
-                        React.render(<Price />, document.getElementById('app'));
-                    }
+        //             } else {
+        //                 // ParametersManager.updateUserInputParams(params);
+        //                 React.render(<Price />, document.getElementById('app'));
+        //             }
                 }
         }(params);
 
@@ -132,6 +140,8 @@ var Router = Backbone.Router.extend({
         
     
         RippleSocketManager.on('enter-dataroom', updateGlobalParams);
+        // RealtimeActions.joinDataroom(currentParams);
+        RealtimeActions.registerAvailablePairs();
 
     },
 
