@@ -148,7 +148,7 @@ ClientSocket.prototype.initRippleTradeNamespace = function() {
                     }
 
                     _.each(room.channels, function(channel) {
-                        console.log("ROOOOOOOOOM",room,channel);
+                        console.log("_.each(room.channels) =>cache manger get",channel);
                         console.log("IsReversed? ==>",self.isReversed);
                         CacheManager.get(channel, function(data) {
                           

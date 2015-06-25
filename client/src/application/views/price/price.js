@@ -53,9 +53,7 @@ var Price =  React.createClass({
         var self = this;
         var options = [];
         console.log("===============RENDER=================",this.state);
-        if(this.state.availablePairs) {
-         
-        }
+      
         if(!this.state.data.price) {
             var page = <div> This Pair Is Not Available </div>;
         } else if(this.state.isReversed) {
@@ -75,6 +73,15 @@ var Price =  React.createClass({
             //                 {options}                           
             //              </select>;
         } else {
+            var price = Math.trunc(this.state.data.price*Math.pow(10,8))/Math.pow(10,8);
+            var _price = <span>
+                            <div>{price}</div>
+                        </span>;
+        }
+
+        if(!this.state.availablePairs || !this.state.data.price) {
+            var options = "";
+        } else {
             var option = <option value={"XRP/" + this.state.data.currency + "/" + this.state.platform } selected >  {this.state.data.item + '/' + this.state.data.currency} </option>;
             options.push(option);
             _.each(this.state.availablePairs, function(platform,currency) {
@@ -84,14 +91,10 @@ var Price =  React.createClass({
                     options.push(option);
                 }
             });
-            var price = Math.trunc(this.state.data.price*Math.pow(10,8))/Math.pow(10,8);
-            var _price = <span>
-                            <div>{price}</div>
-                        </span>;
+        }
             // var _select = <select onChange = {this._changePair} > 
             //                 {options}                           
             //              </select>;
-        }
         return (
         	<div className="priceView"> 
         		{_price}
@@ -105,25 +108,17 @@ var Price =  React.createClass({
         );
     },
 
-    // _onPriceChange: function(price) {
-    // 	var pair = this.state.pair;
-    // 	var platform = this.state.platform;
-    // 	var data = RippleTradeStore.getSpecific(pair, platform)[0];
-    // 	console.log("===================> PRICE CHANGED !!!", data.price);
-    // 	this.setState({
-    // 		data: data
-    // 	});
-    // },
-
     _onPriceChange: function(pair,platform,channel) {
+        console.log("ONPRICECHANGE",pair,platform,channel);
         var self= this;
         return function() {
             // var pair = this.state.pair;
             // var platform = this.state.platform;
             var data = RippleTradeStore.getSpecific(pair, platform)[0];
-            var data2 = RippleTradeStore.getSpecific(pair, platform);
+            console.log("pezjfpogzjporgjr",pair,platform,channel,data);
+         
             if(data.isReversed) {
-                this.setState({
+                self.setState({
                     data: data,
                     isReversed: true
                 });
@@ -135,42 +130,26 @@ var Price =  React.createClass({
                     channel: channel
                 });
             }
+            console.log(data);
         }
 
     },
 
     _changePair: function(e) {
-
         var channel =  $(e.target).val();
-        var item = channel.split("/")[0];
-        var currency = channel.split("/")[1];
-        var platform = channel.split("/")[2];
-        var pair = item + ':' + currency;
-        var fchannel = platform + ':' + pair ;
-        var data = this.state.data;
-        data.currency = currency;
-        data.item = item;
-        data.platform = platform;
-        this.setState({
-            pair: pair,
-            platform: platform,
-            channel: fchannel,
-            data:data
-        });
-        // var item = pair[0];
-        // var currency = pair[1];
         ParametersManager.changeGlobalPair(channel);
-
     },
 
     _onChangeDataroom: function(dataroom) {
+        console.log("CHANGEDATAROOM");
         var self = this;
         var allRoom = DataroomsStore.getSpecific('all').all;
 
         _.each(allRoom, function(room) {
-            RippleTradeStore.removeListener(room, self._onPriceChange);
+            console.log("REMOVE THIS SHIT!!",self.platform + ":" + room);
+            RippleTradeStore.removeAllListeners(self.platform + ":" + room);
         })
-
+        console.log("WHERE ARE THEY ???", RippleTradeStore);
         var pair = DataroomsStore.getSpecific('current').current;
         var pairs = DataroomsStore.getSpecific('pairs').pairs;
 
@@ -182,13 +161,10 @@ var Price =  React.createClass({
         });
         var channel =  this.platform + ':' + pair;
 
- 
+        
         RippleTradeStore.addChangeListener(channel, this._onPriceChange(pair,this.platform,channel));
 
-        var lastData = RippleTradeStore.getSpecific(pair);
     }
-
-/// LISTENER ON COMPONENT UPDATE !
 
 
 });

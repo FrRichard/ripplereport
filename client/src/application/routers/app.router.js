@@ -39,6 +39,7 @@ var Router = Backbone.Router.extend({
     },
 
     initialize: function(params) {
+        RealtimeActions.registerAvailablePairs();
         Backbone.history.start({
             pushState: true
         });
@@ -84,6 +85,7 @@ var Router = Backbone.Router.extend({
 
     price: function(params) {
         console.log("----------------------------------------------------------------APP_ROUTER=====> PRICE:-------------------------------------------------------------------------");
+    
         var self = this;
         if(ParametersManager.isInit) {
             ParametersManager.init();
@@ -104,11 +106,14 @@ var Router = Backbone.Router.extend({
 
         //     console.log("CURENTPARAAAAAAAAAAAAAAAAAAAAAAAAAAAMMMMMMS",currentParams);
         if(!this.Model) {
+            console.log("NEW MODEL");
             this.Model = new rippletrade(currentParams);
         }
         if(params) {
+            console.log("MODEL SYNC with params");
             this.Model.socketSync(params);
         } else {
+            console.log("MODEL SYNC without params");
             this.Model.socketSync();
         }
 
@@ -139,9 +144,8 @@ var Router = Backbone.Router.extend({
 
         
     
-        RippleSocketManager.on('enter-dataroom', updateGlobalParams);
-        // RealtimeActions.joinDataroom(currentParams);
-        RealtimeActions.registerAvailablePairs();
+        RippleSocketManager.once('enter-dataroom', updateGlobalParams);
+        RealtimeActions.joinDataroom(currentParams);
 
     },
 

@@ -4,25 +4,26 @@ var Constants = require('Constants');
 var assign = require('object-assign');
 
 var CHANGE_EVENT = 'change';
-var _RippleTrade = {};
-
+var _RippleTrade = [];
+var test = [];
 
 function registerTrade(result) {
 	var trades = result;
 	_.each(trades, function(trade) {
 		var pair = trade.item + ':' + trade.currency;
 		if(!_RippleTrade[pair]) {
-			_RippleTrade[pair] = {};
+			_RippleTrade[pair] = [];
 		}
 		if(!_RippleTrade[pair][trade.platform]) {
 			_RippleTrade[pair][trade.platform] = [];
-		}
+		} 
 
-		if(_RippleTrade[pair][trade.platform].length >= 10) { _RippleTrade[pair][trade.platform].pop();}
 		_RippleTrade[pair][trade.platform].unshift(trade);
 
+		if(_RippleTrade[pair][trade.platform].length >= 10) { _RippleTrade[pair][trade.platform].pop();}
+
 	});
-	console.log("_RippletradeStore",_RippleTrade);
+	console.log("RippleTradeStore",_RippleTrade);
 };
 
 var RippleTradeStore = assign({}, EventEmitter.prototype, {
@@ -43,6 +44,7 @@ var RippleTradeStore = assign({}, EventEmitter.prototype, {
 	emitChange: function(result) {
 		var self=this;
 		var trades = result;
+		console.log("STORE_EMITTER => TRADES",trades);
 		_.each(trades, function(trade) {
 			var channel = trade.platform + ':' + trade.item + ':' + trade.currency;
 			console.log("emitter_channel:", channel);
@@ -58,8 +60,8 @@ var RippleTradeStore = assign({}, EventEmitter.prototype, {
 		this.on(channel, callback);
 	},
 
-	removeChangeListener: function(callback) {
-		this.removeListener(CHANGE_EVENT, callback);
+	removeChangeListener: function(channel,callback) {
+		this.removeListener(channel, callback);
 	}
 
 });

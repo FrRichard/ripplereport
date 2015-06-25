@@ -82,7 +82,7 @@ var RealtimeActions = {
 		// 	RippleSocketManager.emit('enter-dataroom', dataroom);
 		// });
 
-		RippleSocketManager.on('enter-dataroom',function(payload) {
+		RippleSocketManager.once('enter-dataroom',function(payload) {
 			console.log("ENTER-DATAROOM================================++>",payload);
 		});
 
@@ -90,12 +90,13 @@ var RealtimeActions = {
     },
 
     registerDataroom: function() {    
-    	RippleSocketManager.on('enter-dataroom', function(response) {
+    	RippleSocketManager.once('enter-dataroom', function(response) {
             if (response.error) console.log('ENTER DATAROOM ERROR : ', response.error);
             else {
             	var datarooms = DataroomsStore.getSpecific('current');
+
                 if (datarooms.indexOf(response.dataroom) === -1) {
-                    console.log("ACTIONS REGISTER DATAROOM");
+                    console.log("ACTIONS REGISTER DATAROOM",response);
                     Dispatcher.handleViewAction({
 						actionType: Constants.ActionTypes.REGISTER_DATAROOMS,
 						result: response.dataroom
