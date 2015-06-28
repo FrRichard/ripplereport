@@ -12,7 +12,7 @@ var SubcomponentSelector = {
 		if(item.datatype) {
 			Items[item.datatype] = require('./subcomponents/'+ item.datatype +'.js');  
 		} else {
-			Items['abstractsubcomponent']  = require('./subcomponents/abstractsubcomponent.js'); 
+			Items['abstractsubcomponent']  = require('./subcomponents/AbstractSubcomponent.js'); 
 		}
 	});
 	

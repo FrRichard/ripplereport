@@ -210,7 +210,7 @@ module.exports = {
 			Trade: path.join(__dirname, './src/application/models/realtime/Trade'),
 			Line: path.join(__dirname, './src/application/models/Line'),
 			Id: path.join(__dirname, './src/application/models/Id'),
-			Info: path.join(__dirname, './src/application/models/info'),
+			Info: path.join(__dirname, './src/application/models/Info'),
 			ExchangeRate: path.join(__dirname, './src/application/models/ExchangeRate'),
 			Capitalization: path.join(__dirname, './src/application/models/Capitalization'),
 			OfferExercised: path.join(__dirname, './src/application/models/OfferExercised'),
@@ -223,6 +223,7 @@ module.exports = {
 
 			//routers
 			AccountRouter: path.join(__dirname,'./src/application/routers/account.router'),
+			AppRouter: path.join(__dirname, './src/application/routers/app.router'),
 			EventsController: path.join(__dirname, './src/application/routers/eventscontroller'),
 			// Internal libs
 			gridster: path.join(__dirname, './lib/internal-libs/jquery.gridster/gridster'),

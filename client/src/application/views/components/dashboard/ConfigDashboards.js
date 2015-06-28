@@ -8,7 +8,7 @@ var Config = {
 	          height: 3,
 	          col: 2,
 	          row: 1,
-	          datatype:"rippleaccount"
+	          datatype:"RippleAccount"
 	        },
 	        {
 	          key: 'keyfact2',
@@ -18,7 +18,7 @@ var Config = {
 	          height: 3,
 	          col: 1,
 	          row: 1,
-	          datatype:"accountoverview",
+	          datatype:"AccountOverview",
 	          chart:"pie_accountoverview"
 	        },
 	        {
@@ -29,7 +29,7 @@ var Config = {
 	          height: 3,
 	          col: 2,
 	          row: 4,
-	          datatype:"ripplecapitalization"
+	          datatype:"RippleCapitalization"
 	        },
 	        {
 	          key: 'keyfact4',
@@ -39,7 +39,7 @@ var Config = {
 	          height: 3,
 	          col: 1,
 	          row: 4,
-	          datatype:"capitalizationoverview",
+	          datatype:"CapitalizationOverview",
 	          chart:"pie_accountoverview"
 	        },
 	        {
@@ -50,7 +50,7 @@ var Config = {
 	          height: 4,
 	          col: 2,
 	          row:7,
-	          datatype:"rippleaccounttransactions"
+	          datatype:"RippleAccountTransactions"
 	        },
 	        {
 	          key: 'keyfact6',
@@ -60,7 +60,7 @@ var Config = {
 	          height: 4,
 	          col: 1,
 	          row: 7,
-	          datatype:"rippleaccounttransactionssummary"
+	          datatype:"RippleAccountTransactionsSummary"
 	        },
 	        {
 	          key: 'keyfact7',
@@ -70,7 +70,7 @@ var Config = {
 	          height: 4,
 	          col: 2,
 	          row: 11,
-	          datatype:"rippleoffersexercised"
+	          datatype:"RippleOffersExercised"
 	        },
 	        {
 	          key: 'keyfact8',
@@ -80,7 +80,7 @@ var Config = {
 	          height: 4,
 	          col: 1,
 	          row: 11,
-	          datatype:"rippleoffersexercisedsummary"
+	          datatype:"RippleOffersExercisedSummary"
 	        },
 	        {
 	          key: 'keyfact9',
@@ -90,7 +90,7 @@ var Config = {
 	          height: 3,
 	          col: 1,
 	          row: 15,
-	          datatype:"rippleaccountoffers"
+	          datatype:"RippleAccountOffers"
 	        },
 	        {
 	          key: 'keyfact10',
@@ -100,7 +100,7 @@ var Config = {
 	          height: 3,
 	          col: 3,
 	          row: 15,
-	          datatype:"rippleaccounttransactionstats",
+	          datatype:"RippleAccountTransactionStats",
 	          chart:"barchart"
 	        }]
 	},
@@ -114,7 +114,7 @@ var Config = {
 	          height: 3,
 	          col: 2,
 	          row: 1,
-	          datatype:"rippleaccount"
+	          datatype:"RippleAccount"
 	        },
 	        {
 	          key: 'keyfact2',
@@ -124,7 +124,7 @@ var Config = {
 	          height: 3,
 	          col: 1,
 	          row: 1,
-	          datatype:"accountoverview",
+	          datatype:"AccountOverview",
 	          chart:"pie_accountoverview"
 	        },
 	        {
@@ -135,7 +135,7 @@ var Config = {
 	          height: 4,
 	          col: 2,
 	          row:4,
-	          datatype:"rippleaccounttransactions"
+	          datatype:"RippleAccountTransactions"
 	        },
 	        {
 	          key: 'keyfact6',
@@ -145,7 +145,7 @@ var Config = {
 	          height: 4,
 	          col: 1,
 	          row: 4,
-	          datatype:"rippleaccounttransactionssummary"
+	          datatype:"RippleAccountTransactionsSummary"
 	        },
 	        {
 	          key: 'keyfact7',
@@ -155,7 +155,7 @@ var Config = {
 	          height: 4,
 	          col: 2,
 	          row: 8,
-	          datatype:"rippleoffersexercised"
+	          datatype:"RippleOffersExercised"
 	        },
 	        {
 	          key: 'keyfact8',
@@ -165,7 +165,7 @@ var Config = {
 	          height: 4,
 	          col: 1,
 	          row: 8,
-	          datatype:"rippleoffersexercisedsummary"
+	          datatype:"RippleOffersExercisedSummary"
 	        },
 	        {
 	          key: 'keyfact9',
@@ -175,7 +175,7 @@ var Config = {
 	          height: 3,
 	          col: 1,
 	          row: 12,
-	          datatype:"rippleaccountoffers"
+	          datatype:"RippleAccountOffers"
 	        },
 	        {
 	          key: 'keyfact10',
@@ -185,7 +185,7 @@ var Config = {
 	          height: 3,
 	          col: 3,
 	          row: 12,
-	          datatype:"rippleaccounttransactionstats",
+	          datatype:"RippleAccountTransactionStats",
 	          chart:"barchart"
 	        },
 	          {
@@ -196,7 +196,7 @@ var Config = {
 	          height: 3,
 	          col: 2,
 	          row: 15,
-	          datatype:"ripplecapitalization"
+	          datatype:"RippleCapitalization"
 	        },
 	        {
 	          key: 'keyfact4',
@@ -206,7 +206,7 @@ var Config = {
 	          height: 3,
 	          col: 1,
 	          row: 15,
-	          datatype:"capitalizationoverview",
+	          datatype:"CapitalizationOverview",
 	          chart:"pie_accountoverview"
 	        }]
 	}

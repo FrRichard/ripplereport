@@ -1,17 +1,17 @@
 var React = require('react');
 //react-bootstrap
-var CollapsableMixin = require('react-bootstrap').CollapsableMixin;
+var CollapsableMixin = require('react-bootstrap').CollapsibleMixin;
 //React addons
 var classSet = React.addons.classSet;
 var viewcommon =require('ViewCommon');
-
+console.log(CollapsableMixin)
 var CollapsableRow = React.createClass({
 	mixins: [CollapsableMixin],
-	getCollapsableDOMNode: function(){
+	getCollapsibleDOMNode: function(){
     	return this.refs.panel.getDOMNode();
 	},
 
-	getCollapsableDimensionValue: function(){
+	getCollapsibleDimensionValue: function(){
     	return this.refs.panel.getDOMNode().scrollHeight;
 	},
 	onHandleToggle: function(e){
@@ -20,7 +20,7 @@ var CollapsableRow = React.createClass({
   	},
   	render: function(){
   		var rowstyle = viewcommon.collapsablerow;
-	    var styles = this.getCollapsableClassSet();
+	    var styles = this.getCollapsibleClassSet();
 	    var text = this.isExpanded() ? 'Hide' : 'Show';
 	    if(this.props.type != "td") {
 		    return (
