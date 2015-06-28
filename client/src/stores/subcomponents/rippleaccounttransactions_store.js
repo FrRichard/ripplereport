@@ -35,6 +35,7 @@ var RippleaccounttransactionsStore = assign({}, EventEmitter.prototype, {
 		_.each(addresses, function(address) {
 			self.emit(address.id);
 		});
+		console.log("emit: ", address.id);
 	},
 
 	emitLoading: function(event) {

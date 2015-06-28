@@ -157,7 +157,7 @@ var Router = Backbone.Router.extend({
     }, 
 
     paymenttracking: function(params) {
-        React.render(<Paymenttracking/>, document.getElementById('app'));
+        React.render(<Paymenttracking depth={10} />, document.getElementById('app'));
     }
 
 

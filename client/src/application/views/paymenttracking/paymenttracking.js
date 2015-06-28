@@ -1,6 +1,6 @@
 var React = require('react');
 var Actions = require('AccountActions');
-var PaymentStore = require('RippleaccounttransactionstatsStore');
+var PaymentStore = require('RippleaccounttransactionsStore');
 
 var Paymenttracking = React.createClass({
 
@@ -13,10 +13,9 @@ var Paymenttracking = React.createClass({
 	},
 
 
-	render: function() {
-				
+	render: function() {	
+		console.log(this.props.depth);		
 		// var userInput =  <span> <button type=button onClick={this.startTracking}> Start Tracking !</button></span>;
-
 		return (
 			<div>
 				<input onKeyPress={this.handleKeyPress} type="text"  placeholder="Enter a ripple address" className="searchinput"/>	
@@ -30,11 +29,19 @@ var Paymenttracking = React.createClass({
 	startTracking: function(e) {
 		console.log("startTracking ...");
 		var address = $('.searchinput').val();
-		console.log(address);
-		Actions.rippleaccounttransactionstats([address]);
+		var account = {
+			address:address,
+			id:"addess1"
+		};
+		Actions.rippleaccounttransactions([account]);
 	},
 
 	_onPaymentUpdate: function(payload) {
+		var top10 = payload
+		for(i = 1; i = this.props.depth; i++) {
+
+		}
+
 		this.setState({
 			payload:payload
 		});
