@@ -1,4 +1,4 @@
-var config = require('parametersManagerConfig');
+var config = require('ParametersManagerConfig');
 
 
 var ParametersManager = function ParametersManager() {

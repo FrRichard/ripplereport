@@ -1,12 +1,12 @@
 var React = require('react');
-var RippleaccountoffersStore = require('RippleaccountoffersStore');
+var RippleaccountoffersStore = require('AccountOffersStore');
 //react-bootstrap
 var Table = require('react-bootstrap').Table;
 var Panel = require('react-bootstrap').Panel;
 //helper&format
 var DataHelper = require('DataHelper');
 var FormatUtils = require('FormatUtils');
-var gatewayNames = require('gatewayNames');
+var gatewayNames = require('GatewayNames');
 //styles
 var SvgCommon = require('SvgCommon');
 var ViewCommon = require("ViewCommon");

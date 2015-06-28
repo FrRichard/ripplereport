@@ -15,6 +15,7 @@
     "proxy"
   ],
   "dependencies": {
+    "async": "*",
     "body-parser": "*",
     "bower": "^1.4.1",
     "compression": "*",

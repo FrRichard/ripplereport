@@ -63,173 +63,166 @@ module.exports = {
 		alias: {
 
 			//config
-			config: path.join(__dirname, './src/application/config/global'),
-			config_rippleaccount: path.join(__dirname,'./src/application/config/config_rippleaccount'),
-			config_rippledataapi: path.join(__dirname, './src/application/config/config_rippledataapi'),
-			config_historicalapi: path.join(__dirname, './src/application/config/config_historicalapi'),
-			parametersManagerConfig:path.join(__dirname, './src/application/config/parametersManagerConfig'),
+			Config: path.join(__dirname, './src/application/config/Global'),
+			ConfigRippleAccount: path.join(__dirname,'./src/application/config/ConfigRippleAccount'),	
+			ConfigRippleDataApi: path.join(__dirname, './src/application/config/ConfigRippleDataApi'),
+			ConfigHistoricalApi: path.join(__dirname, './src/application/config/ConfigHistoricalApi'),
+			ParametersManagerConfig:path.join(__dirname, './src/application/config/ParametersManagerConfig'),
 
 			// views config
-			config_dashboards: path.join(__dirname, './src/application/views/components/dashboard/config_dashboards'),
+			ConfigDashboards: path.join(__dirname, './src/application/views/components/dashboard/ConfigDashboards'),
 
-			// Bundles
-			appBundle: path.join(__dirname, './src/bundle/app'),
-			homeBundle: path.join(__dirname, './src/bundle/home'),
-			loginBundle: path.join(__dirname, './src/bundle/login'),
-			registerBundle: path.join(__dirname, './src/bundle/register'),
-			accountBundle: path.join(__dirname, './src/bundle/account'),
-			// componentsBundle: path.join(__dirname, './src/bundle/components'),
+			
 
 			// Helpers
-			DataHelper: path.join(__dirname, './src/application/helpers/dataHelper'),
+			DataHelper: path.join(__dirname, './src/application/helpers/DataHelper'),
 
 			// Utils
 			FormatUtils: path.join(__dirname, './src/application/utils/FormatUtils'),
-			gatewayNames: path.join(__dirname, './src/application/utils/gatewayNames'),
-			addressvalidator: path.join(__dirname, './src/application/utils/addressvalidator'),
-			transaction_viewbuilder: path.join(__dirname, './src/application/utils/transaction_viewbuilder'),
-			bignumber: path.join(__dirname, './src/application/utils/bignumber'),
+			GatewayNames: path.join(__dirname, './src/application/utils/GatewayNames'),
+			AddressValidator: path.join(__dirname, './src/application/utils/AddressValidator'),
+			TransactionViewBuilder: path.join(__dirname, './src/application/utils/TransactionViewBuilder'),
+			BigNumber: path.join(__dirname, './src/application/utils/BigNumber'),
 			
 			//SVG & views common styles
-			SvgCommon: path.join(__dirname, './style/charts/svgcommon'),
-			ViewCommon: path.join(__dirname, './style/subcomponents/viewcommon'),
+			SvgCommon: path.join(__dirname, './style/charts/SvgCommon'),
+			ViewCommon: path.join(__dirname, './style/subcomponents/ViewCommon'),
 
 			// Views
-			App: path.join(__dirname, './src/application/views/app/app'),
-			Transaction: path.join(__dirname, './src/application/views/transaction/transaction'),
-			Price: path.join(__dirname, './src/application/views/price/price'),
-			Account: path.join(__dirname, './src/application/views/account/account'),
-			AuthComponent: path.join(__dirname, './src/application/views/auth/authComponent'),
-			RegisterComponent: path.join(__dirname, './src/application/views/auth/registerComponent'),
-			Settings: path.join(__dirname, './src/application/views/settings/settingsComponent'),
-			Features: path.join(__dirname, '/src/application/views/features/features'),
-			Paymenttracking: path.join(__dirname, '/src/application/views/paymenttracking/paymenttracking'),
+			App: path.join(__dirname, './src/application/views/app/AppView'),
+			Transaction: path.join(__dirname, './src/application/views/transaction/TransactionView'),
+			Price: path.join(__dirname, './src/application/views/price/PriceView'),
+			Account: path.join(__dirname, './src/application/views/account/AccountView'),
+			AuthComponent: path.join(__dirname, './src/application/views/auth/AuthComponentView'),
+			RegisterComponent: path.join(__dirname, './src/application/views/auth/RegisterComponentView'),
+			Settings: path.join(__dirname, './src/application/views/settings/SettingsComponentView'),
+			Features: path.join(__dirname, '/src/application/views/features/FeaturesView'),
+			Paymenttracking: path.join(__dirname, '/src/application/views/paymenttracking/PaymentTrackingView'),
 
 			//chartsD3
-			pieChartD3: path.join(__dirname, './src/application/views/components/charts/d3/pieChart'),
-			pieChartBigNumberD3: path.join(__dirname, './src/application/views/components/charts/d3/pieChart_bignumber'),
-			barChartD3: path.join(__dirname, './src/application/views/components/charts/d3/barchart'),
-			offersexercisedtotal: path.join(__dirname, './src/application/views/components/charts/d3/offersexercisedtotal'),
-			lineChart: path.join(__dirname, './src/application/views/components/charts/d3/linechart'),
-			barChart2D3: path.join(__dirname, './src/application/views/components/charts/d3/barchart2'),
+			PieChartD3: path.join(__dirname, './src/application/views/components/charts/d3/PieChart'),
+			PieChartBigNumberD3: path.join(__dirname, './src/application/views/components/charts/d3/PieChartBigNumberD3'),
+			BarChartD3: path.join(__dirname, './src/application/views/components/charts/d3/BarChartD3'),
+			OffersExercisedTotal: path.join(__dirname, './src/application/views/components/charts/d3/OffersExercisedTotal'),
+			LineChart: path.join(__dirname, './src/application/views/components/charts/d3/LineChart'),
+			BarChart2D3: path.join(__dirname, './src/application/views/components/charts/d3/BarChart2D3'),
 			//chartsREACT
-			pieChart_react: path.join(__dirname, './src/application/views/components/charts/reactcomponents/pieChart'),
-			pieChart_bignumber_react: path.join(__dirname, './src/application/views/components/charts/reactcomponents/pieChart_bignumber'),
-			barChart_react: path.join(__dirname, './src/application/views/components/charts/reactcomponents/barChart'),
-			barChart2_react: path.join(__dirname, './src/application/views/components/charts/reactcomponents/barChart2'),
+			PieChartReact: path.join(__dirname, './src/application/views/components/charts/reactcomponents/PieChart'),
+			PieChartBigNumber_react: path.join(__dirname, './src/application/views/components/charts/reactcomponents/PieChartBigNumber'),
+			BarChartReact: path.join(__dirname, './src/application/views/components/charts/reactcomponents/BarChart'),
+			BarChart2React: path.join(__dirname, './src/application/views/components/charts/reactcomponents/BarChart2'),
 			// components (sub-views)
-			Topbar: path.join(__dirname, './src/application/views/components/topbar/topbar'),
-			Footer: path.join(__dirname, './src/application/views/components/footer/footer'),
-			SideMenu: path.join(__dirname, './src/application/views/components/sidemenu/sidemenu'),
+			Topbar: path.join(__dirname, './src/application/views/components/topbar/Topbar'),
+			Footer: path.join(__dirname, './src/application/views/components/footer/Footer'),
+			SideMenu: path.join(__dirname, './src/application/views/components/sidemenu/Sidemenu'),
 			// SearchComponent: path.join(__dirname, './src/components/search/searchComponent'),
-			Dashboard: path.join(__dirname, './src/application/views/components/dashboard/dashboard'),
-			AddWidget: path.join(__dirname,'./src/application/views/components/dashboard/addWidget'),
-			RemoveWidget: path.join(__dirname,'./src/application/views/components/dashboard/removeWidget'),
+			Dashboard: path.join(__dirname, './src/application/views/components/dashboard/Dashboard'),
+			AddWidget: path.join(__dirname,'./src/application/views/components/dashboard/AddWidget'),
+			RemoveWidget: path.join(__dirname,'./src/application/views/components/dashboard/RemoveWidget'),
 
 			//subcomponents (finest granularity)
-			RippleAccount: path.join(__dirname, './src/application/views/components/subcomponents/rippleaccount'),
-			RippleCapitalization: path.join(__dirname, './src/application/views/components/subcomponents/ripplecapitalization'),
-			RippleOffersExercised: path.join(__dirname, './src/application/views/components/subcomponents/rippleoffersexercised'),
-			RippleOffersExercisedSummary: path.join(__dirname, './src/application/views/components/subcomponents/rippleoffersexercisedsummary'),
-			RippleAccountTransactions: path.join(__dirname, './src/application/views/components/subcomponents/rippleaccounttransactions'),
-			RippleAccountTransactionsSummary: path.join(__dirname, './src/application/views/components/subcomponents/rippleaccounttransactionssummary'),
-			RippleAccountTransactionStats: path.join(__dirname, './src/application/views/components/subcomponents/rippleaccounttransactionstats'),
-			TestItem2: path.join(__dirname, './src/application/views/components/subcomponents/testitem2'),
-			Searchbar_account: path.join(__dirname, './src/application/views/components/subcomponents/searchbar_account'),
-			Searchbar_transaction: path.join(__dirname, './src/application/views/components/subcomponents/searchbar_transaction'),
-			AbstractSubcomponent: path.join(__dirname, './src/application/views/components/subcomponents/abstractsubcomponent'),
-			DropDown: path.join(__dirname, './src/application/views/components/subcomponents/dropdown'),
-			AccountOverview: path.join(__dirname, './src/application/views/components/subcomponents/accountoverview'),
-			CapitalizationOverview: path.join(__dirname, './src/application/views/components/subcomponents/capitalizationoverview'),
+			RippleAccount: path.join(__dirname, './src/application/views/components/subcomponents/RippleAccount'),
+			RippleCapitalization: path.join(__dirname, './src/application/views/components/subcomponents/RippleCapitalization'),
+			RippleOffersExercised: path.join(__dirname, './src/application/views/components/subcomponents/RippleOffersExercised'),
+			RippleOffersExercisedSummary: path.join(__dirname, './src/application/views/components/subcomponents/RippleOffersExercisedSummary'),
+			RippleAccountTransactions: path.join(__dirname, './src/application/views/components/subcomponents/RippleAccountTransactions'),
+			RippleAccountTransactionsSummary: path.join(__dirname, './src/application/views/components/subcomponents/RippleAccountTransactionsSummary'),
+			RippleAccountTransactionStats: path.join(__dirname, './src/application/views/components/subcomponents/RippleAccountTransactionStats'),
+
+			SearchbarAccount: path.join(__dirname, './src/application/views/components/subcomponents/SearchbarAccount'),
+			SearchbarTransaction: path.join(__dirname, './src/application/views/components/subcomponents/SearchbarTransaction'),
+			AbstractSubcomponent: path.join(__dirname, './src/application/views/components/subcomponents/AbstractSubcomponent'),
+			DropDown: path.join(__dirname, './src/application/views/components/subcomponents/DropDown'),
+			AccountOverview: path.join(__dirname, './src/application/views/components/subcomponents/AccountOverview'),
+			CapitalizationOverview: path.join(__dirname, './src/application/views/components/subcomponents/CapitalizationOverview'),
 
 			//common - inner element needed for subcomponents
-			CollapsableRow: path.join(__dirname, './src/application/views/components/common/collapsablerow'),
-			table_funct:  path.join(__dirname, './src/application/views/components/common/table_funct'),
-			RawJson: path.join(__dirname, './src/application/views/components/common/rawjson'),
+			CollapsableRow: path.join(__dirname, './src/application/views/components/common/CollapsableRow'),
+			TableFunct:  path.join(__dirname, './src/application/views/components/common/TableFunct'),
+			RawJson: path.join(__dirname, './src/application/views/components/common/RawJson'),
 
 
 			//subcomponent helpers
-			AddressExists: path.join(__dirname, './src/application/views/components/addressexists'),
-			AdaptGrid: path.join(__dirname, './src/application/views/components/adaptGrid'),
-			SubcomponentSelector: path.join(__dirname, './src/application/views/components/subcomponentselector'),
-			GridElements: path.join(__dirname, './src/application/views/components/grid'),
+			AddressExists: path.join(__dirname, './src/application/views/components/AddressExists'),
+			AdaptGrid: path.join(__dirname, './src/application/views/components/AdaptGrid'),
+			SubcomponentSelector: path.join(__dirname, './src/application/views/components/SubcomponentSelector'),
+			GridElements: path.join(__dirname, './src/application/views/components/Grid'),
 
 			// Mixin
-			StoreMixin: path.join(__dirname, './src/stores/mixin/storeMixin'),
+			StoreMixin: path.join(__dirname, './src/stores/mixin/StoreMixin'),
 
 			// Stores
 			AbstractStore: path.join(__dirname, './src/stores/AbstractStore'),
-			RouterStore: path.join(__dirname, './src/stores/router/routerStore'),
+			RouterStore: path.join(__dirname, './src/stores/router/RouterStore'),
 			// Stores-components
 			// GridStore => enregistrer la config du dashboard pour personnalisation
-			GridStore: path.join(__dirname, './src/stores/grid_store'),
+			GridStore: path.join(__dirname, './src/stores/GridStore'),
 			// Stores-subcomponents
-			RippleidStore: path.join(__dirname, './src/stores/subcomponents/rippleid_store'),
-			RipplelinesStore: path.join(__dirname, './src/stores/subcomponents/ripplelines_store'),
-			RippleinfosStore: path.join(__dirname,'./src/stores/subcomponents/rippleinfos_store'),
-			RippleexchangeratesStore: path.join(__dirname, './src/stores/subcomponents/rippleexchangerates_store'),
-			RippleexchangeratescapitalizationStore: path.join(__dirname, './src/stores/subcomponents/rippleexchangeratescapitalization_store'),
-			RippleaccountoverviewsStore: path.join(__dirname, './src/stores/subcomponents/rippleaccountoverview_store'),
-			RipplecapitalizationStore: path.join(__dirname, './src/stores/subcomponents/ripplecapitalization_store'),
-			RipplecapitalizationoverviewStore: path.join(__dirname, './src/stores/subcomponents/ripplecapitalizationoverview_store'),
-			RippleoffersexercisedStore: path.join(__dirname, './src/stores/subcomponents/rippleoffersexercised_store'),
-			RippleaccounttransactionsStore: path.join(__dirname, './src/stores/subcomponents/rippleaccounttransactions_store'),
-			RippleaccountoffersStore: path.join(__dirname, './src/stores/subcomponents/rippleaccountoffers_store'),
-			RippleaccounttransactionstatsStore: path.join(__dirname, './src/stores/subcomponents/rippleaccounttransactionstats_store'),
-			RipplemarkettradersStore: path.join(__dirname, './src/stores/subcomponents/ripplemarkettraders_store'),
-			TransactionStore: path.join(__dirname, './src/stores/subcomponents/transaction_store'),
-			RippleTradeStore: path.join(__dirname, '/src/stores/realtime/rippletrade_store'),
-			DataroomsStore: path.join(__dirname, '/src/stores/datarooms_store'),
+			IdStore: path.join(__dirname, './src/stores/subcomponents/IdStore'),
+			LinesStore: path.join(__dirname, './src/stores/subcomponents/LinesStore'),
+			InfosStore: path.join(__dirname,'./src/stores/subcomponents/InfosStore'),
+			ExchangeRatesStore: path.join(__dirname, './src/stores/subcomponents/ExchangeRatesStore'),
+			ExchangeRatesCapitalizationStore: path.join(__dirname, './src/stores/subcomponents/ExchangeRatesCapitalizationStore'),
+			AccountOverviewsStore: path.join(__dirname, './src/stores/subcomponents/AccountOverviewStore'),
+			CapitalizationStore: path.join(__dirname, './src/stores/subcomponents/CapitalizationStore'),
+			CapitalizationOverviewStore: path.join(__dirname, './src/stores/subcomponents/CapitalizationOverviewStore'),
+			OffersExercisedStore: path.join(__dirname, './src/stores/subcomponents/OffersExercisedStore'),
+			AccountTransactionsStore: path.join(__dirname, './src/stores/subcomponents/AccountTransactionsStore'),
+			AccountOffersStore: path.join(__dirname, './src/stores/subcomponents/AccountOffersStore'),
+			AccountTransactionstatsStore: path.join(__dirname, './src/stores/subcomponents/AccountTransactionStatsStore'),
+			MarketTradersStore: path.join(__dirname, './src/stores/subcomponents/MarketTradersStore'),
+			TransactionStore: path.join(__dirname, './src/stores/subcomponents/TransactionStore'),
+			RippleTradeStore: path.join(__dirname, '/src/stores/realtime/TradeStore'),
+			DataroomsStore: path.join(__dirname, '/src/stores/DataroomsStore'),
 
 			// Constants
-			Constants: path.join(__dirname, './src/constants/constants'),
+			Constants: path.join(__dirname, './src/constants/Constants'),
 
 			// Dispatcher
-			Dispatcher: path.join(__dirname, './src/dispatcher/dispatcher'),
+			Dispatcher: path.join(__dirname, './src/dispatcher/Dispatcher'),
 
 			// Actions
-			AccountActions: path.join(__dirname, './src/actions/account_actions'),
-			RippledataActions: path.join(__dirname,'./src/actions/rippledata_actions'),
-			DashboardActions: path.join(__dirname, './src/actions/dashboard_actions'),
-			RealtimeActions: path.join(__dirname, './src/actions/realtime_actions'),
+			AccountActions: path.join(__dirname, './src/actions/AccountActions'),
+			DataActions: path.join(__dirname,'./src/actions/DataActions'),
+			DashboardActions: path.join(__dirname, './src/actions/DashboardActions'),
+			RealtimeActions: path.join(__dirname, './src/actions/RealtimeActions'),
 
 			//managers
-			RippleSocketManager:path.join(__dirname, '/src/application/managers/sockets/rippleSocketManager'),
+			RippleSocketManager:path.join(__dirname, '/src/application/managers/sockets/RippleSocketManager'),
 			ParametersManager:path.join(__dirname, '/src/application/managers/ParametersManager'),
 
 			//collections
-			rippletrades: path.join(__dirname, './src/application/collections/realtime/ripple_trades'),
-			ripplelines: path.join(__dirname, './src/application/collections/ripplelines'),
-			rippleids: path.join(__dirname, './src/application/collections/rippleids'),
-			rippleinfos: path.join(__dirname, './src/application/collections/rippleinfos'),
-			rippleexchangerates: path.join(__dirname, './src/application/collections/rippleexchangerates'),
-			ripplecapitalizations:path.join(__dirname, './src/application/collections/ripplecapitalizations'),
-			rippleoffersexercised:path.join(__dirname, './src/application/collections/rippleoffersexercised'),
-			rippleaccounttransactions:path.join(__dirname, './src/application/collections/rippleaccounttransactions'),
-			rippleaccountoffers: path.join(__dirname, './src/application/collections/rippleaccountoffers'),
-			rippleaccounttransactionstats: path.join(__dirname, './src/application/collections/rippleaccounttransactionstats'),
-			ripplemarkettraders: path.join(__dirname, './src/application/collections/ripplemarkettraders'),
-			transactions: path.join(__dirname, './src/application/collections/transactions'),
-			grids: path.join(__dirname, './src/application/collections/grids'),
+			Trades: path.join(__dirname, './src/application/collections/realtime/Trades'),
+			Lines: path.join(__dirname, './src/application/collections/Lines'),
+			Ids: path.join(__dirname, './src/application/collections/Ids'),
+			Infos: path.join(__dirname, './src/application/collections/Infos'),
+			ExchangeRates: path.join(__dirname, './src/application/collections/Exchangerates'),
+			Capitalizations:path.join(__dirname, './src/application/collections/Capitalizations'),
+			Offersexercised:path.join(__dirname, './src/application/collections/OffersExercised'),
+			AccountTransactions:path.join(__dirname, './src/application/collections/AccountTransactions'),
+			AccountOffers: path.join(__dirname, './src/application/collections/AccountOffers'),
+			AccountTransactionStats: path.join(__dirname, './src/application/collections/AccountTransactionStats'),
+			MarketTraders: path.join(__dirname, './src/application/collections/MarketTraders'),
+			Transactions: path.join(__dirname, './src/application/collections/Transactions'),
+			Grids: path.join(__dirname, './src/application/collections/Grids'),
 
 			//models
-			rippletrade: path.join(__dirname, './src/application/models/realtime/ripple_trade'),
-			rippleline: path.join(__dirname, './src/application/models/rippleline'),
-			rippleid: path.join(__dirname, './src/application/models/rippleid'),
-			rippleinfo: path.join(__dirname, './src/application/models/rippleinfo'),
-			rippleexchangerate: path.join(__dirname, './src/application/models/rippleexchangerate'),
-			ripplecapitalization: path.join(__dirname, './src/application/models/ripplecapitalization'),
-			rippleofferexercised: path.join(__dirname, './src/application/models/rippleofferexercised'),
-			rippleaccounttransaction: path.join(__dirname, './src/application/models/rippleaccounttransaction'),
-			rippleaccountoffer: path.join(__dirname, './src/application/models/rippleaccountoffer'),
-			rippleaccounttransactionstat: path.join(__dirname, './src/application/models/rippleaccounttransactionstat'),
-			ripplemarkettrader: path.join(__dirname, './src/application/models/ripplemarkettrader'),
-			transaction: path.join(__dirname, './src/application/models/transaction'),
-			grid: path.join(__dirname, './src/application/models/grid'),
+			Trade: path.join(__dirname, './src/application/models/realtime/Trade'),
+			Line: path.join(__dirname, './src/application/models/Line'),
+			Id: path.join(__dirname, './src/application/models/Id'),
+			Info: path.join(__dirname, './src/application/models/info'),
+			ExchangeRate: path.join(__dirname, './src/application/models/ExchangeRate'),
+			Capitalization: path.join(__dirname, './src/application/models/Capitalization'),
+			OfferExercised: path.join(__dirname, './src/application/models/OfferExercised'),
+			AccountTransaction: path.join(__dirname, './src/application/models/AccountTransaction'),
+			AccountOffer: path.join(__dirname, './src/application/models/AccountOffer'),
+			AccountTransactionStat: path.join(__dirname, './src/application/models/AccountTransactionStat'),
+			MarketTrader: path.join(__dirname, './src/application/models/MarketTrader'),
+			Transaction: path.join(__dirname, './src/application/models/Transaction'),
+			Grid: path.join(__dirname, './src/application/models/Grid'),
 
 			//routers
 			AccountRouter: path.join(__dirname,'./src/application/routers/account.router'),
-			AppRouter: path.join(__dirname, './src/application/routers/app.router'),
 			EventsController: path.join(__dirname, './src/application/routers/eventscontroller'),
 			// Internal libs
 			gridster: path.join(__dirname, './lib/internal-libs/jquery.gridster/gridster'),
@@ -256,6 +249,16 @@ module.exports = {
 			cbpAnimatedHeader: path.join(__dirname, './lib/internal-libs/home/cbpAnimatedHeader'),
 			jqueryEasing: path.join(__dirname, './lib/internal-libs/home/jquery.easing'),
 
+			
+			
+			// Bundles
+			appBundle: path.join(__dirname, './src/bundle/app'),
+			homeBundle: path.join(__dirname, './src/bundle/home'),
+			loginBundle: path.join(__dirname, './src/bundle/login'),
+			registerBundle: path.join(__dirname, './src/bundle/register'),
+			accountBundle: path.join(__dirname, './src/bundle/account'),
+			// componentsBundle: path.join(__dirname, './src/bundle/components'),
+			
 			// Other
 			intZ: path.join(__dirname, './lib/other/int')
 		}

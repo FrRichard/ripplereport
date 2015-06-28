@@ -1,5 +1,5 @@
 var React = require("react");
-var Config = require('config');
+var Config = require('Config');
 //View
 var App = require('App');
 var Transaction = require('Transaction');
@@ -9,13 +9,13 @@ var Paymenttracking = require('Paymenttracking');
 
 //Store
 var GridStore = require('GridStore');
-var RippleidStore = require('RippleidStore');
-var RippleinfosStore =require('RippleinfosStore');
+var RippleidStore = require('IdStore');
+var RippleinfosStore =require('InfosStore');
 //model 
-var rippletrade = require('rippletrade');
+var rippletrade = require('Trade');
 
 //collections
-var rippletrades = require('rippletrades');
+var rippletrades = require('Trades');
 
 //  managers
 var RippleSocketManager = require('RippleSocketManager');
@@ -24,11 +24,11 @@ var ParametersManager = require('ParametersManager');
 //actions
 var DashboardActions = require('DashboardActions');
 var AccountActions = require('AccountActions');
-var RippledataActions = require('RippledataActions');
+var RippledataActions = require('DataActions');
 var RealtimeActions = require('RealtimeActions');
 //helper
-var gatewaysnames = require('gatewayNames');
-var addressvalidator = require('addressvalidator');
+var gatewaysnames = require('GatewayNames');
+var addressvalidator = require('AddressValidator');
 
 var Router = Backbone.Router.extend({
 

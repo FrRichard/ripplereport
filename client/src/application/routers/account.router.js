@@ -1,6 +1,6 @@
 var React = require("react");
 var Account = require('Account');
-var config = require('config');
+var config = require('Config');
 
 var Router = Backbone.Router.extend({
 
