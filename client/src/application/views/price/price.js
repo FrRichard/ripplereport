@@ -109,13 +109,9 @@ var Price =  React.createClass({
     },
 
     _onPriceChange: function(pair,platform,channel) {
-        console.log("ONPRICECHANGE",pair,platform,channel);
         var self= this;
         return function() {
-            // var pair = this.state.pair;
-            // var platform = this.state.platform;
             var data = RippleTradeStore.getSpecific(pair, platform)[0];
-            console.log("pezjfpogzjporgjr",pair,platform,channel,data);
          
             if(data.isReversed) {
                 self.setState({
@@ -141,15 +137,12 @@ var Price =  React.createClass({
     },
 
     _onChangeDataroom: function(dataroom) {
-        console.log("CHANGEDATAROOM");
         var self = this;
         var allRoom = DataroomsStore.getSpecific('all').all;
 
         _.each(allRoom, function(room) {
-            console.log("REMOVE THIS SHIT!!",self.platform + ":" + room);
             RippleTradeStore.removeAllListeners(self.platform + ":" + room);
         })
-        console.log("WHERE ARE THEY ???", RippleTradeStore);
         var pair = DataroomsStore.getSpecific('current').current;
         var pairs = DataroomsStore.getSpecific('pairs').pairs;
 

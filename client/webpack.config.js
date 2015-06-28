@@ -103,6 +103,7 @@ module.exports = {
 			RegisterComponent: path.join(__dirname, './src/application/views/auth/registerComponent'),
 			Settings: path.join(__dirname, './src/application/views/settings/settingsComponent'),
 			Features: path.join(__dirname, '/src/application/views/features/features'),
+			Paymenttracking: path.join(__dirname, '/src/application/views/paymenttracking/paymenttracking'),
 
 			//chartsD3
 			pieChartD3: path.join(__dirname, './src/application/views/components/charts/d3/pieChart'),

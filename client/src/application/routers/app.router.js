@@ -5,6 +5,7 @@ var App = require('App');
 var Transaction = require('Transaction');
 var Price = require('Price');
 var Features = require('Features');
+var Paymenttracking = require('Paymenttracking');
 
 //Store
 var GridStore = require('GridStore');
@@ -35,11 +36,12 @@ var Router = Backbone.Router.extend({
         "app": "app",
         "transaction":"transaction",
         "price/*":"price",
-        "features":"features"
+        "features":"features",
+        "paymenttracking": "paymenttracking"
     },
 
     initialize: function(params) {
-        RealtimeActions.registerAvailablePairs();
+        // RealtimeActions.registerAvailablePairs();
         Backbone.history.start({
             pushState: true
         });
@@ -152,6 +154,10 @@ var Router = Backbone.Router.extend({
     features: function(params) {
         React.render(<Features/>, document.getElementById('app'));
 
+    }, 
+
+    paymenttracking: function(params) {
+        React.render(<Paymenttracking/>, document.getElementById('app'));
     }
 
 
