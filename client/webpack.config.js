@@ -17,8 +17,8 @@ module.exports = {
 
 	output: {
 		libraryTarget: 'umd',
-		path: path.join(__dirname, 'dist/js/'),
-		publicPath: 'dist/js/',
+		path: path.join(__dirname, '/dist/js'),
+		publicPath: '/dist/',
 		filename: '[name].js',
 		chunkFilename: '[chunkhash].js',
 		sourceMapFilename: '[file].map'
