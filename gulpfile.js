@@ -25,7 +25,7 @@ gulp.task("doc", ["jsdoc"]);
 gulp.task('dev-demon', function(cb) {
     nodemon({
         script: 'webserver.js',
-        ignore: ['client/*', 'node_modules/*', 'client/*'],
+        ignore: ['node_modules/*'],
         args: ['-d'],
         env: {
             'NODE_ENV': 'local'
@@ -54,36 +54,6 @@ gulp.task('bower', function() { 
     return bower() .pipe(gulp.dest('./client/lib/bower_components')) ;
 });
 
-/* Analytics */
-gulp.task('plato', function() {
-    return gulp.src('./client/src/**/*.js')
-        .pipe(plato('report', {
-            destDir: './client/report',
-            complexity: {
-                trycatch: true
-            }
-        }));
-});
-
-/* Tests client */
-gulp.task('mocha', function() {
-    return gulp.src('./client/test/mocha/*.js', {
-            read: false
-        })
-        .pipe(mocha({
-            reporter: 'nyan'
-        }));
-});
-gulp.task('casper', function() {
-    var tests = ['./client/test/casper/test.js'];
-    var casperChild = spawn('casperjs', ['test'].concat(tests));
-    casperChild.stdout.on('data', function(data) {
-        gutil.log('CasperJS:', data.toString().slice(0, -1)); // Remove \n
-    });
-    casperChild.on('close', function(code) {
-        var success = code === 0; // Will be 1 in the event of failure
-    });
-});
 
 /* Webpack */
 gulp.task("build:prod", function(callback) {

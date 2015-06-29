@@ -175,12 +175,13 @@ App.prototype.initStaticContentManager = function() {
         console.log('Static content...OK');
     };
     this.staticContentManager.init(initStaticContentManagerCallback);
-
     if (this.options.isDev) {
         console.log('WEBPACK middlewares');
         var proxy = require('proxy-middleware');
         var url = require('url');
-        this.app.use('/dist', proxy(url.parse('http://localhost:8081/dist')));
+        console.log(__dirname)
+
+        this.app.use('/dist/js', proxy(url.parse('http://localhost:8081/js')));
         var webpack = require('webpack');
         var WebpackDevServer = require('webpack-dev-server');
         var config = require('../client/webpack.config');
@@ -189,11 +190,12 @@ App.prototype.initStaticContentManager = function() {
             hot: true,
             quiet: false,
             // noInfo: true,
-            publicPath: "/dist/js/",
+            publicPath: "/dist/",
             stats: {
                 colors: true
             }
         });
+
         server.listen(8081, "localhost", function() {});
     } 
 };
