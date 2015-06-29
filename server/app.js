@@ -344,7 +344,7 @@ App.prototype.run = function() {
     var self = this;
     var port = self.options.port;
     self.server.listen(port);
-    self.server.timeout = 600000;
+    self.server.timeout = 6000000;
     console.log('');
     console.log('Webapp listening on port ' + port);
     console.log('Webapp ready!');

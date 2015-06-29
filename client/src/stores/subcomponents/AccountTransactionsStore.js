@@ -63,6 +63,7 @@ RippleaccounttransactionsStore.dispatcherIndex = Dispatcher.register(function(pa
  
   	switch(action.actionType) {
   		 case Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS:	
+  		 	console.log("action.result!!",action.result);
   		 	registerAccountTransactions(action.result); 
   		 	RippleaccounttransactionsStore.emitChange(action.result); 		
   		 	break;

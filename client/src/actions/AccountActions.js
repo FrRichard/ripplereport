@@ -120,7 +120,7 @@ var AccountActions = {
 			self.rippleoffersexercised( address.raw.toJSON() );
 			self.rippleoffersexercised_sum( address.raw.toJSON(), "sum" );
 			self.ripplecapitalization( address.raw.toJSON() );
-			self.rippleaccounttransactions( address.raw.toJSON() );
+			self.rippleaccounttransactions( address.raw.toJSON(),this.transactionDefaultParams );
 			self.rippleaccounttransactionstats( address.raw.toJSON() );
 			self.rippleaccountoffers( address.raw.toJSON() );
 			self.ripplelines( address.raw.toJSON() );
@@ -183,17 +183,27 @@ var AccountActions = {
 
 	},
 
-	rippleaccounttransactions: function(accounts) {
+	rippleaccounttransactions: function(accounts,params) {
 		var self = this;
 
 		var collection = new rippleaccounttransactions();
-		collection.createAccountTransactionsList(accounts).then(function() {
+		collection.createAccountTransactionsList(accounts,params).then(function() {
 			Dispatcher.handleViewAction({
 				actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS,
 				result: collection
 			});
 		})
 
+	},
+
+	accounttransactionstrack: function(accounts, params) {
+		var collection = new rippleaccounttransactions();
+		collection.createAccountTransactionsList(accounts,params).then(function() {
+			Dispatcher.handleViewAction({
+				actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS,
+				result: collection
+			});
+		})
 	},
 
 	rippleaccounttransactionstats: function(accounts) {
@@ -217,6 +227,13 @@ var AccountActions = {
 			});
 		})
 
+	},
+
+	transactionDefaultParams: {
+		limit:1000,
+		offset:1000,
+		type:"Payment",
+		min_sequence:""
 	}
 
 }

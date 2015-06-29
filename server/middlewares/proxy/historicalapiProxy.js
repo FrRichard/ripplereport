@@ -12,54 +12,23 @@ function HistoricalapiProxy(params) {
 HistoricalapiProxy.prototype.init = function(callback) {
 	var self = this;
 
-	// this.app.all('/ripple/historicalapi/account_transactions/*',function(req,res) {
-	// 	req.query.params = JSON.parse(req.query.params);
-
-	// 	var options = {
-	// 		method: 'GET',
-	// 		qs: {type: "Payment", result:"tesSUCCESS", limit:1000},
-	// 		rejectUnauthorized: false,
-	// 		url: self.historicalapiProxyHost +"accounts/" + req.query.params.account +"/transactions",
-	// 		headers: {
-	// 			"Content-Type": "application/json",
-	// 			"Accept": "application/json"
-	// 		}
-
-	// 	};
-	// 	var callback = function(error, response, body) {
-
-	// 		try {
-	// 			var data = JSON.parse(body);
-	// 			var transactionsParsing = new self.requestparsing.account_transactions();
-	// 			var transactions = new self.datacalcul.transactions();
-	// 			var datas = transactionsParsing.parse(data,req.query.params.account);
-	// 			var data = transactions.calculate(datas);
-	// 		} catch(e) {
-	// 			console.log("API sent something unexcepected",e);
-	// 		}
-	
-	// 		if (error) {
-	// 			console.log('error', error);
-	// 			res.send(500, 'something went wrong')
-	// 		} 
-	// 		// console.log(body);
-	// 		res.status(response.statusCode).send(data);
-	// 	};
-		
-	// 	try {
-	// 		request(options, callback);
-	// 	} catch(e) {
-	// 		consoole.log(e);
-	// 	}
-	// });
 
 	this.app.all('/ripple/historicalapi/account_transactions/*',function(req,res) {
 		req.query.params = JSON.parse(req.query.params);
 		var address = req.query.params.account;
 
+		var qs = {
+			type: req.query.params.type,
+			result:"tesSUCCESS",
+			limit: req.query.params.limit,
+			offset:req.query.params.offset,
+			min_sequence: req.query.params.min_sequence || ""
+		}
+
 		var options = {
 			method: 'GET',
-			qs: {type: "Payment", result:"tesSUCCESS", limit:1000, offset:0},
+			// qs: {type: "Payment", result:"tesSUCCESS", limit:1000, offset:0, min_sequence:1},
+			qs: qs,
 			rejectUnauthorized: false,
 			url: self.historicalapiProxyHost +"accounts/" + address +"/transactions",
 			headers: {
@@ -81,12 +50,12 @@ HistoricalapiProxy.prototype.init = function(callback) {
 			_.each(data.transactions, function(t){
 				fetched.transactions.push(t);
 			});
-
+			// qs: {type: , result:"tesSUCCESS", limit:1000, offset:i},
 			if(data.transactions.length == 1000) {
 				i +=1000;
 				var options = {
 						method: 'GET',
-						qs: {type: "Payment", result:"tesSUCCESS", limit:1000, offset:i},
+						qs: qs,
 						rejectUnauthorized: false,
 						url: "https://history.ripple.com/v1/" +"accounts/" + address +"/transactions",
 						headers: {

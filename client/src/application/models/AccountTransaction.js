@@ -3,13 +3,13 @@ var config =  require('Config');
 
 var RippleAccountTransaction = Backbone.Model.extend({
 
-	initialize: function(attr,account) {
+	initialize: function(attr,account,params) {
 		var query = {
-		    // type  : "Payment",
+		    type  : params.type,
 		    // result: "testSUCCESS",
-		    // limit:1000,
+		    limit: params.limit,
 		    account:account,
-		    // min_sequence:1
+		    min_sequence: params.min_sequence || ""
 		}
 		// this.url= config.rippledataapi.account_transactions.urlModel+JSON.stringify(query);	
 		// var params = "accounts/" + account + "/transactions?type=Payment&result=tesSUCCESS&limit=1000";
