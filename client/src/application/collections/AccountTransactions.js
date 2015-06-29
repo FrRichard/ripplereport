@@ -12,7 +12,8 @@ var RippleAccountTransactions = Backbone.Collection.extend({
 	createAccountTransactionsList: function(accounts,params) {
 		var self = this;
 		this.reset();
-		var xhrs = _.map(accounts, function(account) {
+		var xhrs = _.m
+		ap(accounts, function(account) {
 			if(account.parent) {
 				var model = new RippleAccountTransaction({id:account.id, parent:account.parent}, account.address, params);
 			} else {

@@ -24,7 +24,7 @@ var Paymenttracking = React.createClass({
 		console.log("STATE:", this.state);
 		return (
 			<div>
-				<input onKeyPress={this.handleKeyPress} type="text"  placeholder="Enter a ripple address" className="searchinput"/>	
+				<input onKeyPress={this.handleKeyPress} type="text"  placeholder="Enter a azdazdazripple address" className="searchinput"/>	
 				<label htmlFor={"selectWidth"}> Width </label>
 				<select id={"selectWidth"} value={5}>
 					<option value={1}> 1 </option>
