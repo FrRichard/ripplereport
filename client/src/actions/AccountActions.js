@@ -196,14 +196,60 @@ var AccountActions = {
 
 	},
 
-	accounttransactionstrack: function(accounts, params) {
-		var collection = new rippleaccounttransactions();
-		collection.createAccountTransactionsList(accounts,params).then(function() {
-			Dispatcher.handleViewAction({
-				actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS,
-				result: collection
+	accounttransactionstrack: function(accounts, reqParams, filterParams) {
+		var self=this;
+		this.addressList = [];
+		this.explore = function(accounts, reqParams, filterParams) {
+			// console.log("addressList=====>", self.addressList);
+			var collection = new rippleaccounttransactions();
+			collection.createAccountTransactionsList(accounts,reqParams).then(function() {
+				var payload = collection.toJSON();
+				console.log(payload,filterParams);
+				var id = payload[0].id;
+				if(payload[0].summary && payload[0].summary.top10[filterParams.currency]) {
+					var top10 = payload[0].summary.top10[filterParams.currency].sent;
+					var exists = true;
+				} else {
+					var top10 = [];
+					collection.models[0].attributes['msg'] = "This node didn't make any payment in " + filterParams.currency;					
+					var exists = false;
+				}
+				// console.log("Result: ",accounts[0].address, collection.toJSON(), top10, "depth:",filterParams.depth);
+				if(filterParams.depth >= 0) {
+					console.log("-----------------explore_acccount---------------", accounts[0].address);
+					var parent = accounts[0].address;
+					for(i=0; i<filterParams.width && i<top10.length; i++) {
+						var address = top10[i].counterparty
+						// self.addressList.push(address);
+						var check = self.checkList(address); 
+						if(check) {  continue } else { self.addressList.push(address) };
+
+						var account = {
+							address: address,
+							id: address,
+							parent: parent
+						}
+						console.log("==============>launchExplore: ",account.address);
+						self.explore([account],reqParams,filterParams);
+					}
+					filterParams.depth--;
+				}
+				Dispatcher.handleViewAction({
+					actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS,
+					result: collection
+				});
 			});
-		})
+		};
+
+		this.checkList = function(address) {
+			var res = _.find(self.addressList, function(ad) {
+				return ad == address;
+			});
+			return res;
+		}
+
+		this.addressList.push(accounts[0].address);
+		this.explore(accounts, reqParams, filterParams);
 	},
 
 	rippleaccounttransactionstats: function(accounts) {

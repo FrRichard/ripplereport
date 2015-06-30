@@ -25,7 +25,7 @@ gulp.task("doc", ["jsdoc"]);
 gulp.task('dev-demon', function(cb) {
     nodemon({
         script: 'webserver.js',
-        ignore: ['node_modules/*'],
+        ignore: ['node_modules/*','client/*'],
         args: ['-d'],
         env: {
             'NODE_ENV': 'local'

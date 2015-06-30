@@ -181,7 +181,7 @@ App.prototype.initStaticContentManager = function() {
         var url = require('url');
         console.log(__dirname)
 
-        this.app.use('/dist/', proxy(url.parse('http://localhost:8081/dist')));
+        this.app.use('/dist/', proxy(url.parse('http://localhost:8081/dist/')));
         var webpack = require('webpack');
         var WebpackDevServer = require('webpack-dev-server');
         var config = require('../client/webpack.config');

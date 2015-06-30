@@ -33,8 +33,8 @@ var RippleaccounttransactionsStore = assign({}, EventEmitter.prototype, {
 		var self=this;
 		var addresses = result.toJSON();
 		_.each(addresses, function(address) {
+			self.emit('change');
 			self.emit(address.id);
-			self.emit("change");
 		});
 	},
 
@@ -44,10 +44,6 @@ var RippleaccounttransactionsStore = assign({}, EventEmitter.prototype, {
 
 	addChangeListener: function(address,callback) {
 		this.on(address, callback);
-	},
-
-	addAnyChangeListener: function(event,callback) {
-		this.on(CHANGE_EVENT, callback);
 	},
 
 	removeChangeListener: function(callback) {
@@ -63,7 +59,6 @@ RippleaccounttransactionsStore.dispatcherIndex = Dispatcher.register(function(pa
  
   	switch(action.actionType) {
   		 case Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS:	
-  		 	console.log("action.result!!",action.result);
   		 	registerAccountTransactions(action.result); 
   		 	RippleaccounttransactionsStore.emitChange(action.result); 		
   		 	break;
