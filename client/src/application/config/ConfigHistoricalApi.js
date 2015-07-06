@@ -5,6 +5,7 @@ var Config = {
 	transaction: {
 		urlModel: "/ripple/historicalapi/transactions/?params="
 	}
+
 };
 
 

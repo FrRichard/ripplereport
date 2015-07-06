@@ -9,6 +9,7 @@ var rippleaccounttransactions = require('AccountTransactions');
 var rippleaccounttransactionstats = require('AccountTransactionStats');
 var rippleaccountoffers = require('AccountOffers');
 var RippledataActions = require("DataActions");
+var ParametersManagerConfig  = require("ParametersManagerConfig");
 
 
 
@@ -183,7 +184,7 @@ var AccountActions = {
 
 	rippleaccounttransactions: function(accounts,params) {
 		var self = this;
-
+		var params = params || ParametersManagerConfig.transactionparams;
 		var collection = new rippleaccounttransactions();
 		collection.createAccountTransactionsList(accounts,params).then(function() {
 			Dispatcher.handleViewAction({

@@ -125,6 +125,7 @@ var RippleAccount = React.createClass({
           }
         }); 
       }
+      console.log("STAAAAAAAAAAAAAAAAAAAAAAAAATTTTTTTTTTTEEEEEEEEEEE",this.state);
 
       return (
         <div className="panel panel-default">
@@ -174,7 +175,14 @@ var RippleAccount = React.createClass({
 
     _onChangeRippleid: function() {
       var key = this.props.attributes.reportnumber;
-      this.setState(getRippleidState("address"+key));
+      if(_.isObject(getRippleidState("address"+key).rippleids["address"+key].address)) {
+        var id = getRippleidState("address"+key);
+        id.rippleids["address"+key].address = id.rippleids["address"+key].address.address;
+        this.setState(id);
+      } else {
+        this.setState(getRippleidState("address"+key));
+      }
+
     },
     _onChangeRipplelines: function() {
       var key = this.props.attributes.reportnumber;
