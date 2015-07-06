@@ -1,27 +1,42 @@
 var React = require('react');
 var Actions = require('AccountActions');
 var PaymentStore = require('AccountTransactionsStore');
+var IdStore = require('IdStore');
+var PaymentGraph = require('PaymentGraphReact');
 
-var Paymenttracking = React.createClass({
+var PaymentTracking = React.createClass({
 
 	getInitialState: function() {
 		var id = "address0"; 
 		return  {
 			width:"",
 			depth:"",
-			id:id,
+			name:name,
 			address:"",
-			addressList:[],
 			nodes:{}
 		};
 	},
 
 	componentDidMount: function() {
 		PaymentStore.addChangeListener('change',this._onPaymentUpdate);
+		IdStore.addChangeListener('change', this._onAddressToName);
+
+	},
+
+	someshit: function() {
+		console.log("SOME SHIT!!!!");
 	},
 
 
 	render: function() {		
+		// console.log("STATE", this.state);
+		if(Object.keys(this.state.nodes).length > 0) {
+			var paymentgraph= <PaymentGraph id={"PaymentChart"} size={[60,30]} data={this.state} />
+			// var paymentgraph= <PaymentGraph id={"PaymentChart"} size={[60,30]} data={null} />
+		} else {
+			var paymentgraph= <PaymentGraph id={"PaymentChart"} size={[60,30]} data={null} />
+		}
+
 		return (
 			<div>
 				<input onKeyPress={this.handleKeyPress} type="text"  placeholder="Enter a azdazdazripple address" className="searchinput"/>	
@@ -32,17 +47,33 @@ var Paymenttracking = React.createClass({
 					<option value={3}> 3 </option>
 					<option value={4}> 4 </option>
 					<option value={5}> 5 </option>
+					<option value={6}> 6 </option>
+					<option value={7}> 7 </option>
+					<option value={8}> 8 </option>
+					<option value={9}> 9 </option>
+					<option value={10}> 10 </option>
 				</select>
 				<label htmlFor={"selectDepth"}> Depth </label>
 				<select id={"selectDepth"} defaultValue={2}>
 					<option value={1}> 1 </option>
 					<option value={2}> 2 </option>
+					<option value={3}> 3 </option>
+					<option value={4}> 4 </option>
+					<option value={5}> 5 </option>
+					<option value={6}> 6 </option>
+					<option value={7}> 7 </option>
+					<option value={8}> 8 </option>
+					<option value={9}> 9 </option>
+					<option value={10}> 10 </option>
 				</select>
 				<label htmlFor={"selectCurrency"}> Currency </label>
 				<select id={"selectCurrency"} defaultValue={"USD"}>
 					<option value="USD"> USD </option>
 					<option value="XRP"> XRP </option>
 				</select>   
+				<div>
+					{paymentgraph}
+				</div>
 			</div>);
 	},
 
@@ -51,16 +82,11 @@ var Paymenttracking = React.createClass({
 	},
 
 	startTracking: function(e) {
-		console.log("startTracking ...");
 		var address = $('.searchinput').val().trim();
+		console.log("startTracking ...",address);
 		var width = $('#selectWidth').val();
 		var depth = $('#selectDepth').val();
 		var currency = $('#selectCurrency').val();
-		var nbrListeners = width * depth;
-
-		// for(i = 0; i<nbrListeners; i++) {
-		// 	PaymentStore.addChangeListener("address"+i,this._onPaymentUpdate("address" + i));
-		// }
 
 		var account = {
 			address: address,
@@ -68,92 +94,68 @@ var Paymenttracking = React.createClass({
 			parent: "origin"
 		};
 
-		var nodes = this.state.nodes;
-		nodes['address0'] = {
-			parent:"origin",
-			address: address,
-			data: "",
-			childs: []
-		}
-		var addressList = this.state.addressList;
-		addressList.push(address);
+		this.addressList = [address];
+
 		this.setState({
-			width: width,
 			depth: depth,
-			currency: currency,
+			width: width,
 			address: address,
-			addressList: addressList,
-			nodes: nodes
+			name: "",
+			currency: currency
 		});
 
-		this.count = 0;
-		this.depthExplored = 0;
+
 		var filterParams = {
 			depth: depth,
 			width: width,
 			currency: currency
 		}
-
+		Actions.rippleid([address]);
 		Actions.accounttransactionstrack([account],this.props.params, filterParams);
 	},
 
 	_onPaymentUpdate: function() {
-		// console.log("VIEWSTORE UPDATE",PaymentStore.getAll());
-		// var payload = PaymentStore.getSpecific(id);
-		// console.log("payload: ",payload);
-		// if(self.depthExplored <= self.state.depth) {
-		// 	console.log("DEPPPPPPPPPPPPPPPPPTHTHHTHTHTH",self.depthExplored);
-		// 	var nodes = self.state.nodes;
-		// 	var payload = PaymentStore.getSpecific(id);
-		// 	console.log("PÄYLOAD",payload,id);
-		// 	var i = 0;
-
-		// 	var top10 = payload[id].summary.top10['USD'].sent;
-		// 	var parent = id;
-		// 	console.log("FUCKINGlength",top10.length);
-		// 	for(i=0; i<self.state.width && i<top10.length; i++) {
-		// 		var address = top10[i].counterparty;
-		// 		var account = {
-		// 			address: address,
-		// 			id: "address"+ self.count,
-		// 			parent: parent
-		// 		};
-		// 		// console.log("NOOOODOES.id", nodes[id]);
-		// 		if(!nodes[id]) {
-		// 			nodes[id] = {
-		// 				parent: payload[id].parent,
-		// 				address: address,
-		// 				data: "",
-		// 				childs: []
-		// 			}
-		// 		}
-		// 		nodes[id].childs.push(address);
-		// 		Actions.rippleaccounttransactions([account], self.props.params);
-		// 		self.count += 1;
-		// 	}
-
-		// 	var addressList = self.state.addressList;
-		// 	console.log("push:","address"+id,address);
-		// 	addressList.push(address);
-			
-		// 	nodes[id].data = payload[id].summary.top10[self.state.currency].sent;
-
-		// 	self.setState({
-		// 		id: id,
-		// 		address: address,
-		// 		addressList: addressList,
-		// 		nodes:nodes
-		// 	});
-		// 	self.depthExplored +=1;
-		// }
-		
+		var nodes = PaymentStore.getAll();
+		this.addAddressToList(Object.keys(PaymentStore.getAll()));
+		this.setState({	
+			nodes: nodes
+		});
 	},
 
-	checkAddressList: function(address) {
-		var res = _.find(this.state.addressList, function(al) {
-			return address == al;
+	_onAddressToName: function() {
+		var nameObject = IdStore.getAll()["address1"];
+		var name = IdStore.getAll()["address1"].username;
+		var address = IdStore.getAll()["address1"].address;
+		var nodes = this.state.nodes;
+
+		if(this.state.address  == address) {
+			this.setState({
+				name:name
+			});
+		}
+
+		_.each(nodes, function(node, key) {
+			if(address == key){
+				node['name'] = name;
+			}
 		});
-		return res;
+		this.setState({
+			nodes:nodes
+		});
+	},
+
+	addAddressToList: function(list) {
+		var self = this;
+		_.each(list, function(address) {
+			var exists = _.find(self.addressList, function(listed) {
+				return address == listed;
+			});
+			if(!exists) {
+				self.addressList.push(address);
+				Actions.rippleid([address]);
+			}
+
+		});
 	}
 
 
@@ -162,4 +164,4 @@ var Paymenttracking = React.createClass({
 
 
 
-module.exports = Paymenttracking;
+module.exports = PaymentTracking;

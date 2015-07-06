@@ -16,7 +16,7 @@ var gatewayNames = require('GatewayNames');
 
 function registerAccountOverviews(result) {
 	_RippleAccountOverviews = result;
-	console.log('_RippleAccountOverviews',_RippleAccountOverviews);
+	// console.log('_RippleAccountOverviews',_RippleAccountOverviews);
 }
 
 function createStoreObject(datasets) {

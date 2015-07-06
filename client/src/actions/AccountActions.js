@@ -90,14 +90,12 @@ var AccountActions = {
 
 	rippleid: function(toresolve) {
 		var self = this;
-
 		var rippleidcollection = new rippleids();
 		rippleidcollection.createIdList(toresolve).then(function() {	
 			Dispatcher.handleViewAction({
 				actionType: Constants.ActionTypes.ASK_RIPPLEID,
 				result: rippleidcollection
 			});
-				console.log("RIPPLEIDCOLLECTON",rippleidcollection);
 		});
 
 	},
@@ -198,14 +196,15 @@ var AccountActions = {
 
 	accounttransactionstrack: function(accounts, reqParams, filterParams) {
 		var self=this;
+		var GatewayNames = require('GatewayNames');
 		this.addressList = [];
+
 		this.explore = function(accounts, reqParams, filterParams) {
-			// console.log("addressList=====>", self.addressList);
 			var collection = new rippleaccounttransactions();
 			collection.createAccountTransactionsList(accounts,reqParams).then(function() {
 				var payload = collection.toJSON();
-				console.log(payload,filterParams);
 				var id = payload[0].id;
+
 				if(payload[0].summary && payload[0].summary.top10[filterParams.currency]) {
 					var top10 = payload[0].summary.top10[filterParams.currency].sent;
 					var exists = true;
@@ -214,26 +213,30 @@ var AccountActions = {
 					collection.models[0].attributes['msg'] = "This node didn't make any payment in " + filterParams.currency;					
 					var exists = false;
 				}
-				// console.log("Result: ",accounts[0].address, collection.toJSON(), top10, "depth:",filterParams.depth);
+
 				if(filterParams.depth >= 0) {
-					console.log("-----------------explore_acccount---------------", accounts[0].address);
 					var parent = accounts[0].address;
 					for(i=0; i<filterParams.width && i<top10.length; i++) {
 						var address = top10[i].counterparty
-						// self.addressList.push(address);
+						var type = self.isGateway(address);
 						var check = self.checkList(address); 
 						if(check) {  continue } else { self.addressList.push(address) };
 
 						var account = {
 							address: address,
 							id: address,
-							parent: parent
+							parent: parent,
+							type:type
 						}
-						console.log("==============>launchExplore: ",account.address);
-						self.explore([account],reqParams,filterParams);
+
+						// console.log("address",address, "type:",type);
+						if(type != "gateway" && type != "hotwallet") {
+							self.explore([account],reqParams,filterParams);
+						}
 					}
 					filterParams.depth--;
 				}
+
 				Dispatcher.handleViewAction({
 					actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS,
 					result: collection
@@ -246,6 +249,21 @@ var AccountActions = {
 				return ad == address;
 			});
 			return res;
+		}
+
+		this.isGateway = function(address) {
+			var type = _.filter(GatewayNames, function(gateway){
+				return gateway.address == address;
+			});
+			if(type.length != 0) {
+				return "gateway";
+			} else {
+				return "standard";
+			}
+		}
+
+		this.isHotwallet = function(address) {
+
 		}
 
 		this.addressList.push(accounts[0].address);

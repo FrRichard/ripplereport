@@ -53,6 +53,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 			// qs: {type: , result:"tesSUCCESS", limit:1000, offset:i},
 			if(data.transactions.length == 1000) {
 				i +=1000;
+				qs.offset = i;
 				var options = {
 						method: 'GET',
 						qs: qs,
@@ -64,7 +65,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 						}
 				}
 
-				console.log(i + "transactions has been filtered and analyzed");
+				console.log(i + "transactions has been filtered and analyzed (" + address +")");
 				request(options,callback);
 	
 			} else {

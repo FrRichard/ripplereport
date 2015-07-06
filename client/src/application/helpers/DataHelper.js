@@ -112,6 +112,69 @@ var moment = require('moment');
    
    };
 
+   DataHelper.prototype.paymentgraph = function(data, size) {
+      var res = {};
+      var nodes = [];
+      var links = [];
+      var width = size.width;
+      var height = size.height;
+
+      var findNode = function(id) {
+        for (var i in nodes) {
+             if (nodes[i]["id"] === id) return nodes[i];
+         };
+      }
+
+      _.each(data, function(d) {
+         nodes.push({
+            id: d.id,
+            parent: d.parent,
+            name:d.name
+
+         });
+      });
+
+      _.each(data, function(d) { 
+         if(d.parent != "origin") {
+            links.push({
+               source: findNode(d.parent),
+               target: findNode(d.id)
+            });
+         }
+      });
+
+      _.each(nodes, function(node) {
+            node['y'] = height/2;
+            node['x'] = width/2;
+         if(node.parent == "origin") {
+            node['fixed'] = true;
+         }
+      })
+
+      var res = {
+         nodes:nodes,
+         links:links
+      }
+
+      return res;
+   }
+
 
 module.exports = DataHelper;
 
+   // this.nodes = [
+      //     { id:"a", value:"100", x: (this.width/2), y: (this.height/2), fixed:true},
+      //     { id:"b", value:"3000", x: 0, y: 0 },
+      //     { id:"c", value:"243", x: 1, y: 2 },  
+      //     { id:"d", value:"125", x: 8, y: 5 },
+      //     { id:"e", value:"365", x: 25, y: 7 },
+      //     { id:"f", value:"12000000000", x: 18, y: 15 }
+      // ];
+
+      // this.links = [
+      //    { source: 0, target: 1 },
+      //    { source: 2, target: 1 },
+      //    { source: 3, target: 2 },
+      //    { source: 1, target: 4 },
+      //    { source: 1, target: 5 }
+      // ];

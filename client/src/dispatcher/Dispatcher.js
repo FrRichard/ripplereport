@@ -17,7 +17,7 @@ var queue = async.queue( function (task, callback) {
 
 }, 1);
 
-AppDispatcher = assign(dispatcher, {
+var AppDispatcher = assign(dispatcher, {
     handleServerAction: function (action) {
         queue.push({source : 'SERVER_ACTION', action : action});
         // console.log(queue);

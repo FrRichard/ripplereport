@@ -27,7 +27,7 @@ function registerId(result) {
 		_RippleIddatas[addr.id]["raw"] = result;
 	});
 	
-	console.log("_RippleIdStore",_RippleIddatas);
+	// console.log("_RippleIdStore",_RippleIddatas);
 };
 
 var RippleidStore = assign({}, EventEmitter.prototype, {
@@ -53,6 +53,7 @@ var RippleidStore = assign({}, EventEmitter.prototype, {
 		var addresses = result.toJSON();
 		_.each(addresses, function(address) {
 			self.emit(address.id);
+			self.emit(CHANGE_EVENT);
 		});
 	},
 
@@ -84,7 +85,6 @@ RippleidStore.dispatcherIndex = Dispatcher.register(function(payload) {
   	switch(action.actionType) {
   		case Constants.ActionTypes.ASK_RIPPLEID:
   		 	registerId(action.result);	
-  			console.log("==========+++> IDSTORE has been REGISTERED");	
   		 	RippleidStore.emitChange(action.result); 		
   		 	break;
 
@@ -102,7 +102,6 @@ RippleidStore.dispatcherIndex = Dispatcher.register(function(payload) {
 			break;
 
 		case Constants.ActionTypes.RIGHTADDRESS_ID:
-			console.log("=========+++> EMITING RIGHT from IDSTORE")
 			RippleidStore.emitEvent("rightaddress_fromidstore");
 			break;
   	}

@@ -5,7 +5,7 @@ var App = require('App');
 var Transaction = require('Transaction');
 var Price = require('Price');
 var Features = require('Features');
-var Paymenttracking = require('Paymenttracking');
+var PaymentTracking = require('PaymentTracking');
 
 //Store
 var GridStore = require('GridStore');
@@ -165,7 +165,7 @@ var Router = Backbone.Router.extend({
         };
 
 
-        React.render(<Paymenttracking params={params}/>, document.getElementById('app'));
+        React.render(<PaymentTracking params={params}/>, document.getElementById('app'));
     }
 
 

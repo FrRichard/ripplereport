@@ -97,7 +97,7 @@ module.exports = {
 			RegisterComponent: path.join(__dirname, './src/application/views/auth/RegisterComponentView'),
 			Settings: path.join(__dirname, './src/application/views/settings/SettingsComponentView'),
 			Features: path.join(__dirname, '/src/application/views/features/FeaturesView'),
-			Paymenttracking: path.join(__dirname, '/src/application/views/paymenttracking/PaymentTrackingView'),
+			PaymentTracking: path.join(__dirname, '/src/application/views/paymenttracking/PaymentTrackingView'),
 
 			//chartsD3
 			PieChartD3: path.join(__dirname, './src/application/views/components/charts/d3/PieChart'),
@@ -106,11 +106,13 @@ module.exports = {
 			OffersExercisedTotal: path.join(__dirname, './src/application/views/components/charts/d3/OffersExercisedTotal'),
 			LineChart: path.join(__dirname, './src/application/views/components/charts/d3/LineChart'),
 			BarChart2D3: path.join(__dirname, './src/application/views/components/charts/d3/BarChart2D3'),
+			PaymentGraphD3: path.join(__dirname, './src/application/views/components/charts/d3/PaymentGraphD3'),
 			//chartsREACT
 			PieChartReact: path.join(__dirname, './src/application/views/components/charts/reactcomponents/PieChart'),
 			PieChartBigNumber_react: path.join(__dirname, './src/application/views/components/charts/reactcomponents/PieChartBigNumber'),
 			BarChartReact: path.join(__dirname, './src/application/views/components/charts/reactcomponents/BarChart'),
 			BarChart2React: path.join(__dirname, './src/application/views/components/charts/reactcomponents/BarChart2'),
+			PaymentGraphReact: path.join(__dirname, './src/application/views/components/charts/reactcomponents/PaymentGraph'),
 			// components (sub-views)
 			Topbar: path.join(__dirname, './src/application/views/components/topbar/Topbar'),
 			Footer: path.join(__dirname, './src/application/views/components/footer/Footer'),
