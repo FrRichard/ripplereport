@@ -66,6 +66,7 @@ function registerRippleInfos(infos) {
 
 function registerRippleExchangerates(rates) {
 	var rates = rates;
+
 	_.each(rates, function(rate) {
 		datasets[rate.id]['rippleexchangerates']= rate;
 	});

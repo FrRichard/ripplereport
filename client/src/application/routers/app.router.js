@@ -159,7 +159,7 @@ var Router = Backbone.Router.extend({
     paymenttracking: function(params) {
         var params =  {
             limit:1000,
-            offset:1000,
+            offset:0,
             type:"Payment",
             min_sequence:1
         };

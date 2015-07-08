@@ -10,6 +10,7 @@ var rippleaccounttransactionstats = require('AccountTransactionStats');
 var rippleaccountoffers = require('AccountOffers');
 var RippledataActions = require("DataActions");
 var ParametersManagerConfig  = require("ParametersManagerConfig");
+var Uuid = require('Uuid');
 
 
 
@@ -104,22 +105,22 @@ var AccountActions = {
 	viewready: function(address,type) {
 		var self = this;
 		if(type == "address") {
-			console.log("ACTION_viewread with address type",address);
+			// console.log("ACTION_viewread with address type",address);
 			self.rippleid( address.infos );
 			self.rippleoffersexercised( address.infos );
 			self.rippleoffersexercised_sum( address.infos, "sum" );
 			self.ripplecapitalization( address.infos );
-			self.rippleaccounttransactions( address.infos );
+			self.accountTransactions( address.infos );
 			self.rippleaccounttransactionstats( address.infos );
 			self.rippleaccountoffers( address.infos );
 			self.ripplelines( address.infos );
 		} else {
-			console.log("ACTION_viewread with id type",address);
+			// console.log("ACTION_viewread with id type",address);
 			self.rippleinfos( address.raw.toJSON() );
 			self.rippleoffersexercised( address.raw.toJSON() );
 			self.rippleoffersexercised_sum( address.raw.toJSON(), "sum" );
 			self.ripplecapitalization( address.raw.toJSON() );
-			self.rippleaccounttransactions( address.raw.toJSON(),this.transactionDefaultParams );
+			self.accountTransactions( address.raw.toJSON() );
 			self.rippleaccounttransactionstats( address.raw.toJSON() );
 			self.rippleaccountoffers( address.raw.toJSON() );
 			self.ripplelines( address.raw.toJSON() );
@@ -182,16 +183,33 @@ var AccountActions = {
 
 	},
 
-	rippleaccounttransactions: function(accounts,params) {
+	accountTransactions: function(accounts,params) {
 		var self = this;
+		var i = 0;
+
 		var params = params || ParametersManagerConfig.transactionparams;
-		var collection = new rippleaccounttransactions();
-		collection.createAccountTransactionsList(accounts,params).then(function() {
-			Dispatcher.handleViewAction({
-				actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS,
-				result: collection
+		this.explore = function(accounts, params) {
+			console.log("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU",Uuid());
+			var collection = new rippleaccounttransactions();
+			collection.createAccountTransactionsList(accounts,params).then(function(result) {
+				// if(result.transactions.length == 1000) {
+				// 	i+=1000;
+				// 	params.offset = i;
+				// 	self.explore(accounts,params);
+				// }
+				Dispatcher.handleViewAction({
+					actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS,
+					result: collection.toJSON()
+				});
 			});
-		})
+
+			Dispatcher.handleViewAction({
+				actionType: Constants.ActionTypes.ISLOADING_ACCOUNTTRANSACTIONS,
+				result: collection.toJSON()
+			});
+		}
+
+		this.explore(accounts, params);
 
 	},
 
@@ -240,7 +258,7 @@ var AccountActions = {
 
 				Dispatcher.handleViewAction({
 					actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS,
-					result: collection
+					result: collection.toJSON()
 				});
 			});
 		};
@@ -292,14 +310,8 @@ var AccountActions = {
 			});
 		})
 
-	},
-
-	transactionDefaultParams: {
-		limit:1000,
-		offset:1000,
-		type:"Payment",
-		min_sequence:""
 	}
+
 
 }
 

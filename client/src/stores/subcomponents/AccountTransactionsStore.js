@@ -9,12 +9,12 @@ var _RippleAccountTransactions = {};
 
 
 function registerAccountTransactions(result) {
-	var accounttransactions = result.toJSON();
+	var accounttransactions = result;
 
 	_.each(accounttransactions, function(accounttransaction) {
 		_RippleAccountTransactions[accounttransaction.id] = accounttransaction;
 	});
-	// console.log("_RippleAccountTransactionsStore",_RippleAccountTransactions);
+	console.log("_RippleAccountTransactionsStore",_RippleAccountTransactions);
 };
 
 var RippleaccounttransactionsStore = assign({}, EventEmitter.prototype, {
@@ -31,7 +31,7 @@ var RippleaccounttransactionsStore = assign({}, EventEmitter.prototype, {
 
 	emitChange: function(result) {
 		var self=this;
-		var addresses = result.toJSON();
+		var addresses = result;
 		_.each(addresses, function(address) {
 			self.emit('change');
 			self.emit(address.id);
@@ -58,12 +58,17 @@ RippleaccounttransactionsStore.dispatcherIndex = Dispatcher.register(function(pa
   	var result;
  
   	switch(action.actionType) {
-  		 case Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS:	
-  		 	registerAccountTransactions(action.result); 
-  		 	RippleaccounttransactionsStore.emitChange(action.result); 		
-  		 	break;
+		case Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS:	
+			registerAccountTransactions(action.result); 
+			RippleaccounttransactionsStore.emitChange(action.result); 
 
-  		  case Constants.ActionTypes.ISLOADING:
+			break;
+
+		case Constants.ActionTypes.ISLOADING:
+			RippleaccounttransactionsStore.emitLoading('isloading');
+			break;
+
+		case Constants.ActionTypes.ISLOADING_ACCOUNTTRANSACTIONS:
 			RippleaccounttransactionsStore.emitLoading('isloading');
 			break;
   	}

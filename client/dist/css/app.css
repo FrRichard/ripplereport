@@ -12065,6 +12065,26 @@ td.transaction_field_title {
   #search > input + i {
     top: 0.4em; } }
 
+.paymentTimeController {
+  color: #004756;
+  font-size: 1em;
+  background: #FFFFFF;
+  margin-left: 5em;
+  padding: 0.3em 0.3em 0.5em 0.5em;
+  vertical-align: top;
+  float: right; }
+
+.paymentTimePeriod {
+  display: inline-block;
+  font-size: 0.9em;
+  margin-left: 1em; }
+
+.paymentTimeControllerBlock {
+  border-style: solid;
+  border-color: rgba(0, 71, 86, 0.19);
+  border-width: 0.1em;
+  padding: 0.5em; }
+
 .loading {
   height: 60px;
   display: block;

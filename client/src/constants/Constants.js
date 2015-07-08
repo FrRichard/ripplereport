@@ -20,6 +20,7 @@ module.exports = {
     ADD_WIDGET: null,
     REMOVE_WIDGET: null,
     ISLOADING: null,
+    ISLOADING_ACCOUNTTRANSACTIONS: null,
     TX_ISLOADING: null,
     WRONGADDRESS_ID:null,
     RIGHTADDRESS_ID:null,

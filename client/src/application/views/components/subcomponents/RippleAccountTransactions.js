@@ -1,5 +1,8 @@
 var React = require('react');
+//store
 var RippleaccounttransactionsStore = require('AccountTransactionsStore');
+//actions
+var AccountActions = require('AccountActions');
 //charts
 // var LineChart = require('barchart2');
 var PieChart = require('PieChartBigNumber_react');
@@ -161,8 +164,7 @@ var RippleAccountTransactions = React.createClass({
 			var self =this;
 			this.address= "address" + this.props.attributes.reportnumber;
 			var panelstyle = viewcommon.linechart;
-			console.log(this.state);
-			// this.chartId= "Overviewcapitalization" +this.props.attributes.key;
+			console.log("staaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaate",this.state);
 
 			var AllPies = [];
 
@@ -173,41 +175,64 @@ var RippleAccountTransactions = React.createClass({
 			);
 			var paginated = Paginator.paginate(filteredData, this.state.pagination);
 			var header = table_funct.header.call(this, this.state.columns, this.state.data);
+
 			if(this.state.rippleaccounttransactions[this.address]) {
-				var totalcashs = this.state.rippleaccounttransactions[this.address].summary.totalcash;
-				_.each(totalcashs, function(totalcash,key) {
-					var todraw = self.DataHelper.PieChart_bignumber(totalcash);
-					var currencyimgsrc =FormatUtils.formatCurrencyLabel(key).image;
-		      		var currencyimg = <img key={"currencyimg"+key} className="currencyimgoverview" src={currencyimgsrc}/> 
-					if(todraw.length>0) {
-						if(todraw[0].amount > 0 || todraw[1].amount > 0) {
-							AllPies.push(
-								<div key={"smallpie"+key} className="transactionsmallpie">
-									<div key={"transactioncurrencytitle"+key} className="transactioncurrencytitle">
-										{currencyimg} &nbsp;
-										{key} 
+				if(this.state.rippleaccounttransactions[this.address].transactions) {
+					var transactions = this.state.rippleaccounttransactions[this.address];
+					var totalcashs = transactions.summary.totalcash;
+					_.each(totalcashs, function(totalcash,key) {
+						var todraw = self.DataHelper.PieChart_bignumber(totalcash);
+						var currencyimgsrc =FormatUtils.formatCurrencyLabel(key).image;
+			      		var currencyimg = <img key={"currencyimg"+key} className="currencyimgoverview" src={currencyimgsrc}/> 
+						if(todraw.length>0) {
+							if(todraw[0].amount > 0 || todraw[1].amount > 0) {
+								AllPies.push(
+									<div key={"smallpie"+key} className="transactionsmallpie">
+										<div key={"transactioncurrencytitle"+key} className="transactioncurrencytitle">
+											{currencyimg} &nbsp;
+											{key} 
+										</div>
+										<PieChart id={"Cashinout_"+key} size={[100,100]} data={todraw} />
+										<div className="totalcashinoutt">
+											<span key= {"cashin"+key} className="totalcashin">Cash In: {FormatUtils.formatValue(totalcash.cashin)} </span><br/>
+											<span key ={"cashout" +key} className="totalcashout">Cash Out: {FormatUtils.formatValue(totalcash.cashout)} </span><br/>
+											<span key={"standard"+key} className="totalstandard">Standard: {FormatUtils.formatValue(totalcash.standard)} </span>
+										</div>
 									</div>
-									<PieChart id={"Cashinout_"+key} size={[100,100]} data={todraw} />
-									<div className="totalcashinoutt">
-										<span key= {"cashin"+key} className="totalcashin">Cash In: {FormatUtils.formatValue(totalcash.cashin)} </span><br/>
-										<span key ={"cashout" +key} className="totalcashout">Cash Out: {FormatUtils.formatValue(totalcash.cashout)} </span><br/>
-										<span key={"standard"+key} className="totalstandard">Standard: {FormatUtils.formatValue(totalcash.standard)} </span>
-									</div>
-								</div>
-							);
+								);
+							}
 						}
-					}
-				});
+					});
+				}
+				if(transactions) {
+					var fromto = <div className="paymentTimePeriod">
+									<span> From: {moment(transactions.startTime).format('MMMM Do YYYY, h:mm:ss a')} </span> <br/>
+									<span> To: {moment(transactions.endTime).format('MMMM Do YYYY, h:mm:ss a')} </span>
+								</div>;
+				} else {
+					var fromto =  <div className="paymentTimePeriod">
+									<span> From:  </span> <br/>
+									<span> To: </span>
+								</div>;
+				}
+				var timeController = 
+							<div className="paymentTimeControllerBlock"> 
+								{fromto}
+								<select onChange={this.selectTimePeriod} className="paymentTimeController" defaultValue={this.state.period}> 
+									<option value={"tx"}> Last 1000 transactions </option>
+									<option value={"3"}> 3 days </option>
+									<option value={"10"}> 10 days </option>
+									<option value={"30"}> 30 days </option>
+									<option value={"90"}> 90 days </option>
+									<option value={"all"}> All </option>
+								</select>
+							</div>;
 			}
 
 			if(this.state.rippleaccounttransactions[this.address]) {
 				var formatedtransactions =  this.DataHelper.transactionsGriddle(this.state.rippleaccounttransactions[this.address].transactions);
 			}
 
-				           			// <h4 className="maintitlealltransactions "> All Payments </h4>
-				     //       			<div className='per-page-container'>
-									//     Per page <input type='text' defaultValue={this.state.pagination.perPage} onChange={this.onPerPage}></input>
-									// </div>
 		return ( 
 			<div className="panel panel-default">
 				 <div className="panel-heading clearfix">
@@ -218,33 +243,36 @@ var RippleAccountTransactions = React.createClass({
 						</span>
            			</div>
            		</div>
+			    {timeController}
            		{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
            		{ !this.state.isloading ?
            			this.state.rippleaccounttransactions[this.address] ?
-           				this.state.rippleaccounttransactions[this.address].transactions.length > 0 ?
-			           		<div className="panel-body" style={panelstyle}>
-			           			<div className="allsmallpie">
-				           			<h4 className="maintitleminipie"> Payment Sum and Directions </h4>
-			           		 		{AllPies}
-			           		 	</div>
-			           		 	<div className="alltransactionss">
-				           			<div className='search-container'>
-									    Search <Search ref={'search'} columns={this.state.columns} onChange={this.setState.bind(this)}></Search>
-									</div>
-			
-				           			<Table className="pure-table layoutfixed" columns={this.state.columns} data={paginated.data} header={header}/>
+           				this.state.rippleaccounttransactions[this.address].transactions ?
+	           				this.state.rippleaccounttransactions[this.address].transactions.length > 0 ?
+				           		<div className="panel-body" style={panelstyle}>
+				           			<div className="allsmallpie">
+					           			<h4 className="maintitleminipie"> Payment Sum and Directions </h4>
+				           		 		{AllPies}
+				           		 	</div>
+				           		 	<div className="alltransactionss">
+					           			<div className='search-container'>
+										    Search <Search ref={'search'} columns={this.state.columns} onChange={this.setState.bind(this)}></Search>
+										</div>
+				
+					           			<Table className="pure-table layoutfixed" columns={this.state.columns} data={paginated.data} header={header}/>
 
-				           		 	<div className='pagination'>
-									    <Paginator
-									        page={paginated.page}
-									        pages={paginated.amount}
-									        beginPages={3}
-									        endPages={3}
-									        onSelect={this.onSelect}></Paginator>
-									</div>
-			           		 	</div>
-							</div>
-						:  <div className="didntissueiou"> This account didnt make any payment </div> 
+					           		 	<div className='pagination'>
+										    <Paginator
+										        page={paginated.page}
+										        pages={paginated.amount}
+										        beginPages={3}
+										        endPages={3}
+										        onSelect={this.onSelect}></Paginator>
+										</div>
+				           		 	</div>
+								</div>
+							:  <div className="didntissueiou"> This account didnt make any payment </div> 
+						: <div className="didntissueiou"> This account didnt make any payment for this period</div> 
 					: ""
 				: ""}
 
@@ -259,12 +287,22 @@ var RippleAccountTransactions = React.createClass({
     },
 
 	_onChangeRippleaccounttransactions: function() {
+		var self = this;
 		var key = this.props.attributes.reportnumber;
 		this.address= "address" + key;
 		var isloading = false;
 		var rippleaccounttransactions = getRippleaccounttransactionsState("address" + key).rippleaccounttransactions;
 		var data = table_funct.filldata(rippleaccounttransactions[this.address].transactions, ["amount", "time", "direction", "type", "currency"], ["issuer", "counterparty", "txHash", "ledgerIndex"]);
-
+		if(rippleaccounttransactions[self.address].account) {
+			var account = rippleaccounttransactions[self.address].account;
+		} else {
+			var account = this.state.account;
+		}
+		if(rippleaccounttransactions[this.address].period) {
+			var period = rippleaccounttransactions[this.address].period;
+		} else {
+			var period = this.state.period;
+		}
 		this.setState({
 			rippleaccounttransactions: rippleaccounttransactions,
 			data:data,
@@ -273,9 +311,11 @@ var RippleAccountTransactions = React.createClass({
 	            column: '',
 	            data: data,
 	            query: ''
-	        }
+	        },
+	        account: account,
+	        period:period
 		});
-				$('.transactiondetailbutton').parents('td').addClass('transactiondetailbutton');
+		$('.transactiondetailbutton').parents('td').addClass('transactiondetailbutton');
 	},
 
 	onSelect: function(page) {
@@ -303,6 +343,27 @@ var RippleAccountTransactions = React.createClass({
         this.setState({
             search: search
         });
+    },
+
+    selectTimePeriod: function(e) {
+    	console.log("SELECTED!",e.target.value);
+    	var days = e.target.value;
+    	var account = { 
+    		address: this.state.account,
+    		id:this.address
+    	};
+    	var params = {
+	            limit:1000,
+	            offset: 0,
+	            type:"Payment",
+	            period:days
+		};
+		if(days !="all") {
+			params['start'] = moment().subtract(days,'days').format('YYYY-MM-DDThh:mm');
+		}
+
+    	AccountActions.accountTransactions([account],params);
+    	console.log(account,params);
     }
 
 

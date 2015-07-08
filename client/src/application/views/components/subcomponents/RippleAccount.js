@@ -125,7 +125,6 @@ var RippleAccount = React.createClass({
           }
         }); 
       }
-      console.log("STAAAAAAAAAAAAAAAAAAAAAAAAATTTTTTTTTTTEEEEEEEEEEE",this.state);
 
       return (
         <div className="panel panel-default">

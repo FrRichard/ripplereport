@@ -1,6 +1,7 @@
 var request = require('request');
 var parseurl = require('url');
 var _ = require('underscore');
+var moment = require('moment');
 
 function HistoricalapiProxy(params) {
 	this.app = params.app;
@@ -17,17 +18,14 @@ HistoricalapiProxy.prototype.init = function(callback) {
 		req.query.params = JSON.parse(req.query.params);
 		var address = req.query.params.account;
 
-		var qs = {
-			type: req.query.params.type,
-			result:"tesSUCCESS",
-			limit: req.query.params.limit,
-			offset:req.query.params.offset,
-			min_sequence: req.query.params.min_sequence || ""
-		}
+		var qs = { result:"tesSUCCESS" }
 
+		_.each(req.query.params, function(param,key) {
+			qs[key] = param;
+		})
+		console.log("qsssssssss",qs,"adddresssssssss",address);
 		var options = {
 			method: 'GET',
-			// qs: {type: "Payment", result:"tesSUCCESS", limit:1000, offset:0, min_sequence:1},
 			qs: qs,
 			rejectUnauthorized: false,
 			url: self.historicalapiProxyHost +"accounts/" + address +"/transactions",
@@ -50,40 +48,64 @@ HistoricalapiProxy.prototype.init = function(callback) {
 			_.each(data.transactions, function(t){
 				fetched.transactions.push(t);
 			});
-			// qs: {type: , result:"tesSUCCESS", limit:1000, offset:i},
-			if(data.transactions.length == 1000) {
-				i +=1000;
-				qs.offset = i;
-				var options = {
-						method: 'GET',
-						qs: qs,
-						rejectUnauthorized: false,
-						url: "https://history.ripple.com/v1/" +"accounts/" + address +"/transactions",
-						headers: {
-							"Content-Type": "application/json",
-							"Accept": "application/json"
-						}
-				}
 
-				console.log(i + "transactions has been filtered and analyzed (" + address +")");
-				request(options,callback);
-	
-			} else {
-			
+			var calcul = function(period) {
 				try {
 					var transactionsParsing = new self.requestparsing.account_transactions();
 					var transactions = new self.datacalcul.transactions();
-					var datas = transactionsParsing.parse(fetched,address);
-					var data = transactions.calculate(datas);
+					var result = transactionsParsing.parse(fetched,address);
+					result = transactions.calculate(result);
+					result['period'] = period;
 				} catch(e) {
 					console.log("API sent something unexcepected",e);
+					send(e);
 				}
-		
 				if (error) {
 					console.log('error', error);
 					res.send(500, 'something went wrong')
 				} 
-				res.status(response.statusCode).send(data);
+
+				return result;
+			}
+			var send = function(result) {
+				res.status(response.statusCode).send(result);
+			}
+
+			if(data) {
+				if(data.transactions.length == 1000) {
+					i +=1000;
+					qs.offset = i;
+					// qs['start'] = moment().subtract(90,'days').format('YYYY-MM-DDThh:mm');
+					console.log(qs);
+					var options = {
+							method: 'GET',
+							qs: qs,
+							rejectUnauthorized: false,
+							url: "https://history.ripple.com/v1/" +"accounts/" + address +"/transactions",
+							headers: {
+								"Content-Type": "application/json",
+								"Accept": "application/json"
+							}
+					}
+
+					console.log(i + "transactions has been filtered and analyzed (" + address +")");
+					if(!qs.start) {
+						console.log("send this thistpgepo");
+						var result = calcul('tx');
+						send(result);
+					} else {
+						request(options,callback);
+					}
+
+				} else {
+					if(!qs.period) {		
+						var result = calcul('all');
+					} else {
+						var result = calcul(qs.period);
+					}
+
+					send(result);
+				}
 			}
 
 		};
@@ -91,7 +113,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 		try {
 			request(options, callback);
 		} catch(e) {
-			consoole.log(e);
+			console.log(e);
 		}
 	});
 

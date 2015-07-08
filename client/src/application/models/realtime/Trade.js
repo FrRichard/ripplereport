@@ -18,9 +18,6 @@ var Trade = Backbone.Model.extend({
 		var self = this;
 		this.params = params || this.params || {};
 
-		
-
-
 		//remove old event listener (get old props & remove)
 		var updateCallback = function(payload) {
 			

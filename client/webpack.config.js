@@ -83,6 +83,7 @@ module.exports = {
 			AddressValidator: path.join(__dirname, './src/application/utils/AddressValidator'),
 			TransactionViewBuilder: path.join(__dirname, './src/application/utils/TransactionViewBuilder'),
 			BigNumber: path.join(__dirname, './src/application/utils/BigNumber'),
+			Uuid: path.join(__dirname, './src/application/utils/Uuid'),
 			
 			//SVG & views common styles
 			SvgCommon: path.join(__dirname, './style/charts/SvgCommon'),

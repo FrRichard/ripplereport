@@ -1,5 +1,5 @@
 
-
+var moment = require('moment');
 var parametersManagerConfig = {};
 
 parametersManagerConfig.defaultparams = {
@@ -10,11 +10,11 @@ parametersManagerConfig.defaultparams = {
 
 parametersManagerConfig.transactionparams =  {
             limit:1000,
-            offset:1000,
-            type:"Payment",
-            min_sequence:1
-};
+            offset: 0,
+            type:"Payment"
+}
 
+console.log('FUCKING QSSSSSS',parametersManagerConfig.transactionparams);
 
 parametersManagerConfig.rippleDefaultplatforms = {
 	BITSTAMP: {
