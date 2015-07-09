@@ -15,7 +15,7 @@ function registerAccountOffers(result) {
 	_.each(offers, function(offer) {
 		_RippleAccountOffers[offer.id] = offer;
 	});
-	console.log("_RippleAccountOffersStore",_RippleAccountOffers);
+	// console.log("_RippleAccountOffersStore",_RippleAccountOffers);
 };
 
 var RippleaccountoffersStore = assign({}, EventEmitter.prototype, {

@@ -15,7 +15,7 @@ var gatewayNames = require('GatewayNames');
 
 function registerCapitalizationOverviews(result) {
 	_RippleCapitalizationOverviews = result;
-	console.log('_RippleCapitalizationOverviews',_RippleCapitalizationOverviews);
+	// console.log('_RippleCapitalizationOverviews',_RippleCapitalizationOverviews);
 }
 
 

@@ -191,8 +191,9 @@ module.exports = {
 			RealtimeActions: path.join(__dirname, './src/actions/RealtimeActions'),
 
 			//managers
-			RippleSocketManager:path.join(__dirname, '/src/application/managers/sockets/RippleSocketManager'),
-			ParametersManager:path.join(__dirname, '/src/application/managers/ParametersManager'),
+			RippleSocketManager: path.join(__dirname, '/src/application/managers/sockets/RippleSocketManager'),
+			LongPollingSocketManager: path.join(__dirname, '/src/application/managers/sockets/LongPollingSocketManager'),
+			ParametersManager: path.join(__dirname, '/src/application/managers/ParametersManager'),
 
 			//collections
 			Trades: path.join(__dirname, './src/application/collections/realtime/Trades'),

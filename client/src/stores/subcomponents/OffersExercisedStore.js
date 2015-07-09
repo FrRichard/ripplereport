@@ -31,7 +31,7 @@ function registerOffersExercised(result,sum) {
 			_.extend(_RippleOffersExercised[offerexercised.id], offerexercised);
 		});
 	}
-	console.log("__RippleOffersExercisedStore",_RippleOffersExercised);
+	// console.log("__RippleOffersExercisedStore",_RippleOffersExercised);
 };
 
 var RippleoffersexercisedStore = assign({}, EventEmitter.prototype, {

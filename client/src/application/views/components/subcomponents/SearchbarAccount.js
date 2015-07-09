@@ -47,7 +47,7 @@ var SearchBar = React.createClass({
 
 		var input = $('#search input').val();
 		this.toresolve = input.split(",");
-		console.log("===================+++> USER INPUT",this.toresolve);
+		// console.log("===================+++> USER INPUT",this.toresolve);
 		this.address = "address" + this.toresolve.length;
 
 		this.conf = Config.dashboards.account;
@@ -64,11 +64,11 @@ var SearchBar = React.createClass({
 		
 
 		if(addressvalidator.decode(this.toresolve[0])) {
-			console.log("=========================++++>VIEW detects Address");
+			// console.log("=========================++++>VIEW detects Address");
 			this.type = "address";
 			AccountActions.addresstrack(this.toresolve);
 		} else if(this.toresolve[0][0] == "~") {
-			console.log("==========================++++>VIEW detects ~name");
+			// console.log("==========================++++>VIEW detects ~name");
 			this.type = "id"
 			AccountActions.idtrack(this.toresolve);
 		}
@@ -81,7 +81,7 @@ var SearchBar = React.createClass({
 	},
 
 	render: function(){
-		console.log("====================LOADSTATE================",this.state.isloading);
+		// console.log("====================LOADSTATE================",this.state.isloading);
 		if(!this.state.isloading) {
 			var searchlogo = <i  onClick={this.handleClick}   className="fa fa-search searchbutton"></i>;
 		} 

@@ -11,6 +11,8 @@ var rippleaccountoffers = require('AccountOffers');
 var RippledataActions = require("DataActions");
 var ParametersManagerConfig  = require("ParametersManagerConfig");
 var Uuid = require('Uuid');
+//socket 
+var LongPollingSocketManager = require('LongPollingSocketManager');
 
 
 
@@ -18,12 +20,12 @@ var AccountActions = {
 
 	idtrack: function(toresolve) {
 		var self = this;
-		console.log("=========================++++>ACTION_IDTRACK");
+		// console.log("=========================++++>ACTION_IDTRACK");
 		var rippleidcollection = new rippleids();
 		rippleidcollection.createIdList(toresolve).then(function() {	
-			console.log("==========+++>IDTRACK has fetched properly",rippleidcollection.toJSON());
+			// console.log("==========+++>IDTRACK has fetched properly",rippleidcollection.toJSON());
 			if(rippleidcollection.toJSON()[0].exists) {
-				console.log("==========+++>EMITING RIGHT from ACTIONS_IDTRACK");
+				// console.log("==========+++>EMITING RIGHT from ACTIONS_IDTRACK");
 				Dispatcher.handleViewAction({
 					actionType: Constants.ActionTypes.ASK_RIPPLEID,
 					result: rippleidcollection,
@@ -47,13 +49,13 @@ var AccountActions = {
 	},
 
 	addresstrack: function(toresolve) {
-		console.log("addresstrazckactions",toresolve);
+		// console.log("addresstrazckactions",toresolve);
 		var self = this;
 		var rippleinfoscollection = new rippleinfos();
-		console.log("=========================++++>ACTION_ADDRESSTRACK");
+		// console.log("=========================++++>ACTION_ADDRESSTRACK");
 
 		rippleinfoscollection.createInfosList(toresolve).then(function() {	
-			console.log("================+++> ADDRESSTRACK has fetched properly",rippleinfoscollection.toJSON());
+			// console.log("================+++> ADDRESSTRACK has fetched properly",rippleinfoscollection.toJSON());
 			var checkexistence = rippleinfoscollection.toJSON();
 			if(checkexistence[0].error) {
 				Dispatcher.handleViewAction({
@@ -61,7 +63,7 @@ var AccountActions = {
 						result: rippleinfoscollection
 				});
 			} else {
-				console.log("==========+++>EMITING RIGHT from ACTIONS_ADDRESSTRACK");
+				// console.log("==========+++>EMITING RIGHT from ACTIONS_ADDRESSTRACK");
 				Dispatcher.handleServerAction({
 					actionType:Constants.ActionTypes.ISLOADING
 				});
@@ -190,13 +192,9 @@ var AccountActions = {
 		var params = params || ParametersManagerConfig.transactionparams;
 		this.explore = function(accounts, params) {
 			console.log("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU",Uuid());
+			params.uuid = Uuid();
 			var collection = new rippleaccounttransactions();
 			collection.createAccountTransactionsList(accounts,params).then(function(result) {
-				// if(result.transactions.length == 1000) {
-				// 	i+=1000;
-				// 	params.offset = i;
-				// 	self.explore(accounts,params);
-				// }
 				Dispatcher.handleViewAction({
 					actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS,
 					result: collection.toJSON()
@@ -206,6 +204,12 @@ var AccountActions = {
 			Dispatcher.handleViewAction({
 				actionType: Constants.ActionTypes.ISLOADING_ACCOUNTTRANSACTIONS,
 				result: collection.toJSON()
+			});
+			LongPollingSocketManager.once('connect', function (socket) {
+				console.log("CONNECTED TO TRANSACTIONS SOCKET");
+			});
+			LongPollingSocketManager.on(params.uuid, function (socket) {
+				console.log("RECEIVING MSG FROM TX SOCKET");
 			});
 		}
 

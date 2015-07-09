@@ -2,6 +2,7 @@ var request = require('request');
 var parseurl = require('url');
 var _ = require('underscore');
 var moment = require('moment');
+var EventManager = require('../../managers/EventManager');
 
 function HistoricalapiProxy(params) {
 	this.app = params.app;
@@ -16,6 +17,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 
 	this.app.all('/ripple/historicalapi/account_transactions/*',function(req,res) {
 		req.query.params = JSON.parse(req.query.params);
+		var uuid = req.query.params.uuid;
 		var address = req.query.params.account;
 
 		var qs = { result:"tesSUCCESS" }
@@ -48,7 +50,11 @@ HistoricalapiProxy.prototype.init = function(callback) {
 			_.each(data.transactions, function(t){
 				fetched.transactions.push(t);
 			});
-
+			var payload = {
+				msg: "FETCHING YOUR TRANSACTION!",
+				uuid: uuid
+			}
+			EventManager.emit("updateTransaction",payload);
 			var calcul = function(period) {
 				try {
 					var transactionsParsing = new self.requestparsing.account_transactions();
@@ -90,7 +96,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 
 					console.log(i + "transactions has been filtered and analyzed (" + address +")");
 					if(!qs.start) {
-						console.log("send this thistpgepo");
+						console.log("send the result with 'tx' period");
 						var result = calcul('tx');
 						send(result);
 					} else {

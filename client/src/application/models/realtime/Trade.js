@@ -35,15 +35,15 @@ var Trade = Backbone.Model.extend({
 
 			eventId = this.eventIdUpdate('ASK');
 			console.log("REMOVE_MODEL_LISTENER",eventId);
-			// RippleSocketManager.removeAllListeners(eventId,function(prout) {
-			// 	console.log("REMOVE FUCKING LISTENRET",prout);
+			// RippleSocketManager.removeAllListeners(eventId,function(id) {
+			// 	console.log("REMOVE FUCKING LISTENRET",id);
 			// });
 			delete RippleSocketManager._callbacks[eventId];
 
 			eventId = this.eventIdUpdate('BID');
 			console.log("REMOVE_MODEL_LISTENER",eventId);
-			// RippleSocketManager.removeAllListeners(eventId,function(prout) {
-			// 	console.log("REMOVE FUCKING LISTENRET",prout);
+			// RippleSocketManager.removeAllListeners(eventId,function(id) {
+			// 	console.log("REMOVE FUCKING LISTENRET",id);
 			// });
 			delete RippleSocketManager._callbacks[eventId];
 

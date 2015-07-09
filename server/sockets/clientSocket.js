@@ -28,10 +28,80 @@ ClientSocket.prototype.run = function(callback) {
     // this.initNewsfeedNamespace();
     // this.initChatNamespace();
     this.initRippleTradeNamespace();
+    this.initLongPollingNamesspace();
     if (callback) {
         callback();
     }
 };
+
+ClientSocket.prototype.initLongPollingNamesspace = function(callback) {
+    var self = this;
+    var rooms = ['payments'];
+    _.each(rooms, function(room){
+        self.io
+            .of("/longpolling")
+            .use(function(socket, next) {
+                if (socket) {
+                    console.log('SOCKET RIPPLE_trade CONNECTION MIDDLEWARE')
+                    return next();
+                }
+                next(new Error('Authentication error'));
+            })
+            .on('connection', function(socket) {
+                var self = this;
+                socket.on('enter-dataroom', function(dataroom) {
+
+                      socket.join(dataroom, function(err) {
+                        if (err) {
+                            // var payload = {
+                            //     error: err
+                            // };
+                            // console.log('err dataroom join : ', err);
+                            // socket.emit('enter-dataroom', payload);
+                        } else {
+                            // console.log("ENTER-DATAROOM ===========> EMIT !!!");
+                            // socket.emit('enter-dataroom', {
+                            //     result: 'success',
+                            //     dataroom: dataroom,
+                            //     isReversed: self.isReversed
+                            // });
+                        }
+                    });
+
+                });
+
+                socket.on('leave-dataroom', function(dataroom) {
+                    socket.leave(dataroom, function(err) {
+                            if (err) {
+                                // console.log('err dataroom leave : ', err);
+                                // socket.emit('leave-dataroom', 'error');
+                            } else {
+                                // socket.datarooms = _.filter(socket.datarooms, function(room) {
+                                //     return room != dataroom;
+                                // })
+                                // socket.emit('leave-dataroom', {
+                                //     result: 'success',
+                                //     dataroom: dataroom
+                                // });
+                            }
+                        });
+                });
+
+            });
+
+    });
+
+   EventManager.on("updateTransaction", function(data) {
+       // var data = JSON.parse(data);
+       // var payload = {
+       //     key: channel,
+       //     data: data
+       // };
+       console.log("FUCKING_PAYLOOOOOAD_transactiooon",data);
+       // self.io.of('/longpolling').to(room.id).emit(channel, payload);
+   });
+     
+}
 
 var generateRoomnames_rippletrade = function(callback) {
     var self = this;

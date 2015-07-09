@@ -21,6 +21,7 @@ var table_funct = require('TableFunct');
 
 
 
+
 function getRippleaccounttransactionsState(key) {
 	var rippleaccounttransactions= RippleaccounttransactionsStore.getSpecific(key);
 	return {
@@ -35,6 +36,7 @@ var RippleAccountTransactions = React.createClass({
 
 	getInitialState: function() {
 		var self = this;
+	
 		this.address= "address" + this.props.attributes.reportnumber;
 		if(getRippleaccounttransactionsState(this.address)) {
 			var rippleaccounttransactions = getRippleaccounttransactionsState(this.address).rippleaccounttransactions;
@@ -146,6 +148,7 @@ var RippleAccountTransactions = React.createClass({
 	},
 
 	componentDidMount: function() {
+		
 		var key = this.props.attributes.reportnumber;
 		var address = "address" + key;
 		//Listener
@@ -164,7 +167,7 @@ var RippleAccountTransactions = React.createClass({
 			var self =this;
 			this.address= "address" + this.props.attributes.reportnumber;
 			var panelstyle = viewcommon.linechart;
-			console.log("staaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaate",this.state);
+			// console.log("staaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaate",this.state);
 
 			var AllPies = [];
 
