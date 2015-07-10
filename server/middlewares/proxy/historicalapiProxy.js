@@ -13,7 +13,7 @@ function HistoricalapiProxy(params) {
 
 HistoricalapiProxy.prototype.init = function(callback) {
 	var self = this;
-
+	this.EventManager = EventManager;
 
 	this.app.all('/ripple/historicalapi/account_transactions/*',function(req,res) {
 		req.query.params = JSON.parse(req.query.params);
@@ -25,7 +25,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 		_.each(req.query.params, function(param,key) {
 			qs[key] = param;
 		})
-		console.log("qsssssssss",qs,"adddresssssssss",address);
+
 		var options = {
 			method: 'GET',
 			qs: qs,
@@ -44,17 +44,29 @@ HistoricalapiProxy.prototype.init = function(callback) {
 			transactions: []
 		}
 
+		var midself=this;
+
+		EventManager.on('stop'+uuid, function() {
+			midself.request.abort();
+			try {
+					var transactionsParsing = new self.requestparsing.account_transactions();
+					var transactions = new self.datacalcul.transactions();
+					var result = transactionsParsing.parse(fetched,address);
+					result = transactions.calculate(result);
+					result['period'] = "custom";
+			} catch(e) {
+					console.log("API sent something unexcepected",e);
+					send(e);
+			}
+			res.send(result);
+		});	
+
 		var callback = function(error, response, body) {
-			
 			var data = JSON.parse(body);
 			_.each(data.transactions, function(t){
 				fetched.transactions.push(t);
 			});
-			var payload = {
-				msg: "FETCHING YOUR TRANSACTION!",
-				uuid: uuid
-			}
-			EventManager.emit("updateTransaction",payload);
+
 			var calcul = function(period) {
 				try {
 					var transactionsParsing = new self.requestparsing.account_transactions();
@@ -63,7 +75,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 					result = transactions.calculate(result);
 					result['period'] = period;
 				} catch(e) {
-					console.log("API sent something unexcepected",e);
+					console.log("API sent something unexcepected",e,body);
 					send(e);
 				}
 				if (error) {
@@ -81,6 +93,8 @@ HistoricalapiProxy.prototype.init = function(callback) {
 				if(data.transactions.length == 1000) {
 					i +=1000;
 					qs.offset = i;
+					console.log("TO",data.transactions[999].date);
+					console.log("FROM",data.transactions[0].date);
 					// qs['start'] = moment().subtract(90,'days').format('YYYY-MM-DDThh:mm');
 					console.log(qs);
 					var options = {
@@ -93,15 +107,21 @@ HistoricalapiProxy.prototype.init = function(callback) {
 								"Accept": "application/json"
 							}
 					}
-
+					payload['date'] = {
+						from: data.transactions[0].date,
+						to:  data.transactions[999].date
+					}
+					payload.msg = i + " transactions has been filtered and analyzed";
+					EventManager.emit("payment",payload);
+			
 					console.log(i + "transactions has been filtered and analyzed (" + address +")");
-					if(!qs.start) {
+					if(!qs.start && qs.period!='all') {
 						console.log("send the result with 'tx' period");
 						var result = calcul('tx');
 						send(result);
 					} else {
-						request(options,callback);
-					}
+						midself.request = request(options,callback);
+					} 
 
 				} else {
 					if(!qs.period) {		
@@ -117,10 +137,21 @@ HistoricalapiProxy.prototype.init = function(callback) {
 		};
 		
 		try {
-			request(options, callback);
+			var currentReq = request(options, callback);
+			var payload = {
+				msg: "Transactions are fetching ...",
+				uuid: uuid,
+				room: 'payment'
+			}
+			EventManager.emit("payment",payload);
 		} catch(e) {
 			console.log(e);
 		}
+
+		EventManager.on('stop'+uuid, function() {
+			currentReq.abort();
+		});
+
 	});
 
 	this.app.all('/ripple/historicalapi/transactions/*',function(req,res) {
@@ -140,20 +171,22 @@ HistoricalapiProxy.prototype.init = function(callback) {
 		var callback = function(error, response, body) {
 
 			try {
+				
 				var data = JSON.parse(body);
+
 				// var transactionsParsing = new self.requestparsing.account_transactions();
 				// var transactions = new self.datacalcul.transactions();
 				// var datas = transactionsParsing.parse(data,req.query.params.account);
 				// var data = transactions.calculate(datas);
 			} catch(e) {
-				console.log("API sent something unexcepected",e);
+				console.log("API sent something unexcepected",e,body);
 			}
 	
 			if (error) {
 				console.log('error', error);
 				res.send(500, 'something went wrong')
 			} 
-			console.log("STATUSCOOOOOOOOOOOODE",response.statusCode);
+
 			if(response.statusCode == 400) {
 				data = {message:'invalid format', result:'error'};
 			}

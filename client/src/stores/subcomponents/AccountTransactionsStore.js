@@ -17,6 +17,11 @@ function registerAccountTransactions(result) {
 	console.log("_RippleAccountTransactionsStore",_RippleAccountTransactions);
 };
 
+function registerStatus(status) {
+	_RippleAccountTransactions['status'] = status;
+	console.log("_RippleAccountTransactionsStore",_RippleAccountTransactions);
+}
+
 var RippleaccounttransactionsStore = assign({}, EventEmitter.prototype, {
 
 	getAll: function() {
@@ -70,6 +75,11 @@ RippleaccounttransactionsStore.dispatcherIndex = Dispatcher.register(function(pa
 
 		case Constants.ActionTypes.ISLOADING_ACCOUNTTRANSACTIONS:
 			RippleaccounttransactionsStore.emitLoading('isloading');
+			break;
+
+		case Constants.ActionTypes.LOADINGSTATUS_ACCOUNTTRANSACTIONS:
+			registerStatus(action.result);
+			RippleaccounttransactionsStore.emitLoading('loadingstatus');
 			break;
   	}
 

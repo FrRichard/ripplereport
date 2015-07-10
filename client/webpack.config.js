@@ -189,6 +189,7 @@ module.exports = {
 			DataActions: path.join(__dirname,'./src/actions/DataActions'),
 			DashboardActions: path.join(__dirname, './src/actions/DashboardActions'),
 			RealtimeActions: path.join(__dirname, './src/actions/RealtimeActions'),
+			PollingActions: path.join(__dirname, './src/actions/PollingActions'),
 
 			//managers
 			RippleSocketManager: path.join(__dirname, '/src/application/managers/sockets/RippleSocketManager'),

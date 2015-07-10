@@ -11755,6 +11755,30 @@ striping:
   float: left;
   display: block; }
 
+.loadingstatus {
+  left: 50%;
+  top: 65%;
+  position: absolute;
+  transform: translate(-50%, -50%); }
+
+.loadingstatus_date1 {
+  left: 50%;
+  top: 70%;
+  position: absolute;
+  transform: translate(-50%, -50%); }
+
+.loadingstatus_date2 {
+  left: 50%;
+  top: 75%;
+  position: absolute;
+  transform: translate(-50%, -50%); }
+
+.loadingbuttonstop {
+  left: 50%;
+  top: 85%;
+  position: absolute;
+  transform: translate(-50%, -50%); }
+
 .transactiondetailbutton {
   font-size: 15px;
   text-align: center; }

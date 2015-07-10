@@ -51,20 +51,18 @@ ClientSocket.prototype.initLongPollingNamesspace = function(callback) {
                 var self = this;
                 socket.on('enter-dataroom', function(dataroom) {
 
-                      socket.join(dataroom, function(err) {
+                    socket.join(dataroom, function(err) {
                         if (err) {
-                            // var payload = {
-                            //     error: err
-                            // };
-                            // console.log('err dataroom join : ', err);
-                            // socket.emit('enter-dataroom', payload);
+                            var payload = {
+                                error: err
+                            };
+                            console.log('err dataroom join : ', err);
+                            socket.emit('enter-dataroom', payload);
                         } else {
-                            // console.log("ENTER-DATAROOM ===========> EMIT !!!");
-                            // socket.emit('enter-dataroom', {
-                            //     result: 'success',
-                            //     dataroom: dataroom,
-                            //     isReversed: self.isReversed
-                            // });
+                            socket.emit('enter-dataroom', {
+                                result: 'success',
+                                dataroom: dataroom,
+                            });
                         }
                     });
 
@@ -73,32 +71,33 @@ ClientSocket.prototype.initLongPollingNamesspace = function(callback) {
                 socket.on('leave-dataroom', function(dataroom) {
                     socket.leave(dataroom, function(err) {
                             if (err) {
-                                // console.log('err dataroom leave : ', err);
-                                // socket.emit('leave-dataroom', 'error');
+                                console.log('err dataroom leave : ', err);
+                                socket.emit('leave-dataroom', 'error');
                             } else {
-                                // socket.datarooms = _.filter(socket.datarooms, function(room) {
-                                //     return room != dataroom;
-                                // })
-                                // socket.emit('leave-dataroom', {
-                                //     result: 'success',
-                                //     dataroom: dataroom
-                                // });
+                                socket.emit('leave-dataroom', {
+                                    result: 'success',
+                                    dataroom: dataroom
+                                });
                             }
                         });
                 });
+
+                socket.on('stop', function(dataroom) {
+                    socket.emit("stop", {dataroom:dataroom});
+                    EventManager.emit('stop'+dataroom,dataroom);
+                });
+
 
             });
 
     });
 
-   EventManager.on("updateTransaction", function(data) {
-       // var data = JSON.parse(data);
-       // var payload = {
-       //     key: channel,
-       //     data: data
-       // };
-       console.log("FUCKING_PAYLOOOOOAD_transactiooon",data);
-       // self.io.of('/longpolling').to(room.id).emit(channel, payload);
+   EventManager.on("payment", function(payload) {
+        var room = payload.room;
+        var channel = payload.uuid;
+        var msg = payload.msg;
+        console.log("FUCKING_PAYLOOOOOAD_transactiooon",payload);
+       self.io.of('/longpolling').to(room).emit(channel, payload);
    });
      
 }

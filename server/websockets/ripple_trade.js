@@ -90,7 +90,6 @@ Price.prototype.init = function(params) {
 		var payload = OfferParser(data);
 		if(payload) {
 			var channel = 'BITSTAMP' + sep + 'XRP' + sep + 'USD' + sep + payload.type;
-			console.log("CHANNEL!",channel);
 			payload.platform = 'BITSTAMP';
 			payload = JSON.stringify(payload);
 		    self.redisClient.publish(channel, payload);

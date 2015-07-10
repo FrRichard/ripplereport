@@ -191,10 +191,11 @@ var AccountActions = {
 
 		var params = params || ParametersManagerConfig.transactionparams;
 		this.explore = function(accounts, params) {
-			console.log("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU",Uuid());
 			params.uuid = Uuid();
+			var dataroom = params.uuid;
 			var collection = new rippleaccounttransactions();
 			collection.createAccountTransactionsList(accounts,params).then(function(result) {
+				// LongPollingSocketManager.emit('leave-dataroom', 'payment');
 				Dispatcher.handleViewAction({
 					actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS,
 					result: collection.toJSON()
@@ -208,8 +209,25 @@ var AccountActions = {
 			LongPollingSocketManager.once('connect', function (socket) {
 				console.log("CONNECTED TO TRANSACTIONS SOCKET");
 			});
-			LongPollingSocketManager.on(params.uuid, function (socket) {
-				console.log("RECEIVING MSG FROM TX SOCKET");
+			LongPollingSocketManager.once('enter-dataroom', function (payload) {
+				console.log("enter-dataroom transaction socket",payload);
+			});
+			LongPollingSocketManager.once('leave-dataroom', function (payload) {
+				console.log("leave-dataroom transaction socket",payload);
+			});
+			LongPollingSocketManager.on("stop", function(dataroom) {
+				console.log("REQUEST HAS BEEN STOPPED!",dataroom);
+			});
+
+			// LongPollingSocketManager.emit("stop",dataroom);
+
+			LongPollingSocketManager.emit('enter-dataroom', 'payment');
+			LongPollingSocketManager.on(params.uuid, function (payload) {
+				console.log("RECEIVING MSG FROM TX SOCKET",payload);
+				Dispatcher.handleServerAction({
+					actionType: Constants.ActionTypes.LOADINGSTATUS_ACCOUNTTRANSACTIONS,
+					result: payload
+				});
 			});
 		}
 

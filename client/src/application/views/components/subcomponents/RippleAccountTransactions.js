@@ -3,6 +3,7 @@ var React = require('react');
 var RippleaccounttransactionsStore = require('AccountTransactionsStore');
 //actions
 var AccountActions = require('AccountActions');
+var PollingActions = require('PollingActions');
 //charts
 // var LineChart = require('barchart2');
 var PieChart = require('PieChartBigNumber_react');
@@ -45,6 +46,9 @@ var RippleAccountTransactions = React.createClass({
 		}
 
 		isloading = true;
+		loadingstatus = {
+		 	msg:"Initialize request ..."
+		}
 
 		var pagination = {
 		    page: 0,
@@ -139,7 +143,7 @@ var RippleAccountTransactions = React.createClass({
 		    }
 	    
 		];
-		return { rippleaccounttransactions:rippleaccounttransactions, isloading:isloading, data:data, columns:columns, pagination:pagination, search:search};
+		return { rippleaccounttransactions:rippleaccounttransactions, isloading:isloading, loadingstatus:loadingstatus, data:data, columns:columns, pagination:pagination, search:search};
 	},
 
 
@@ -153,6 +157,7 @@ var RippleAccountTransactions = React.createClass({
 		var address = "address" + key;
 		//Listener
 		RippleaccounttransactionsStore.addChangeListener('isloading', this._onLoading);
+		RippleaccounttransactionsStore.addChangeListener('loadingstatus', this._onLoadingStatus);
 		RippleaccounttransactionsStore.addChangeListener(address, this._onChangeRippleaccounttransactions);
 		// instanciate stuff
 		this.DataHelper = new datahelper();
@@ -160,15 +165,19 @@ var RippleAccountTransactions = React.createClass({
 	},
 
 	componentWillUnmount: function() {
+		console.log("UNMOUNNNNNNNNNNNNNNNNNNNT");
 		RippleaccounttransactionsStore.removeChangeListener(this._onChangeRippleaccounttransactions);
 	},
 
+	componentDidUpdate: function() {
+		
+	},
+
 	render: function() {
+			console.log("STATE:",this.state);
 			var self =this;
 			this.address= "address" + this.props.attributes.reportnumber;
 			var panelstyle = viewcommon.linechart;
-			// console.log("staaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaate",this.state);
-
 			var AllPies = [];
 
 	        var filteredData = Search.search(
@@ -221,7 +230,7 @@ var RippleAccountTransactions = React.createClass({
 				var timeController = 
 							<div className="paymentTimeControllerBlock"> 
 								{fromto}
-								<select onChange={this.selectTimePeriod} className="paymentTimeController" defaultValue={this.state.period}> 
+								<select onChange={this.selectTimePeriod} className="paymentTimeController" value={this.state.period}> 
 									<option value={"tx"}> Last 1000 transactions </option>
 									<option value={"3"}> 3 days </option>
 									<option value={"10"}> 10 days </option>
@@ -247,7 +256,15 @@ var RippleAccountTransactions = React.createClass({
            			</div>
            		</div>
 			    {timeController}
-           		{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
+           		{ this.state.isloading ?  <div>
+           			<img className="loading" src={'./img/loading2.gif'} /> 
+           			<div className='loadingstatus'>{this.state.loadingstatus.msg} </div>
+           			<div className='loadingstatus_date1'>From:{this.state.loadingstatus.from}</div> 
+           			<div className='loadingstatus_date2'>To:{this.state.loadingstatus.to} </div>   
+           			{this.state.uuid ?
+           				<button onClick={this.stopFetching} className="loadingbuttonstop"> Stop fetching at this date </button> 
+           			: ''}
+           		</div> : ''}
            		{ !this.state.isloading ?
            			this.state.rippleaccounttransactions[this.address] ?
            				this.state.rippleaccounttransactions[this.address].transactions ?
@@ -288,6 +305,33 @@ var RippleAccountTransactions = React.createClass({
 			isloading:true
 		});
     },
+
+    _onLoadingStatus: function() {
+    	var loadingstatus = getRippleaccounttransactionsState('status').rippleaccounttransactions.status;
+    	var msg = loadingstatus.msg;
+    	console.log("LOADINGSTATUS§!!",loadingstatus);
+    	if(loadingstatus.date) {
+    		var period = loadingstatus.date;
+    		var from = moment(period.from).format('YYYY-MM-DD h:mm:ss a');
+    		var to = moment(period.to).format('YYYY-MM-DD h:mm:ss a');
+    	} else {
+    		var from = '';
+    		var to = '';
+    	}
+    	var uuid = loadingstatus.uuid;
+		if(uuid != this.state.uuid) {
+			console.log("account has changed!!",this.state,uuid,this.state.uuid);
+			this.stopFetching();
+		}
+    	this.setState({
+    		loadingstatus: {
+    			msg: msg,
+    			from: from,
+    			to: to
+    		},
+    		uuid: uuid
+    	});
+   	},
 
 	_onChangeRippleaccounttransactions: function() {
 		var self = this;
@@ -349,8 +393,12 @@ var RippleAccountTransactions = React.createClass({
     },
 
     selectTimePeriod: function(e) {
-    	console.log("SELECTED!",e.target.value);
     	var days = e.target.value;
+    	this.setState({
+    		period: days,
+    		status: "Transactions are fetching...",
+    		uuid: false
+    	});
     	var account = { 
     		address: this.state.account,
     		id:this.address
@@ -367,6 +415,11 @@ var RippleAccountTransactions = React.createClass({
 
     	AccountActions.accountTransactions([account],params);
     	console.log(account,params);
+    },
+
+    stopFetching: function() {
+    	console.log("stat buttton",this.state);
+    	PollingActions.stopTransactionRequest(this.state.uuid);
     }
 
 
