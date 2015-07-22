@@ -1,6 +1,6 @@
 var React = require('react');
 var Dashboard = require('Dashboard');
-var Searchbar = require('SearchbarAccount');
+
 var Panel = require('react-bootstrap').Panel;
 // account components
 var RippleidStore =require('IdStore');
@@ -23,6 +23,8 @@ var App = React.createClass({
 
 
     render: function() {
+    	var Searchbar = this.props.searchBar;
+    	var Title = this.props.title;
     	if(this.state.page == "welcome") {
 			var page =   
 				<div id="bigsearch">
@@ -32,7 +34,7 @@ var App = React.createClass({
 					        	<Panel>
 					        		<div>
 					        			<img id="ripplelogo" src={'./img/Greenripple.png'}  />
-					        			<p id="rippletitle" > Ledger Monitor </p>
+					        			<p id="rippletitle" > {Title} </p>
 					        		</div>
 					        		<Searchbar/>
 					    		</Panel>
@@ -44,7 +46,6 @@ var App = React.createClass({
 
 		if(this.state.page == "report") {
 			var page = <Account searchbar={Searchbar} isvalid={true} />;
-			// var page = <div> MEs couilles! </div>;
 		}
 
         return (<div>{page}</div>);

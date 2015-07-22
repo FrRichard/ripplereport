@@ -209,7 +209,44 @@ var Config = {
 	          datatype:"CapitalizationOverview",
 	          chart:"pie_accountoverview"
 	        }]
+	},
+
+	paymenttracking: {
+
+		items: [
+			{
+			  key: 'keyfact1',
+			  title: 'Payments Tracking',
+			  width: 3,
+			  height: 6,
+			  col: 1,
+			  row: 1,
+			  datatype: "PaymentTrackingView"
+			},
+			{
+	          key: 'keyfact2',
+	          title:'Payments',
+	          icon:'fa fa-exchange',
+	          width: 2,
+	          height: 4,
+	          col: 2,
+	          row:7,
+	          datatype:"RippleAccountTransactions"
+	        },
+	        {
+	          key: 'keyfact3',
+	          title:'Payments Summary',
+	          icon:'fa fa-exchange',
+	          width: 1,
+	          height: 4,
+	          col: 1,
+	          row: 7,
+	          datatype:"RippleAccountTransactionsSummary"
+	        }
+		]
+
 	}
+
      
 };
 

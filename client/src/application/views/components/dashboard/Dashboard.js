@@ -19,7 +19,7 @@ function getDashboardState() {
 var Dashboard = React.createClass({
 
   getInitialState: function() {
-    // DashboarStore initial config_set (ie: classic, perso, mabite ...)
+    // DashboarStore initial config_set (ie: classic, perso,)
     return null
   },
 

@@ -16,7 +16,7 @@ function registercurrentref(gridster) {
 
 function registerconf(conf) {
 	_Grids['currentconf'] = conf;
-	console.log("_GRIDSTORE",_Grids);
+	// console.log("_GRIDSTORE",_Grids);
 };
 
 var GridStore = assign({}, EventEmitter.prototype, {

@@ -5,7 +5,7 @@ var viewcommon = {
 		fontSize:"14"
 	},
 	linechart: {
-		height:350 + 'px',
+		height:300 + 'px',
 		width:700+'px'
 	},
 	panellist_small : {

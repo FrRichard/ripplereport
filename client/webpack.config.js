@@ -98,7 +98,7 @@ module.exports = {
 			RegisterComponent: path.join(__dirname, './src/application/views/auth/RegisterComponentView'),
 			Settings: path.join(__dirname, './src/application/views/settings/SettingsComponentView'),
 			Features: path.join(__dirname, '/src/application/views/features/FeaturesView'),
-			PaymentTracking: path.join(__dirname, '/src/application/views/paymenttracking/PaymentTrackingView'),
+			PaymentTracking: path.join(__dirname, '/src/application/views/components/subcomponents/PaymentTrackingView'),
 
 			//chartsD3
 			PieChartD3: path.join(__dirname, './src/application/views/components/charts/d3/PieChart'),
@@ -132,6 +132,7 @@ module.exports = {
 			RippleAccountTransactionsSummary: path.join(__dirname, './src/application/views/components/subcomponents/RippleAccountTransactionsSummary'),
 			RippleAccountTransactionStats: path.join(__dirname, './src/application/views/components/subcomponents/RippleAccountTransactionStats'),
 
+			PaymentTrackingSearchView: path.join(__dirname, './src/application/views/components/subcomponents/PaymentTrackingSearchView'),
 			SearchbarAccount: path.join(__dirname, './src/application/views/components/subcomponents/SearchbarAccount'),
 			SearchbarTransaction: path.join(__dirname, './src/application/views/components/subcomponents/SearchbarTransaction'),
 			AbstractSubcomponent: path.join(__dirname, './src/application/views/components/subcomponents/AbstractSubcomponent'),
@@ -171,6 +172,7 @@ module.exports = {
 			CapitalizationOverviewStore: path.join(__dirname, './src/stores/subcomponents/CapitalizationOverviewStore'),
 			OffersExercisedStore: path.join(__dirname, './src/stores/subcomponents/OffersExercisedStore'),
 			AccountTransactionsStore: path.join(__dirname, './src/stores/subcomponents/AccountTransactionsStore'),
+			PaymentStore: path.join(__dirname, './src/stores/subcomponents/PaymentStore'),
 			AccountOffersStore: path.join(__dirname, './src/stores/subcomponents/AccountOffersStore'),
 			AccountTransactionstatsStore: path.join(__dirname, './src/stores/subcomponents/AccountTransactionStatsStore'),
 			MarketTradersStore: path.join(__dirname, './src/stores/subcomponents/MarketTradersStore'),
@@ -235,6 +237,7 @@ module.exports = {
 			gridsterResponsive: path.join(__dirname, './lib/internal-libs/gridster-responsive/gridster.responsive'),
 			ChartEngine: path.join(__dirname, './lib/internal-libs/chartEngine/ChartEngine'),
 			jsonViewer: path.join(__dirname, './lib/internal-libs/jquery.json-viewer/jquery.json-viewer'),
+			cola: path.join(__dirname, './lib/internal-libs/cola/cola.V3.min.js'),
 
 			// External libs
 			backbone: path.join(__dirname, './lib/bower_components/backbone/backbone'),
@@ -275,7 +278,8 @@ module.exports = {
 			jQuery: 'jquery',
 			$: 'jquery',
 			_: 'lodash',
-			Backbone: 'backbone'
+			Backbone: 'backbone',
+			Cola: 'cola'
 		})
 	]
 };

@@ -165,7 +165,6 @@ var RippleAccountTransactions = React.createClass({
 	},
 
 	componentWillUnmount: function() {
-		console.log("UNMOUNNNNNNNNNNNNNNNNNNNT");
 		RippleaccounttransactionsStore.removeChangeListener(this._onChangeRippleaccounttransactions);
 	},
 
@@ -174,7 +173,7 @@ var RippleAccountTransactions = React.createClass({
 	},
 
 	render: function() {
-			console.log("STATE:",this.state);
+			// console.log("STATE:",this.state);
 			var self =this;
 			this.address= "address" + this.props.attributes.reportnumber;
 			var panelstyle = viewcommon.linechart;
@@ -309,7 +308,7 @@ var RippleAccountTransactions = React.createClass({
     _onLoadingStatus: function() {
     	var loadingstatus = getRippleaccounttransactionsState('status').rippleaccounttransactions.status;
     	var msg = loadingstatus.msg;
-    	console.log("LOADINGSTATUS§!!",loadingstatus);
+
     	if(loadingstatus.date) {
     		var period = loadingstatus.date;
     		var from = moment(period.from).format('YYYY-MM-DD h:mm:ss a');
@@ -319,8 +318,9 @@ var RippleAccountTransactions = React.createClass({
     		var to = '';
     	}
     	var uuid = loadingstatus.uuid;
-		if(uuid != this.state.uuid) {
-			console.log("account has changed!!",this.state,uuid,this.state.uuid);
+    	console.log('LOADING STATUUUUUUUUUUUUUUUUUUUUUUUUUUUSSSSSS',loadingstatus);
+		if(uuid != this.state.uuid ) {
+			// console.log("account has changed!!",this.state,uuid,this.state.uuid);
 			this.stopFetching();
 		}
     	this.setState({
@@ -414,11 +414,11 @@ var RippleAccountTransactions = React.createClass({
 		}
 
     	AccountActions.accountTransactions([account],params);
-    	console.log(account,params);
+    	// console.log(account,params);
     },
 
     stopFetching: function() {
-    	console.log("stat buttton",this.state);
+    	// console.log("stat buttton",this.state);
     	PollingActions.stopTransactionRequest(this.state.uuid);
     }
 

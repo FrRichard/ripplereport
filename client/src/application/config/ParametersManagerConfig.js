@@ -14,6 +14,13 @@ parametersManagerConfig.transactionparams =  {
             type:"Payment"
 }
 
+parametersManagerConfig.transactiontrackingparams = {
+    limit:1000,
+    offset:0,
+    type:"Payment",
+    min_sequence:1
+};
+
 console.log('FUCKING QSSSSSS',parametersManagerConfig.transactionparams);
 
 parametersManagerConfig.rippleDefaultplatforms = {

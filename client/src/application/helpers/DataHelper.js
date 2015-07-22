@@ -129,7 +129,8 @@ var moment = require('moment');
          nodes.push({
             id: d.id,
             parent: d.parent,
-            name:d.name
+            name:d.name,
+            type:d.type
 
          });
       });
@@ -144,12 +145,12 @@ var moment = require('moment');
       });
 
       _.each(nodes, function(node) {
-            node['y'] = height/2;
-            node['x'] = width/2;
          if(node.parent == "origin") {
+            node['y'] = 0;
+            node['x'] = width/2;
             node['fixed'] = true;
          }
-      })
+      });
 
       var res = {
          nodes:nodes,

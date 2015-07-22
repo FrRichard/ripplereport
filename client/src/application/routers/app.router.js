@@ -1,11 +1,15 @@
 var React = require("react");
 var Config = require('Config');
+var ParametersManagerConfig = require('ParametersManagerConfig');
 //View
 var App = require('App');
 var Transaction = require('Transaction');
 var Price = require('Price');
 var Features = require('Features');
-var PaymentTracking = require('PaymentTracking');
+// var PaymentTracking = require('PaymentTracking');
+var AccountView = require('Account');
+var SearchbarAccount = require('SearchbarAccount');
+var SearchbarTracking = require('PaymentTrackingSearchView');
 
 //Store
 var GridStore = require('GridStore');
@@ -49,7 +53,7 @@ var Router = Backbone.Router.extend({
     },
 
     app: function(params) {
-        React.render(<App/>, document.getElementById('app'));
+        React.render(<App searchBar = {SearchbarAccount} title = "Ledger Monitor"/>, document.getElementById('app'));
         if(params) {
             var param = JSON.parse(params);
             var toresolve = [param.address];
@@ -157,15 +161,12 @@ var Router = Backbone.Router.extend({
     }, 
 
     paymenttracking: function(params) {
-        var params =  {
-            limit:1000,
-            offset:0,
-            type:"Payment",
-            min_sequence:1
-        };
+        var params = ParametersManagerConfig.transactiontrackingparams;
+        var conf = Config.dashboards.paymenttracking;
+        DashboardActions.registerconf(conf);
 
-
-        React.render(<PaymentTracking params={params}/>, document.getElementById('app'));
+        // React.render(<Account params={params}/>, document.getElementById('app'));
+        React.render(<App searchBar = {SearchbarTracking} title = "Payment Tracking"/>, document.getElementById('app'));
     }
 
 

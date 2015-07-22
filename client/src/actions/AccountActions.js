@@ -188,10 +188,10 @@ var AccountActions = {
 	accountTransactions: function(accounts,params) {
 		var self = this;
 		var i = 0;
-
 		var params = params || ParametersManagerConfig.transactionparams;
-		this.explore = function(accounts, params) {
+		var explore = function(accounts, params) {
 			params.uuid = Uuid();
+			params.rec = false;
 			var dataroom = params.uuid;
 			var collection = new rippleaccounttransactions();
 			collection.createAccountTransactionsList(accounts,params).then(function(result) {
@@ -231,7 +231,7 @@ var AccountActions = {
 			});
 		}
 
-		this.explore(accounts, params);
+		explore(accounts, params);
 
 	},
 
@@ -239,11 +239,25 @@ var AccountActions = {
 		var self=this;
 		var GatewayNames = require('GatewayNames');
 		this.addressList = [];
-
-		this.explore = function(accounts, reqParams, filterParams) {
+		var explore = function(accounts, reqParams, filterParams) {
 			var collection = new rippleaccounttransactions();
+			var depth = filterParams.depth;
+			reqParams['uuid'] = Uuid();
+			reqParams['rec'] = true;
+			LongPollingSocketManager.once('connect', function (socket) {
+				console.log("CONNECTED TO TRANSACTIONS SOCKET");
+			});
+			LongPollingSocketManager.once('enter-dataroom', function (payload) {
+				console.log("enter-dataroom transaction socket",payload);
+			});
+			LongPollingSocketManager.on(reqParams.uuid, function (payload) {
+				console.log("RECEIVING MSG FROM TX SOCKET",payload);
+			});
+			
+
 			collection.createAccountTransactionsList(accounts,reqParams).then(function() {
 				var payload = collection.toJSON();
+				console.log(filterParams.depth,payload);
 				var id = payload[0].id;
 
 				if(payload[0].summary && payload[0].summary.top10[filterParams.currency]) {
@@ -257,36 +271,46 @@ var AccountActions = {
 
 				if(filterParams.depth >= 0) {
 					var parent = accounts[0].address;
-					for(i=0; i<filterParams.width && i<top10.length; i++) {
-						var address = top10[i].counterparty
+					var i = 0;
+					var j = 0;
+					while(i<filterParams.width && j<top10.length) {
+
+						var address = top10[j].counterparty;
 						var type = self.isGateway(address);
 						var check = self.checkList(address); 
-						if(check) {  continue } else { self.addressList.push(address) };
 
-						var account = {
-							address: address,
-							id: address,
-							parent: parent,
-							type:type
-						}
-
-						// console.log("address",address, "type:",type);
-						if(type != "gateway" && type != "hotwallet") {
-							self.explore([account],reqParams,filterParams);
-						}
+						if(check) {  
+							j++;
+						} else {
+							self.addressList.push(address); 
+							i++;
+							j++;
+							var account = {
+								address: address,
+								id: address,
+								parent: parent,
+								type:type
+							}
+							if(type != "gateway" && type != "hotwallet") {
+								// filterParams.depth = 10;
+								explore([account],reqParams,filterParams);
+							} else {
+								console.log("NOT EXPLORE car gateway", account);
+							}
+						};
 					}
+					// console.log(filterParams.depth, parent);
 					filterParams.depth--;
 				}
-
 				Dispatcher.handleViewAction({
-					actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS,
+					actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
 					result: collection.toJSON()
 				});
 			});
 		};
 
 		this.checkList = function(address) {
-			var res = _.find(self.addressList, function(ad) {
+			var res = _.find(self.addressList, function(ad) {		
 				return ad == address;
 			});
 			return res;
@@ -308,7 +332,7 @@ var AccountActions = {
 		}
 
 		this.addressList.push(accounts[0].address);
-		this.explore(accounts, reqParams, filterParams);
+		explore(accounts, reqParams, filterParams);
 	},
 
 	rippleaccounttransactionstats: function(accounts) {

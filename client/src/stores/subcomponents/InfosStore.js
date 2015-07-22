@@ -18,8 +18,8 @@ function registerInfo(result) {
 			id: info.id,
 		}];
 	});
-	console.log("_RippleInfosStore",_RippleInfos);
-	// console.log("REGISTERINFO_result",result);
+	// console.log("_RippleInfosStore",_RippleInfos);
+
 };
 
 var RippleinfosStore = assign({}, EventEmitter.prototype, {
