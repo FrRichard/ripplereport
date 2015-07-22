@@ -11641,6 +11641,9 @@ striping:
   stroke-width: .5;
   font-size: 0.5em; }
 
+#pymnttrackingselector {
+  display: inline; }
+
 .transactionstats {
   margin: auto;
   margin-bottom: 0px;

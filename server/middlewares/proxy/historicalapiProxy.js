@@ -18,7 +18,6 @@ HistoricalapiProxy.prototype.init = function(callback) {
 	this.app.all('/ripple/historicalapi/account_transactions/*',function(req,res) {
 		req.query.params = JSON.parse(req.query.params);
 		var uuid = req.query.params.uuid;
-		var uuid = req.query.params.rec;
 		var address = req.query.params.account;
 
 		var qs = { result:"tesSUCCESS" }
@@ -26,7 +25,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 		_.each(req.query.params, function(param,key) {
 			qs[key] = param;
 		})
-
+		console.log("QSSSSSSSSSSSSSSSSSSSSSSSSSSSs",qs);
 		var options = {
 			method: 'GET',
 			qs: qs,
@@ -108,12 +107,15 @@ HistoricalapiProxy.prototype.init = function(callback) {
 								"Accept": "application/json"
 							}
 					}
+					var payload = {}
+					payload['room'] = 'payment';
+					payload['uuid'] = uuid;
 					payload['date'] = {
 						from: data.transactions[0].date,
 						to:  data.transactions[999].date
 					}
-					payload.rec = rec;
 					payload.msg = i + " transactions has been filtered and analyzed";
+					console.log(payload);
 					EventManager.emit("payment",payload);
 			
 					console.log(i + "transactions has been filtered and analyzed (" + address +")");
@@ -144,8 +146,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 				msg: "Transactions are fetching ...",
 				uuid: uuid,
 				address: address,
-				room: 'payment',
-				rec: rec
+				room: 'payment'
 			}
 			EventManager.emit("payment",payload);
 		} catch(e) {

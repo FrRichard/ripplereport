@@ -409,7 +409,7 @@ var RippleAccountTransactions = React.createClass({
 	            type:"Payment",
 	            period:days
 		};
-		if(days !="all") {
+		if(days !="all" & days !="tx") {
 			params['start'] = moment().subtract(days,'days').format('YYYY-MM-DDThh:mm');
 		}
 
