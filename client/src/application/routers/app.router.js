@@ -6,6 +6,7 @@ var App = require('App');
 var Transaction = require('Transaction');
 var Price = require('Price');
 var Features = require('Features');
+var PaymentTrackingMain = require('PaymentTrackingMain');
 // var PaymentTracking = require('PaymentTracking');
 var AccountView = require('Account');
 var SearchbarAccount = require('SearchbarAccount');
@@ -166,7 +167,7 @@ var Router = Backbone.Router.extend({
         DashboardActions.registerconf(conf);
 
         // React.render(<Account params={params}/>, document.getElementById('app'));
-        React.render(<App searchBar = {SearchbarTracking} title = "Payment Tracking"/>, document.getElementById('app'));
+        React.render(<PaymentTrackingMain searchBar = {SearchbarTracking} title = "Payment Tracking"/>, document.getElementById('app'));
     }
 
 

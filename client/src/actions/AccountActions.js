@@ -55,7 +55,7 @@ var AccountActions = {
 		// console.log("=========================++++>ACTION_ADDRESSTRACK");
 
 		rippleinfoscollection.createInfosList(toresolve).then(function() {	
-			// console.log("================+++> ADDRESSTRACK has fetched properly",rippleinfoscollection.toJSON());
+			console.log("================+++> ADDRESSTRACK has fetched properly",rippleinfoscollection.toJSON());
 			var checkexistence = rippleinfoscollection.toJSON();
 			if(checkexistence[0].error) {
 				Dispatcher.handleViewAction({
@@ -297,7 +297,7 @@ var AccountActions = {
 								console.log("NOT EXPLORE car gateway",collection.toJSON(),account);
 								Dispatcher.handleViewAction({
 									actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
-									result: collection.toJSON()
+									result: [account]
 								});
 							}
 						};
