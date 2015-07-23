@@ -191,7 +191,6 @@ var AccountActions = {
 		var params = params || ParametersManagerConfig.transactionparams;
 		var explore = function(accounts, params) {
 			params.uuid = Uuid();
-			params.rec = false;
 			var dataroom = params.uuid;
 			var collection = new rippleaccounttransactions();
 			collection.createAccountTransactionsList(accounts,params).then(function(result) {
@@ -240,10 +239,10 @@ var AccountActions = {
 		var GatewayNames = require('GatewayNames');
 		this.addressList = [];
 		var explore = function(accounts, reqParams, filterParams) {
+			console.log("ACCOUNT TRANSACTIONS TRACK!!!!");
 			var collection = new rippleaccounttransactions();
 			var depth = filterParams.depth;
 			reqParams['uuid'] = Uuid();
-			reqParams['rec'] = true;
 			LongPollingSocketManager.once('connect', function (socket) {
 				console.log("CONNECTED TO TRANSACTIONS SOCKET");
 			});
@@ -295,7 +294,11 @@ var AccountActions = {
 								// filterParams.depth = 10;
 								explore([account],reqParams,filterParams);
 							} else {
-								console.log("NOT EXPLORE car gateway", account);
+								console.log("NOT EXPLORE car gateway",collection.toJSON(),account);
+								Dispatcher.handleViewAction({
+									actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
+									result: collection.toJSON()
+								});
 							}
 						};
 					}

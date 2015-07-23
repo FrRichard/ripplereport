@@ -23,8 +23,8 @@ var RippleExchangerates = Backbone.Collection.extend({
 					lines.push(accountline.lines[i]);
 				}
 			});
+			var range = "year";
 			var pairs = _.map(lines, function(line)  {
-				range = "year";
 				pair = {};
 				pair["base"]= { currency:line.currency, issuer:line.account };
 				pair["counter"]= { currency:"XRP" };
