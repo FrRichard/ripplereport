@@ -218,7 +218,7 @@ var Config = {
 			  key: 'keyfact1',
 			  title: 'Payments Tracking',
 			  width: 3,
-			  height: 6,
+			  height: 8,
 			  col: 1,
 			  row: 1,
 			  datatype: "PaymentTrackingView"
@@ -230,7 +230,7 @@ var Config = {
 	          width: 2,
 	          height: 4,
 	          col: 2,
-	          row:7,
+	          row:9,
 	          datatype:"RippleAccountTransactions"
 	        },
 	        {
@@ -240,7 +240,7 @@ var Config = {
 	          width: 1,
 	          height: 4,
 	          col: 1,
-	          row: 7,
+	          row: 9,
 	          datatype:"RippleAccountTransactionsSummary"
 	        }
 		]

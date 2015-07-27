@@ -47,7 +47,9 @@ HistoricalapiProxy.prototype.init = function(callback) {
 		var midself=this;
 
 		EventManager.on('stop'+uuid, function() {
-			midself.request.abort();
+			if(midself.request) {
+				midself.request.abort();
+			}
 			try {
 					var transactionsParsing = new self.requestparsing.account_transactions();
 					var transactions = new self.datacalcul.transactions();
@@ -56,7 +58,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 					result['period'] = "custom";
 			} catch(e) {
 					console.log("API sent something unexcepected",e);
-					send(e);
+					res.send(e);
 			}
 			res.send(result);
 		});	

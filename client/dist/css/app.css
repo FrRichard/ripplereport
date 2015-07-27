@@ -11621,10 +11621,14 @@ striping:
   /*left:10%;
 	right:10%;
 	width:80%;
-	position:absolute;*/ }
+	position:absolute;*/
+  border-style: solid;
+  border-width: 2.5px;
+  border-color: #363f38; }
 
 .paymentgraph {
-  background-color: #02061D; }
+  background-color: #02061D;
+  margin-top: 135px; }
 
 .node {
   stroke: #fff;
@@ -11643,6 +11647,9 @@ striping:
 
 #pymnttrackingselector {
   display: inline; }
+
+.graphControl {
+  background: red; }
 
 .transactionstats {
   margin: auto;

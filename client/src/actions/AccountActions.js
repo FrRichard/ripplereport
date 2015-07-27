@@ -235,13 +235,13 @@ var AccountActions = {
 	},
 
 	accounttransactionstrack: function(accounts, reqParams, filterParams) {
+		console.log("FILTERPARAMS",filterParams);
 		var self=this;
 		var GatewayNames = require('GatewayNames');
 		this.addressList = [];
-		var explore = function(accounts, reqParams, filterParams) {
-			console.log("ACCOUNT TRANSACTIONS TRACK!!!!");
+		this.paymentiteration = 0;
+		var explore = function(accounts, reqParams, filterParams,depth) {
 			var collection = new rippleaccounttransactions();
-			var depth = filterParams.depth;
 			reqParams['uuid'] = Uuid();
 			LongPollingSocketManager.once('connect', function (socket) {
 				console.log("CONNECTED TO TRANSACTIONS SOCKET");
@@ -252,64 +252,82 @@ var AccountActions = {
 			LongPollingSocketManager.on(reqParams.uuid, function (payload) {
 				console.log("RECEIVING MSG FROM TX SOCKET",payload);
 			});
-			
+			if(depth >= 0) {
+				var gaga = depth - 1 ;
 
-			collection.createAccountTransactionsList(accounts,reqParams).then(function() {
-				var payload = collection.toJSON();
-				console.log(filterParams.depth,payload);
-				var id = payload[0].id;
+				collection.createAccountTransactionsList(accounts,reqParams).then(function() {
+					var payload = collection.toJSON();
+					// console.log(filterParams.depth,payload);
+					var id = payload[0].id;
 
-				if(payload[0].summary && payload[0].summary.top10[filterParams.currency]) {
-					var top10 = payload[0].summary.top10[filterParams.currency].sent;
-					var exists = true;
-				} else {
-					var top10 = [];
-					collection.models[0].attributes['msg'] = "This node didn't make any payment in " + filterParams.currency;					
-					var exists = false;
-				}
+					var register = function(payload) {
+						Dispatcher.handleViewAction({
+							actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
+							result: collection.toJSON()
+						});
+					};
 
-				if(filterParams.depth >= 0) {
-					var parent = accounts[0].address;
-					var i = 0;
-					var j = 0;
-					while(i<filterParams.width && j<top10.length) {
-
-						var address = top10[j].counterparty;
-						var type = self.isGateway(address);
-						var check = self.checkList(address); 
-
-						if(check) {  
-							j++;
-						} else {
-							self.addressList.push(address); 
-							i++;
-							j++;
-							var account = {
-								address: address,
-								id: address,
-								parent: parent,
-								type:type
-							}
-							if(type != "gateway" && type != "hotwallet") {
-								// filterParams.depth = 10;
-								explore([account],reqParams,filterParams);
-							} else {
-								console.log("NOT EXPLORE car gateway",collection.toJSON(),account);
-								Dispatcher.handleViewAction({
-									actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
-									result: [account]
-								});
-							}
-						};
+					if(payload[0].summary && payload[0].summary.top10[filterParams.currency]) {
+						var top10 = payload[0].summary.top10[filterParams.currency].sent;
+						var exists = true;
+					} else {
+						var top10 = [];
+						collection.models[0].attributes['msg'] = "This node didn't make any payment in " + filterParams.currency;					
+						var exists = false;
 					}
-					// console.log(filterParams.depth, parent);
-					filterParams.depth--;
-				}
-				Dispatcher.handleViewAction({
-					actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
-					result: collection.toJSON()
+					console.log("BEFORE LOOP",filterParams.depth);
+					// if(filterParams.depth >= 0) {
+					// 	filterParams.depth--;
+						var parent = accounts[0].address;
+						var i = 0;
+						var j = 0;
+						while(i<filterParams.width && j<top10.length) {
+
+							var address = top10[j].counterparty;
+							var type = self.isGateway(address);
+							var check = self.checkList(address); 
+
+							if(check) {  
+								j++;
+							} else {
+								self.addressList.push(address); 
+								i++;
+								j++;
+								var account = {
+									address: address,
+									id: address,
+									parent: parent,
+									type:type
+								}
+								if(type != "gateway" && type != "hotwallet") {
+									// filterParams.depth = 10;
+								
+									explore([account],reqParams,filterParams,gaga);
+								} else {
+									console.log("NOT EXPLORE car gateway",collection.toJSON(),account);
+									account["account"] = account.address;
+									console.log("dispatch gateway",filterParams.depth);
+									// console.log("acccoooooooooooooooooooooounnnnt",[account])
+									// Dispatcher.handleViewAction({
+									// 	actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
+									// 	result: [account]
+									// });
+								}
+							};
+						}
+
+						Dispatcher.handleViewAction({
+							actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
+							result: collection.toJSON()
+						});
+						console.log("dispatch",filterParams.depth);
+						// console.log(filterParams.depth, parent);
+						
+					// }
+
+					
 				});
-			});
+			}
 		};
 
 		this.checkList = function(address) {
@@ -335,7 +353,7 @@ var AccountActions = {
 		}
 
 		this.addressList.push(accounts[0].address);
-		explore(accounts, reqParams, filterParams);
+		explore(accounts, reqParams, filterParams, filterParams.depth);
 	},
 
 	rippleaccounttransactionstats: function(accounts) {

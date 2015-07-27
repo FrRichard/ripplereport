@@ -41,6 +41,7 @@
     "password-hash": "1.2.2",
     "promise": "^7.0.1",
     "q": "*",
+    "react": "*",
     "react-data-components": "^0.3.0",
     "react-pagify": "^0.6.4",
     "reactabular": "^0.5.2",

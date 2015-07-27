@@ -238,7 +238,7 @@ module.exports = {
 			gridsterResponsive: path.join(__dirname, './lib/internal-libs/gridster-responsive/gridster.responsive'),
 			ChartEngine: path.join(__dirname, './lib/internal-libs/chartEngine/ChartEngine'),
 			jsonViewer: path.join(__dirname, './lib/internal-libs/jquery.json-viewer/jquery.json-viewer'),
-			cola: path.join(__dirname, './lib/internal-libs/cola/cola.V3.min.js'),
+			cola: path.join(__dirname, './lib/internal-libs/cola/cola.v3.min.js'),
 
 			// External libs
 			backbone: path.join(__dirname, './lib/bower_components/backbone/backbone'),
