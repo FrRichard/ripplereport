@@ -16,7 +16,9 @@ HistoricalapiProxy.prototype.init = function(callback) {
 	this.EventManager = EventManager;
 
 	this.app.all('/ripple/historicalapi/account_transactions/*',function(req,res) {
+		var allRequest = [];
 		req.query.params = JSON.parse(req.query.params);
+		var midself=this;
 		var uuid = req.query.params.uuid;
 		var address = req.query.params.account;
 
@@ -44,7 +46,6 @@ HistoricalapiProxy.prototype.init = function(callback) {
 			transactions: []
 		}
 
-		var midself=this;
 
 		EventManager.on('stop'+uuid, function() {
 			if(midself.request) {
@@ -63,7 +64,14 @@ HistoricalapiProxy.prototype.init = function(callback) {
 			res.send(result);
 		});	
 
+		EventManager.on('stopAll', function() {
+			_.each(allRequest, function(r) {
+				r.abort();
+			});
+		});
+
 		var callback = function(error, response, body) {
+		
 			var data = JSON.parse(body);
 			_.each(data.transactions, function(t){
 				fetched.transactions.push(t);
@@ -77,7 +85,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 					result = transactions.calculate(result);
 					result['period'] = period;
 				} catch(e) {
-					console.log("API sent something unexcepected",e,body);
+					console.log("API sent something unexcepected",e,body,address);
 					send(e);
 				}
 				if (error) {
@@ -89,16 +97,19 @@ HistoricalapiProxy.prototype.init = function(callback) {
 			}
 			var send = function(result) {
 				res.status(response.statusCode).send(result);
+				var payload = {
+					msg: "Fetched",
+					uuid: uuid,
+					address: address,
+					room: 'payment'
+				}
+				EventManager.emit("payment",payload);
 			}
 
 			if(data && data.transactions) {
 				if(data.transactions.length == 1000) {
 					i +=1000;
 					qs.offset = i;
-					// console.log("TO",data.transactions[999].date);
-					// console.log("FROM",data.transactions[0].date);
-					// // qs['start'] = moment().subtract(90,'days').format('YYYY-MM-DDThh:mm');
-					// console.log(qs);
 					var options = {
 							method: 'GET',
 							qs: qs,
@@ -126,7 +137,10 @@ HistoricalapiProxy.prototype.init = function(callback) {
 						var result = calcul('tx');
 						send(result);
 					} else {
+						console.log("ALLLLLLLREQUEEESSST",allRequest);
 						midself.request = request(options,callback);
+						allRequest.push(midself.request);
+						
 					} 
 
 				} else {
@@ -144,6 +158,9 @@ HistoricalapiProxy.prototype.init = function(callback) {
 		
 		try {
 			var currentReq = request(options, callback);
+			// allRequest.push(currentReq);
+			allRequest.push(address);
+			console.log("ALLLLLLLREQUEEESSST",allRequest,allRequest.length);
 			var payload = {
 				msg: "Transactions are fetching ...",
 				uuid: uuid,

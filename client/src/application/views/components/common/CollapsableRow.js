@@ -4,7 +4,7 @@ var CollapsableMixin = require('react-bootstrap').CollapsibleMixin;
 //React addons
 var classSet = React.addons.classSet;
 var viewcommon =require('ViewCommon');
-console.log(CollapsableMixin)
+
 var CollapsableRow = React.createClass({
 	mixins: [CollapsableMixin],
 	getCollapsibleDOMNode: function(){

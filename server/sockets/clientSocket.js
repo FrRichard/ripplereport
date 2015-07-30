@@ -87,6 +87,11 @@ ClientSocket.prototype.initLongPollingNamesspace = function(callback) {
                     EventManager.emit('stop'+dataroom,dataroom);
                 });
 
+                socket.on('stopALl', function(){
+                    socket.emit("stopAll");
+                    EventManager.emit("stopAll");
+                });
+
 
             });
 

@@ -14,7 +14,7 @@ function registerAccountTransactions(result) {
 	_.each(accounttransactions, function(accounttransaction) {
 		_RippleAccountTransactions[accounttransaction.id] = accounttransaction;
 	});
-	console.log("_RippleAccountTransactionsStore",_RippleAccountTransactions);
+	// console.log("_RippleAccountTransactionsStore",_RippleAccountTransactions);
 };
 
 function registerStatus(status) {
@@ -68,7 +68,6 @@ RippleaccounttransactionsStore.dispatcherIndex = Dispatcher.register(function(pa
  
   	switch(action.actionType) {
 		case Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS:	
-			console.log("ATRANSACTION_STOOOOOOOOOOREEEE REGIESTER", action.result);
 			registerAccountTransactions(action.result); 
 			RippleaccounttransactionsStore.emitChange(action.result); 
 

@@ -318,7 +318,7 @@ var RippleAccountTransactions = React.createClass({
     		var to = '';
     	}
     	var uuid = loadingstatus.uuid;
-    	console.log('LOADING STATUUUUUUUUUUUUUUUUUUUUUUUUUUUSSSSSS',loadingstatus);
+
 		if(uuid != this.state.uuid ) {
 			// console.log("account has changed!!",this.state,uuid,this.state.uuid);
 			this.stopFetching();

@@ -20,12 +20,11 @@ var AccountActions = {
 
 	idtrack: function(toresolve) {
 		var self = this;
-		// console.log("=========================++++>ACTION_IDTRACK");
 		var rippleidcollection = new rippleids();
+
 		rippleidcollection.createIdList(toresolve).then(function() {	
-			// console.log("==========+++>IDTRACK has fetched properly",rippleidcollection.toJSON());
 			if(rippleidcollection.toJSON()[0].exists) {
-				// console.log("==========+++>EMITING RIGHT from ACTIONS_IDTRACK");
+
 				Dispatcher.handleViewAction({
 					actionType: Constants.ActionTypes.ASK_RIPPLEID,
 					result: rippleidcollection,
@@ -49,13 +48,10 @@ var AccountActions = {
 	},
 
 	addresstrack: function(toresolve) {
-		// console.log("addresstrazckactions",toresolve);
 		var self = this;
 		var rippleinfoscollection = new rippleinfos();
-		// console.log("=========================++++>ACTION_ADDRESSTRACK");
 
 		rippleinfoscollection.createInfosList(toresolve).then(function() {	
-			console.log("================+++> ADDRESSTRACK has fetched properly",rippleinfoscollection.toJSON());
 			var checkexistence = rippleinfoscollection.toJSON();
 			if(checkexistence[0].error) {
 				Dispatcher.handleViewAction({
@@ -63,7 +59,6 @@ var AccountActions = {
 						result: rippleinfoscollection
 				});
 			} else {
-				// console.log("==========+++>EMITING RIGHT from ACTIONS_ADDRESSTRACK");
 				Dispatcher.handleServerAction({
 					actionType:Constants.ActionTypes.ISLOADING
 				});
@@ -107,7 +102,6 @@ var AccountActions = {
 	viewready: function(address,type) {
 		var self = this;
 		if(type == "address") {
-			// console.log("ACTION_viewread with address type",address);
 			self.rippleid( address.infos );
 			self.rippleoffersexercised( address.infos );
 			self.rippleoffersexercised_sum( address.infos, "sum" );
@@ -117,7 +111,6 @@ var AccountActions = {
 			self.rippleaccountoffers( address.infos );
 			self.ripplelines( address.infos );
 		} else {
-			// console.log("ACTION_viewread with id type",address);
 			self.rippleinfos( address.raw.toJSON() );
 			self.rippleoffersexercised( address.raw.toJSON() );
 			self.rippleoffersexercised_sum( address.raw.toJSON(), "sum" );
@@ -189,7 +182,19 @@ var AccountActions = {
 		var self = this;
 		var i = 0;
 		var params = params || ParametersManagerConfig.transactionparams;
+		LongPollingSocketManager.once('connect', function (socket) {
+			console.log("CONNECTED TO TRANSACTIONS SOCKET");
+		});
+
+		LongPollingSocketManager.on("stop", function(dataroom) {
+			// console.log("REQUEST HAS BEEN STOPPED!",dataroom);
+		});
+
+		// LongPollingSocketManager.emit("stop",dataroom);
+
+		LongPollingSocketManager.emit('enter-dataroom', 'payment');
 		var explore = function(accounts, params) {
+
 			params.uuid = Uuid();
 			var dataroom = params.uuid;
 			var collection = new rippleaccounttransactions();
@@ -205,24 +210,8 @@ var AccountActions = {
 				actionType: Constants.ActionTypes.ISLOADING_ACCOUNTTRANSACTIONS,
 				result: collection.toJSON()
 			});
-			LongPollingSocketManager.once('connect', function (socket) {
-				console.log("CONNECTED TO TRANSACTIONS SOCKET");
-			});
-			LongPollingSocketManager.once('enter-dataroom', function (payload) {
-				console.log("enter-dataroom transaction socket",payload);
-			});
-			LongPollingSocketManager.once('leave-dataroom', function (payload) {
-				console.log("leave-dataroom transaction socket",payload);
-			});
-			LongPollingSocketManager.on("stop", function(dataroom) {
-				console.log("REQUEST HAS BEEN STOPPED!",dataroom);
-			});
-
-			// LongPollingSocketManager.emit("stop",dataroom);
-
-			LongPollingSocketManager.emit('enter-dataroom', 'payment');
 			LongPollingSocketManager.on(params.uuid, function (payload) {
-				console.log("RECEIVING MSG FROM TX SOCKET",payload);
+				// console.log("RECEIVING MSG FROM TX SOCKET",payload);
 				Dispatcher.handleServerAction({
 					actionType: Constants.ActionTypes.LOADINGSTATUS_ACCOUNTTRANSACTIONS,
 					result: payload
@@ -235,29 +224,84 @@ var AccountActions = {
 	},
 
 	accounttransactionstrack: function(accounts, reqParams, filterParams) {
-		console.log("FILTERPARAMS",filterParams);
 		var self=this;
 		var GatewayNames = require('GatewayNames');
+		LongPollingSocketManager._callbacks = {};
+		var endedNodes = [];
 		this.addressList = [];
+			LongPollingSocketManager.on("stopAll", function() {
+				console.log("stop all the shit!");
+			});
+			LongPollingSocketManager.once('leave-dataroom', function (payload) {
+				console.log("leave-dataroom transaction socket",payload);
+			});
+		this.fetched = [];
 		this.paymentiteration = 0;
+		var allNodes = [];
+		var uuid = Uuid();
+		LongPollingSocketManager.on(uuid, function (payload) {
+				console.log(payload);
+			 	function allNodeFetched(endedNodes)  {
+					for(var node in endedNodes) {
+						if(!endedNodes[node]) return false;
+					}
+					return true;
+				}
+				// endedNodes.push(payload);
+				if(payload.msg == "Fetched") {
+					endedNodes[payload.address] = true;
+					console.log(endedNodes, self.addressList,payload);	
+					console.log("Are all nodes fetched ????",endedNodes, allNodeFetched(endedNodes),allNodes);
+					if(allNodeFetched(endedNodes)) {
+						Dispatcher.handleViewAction({
+							actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
+							result: allNodes						
+						});
+					}
+				}
+		});
+		console.log(LongPollingSocketManager);
 		var explore = function(accounts, reqParams, filterParams,depth) {
 			var collection = new rippleaccounttransactions();
-			reqParams['uuid'] = Uuid();
-			LongPollingSocketManager.once('connect', function (socket) {
-				console.log("CONNECTED TO TRANSACTIONS SOCKET");
-			});
-			LongPollingSocketManager.once('enter-dataroom', function (payload) {
-				console.log("enter-dataroom transaction socket",payload);
-			});
-			LongPollingSocketManager.on(reqParams.uuid, function (payload) {
-				console.log("RECEIVING MSG FROM TX SOCKET",payload);
-			});
+			reqParams['uuid'] = uuid;
+			// reqParams['uuid'] = Uuid();
+
+				// LongPollingSocketManager.on(reqParams['uuid'], function (payload) {
+				// 	function allNodeFetched(endedNodes)  {
+				// 		for(var node in endedNodes) {
+				// 			if(!endedNodes[node]) return false;
+				// 		}
+				// 		return true;
+				// 	}
+				// 	if(payload.msg == "Fetched") {
+				// 		endedNodes[payload.uuid] = true;
+				// 		console.log(LongPollingSocketManager._callbacks[payload.uuid])
+				// 		// console.log("Fetched",payload,endedNodes, self.addressList);
+				// 		// self.fetched.push(payload);
+				// 		// console.log(self.fetched);
+				// 		// console.log(self.addressList);
+				// 		// console.log("endedNodes",endedNodes,payload);
+				// 		console.log("Are all nodes fetched ????",endedNodes, allNodeFetched(endedNodes),allNodes);
+				// 		if(allNodeFetched(endedNodes)) {
+				// 			Dispatcher.handleViewAction({
+				// 				actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
+				// 				result: allNodes						
+				// 			});
+				// 		}
+				// 	}
+				// 		// delete LongPollingSocketManager._callbacks[payload.uuid];
+				// });
+
+			// LongPollingSocketManager.on(reqParams.uuid, function (payload) {
+			// 	console.log("RECEIVING MSG FROM TX SOCKET",payload);
+			// });
 			if(depth >= 0) {
 				var gaga = depth - 1 ;
 
 				collection.createAccountTransactionsList(accounts,reqParams).then(function() {
 					var payload = collection.toJSON();
-					// console.log(filterParams.depth,payload);
+					var gtw = false;
+					var gatewayList = [];
 					var id = payload[0].id;
 
 					var register = function(payload) {
@@ -275,55 +319,69 @@ var AccountActions = {
 						collection.models[0].attributes['msg'] = "This node didn't make any payment in " + filterParams.currency;					
 						var exists = false;
 					}
-					console.log("BEFORE LOOP",filterParams.depth);
-					// if(filterParams.depth >= 0) {
-					// 	filterParams.depth--;
-						var parent = accounts[0].address;
-						var i = 0;
-						var j = 0;
-						while(i<filterParams.width && j<top10.length) {
 
-							var address = top10[j].counterparty;
-							var type = self.isGateway(address);
-							var check = self.checkList(address); 
+					var parent = accounts[0].address;
+					var i = 0;
+					var j = 0;
+					while(i<filterParams.width && j<top10.length) {
 
-							if(check) {  
-								j++;
-							} else {
+						var address = top10[j].counterparty;
+						var type = self.isGateway(address);
+						var check = self.checkList(address); 
+
+						if(check) {  
+							j++;
+						} else {
+							if(depth-1 >= 0) {
 								self.addressList.push(address); 
-								i++;
-								j++;
-								var account = {
-									address: address,
-									id: address,
-									parent: parent,
-									type:type
-								}
-								if(type != "gateway" && type != "hotwallet") {
-									// filterParams.depth = 10;
-								
-									explore([account],reqParams,filterParams,gaga);
-								} else {
-									console.log("NOT EXPLORE car gateway",collection.toJSON(),account);
-									account["account"] = account.address;
-									console.log("dispatch gateway",filterParams.depth);
-									// console.log("acccoooooooooooooooooooooounnnnt",[account])
-									// Dispatcher.handleViewAction({
-									// 	actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
-									// 	result: [account]
-									// });
-								}
-							};
-						}
+								endedNodes[address] = false;
+							}
+							i++;
+							j++;
+							var account = {
+								address: address,
+								id: address,
+								parent: parent,
+								type:type
+							}
+							if(type != "gateway" && type != "hotwallet") {				
+								explore([account],reqParams,filterParams,gaga);
+							} else {
+								gtw = true;
+								account["account"] = account.address;
+								endedNodes[account.address] = true;
+								gatewayList.push(account);
+							}
+						};
+					}
 
-						Dispatcher.handleViewAction({
-							actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
-							result: collection.toJSON()
-						});
-						console.log("dispatch",filterParams.depth);
-						// console.log(filterParams.depth, parent);
-						
-					// }
+					function dispatch(arg) {
+						allNodes.push(collection.toJSON()[0]);
+						console.log(allNodes);
+						// Dispatcher.handleViewAction({
+						// 	actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
+						// 	result: collection.toJSON()
+						// });
+						// if(arg) {
+						// 	Dispatcher.handleViewAction({
+						// 		actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
+						// 		result: collection.toJSON()
+						// 	});
+						// 	_.each(gatewayList, function(account) {
+						// 		Dispatcher.handleViewAction({
+						// 			actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
+						// 			result: [account]
+						// 		});
+						// 	});
+						// }
+					}
+					if(!gtw) {
+						dispatch();
+					} else {
+						dispatch(true);
+					}
+
+
 
 					
 				});
@@ -353,6 +411,7 @@ var AccountActions = {
 		}
 
 		this.addressList.push(accounts[0].address);
+		endedNodes[accounts[0].address] = false;
 		explore(accounts, reqParams, filterParams, filterParams.depth);
 	},
 
