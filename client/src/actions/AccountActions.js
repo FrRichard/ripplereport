@@ -225,22 +225,27 @@ var AccountActions = {
 
 	accounttransactionstrack: function(accounts, reqParams, filterParams) {
 		var self=this;
+		Dispatcher.handleViewAction({
+			actionType: Constants.ActionTypes.ADDRESSCHANGE_PYMNTSTORE,
+			result: accounts
+		});
+
 		var GatewayNames = require('GatewayNames');
 		LongPollingSocketManager._callbacks = {};
 		var endedNodes = [];
 		this.addressList = [];
 			LongPollingSocketManager.on("stopAll", function() {
-				console.log("stop all the shit!");
+				// console.log("stop all the shit!");
 			});
 			LongPollingSocketManager.once('leave-dataroom', function (payload) {
-				console.log("leave-dataroom transaction socket",payload);
+				// console.log("leave-dataroom transaction socket",payload);
 			});
 		this.fetched = [];
 		this.paymentiteration = 0;
 		var allNodes = [];
 		var uuid = Uuid();
 		LongPollingSocketManager.on(uuid, function (payload) {
-				console.log(payload);
+				// console.log(payload);
 			 	function allNodeFetched(endedNodes)  {
 					for(var node in endedNodes) {
 						if(!endedNodes[node]) return false;
@@ -248,10 +253,14 @@ var AccountActions = {
 					return true;
 				}
 				// endedNodes.push(payload);
+					// console.log("Are all nodes fetched ????",endedNodes, allNodeFetched(endedNodes),allNodes);
 				if(payload.msg == "Fetched") {
 					endedNodes[payload.address] = true;
-					console.log(endedNodes, self.addressList,payload);	
-					console.log("Are all nodes fetched ????",endedNodes, allNodeFetched(endedNodes),allNodes);
+					// console.log(endedNodes, self.addressList,payload);	
+					Dispatcher.handleViewAction({
+						actionType: Constants.ActionTypes.ASK_PYMNTLASTFETCH,
+						result: payload						
+					});
 					if(allNodeFetched(endedNodes)) {
 						Dispatcher.handleViewAction({
 							actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
@@ -260,45 +269,19 @@ var AccountActions = {
 					}
 				}
 		});
-		console.log(LongPollingSocketManager);
+		// console.log(LongPollingSocketManager);
 		var explore = function(accounts, reqParams, filterParams,depth) {
 			var collection = new rippleaccounttransactions();
 			reqParams['uuid'] = uuid;
-			// reqParams['uuid'] = Uuid();
 
-				// LongPollingSocketManager.on(reqParams['uuid'], function (payload) {
-				// 	function allNodeFetched(endedNodes)  {
-				// 		for(var node in endedNodes) {
-				// 			if(!endedNodes[node]) return false;
-				// 		}
-				// 		return true;
-				// 	}
-				// 	if(payload.msg == "Fetched") {
-				// 		endedNodes[payload.uuid] = true;
-				// 		console.log(LongPollingSocketManager._callbacks[payload.uuid])
-				// 		// console.log("Fetched",payload,endedNodes, self.addressList);
-				// 		// self.fetched.push(payload);
-				// 		// console.log(self.fetched);
-				// 		// console.log(self.addressList);
-				// 		// console.log("endedNodes",endedNodes,payload);
-				// 		console.log("Are all nodes fetched ????",endedNodes, allNodeFetched(endedNodes),allNodes);
-				// 		if(allNodeFetched(endedNodes)) {
-				// 			Dispatcher.handleViewAction({
-				// 				actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
-				// 				result: allNodes						
-				// 			});
-				// 		}
-				// 	}
-				// 		// delete LongPollingSocketManager._callbacks[payload.uuid];
-				// });
-
-			// LongPollingSocketManager.on(reqParams.uuid, function (payload) {
-			// 	console.log("RECEIVING MSG FROM TX SOCKET",payload);
-			// });
 			if(depth >= 0) {
-				var gaga = depth - 1 ;
+				var currentDepth = depth - 1 ;
 
 				collection.createAccountTransactionsList(accounts,reqParams).then(function() {
+					Dispatcher.handleViewAction({
+						actionType: Constants.ActionTypes.ISLOADING_PYMNTSTORE,
+						result: collection.toJSON()
+					});
 					var payload = collection.toJSON();
 					var gtw = false;
 					var gatewayList = [];
@@ -345,44 +328,23 @@ var AccountActions = {
 								type:type
 							}
 							if(type != "gateway" && type != "hotwallet") {				
-								explore([account],reqParams,filterParams,gaga);
+								explore([account],reqParams,filterParams,currentDepth);
 							} else {
 								gtw = true;
 								account["account"] = account.address;
 								endedNodes[account.address] = true;
+								allNodes.push(account);
 								gatewayList.push(account);
 							}
 						};
 					}
 
-					function dispatch(arg) {
+					function registerNode(arg) {
 						allNodes.push(collection.toJSON()[0]);
-						console.log(allNodes);
-						// Dispatcher.handleViewAction({
-						// 	actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
-						// 	result: collection.toJSON()
-						// });
-						// if(arg) {
-						// 	Dispatcher.handleViewAction({
-						// 		actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
-						// 		result: collection.toJSON()
-						// 	});
-						// 	_.each(gatewayList, function(account) {
-						// 		Dispatcher.handleViewAction({
-						// 			actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
-						// 			result: [account]
-						// 		});
-						// 	});
-						// }
+						// console.log(allNodes);
+			
 					}
-					if(!gtw) {
-						dispatch();
-					} else {
-						dispatch(true);
-					}
-
-
-
+					registerNode();
 					
 				});
 			}

@@ -11627,8 +11627,7 @@ striping:
   border-color: #363f38; }
 
 .paymentgraph {
-  background-color: #02061D;
-  margin-top: 135px; }
+  background-color: #02061D; }
 
 .node {
   stroke: #fff;
@@ -11649,7 +11648,27 @@ striping:
   display: inline; }
 
 .graphControl {
-  background: red; }
+  background: #050404;
+  height: 8.5em; }
+
+#fetchstatus {
+  height: 8.5em;
+  width: 20em;
+  background: #050404;
+  float: right;
+  overflow-y: scroll;
+  padding-top: 1em; }
+
+.fetchlist {
+  font-size: 0.7em;
+  color: white; }
+
+#pymntcontrol {
+  display: inline; }
+
+#stopfetchingbutton {
+  float: right;
+  margin-right: 2em; }
 
 .transactionstats {
   margin: auto;
