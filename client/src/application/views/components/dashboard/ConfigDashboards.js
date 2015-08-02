@@ -222,27 +222,27 @@ var Config = {
 			  col: 1,
 			  row: 1,
 			  datatype: "PaymentTrackingView"
-			},
-			{
-	          key: 'keyfact2',
-	          title:'Payments',
-	          icon:'fa fa-exchange',
-	          width: 2,
-	          height: 4,
-	          col: 2,
-	          row:9,
-	          datatype:"RippleAccountTransactions"
-	        },
-	        {
-	          key: 'keyfact3',
-	          title:'Payments Summary',
-	          icon:'fa fa-exchange',
-	          width: 1,
-	          height: 4,
-	          col: 1,
-	          row: 9,
-	          datatype:"RippleAccountTransactionsSummary"
-	        }
+			}
+			// {
+	  //         key: 'keyfact2',
+	  //         title:'Payments',
+	  //         icon:'fa fa-exchange',
+	  //         width: 2,
+	  //         height: 4,
+	  //         col: 2,
+	  //         row:9,
+	  //         datatype:"RippleAccountTransactions"
+	  //       },
+	  //       {
+	  //         key: 'keyfact3',
+	  //         title:'Payments Summary',
+	  //         icon:'fa fa-exchange',
+	  //         width: 1,
+	  //         height: 4,
+	  //         col: 1,
+	  //         row: 9,
+	  //         datatype:"RippleAccountTransactionsSummary"
+	  //       }
 		]
 
 	}

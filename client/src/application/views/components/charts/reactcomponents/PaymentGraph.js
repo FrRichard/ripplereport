@@ -11,6 +11,7 @@ var paymentGraph = React.createClass({
 	},
 
 	componentDidUpdate: function() {
+		console.log("react pymntgraph UPDATE D3!");
 		var el = React.findDOMNode(this);
 		this.PaymentGraphD3.update(el, this.getChartState().data, this.getChartState().id,this.getChartState().size); 
 	},

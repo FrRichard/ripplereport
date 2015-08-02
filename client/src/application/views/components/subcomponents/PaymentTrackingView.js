@@ -106,7 +106,8 @@ var PaymentTracking = React.createClass({
 	_cleanLastFetch: function() {
 		// console.log("cleaaaaaaaaaaaaaaaaaaaaaaannnnnn");
 		this.setState({
-			lastFetch: []
+			lastFetch: [],
+			isloading:true
 		});
 	},
 

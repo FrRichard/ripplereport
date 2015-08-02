@@ -27,7 +27,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 		_.each(req.query.params, function(param,key) {
 			qs[key] = param;
 		})
-		console.log("QSSSSSSSSSSSSSSSSSSSSSSSSSSSs",qs);
+	
 		var options = {
 			method: 'GET',
 			qs: qs,
@@ -47,38 +47,38 @@ HistoricalapiProxy.prototype.init = function(callback) {
 		}
 
 
-		EventManager.on('stop'+uuid, function() {
-			if(midself.request) {
-				midself.request.abort();
-			}
-			try {
-					var transactionsParsing = new self.requestparsing.account_transactions();
-					var transactions = new self.datacalcul.transactions();
-					var result = transactionsParsing.parse(fetched,address);
-					result = transactions.calculate(result);
-					result['period'] = "custom";
-			} catch(e) {
-					console.log("API sent something unexcepected",e);
-					res.send(e);
-			}
-			res.send(result);
-		});	
+		// EventManager.on('stop'+uuid, function() {
+		// 	if(midself.request) {
+		// 		midself.request.abort();
+		// 	}
+		// 	try {
+		// 			var transactionsParsing = new self.requestparsing.account_transactions();
+		// 			var transactions = new self.datacalcul.transactions();
+		// 			var result = transactionsParsing.parse(fetched,address);
+		// 			result = transactions.calculate(result);
+		// 			result['period'] = "custom";
+		// 	} catch(e) {
+		// 			console.log("API sent something unexcepected",e);
+		// 			res.send(e);
+		// 	}
+		// 	res.send(result);
+		// });	
 
-		EventManager.on('stopAll', function() {
-			_.each(allRequest, function(r) {
-				r.abort();
-			});
-		});
+		// EventManager.on('stopAll', function() {
+		// 	_.each(allRequest, function(r) {
+		// 		r.abort();
+		// 	});
+		// });
 
 		var callback = function(error, response, body) {
 			try {
 				var data = JSON.parse(body);
+				_.each(data.transactions, function(t){
+					fetched.transactions.push(t);
+				});
 			} catch(e) {
-				console.log("Error at PARSE BODY:",e);
+				console.log("Error at PARSE BODY:",e,body);
 			}
-			_.each(data.transactions, function(t){
-				fetched.transactions.push(t);
-			});
 
 			var calcul = function(period) {
 				try {
@@ -89,7 +89,8 @@ HistoricalapiProxy.prototype.init = function(callback) {
 					result['period'] = period;
 				} catch(e) {
 					console.log("API sent something unexcepected",e,body,address);
-					send(e);
+					// send(e);
+					var result = e;
 				}
 				if (error) {
 					console.log('error', error);
@@ -99,7 +100,6 @@ HistoricalapiProxy.prototype.init = function(callback) {
 				return result;
 			}
 			var send = function(result) {
-				res.status(response.statusCode).send(result);
 				var payload = {
 					msg: "Fetched",
 					uuid: uuid,
@@ -107,6 +107,8 @@ HistoricalapiProxy.prototype.init = function(callback) {
 					room: 'payment'
 				}
 				EventManager.emit("payment",payload);
+				res.status(response.statusCode).send(result);
+				console.log("SEND!",address)
 			}
 
 			if(data && data.transactions) {
@@ -131,16 +133,16 @@ HistoricalapiProxy.prototype.init = function(callback) {
 						to:  data.transactions[999].date
 					}
 					payload.msg = i + " transactions has been filtered and analyzed";
-					console.log(payload);
+					// console.log(payload);
 					EventManager.emit("payment",payload);
 			
 					console.log(i + "transactions has been filtered and analyzed (" + address +")");
 					if(!qs.start && qs.period!='all') {
-						console.log("send the result with 'tx' period");
+						// console.log("send the result with 'tx' period");
 						var result = calcul('tx');
 						send(result);
 					} else {
-						console.log("ALLLLLLLREQUEEESSST",allRequest);
+						// console.log("ALLLLLLLREQUEEESSST",allRequest);
 						midself.request = request(options,callback);
 						allRequest.push(midself.request);
 						
@@ -163,7 +165,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 			var currentReq = request(options, callback);
 			// allRequest.push(currentReq);
 			allRequest.push(address);
-			console.log("ALLLLLLLREQUEEESSST",allRequest,allRequest.length);
+			// console.log("ALLLLLLLREQUEEESSST",allRequest,allRequest.length);
 			var payload = {
 				msg: "Transactions are fetching ...",
 				uuid: uuid,

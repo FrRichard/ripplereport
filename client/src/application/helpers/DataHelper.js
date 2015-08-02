@@ -116,6 +116,7 @@ var moment = require('moment');
       var res = {};
       var nodes = [];
       var links = [];
+      var constraints = [];
       var width = size.width;
       var height = size.height;
 
@@ -126,38 +127,47 @@ var moment = require('moment');
       }
 
       _.each(data, function(d) {
-         nodes.push({
-            id: d.id,
-            parent: d.parent,
-            name:d.name,
-            type:d.type
-
-         });
+         // if(d.parent == "origin") {
+         //    nodes.push({
+         //       id: d.id,
+         //       parent: d.parent,
+         //       name:d.name,
+         //       type:d.type,
+         //       y: 80,
+         //       x: width/2,
+         //       fixed:true
+         //    });
+         // } else {
+            nodes.push({
+               id: d.id,
+               parent: d.parent,
+               name:d.name,
+               type:d.type
+            });
+         // }
       });
 
       _.each(data, function(d) { 
          if(d.parent != "origin") {
+            // constraints.push({
+            //    axis: "y",
+            //    left: findNode(d.parent),
+            //    right: findNode(d.id),
+            //    gap: 25
+            // });
             links.push({
-               source: findNode(d.parent),
-               target: findNode(d.id)
+               source: findNode(d.parent).index,
+               target: findNode(d.id).index
             });
          }
       });
 
-      _.each(nodes, function(node) {
-         if(node.parent == "origin") {
-            console.log("ORIGIIIIIIIIIIIIINNNNNNNNNN");
-            node['y'] = 0;
-            node['x'] = width/2;
-            node['fixed'] = true;
-         }
-      });
-
       var res = {
-         nodes:nodes,
-         links:links
+         nodes: nodes,
+         links: links,
+         constraints: constraints
       }
-
+      console.log("reeeeeeeeeeeeess",res);
       return res;
    }
 

@@ -240,10 +240,12 @@ var AccountActions = {
 			LongPollingSocketManager.once('leave-dataroom', function (payload) {
 				// console.log("leave-dataroom transaction socket",payload);
 			});
+		this.isdispatched = false;
 		this.fetched = [];
 		this.paymentiteration = 0;
 		var allNodes = [];
 		var uuid = Uuid();
+		console.log('LONGPOOLIGNSHIT',LongPollingSocketManager);
 		LongPollingSocketManager.on(uuid, function (payload) {
 				// console.log(payload);
 			 	function allNodeFetched(endedNodes)  {
@@ -256,18 +258,19 @@ var AccountActions = {
 					// console.log("Are all nodes fetched ????",endedNodes, allNodeFetched(endedNodes),allNodes);
 				if(payload.msg == "Fetched") {
 					endedNodes[payload.address] = true;
-					console.log("FETCHED AND ???",endedNodes, self.addressList,allNodes);	
+					// console.log("FETCHED AND ???",payload);	
 					Dispatcher.handleViewAction({
 						actionType: Constants.ActionTypes.ASK_PYMNTLASTFETCH,
 						result: payload						
 					});
-					if(allNodeFetched(endedNodes) && allNodes.length != 0) {
-						console.log("DISPATCH!",allNodes);
-						Dispatcher.handleViewAction({
-							actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
-							result: allNodes						
-						});
-					}
+					// console.log("LENGTH!",endedNodes.length,allNodes.length);
+					// if(allNodeFetched(endedNodes) && allNodes.length != 0) {
+					// 	console.log("DISPATCH!",allNodes,endedNodes);
+					// 	Dispatcher.handleViewAction({
+					// 		actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
+					// 		result: allNodes						
+					// 	});
+					// }
 				}
 		});
 		// console.log(LongPollingSocketManager);
@@ -277,10 +280,11 @@ var AccountActions = {
 
 			if(depth >= 0) {
 				var currentDepth = depth - 1 ;
-
 				collection.createAccountTransactionsList(accounts,reqParams).then(function() {
+
 					function registerNode(arg) {
 						allNodes.push(collection.toJSON()[0]);
+						endedNodes[accounts[0].address] = true;
 						// console.log(allNodes);
 			
 					}
@@ -293,13 +297,6 @@ var AccountActions = {
 					var gtw = false;
 					var gatewayList = [];
 					var id = payload[0].id;
-
-					var register = function(payload) {
-						Dispatcher.handleViewAction({
-							actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
-							result: collection.toJSON()
-						});
-					};
 
 					if(payload[0].summary && payload[0].summary.top10[filterParams.currency]) {
 						var top10 = payload[0].summary.top10[filterParams.currency].sent;
@@ -334,7 +331,7 @@ var AccountActions = {
 								parent: parent,
 								type:type
 							}
-							if(type != "gateway" && type != "hotwallet") {				
+							if(type != "gateway" && type != "hotwallet") {		
 								explore([account],reqParams,filterParams,currentDepth);
 							} else {
 								gtw = true;
@@ -346,7 +343,30 @@ var AccountActions = {
 						};
 					}
 					
+				}).then(function() {
+					// check if every request came back
+					endedNodes[accounts[0].address] = true;
+					if(self.isdispatched == false) {
+						function allNodeFetched(endedNodes)  {
+							for(var node in endedNodes) {
+								console.log(node, endedNodes[node]);
+								if(!endedNodes[node]) return false;
+							}
+							return true;
+						}
+						if(allNodeFetched(endedNodes) && allNodes.length != 0) {
+							console.log("DISPATCH!",allNodes,endedNodes);
+							Dispatcher.handleViewAction({
+								actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
+								result: allNodes						
+							});
+							self.isdispatched = true;
+						}
+					}
+				
 				});
+			} else {
+			
 			}
 		};
 
@@ -373,7 +393,7 @@ var AccountActions = {
 		}
 
 		this.addressList.push(accounts[0].address);
-		endedNodes[accounts[0].address] = false;
+		endedNodes[accounts[0].address] = true;
 		explore(accounts, reqParams, filterParams, filterParams.depth);
 	},
 

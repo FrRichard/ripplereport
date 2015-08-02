@@ -101,7 +101,7 @@ ClientSocket.prototype.initLongPollingNamesspace = function(callback) {
         var room = payload.room;
         var channel = payload.uuid;
         var msg = payload.msg;
-        console.log("FUCKING_PAYLOOOOOAD_transactiooon",payload);
+        // console.log("FUCKING_PAYLOOOOOAD_transactiooon",payload);
        self.io.of('/longpolling').to(room).emit(channel, payload);
    });
      

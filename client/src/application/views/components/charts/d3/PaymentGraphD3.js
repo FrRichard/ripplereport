@@ -17,6 +17,7 @@ PaymentGraph.prototype.init = function(el, data, id, size) {
 	this.height = size[1];
 	this.nodes = [];
 	this.links = [];
+	this.constraints = [];
 
 
 	this.svg = d3.select(el).append('svg')
@@ -58,7 +59,6 @@ PaymentGraph.prototype.parse = function(data) {
 		width: this.width
 	}
 	var result = this.datahelper.paymentgraph(data, size);
-
 	return result;
 
 }
@@ -70,11 +70,10 @@ PaymentGraph.prototype.draw = function(el, data, id) {
 	this.force
 		.nodes(this.nodes)
     	.links(this.links)
-    	// .constraints(this.constraints)
     	.flowLayout("y", 30)
+    	.constraints(this.constraints)
 	    .symmetricDiffLinkLengths(10)
-	    .avoidOverlaps(true)
-	    .start(10,20,30);
+	    .start(200,200,200);
 
     this.force.size([this.width, this.height]);
 
@@ -82,9 +81,14 @@ PaymentGraph.prototype.draw = function(el, data, id) {
 	this.link.enter().append('line').attr('class', 'link');
 
     this.link.exit().remove();
-
+    // console.log("this.noooooooodeee",this.nodes);
 	this.node = this.svg.selectAll('.node').data(this.nodes);
-    this.node.enter().append('circle').attr('r', (self.width/230)).attr('class', 'node');
+
+    this.node.enter()
+    	.append('circle')
+    	.attr('r', (self.width/230))
+    	.attr('class', 'node');
+
     this.node.exit().remove();
 
     this.force.on('tick', function() {
@@ -92,12 +96,12 @@ PaymentGraph.prototype.draw = function(el, data, id) {
 	    .attr('cx', function(d) {  
 	    	// var x = Math.min(self.width, d.x);
 	    	var x  = d.x;
-	    	return (x ); 
+	    	return (x); 
 	    })
 	    .attr('cy', function(d) { 
 	    	// var y = Math.min(self.height, d.y);
 	    	var y = d.y;
-	    	return (y );
+	    	return (y);
 	   	})
 	    .attr('fill', function(d) {
 	    	if(d.parent == 'origin') {
@@ -191,13 +195,14 @@ PaymentGraph.prototype.draw = function(el, data, id) {
     	self.removeNameLabel();
     });
 
-	this.force.start();
+	// this.force.start();
 
 }
 
 
 PaymentGraph.prototype.update = function(el, data, id) {
 	var self = this;
+	console.log("_.updatedatagraph!");
 	if(data != null) {
 		var newPoints = this.parse(data.nodes);
 		// console.log("newPoitns!", newPoints);
@@ -209,6 +214,7 @@ PaymentGraph.prototype.update = function(el, data, id) {
 		// });
 		self.nodes = newPoints.nodes;
 		self.links = newPoints.links;
+		self.constraints = newPoints.constraints;
 		// console.log(self.nodes);
 
 	}
