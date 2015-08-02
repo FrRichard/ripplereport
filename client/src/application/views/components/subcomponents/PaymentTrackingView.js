@@ -32,7 +32,6 @@ var PaymentTracking = React.createClass({
 	},
 
 	render: function() {		
-		console.log("SSTAAATE",this.state);
 		if(this.state.isloading) {
 			var graph = <img className="loading" src={'./img/loading2.gif'} />;
 		} else {
@@ -43,16 +42,22 @@ var PaymentTracking = React.createClass({
 			fetchList.push(<div className="fetchlist"> {last.address} </div>); 
 		});
 		var fetchStatus = <div id="fetchstatus">
+			<div> Fetched Address </div>
 			<div> {fetchList} </div>
+		</div>
+		var addressDetails = <div id="addressdetails">
+			<div> Address Details </div>
+		</div>;
+		var checkOptions = <div id="checkOptions">
+			<input type="checkbox" name="largestPath"/> Highlight largest path <br/>
+			<input type="checkbox" name="cashOut"/> Highligh cash-out paths 
 		</div>
 		var stopfetch = <button id="stopfetchingbutton" onClick={this.stopFetchingAll} className="loadingbuttonstop_pymnt"> Stop fetching at this point </button>;
 		
 		var control = <div id="pymntcontrole">
-				<select>
-					<option> some shit </option>
-					<option> some other shit </option>
-				</select>
+				{checkOptions}
 				{fetchStatus}
+				{addressDetails}
 			</div>;
 				// <input type="checkbox" name="vehicle" value="Bike"/>I have a bike</br>
 
@@ -80,8 +85,9 @@ var PaymentTracking = React.createClass({
 
 	_onPaymentUpdate: function() {
 		// console.log(this.state);
+		console.log("NODEUPDAAAAATRTTTETE");
 		var nodes = PaymentStore.getAll();
-
+		console.log("nodes",nodes);
 		this.setState({	
 			nodes: nodes,
 			isloading:false
@@ -90,16 +96,15 @@ var PaymentTracking = React.createClass({
 
 	_onLastFetch: function() {
 		var last = PaymentStore.getLastFetch();
-		console.log(last);
 		var lastList = this.state.lastFetch;
-		lastList.push(last);
+		lastList.unshift(last);
 		this.setState({
 			lastFetch: lastList
 		});
 	},
 
 	_cleanLastFetch: function() {
-		console.log("cleaaaaaaaaaaaaaaaaaaaaaaannnnnn");
+		// console.log("cleaaaaaaaaaaaaaaaaaaaaaaannnnnn");
 		this.setState({
 			lastFetch: []
 		});

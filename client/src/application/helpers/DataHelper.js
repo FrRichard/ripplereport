@@ -146,6 +146,7 @@ var moment = require('moment');
 
       _.each(nodes, function(node) {
          if(node.parent == "origin") {
+            console.log("ORIGIIIIIIIIIIIIINNNNNNNNNN");
             node['y'] = 0;
             node['x'] = width/2;
             node['fixed'] = true;

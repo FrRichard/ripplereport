@@ -256,12 +256,13 @@ var AccountActions = {
 					// console.log("Are all nodes fetched ????",endedNodes, allNodeFetched(endedNodes),allNodes);
 				if(payload.msg == "Fetched") {
 					endedNodes[payload.address] = true;
-					// console.log(endedNodes, self.addressList,payload);	
+					console.log("FETCHED AND ???",endedNodes, self.addressList,allNodes);	
 					Dispatcher.handleViewAction({
 						actionType: Constants.ActionTypes.ASK_PYMNTLASTFETCH,
 						result: payload						
 					});
-					if(allNodeFetched(endedNodes)) {
+					if(allNodeFetched(endedNodes) && allNodes.length != 0) {
+						console.log("DISPATCH!",allNodes);
 						Dispatcher.handleViewAction({
 							actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
 							result: allNodes						
@@ -278,6 +279,12 @@ var AccountActions = {
 				var currentDepth = depth - 1 ;
 
 				collection.createAccountTransactionsList(accounts,reqParams).then(function() {
+					function registerNode(arg) {
+						allNodes.push(collection.toJSON()[0]);
+						// console.log(allNodes);
+			
+					}
+					registerNode();
 					Dispatcher.handleViewAction({
 						actionType: Constants.ActionTypes.ISLOADING_PYMNTSTORE,
 						result: collection.toJSON()
@@ -338,13 +345,6 @@ var AccountActions = {
 							}
 						};
 					}
-
-					function registerNode(arg) {
-						allNodes.push(collection.toJSON()[0]);
-						// console.log(allNodes);
-			
-					}
-					registerNode();
 					
 				});
 			}

@@ -58,7 +58,7 @@ var PaymentsStore = assign({}, EventEmitter.prototype, {
 		});
 	},
 
-	emitLoading: function(event) {
+	emitEvent: function(event) {
 		this.emit(event);
 	},
 
@@ -85,19 +85,19 @@ PaymentsStore.dispatcherIndex = Dispatcher.register(function(payload) {
 		case Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS:	
 			registerAccountTransactions(action.result); 
 			longestPath();
-			PaymentsStore.emitChange(action.result); 
+			PaymentsStore.emitEvent("change"); 
 
 			break;
 
 		case Constants.ActionTypes.ASK_PYMNTLASTFETCH:
 			registerLastFetch(action.result);
-			PaymentsStore.emitLoading("fetch");
+			PaymentsStore.emitEvent("fetch");
 		case Constants.ActionTypes.ISLOADING_PYMNTSTORE:
-			PaymentsStore.emitLoading('isloading');
+			PaymentsStore.emitEvent('isloading');
 			break;
 
 		case Constants.ActionTypes.ADDRESSCHANGE_PYMNTSTORE:
-			PaymentsStore.emitLoading('addresschange');
+			PaymentsStore.emitEvent('addresschange');
 			break;
 
 		// case Constants.ActionTypes.LOADINGSTATUS_ACCOUNTTRANSACTIONS:

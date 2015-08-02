@@ -11645,11 +11645,30 @@ striping:
   font-size: 0.5em; }
 
 #pymnttrackingselector {
-  display: inline; }
+  display: inline;
+  color: #004756;
+  font-size: 1em;
+  background: #FFFFFF;
+  vertical-align: top; }
+
+#pymnttrackingselector label {
+  margin-right: 0.2em; }
+
+#pymnttrackingselector select {
+  margin-right: 0.8em; }
 
 .graphControl {
   background: #050404;
   height: 8.5em; }
+
+#addressdetails {
+  height: 8.5em;
+  width: 20em;
+  background: #050404;
+  float: right;
+  overflow-y: scroll;
+  padding-top: 0.5em;
+  padding-left: 1em; }
 
 #fetchstatus {
   height: 8.5em;
@@ -11657,7 +11676,13 @@ striping:
   background: #050404;
   float: right;
   overflow-y: scroll;
-  padding-top: 1em; }
+  padding-top: 0.5em;
+  padding-left: 1em; }
+
+#checkOptions {
+  padding-top: 0.5em;
+  padding-left: 1em;
+  float: left; }
 
 .fetchlist {
   font-size: 0.7em;

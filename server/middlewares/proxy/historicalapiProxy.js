@@ -71,8 +71,11 @@ HistoricalapiProxy.prototype.init = function(callback) {
 		});
 
 		var callback = function(error, response, body) {
-		
-			var data = JSON.parse(body);
+			try {
+				var data = JSON.parse(body);
+			} catch(e) {
+				console.log("Error at PARSE BODY:",e);
+			}
 			_.each(data.transactions, function(t){
 				fetched.transactions.push(t);
 			});
