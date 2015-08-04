@@ -18,6 +18,7 @@ var PaymentTracking = React.createClass({
 			name:name,
 			address:"",
 			type:"",
+			uuid:"",
 			nodes:{},
 			lastFetch: [],
 			isloading: true
@@ -50,7 +51,8 @@ var PaymentTracking = React.createClass({
 		</div>;
 		var checkOptions = <div id="checkOptions">
 			<input type="checkbox" name="largestPath"/> Highlight largest path <br/>
-			<input type="checkbox" name="cashOut"/> Highligh cash-out paths 
+			<input type="checkbox" name="cashOut"/> Highligh cash-out paths <br/> <br/>
+			<button id="stopfetchpymnt" onClick={this.stopFetchingAll}> Stop fetching </button>
 		</div>
 		var stopfetch = <button id="stopfetchingbutton" onClick={this.stopFetchingAll} className="loadingbuttonstop_pymnt"> Stop fetching at this point </button>;
 		
@@ -99,8 +101,10 @@ var PaymentTracking = React.createClass({
 		var lastList = this.state.lastFetch;
 		lastList.unshift(last);
 		this.setState({
-			lastFetch: lastList
+			lastFetch: lastList,
+			uuid: last.uuid
 		});
+		console.log(this.state);
 	},
 
 	_cleanLastFetch: function() {
@@ -153,7 +157,7 @@ var PaymentTracking = React.createClass({
 	},
 
 	stopFetchingAll: function() {
-		PollingActions.stopTransactionRequest();
+		PollingActions.stopTransactionRequest(this.state.uuid);
 	}
 
 

@@ -25,6 +25,7 @@ config.rippleaccountproxy.host = "https://id.ripple.com/v1/user/";
 config.rippleaccountproxy.port = "";
 config.rippleaccountproxy.hostUrl = config.rippleaccountproxy.host;
 config.rippleaccountproxy.remoteserver = "wss://s1.ripple.com:443";
+config.rippleaccountproxy.restserver = "https://s1.ripple.com:51234";
 
 
 config.rippledataapiproxy = {};

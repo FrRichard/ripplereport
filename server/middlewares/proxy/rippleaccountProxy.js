@@ -5,6 +5,7 @@ function RippleaccountProxy(params) {
 	this.app = params.app;
 	this.rippleaccountProxyHost = params.rippleaccountProxyHost;
 	this.remoteServer = params.rippleaccountRemoteServer;
+	this.restServer = params.restServer;
 };
 
 RippleaccountProxy.prototype.init = function(callback) {
@@ -88,10 +89,32 @@ RippleaccountProxy.prototype.init = function(callback) {
 		});
 	});
 
+
+	this.app.get('/ripple/gateway_balances/*', function(req, res) {
+		var qs = req.query.params;	
+		var options = {
+			method: "POST",
+			url: self.restServer,
+			body: qs,
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "application/json"
+			},
+		};
+		var callback = function(error, response, body) {
+			if (error) {
+				console.log('error', error);
+				res.send(500, 'something went wrong')
+			} else {
+				res.send(response.statusCode, body);
+			}
+		}; 
+		request(options, callback);
+	});
+	
 	if (callback) {
 		callback();
 	}
-
 };
 
 module.exports = RippleaccountProxy;

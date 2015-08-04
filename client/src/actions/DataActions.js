@@ -10,6 +10,7 @@ var RippledataActions = {
 		var range = range;
 
 		var collection = new rippleexchangerates();
+		console.log("NORMAL RATE",accountslines,range);
 		collection.getExchangerates(accountslines,range).then(function() {
 
 			Dispatcher.handleViewAction({
@@ -23,17 +24,19 @@ var RippledataActions = {
 
 	exchangerates_capitalization: function(caps,range) {
 		//Parsing needed by the collection
+		console.log(caps);
 		 var lines = [];
 		 lines["lines"] = [];
 		 lines["id"] = caps[0].id;
-	     _.each(caps[0], function(cap,i) {
-	     	if(i!="id") {
+		 lines["account"] = caps[0].result.account;
+	     _.each(caps, function(cap,i) {
+	     	_.each(cap.result.obligations, function(c, cur) {
 		        lines["lines"].push( {
-		          account: cap.issuer,
-		          currency:cap.currency,
-		          balance:1
+		          account:  caps[0].result.account,
+		          currency:cur,
+		          balance:c
 		        });
-		    }
+	     	})
 	     });
 	     var queries = [];
 	     queries[0] = lines;
@@ -41,6 +44,7 @@ var RippledataActions = {
 		// var lines = accountinfo.attributes.lines;
 		var range = range;
 		var collection = new rippleexchangerates();
+		console.log("CAP RATE",queries,range);
 		collection.getExchangerates(queries,range).then(function() {
 			
 			Dispatcher.handleViewAction({

@@ -4,6 +4,7 @@ var rippleids =  require('Ids');
 var ripplelines = require('Lines');
 var rippleinfos = require('Infos');
 var ripplecapitalizations = require('Capitalizations');
+var Capitalization = require('Capitalization');
 var rippleoffersexercised =  require('Offersexercised');
 var rippleaccounttransactions = require('AccountTransactions');
 var rippleaccounttransactionstats = require('AccountTransactionStats');
@@ -142,7 +143,7 @@ var AccountActions = {
 
 	ripplecapitalization: function(issuers) {
 		var self = this;
-
+		console.log("ACTION_CAP!:!!");
 		var collection= new ripplecapitalizations();
 		collection.createIssuercapitalizationList(issuers).then(function() {
 			Dispatcher.handleViewAction({
@@ -151,6 +152,10 @@ var AccountActions = {
 			});
 			RippledataActions.exchangerates_capitalization(collection.toJSON(),"month");
 		});
+		// var cap = new Capitalization();
+		// // Capitalization.fetch("","rMwjYedjc7qqtKYVLiAccJSmCwih4LnE2q");
+		// console.log(Capitalization);
+
 
 	},
 
@@ -349,13 +354,11 @@ var AccountActions = {
 					if(self.isdispatched == false) {
 						function allNodeFetched(endedNodes)  {
 							for(var node in endedNodes) {
-								console.log(node, endedNodes[node]);
 								if(!endedNodes[node]) return false;
 							}
 							return true;
 						}
 						if(allNodeFetched(endedNodes) && allNodes.length != 0) {
-							console.log("DISPATCH!",allNodes,endedNodes);
 							Dispatcher.handleViewAction({
 								actionType: Constants.ActionTypes.ASK_PAYMENTTRANSACTIONS,
 								result: allNodes						

@@ -4,27 +4,35 @@ var config =  require('Config');
 var RippleCapitalization = Backbone.Model.extend({
 
 	initialize: function(attr,issuer) {
-		var query = 	{
-			"currencies" : [
-			      {"currency":"JPY", "issuer":issuer},
-			      {"currency":"USD", "issuer":issuer},
-			      {"currency":"EUR", "issuer":issuer},
-			      {"currency":"GBP", "issuer":issuer},
-			      {"currency":"CNY", "issuer":issuer},
-			      {"currency":"BTC", "issuer":issuer},
-			      {"currency":"KRW", "issuer":issuer},
-			      {"currency":"LTC", "issuer":issuer},
-			      {"currency":"DOG", "issuer":issuer},
-			      {"currency":"MXN", "issuer":issuer},
-			      {"currency":"CAD", "issuer":issuer},
-			      {"currency":"BRL", "issuer":issuer}
-			      // {"currency":"SGD", "issuer":issuer},
-			      // {"currency":"XAG", "issuer":issuer},
-			      // {"currency":"XAU", "issuer":issuer}
-			          // {"currency":"XAU", "issuer":issuer},
+		// var query = 	{
+		// 	"currencies" : [
+		// 	      // {"currency":"JPY", "issuer":issuer},
+		// 	      {"currency":"USD", "issuer":issuer},
+		// 	      {"currency":"EUR", "issuer":issuer},
+		// 	      // {"currency":"GBP", "issuer":issuer},
+		// 	      // {"currency":"CNY", "issuer":issuer},
+		// 	      {"currency":"BTC", "issuer":issuer}
+		// 	      // {"currency":"KRW", "issuer":issuer},
+		// 	      // {"currency":"LTC", "issuer":issuer},
+		// 	      // {"currency":"DOG", "issuer":issuer},
+		// 	      // {"currency":"MXN", "issuer":issuer},
+		// 	      // {"currency":"CAD", "issuer":issuer},
+		// 	      // {"currency":"BRL", "issuer":issuer}
+		// 	      // {"currency":"SGD", "issuer":issuer},
+		// 	      // {"currency":"XAG", "issuer":issuer},
+		// 	      // {"currency":"XAU", "issuer":issuer}
+		// 	          // {"currency":"XAU", "issuer":issuer},
+		// 	]
+		// }
+		var query = {		
+			"method" : "gateway_balances",
+			"params": [
+			    {"account": issuer}
 			]
-		}
-		this.url= config.rippledataapi.issuer_capitalization.urlModel+JSON.stringify(query);		
+		};
+
+		// this.url= config.rippledataapi.issuer_capitalization.urlModel+JSON.stringify(query);	
+		this.url= config.rippleaccount.gateway_balances.urlModel+JSON.stringify(query);		
 	}
 
 });

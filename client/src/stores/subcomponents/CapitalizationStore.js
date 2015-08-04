@@ -9,15 +9,22 @@ var _RippleCapitalizations = {};
 
 function registerCapitalization(result) {
 	var capitalizations = result.toJSON();
-
+	console.log("CAPAAAP",capitalizations);
 	_.each(capitalizations, function(capitalization) {
-		caps = _.filter(capitalization, function(cap) {
-				return cap.amount > 0;
-			});
-		caps["id"] = capitalization.id;
+		var caps = [];
+		caps["id"] = capitalization.id
+		_.each(capitalization.result.obligations, function(cap,cur){
+			if(cap>0) {
+				caps.push({
+					amount: cap,
+					currency: cur,
+					issuer: capitalization.result.account
+				});
+			}
+		});
 		_RippleCapitalizations[capitalization.id] = caps;
 	});
-	// console.log("_RippleCapitalizationsStore",_RippleCapitalizations);
+	console.log("_RippleCapitalizationsStore",_RippleCapitalizations);
 };
 
 var RipplecapitalizationStore = assign({}, EventEmitter.prototype, {

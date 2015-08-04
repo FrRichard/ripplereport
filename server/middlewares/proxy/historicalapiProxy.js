@@ -14,9 +14,9 @@ function HistoricalapiProxy(params) {
 HistoricalapiProxy.prototype.init = function(callback) {
 	var self = this;
 	this.EventManager = EventManager;
+	var allRequest = [];
 
 	this.app.all('/ripple/historicalapi/account_transactions/*',function(req,res) {
-		var allRequest = [];
 		req.query.params = JSON.parse(req.query.params);
 		var midself=this;
 		var uuid = req.query.params.uuid;
@@ -46,23 +46,34 @@ HistoricalapiProxy.prototype.init = function(callback) {
 			transactions: []
 		}
 
+		var calculAndSend = function() {
+			if(midself.request) {
+				midself.request.abort();
+			}
+			try {
+					var transactionsParsing = new self.requestparsing.account_transactions();
+					var transactions = new self.datacalcul.transactions();
+					var result = transactionsParsing.parse(fetched,address);
+					result = transactions.calculate(result);
+					result['period'] = "custom";
+			} catch(e) {
+					console.log("API sent something unexcepected",e);
+					try {
+						res.send(e);
+					} catch(e) {
+						console.log("calculandsendSTOP_ERROR",e);
+					}
+			}
+			// try {
+				res.send(result);
+			// } catch(e) {
+			// 	console.log("calculandsendSTOP_ERROR",e);
+			// }
+		};
 
-		// EventManager.on('stop'+uuid, function() {
-		// 	if(midself.request) {
-		// 		midself.request.abort();
-		// 	}
-		// 	try {
-		// 			var transactionsParsing = new self.requestparsing.account_transactions();
-		// 			var transactions = new self.datacalcul.transactions();
-		// 			var result = transactionsParsing.parse(fetched,address);
-		// 			result = transactions.calculate(result);
-		// 			result['period'] = "custom";
-		// 	} catch(e) {
-		// 			console.log("API sent something unexcepected",e);
-		// 			res.send(e);
-		// 	}
-		// 	res.send(result);
-		// });	
+		EventManager.on('stop'+uuid, calculAndSend);	
+
+		// console.log("EVENT MANAGER !!!",EventManager);
 
 		// EventManager.on('stopAll', function() {
 		// 	_.each(allRequest, function(r) {
@@ -107,8 +118,14 @@ HistoricalapiProxy.prototype.init = function(callback) {
 					room: 'payment'
 				}
 				EventManager.emit("payment",payload);
+				EventManager.removeListener('stop'+uuid, calculAndSend);
 				res.status(response.statusCode).send(result);
-				console.log("SEND!",address)
+				// try {
+				// } catch(e) {
+				// 	console.log(e);
+				// 	res.send(e);
+				// }
+				// console.log("SEND!",address,EventManager);
 			}
 
 			if(data && data.transactions) {
@@ -162,9 +179,10 @@ HistoricalapiProxy.prototype.init = function(callback) {
 		};
 		
 		try {
-			var currentReq = request(options, callback);
-			// allRequest.push(currentReq);
-			allRequest.push(address);
+			var currentRequest = request(options, callback);
+
+			allRequest.push(currentRequest);
+			// console.log(allRequest);
 			// console.log("ALLLLLLLREQUEEESSST",allRequest,allRequest.length);
 			var payload = {
 				msg: "Transactions are fetching ...",
@@ -177,9 +195,9 @@ HistoricalapiProxy.prototype.init = function(callback) {
 			console.log(e);
 		}
 
-		EventManager.on('stop'+uuid, function() {
-			currentReq.abort();
-		});
+		// EventManager.on('stop'+uuid, function() {
+		// 	currentReq.abort();
+		// });
 
 	});
 

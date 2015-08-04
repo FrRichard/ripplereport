@@ -11644,6 +11644,10 @@ striping:
   stroke-width: .5;
   font-size: 0.5em; }
 
+#stopfetchpymnt {
+  color: #004756;
+  background-color: white; }
+
 #pymnttrackingselector {
   display: inline;
   color: #004756;
@@ -11655,6 +11659,7 @@ striping:
   margin-right: 0.2em; }
 
 #pymnttrackingselector select {
+  background-color: white;
   margin-right: 0.8em; }
 
 .graphControl {

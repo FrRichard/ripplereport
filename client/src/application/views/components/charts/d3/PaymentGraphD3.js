@@ -41,11 +41,11 @@ PaymentGraph.prototype.init = function(el, data, id, size) {
 
     // this.force = d3.layout.force();
     // console.log(Cola);
-   	this.force = Cola.d3adaptor();
-    // .linkDistance(30)
-    // .size([width, height]);
+   	this.force = Cola.d3adaptor()
+    	// .avoidOverlaps(true)
+    	.size([this.width, this.height]);
     
-    this.force.linkDistance(100);
+    // this.force.linkDistance(100);
     // this.force.linkStrength(20);
 
     this.update(el, data, id);
@@ -67,15 +67,15 @@ PaymentGraph.prototype.draw = function(el, data, id) {
 	var self = this;
 	// console.log("DRAW!",this.nodes,this.links);
 	// this.constraints = {"axis":"y", "left":0, "right":1, "gap":25};
+
 	this.force
 		.nodes(this.nodes)
     	.links(this.links)
     	.flowLayout("y", 30)
     	.constraints(this.constraints)
-	    .symmetricDiffLinkLengths(10)
-	    .start(200,200,200);
+	    .symmetricDiffLinkLengths(40)
+	    .start(50,50,50);
 
-    this.force.size([this.width, this.height]);
 
 	this.link = this.svg.selectAll('.link').data(this.links);
 	this.link.enter().append('line').attr('class', 'link');

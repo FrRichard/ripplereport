@@ -156,8 +156,8 @@ var moment = require('moment');
             //    gap: 25
             // });
             links.push({
-               source: findNode(d.parent).index,
-               target: findNode(d.id).index
+               source: findNode(d.parent),
+               target: findNode(d.id)
             });
          }
       });

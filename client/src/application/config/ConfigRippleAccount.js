@@ -10,6 +10,9 @@ var Config = {
 	},
 	offers: {
 		urlModel: "/ripple/account_offers/?id="
+	},
+	gateway_balances: {
+		urlModel: "/ripple/gateway_balances/?params="
 	}
 };
 

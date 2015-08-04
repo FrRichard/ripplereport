@@ -173,7 +173,7 @@ var RippleAccountTransactions = React.createClass({
 	},
 
 	render: function() {
-			console.log("STATE:",this.state);
+			// console.log("STATE:",this.state);
 			var self =this;
 			this.address= "address" + this.props.attributes.reportnumber;
 			var panelstyle = viewcommon.linechart;

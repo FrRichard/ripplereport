@@ -233,6 +233,7 @@ App.prototype.initProxies = function() {
     var rippleaccountProxyParams = {
         rippleaccountProxyHost: this.config.rippleaccountproxy.hostUrl,
         rippleaccountRemoteServer: this.config.rippleaccountproxy.remoteserver,
+        restServer: this.config.rippleaccountproxy.restserver,
         app: this.app
     };
     this.rippleaccountProxy = new RippleaccountProxy(rippleaccountProxyParams);
