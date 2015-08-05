@@ -664,6 +664,10 @@
 			case 'ZET':
 				symbol = "ZET";
 				break;
+			default :
+				symbol = "STR";
+				image = "./img/currencies/STR.svg";
+
 		}
 		return {symbol:symbol,image:image};
 	};
