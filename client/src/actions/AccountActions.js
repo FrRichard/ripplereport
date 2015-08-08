@@ -143,7 +143,6 @@ var AccountActions = {
 
 	ripplecapitalization: function(issuers) {
 		var self = this;
-		console.log("ACTION_CAP!:!!");
 		var collection= new ripplecapitalizations();
 		collection.createIssuercapitalizationList(issuers).then(function() {
 			Dispatcher.handleViewAction({

@@ -24,7 +24,7 @@ function registerCapitalization(result) {
 		});
 		_RippleCapitalizations[capitalization.id] = caps;
 	});
-	console.log("_RippleCapitalizationsStore",_RippleCapitalizations);
+	// console.log("_RippleCapitalizationsStore",_RippleCapitalizations);
 };
 
 var RipplecapitalizationStore = assign({}, EventEmitter.prototype, {

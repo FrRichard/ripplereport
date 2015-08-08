@@ -275,43 +275,43 @@
 				image: "CHEMIN/images/Logoscrypto/primecoin.jpg";
 				break;
 				// Auroracoin
-			case 'AUR':
-				symbol = "AUR";
-				break;
+			// case 'AUR':
+			// 	symbol = "AUR";
+			// 	break;
 				// 42
 			case 'XRP':
 				symbol = "XRP";
 				image = "./img/currencies/XRP.svg";
 				break;
 				// 42
-			case '42':
-				symbol = "42";
-				break;
-				// Alphacoin
-			case 'ALF':
-				symbol = "ALF";
-				break;
-				// AmericanCoin
-			case 'AMC':
-				symbol = "AMC";
-				break;
-				// Anoncoin
+			// case '42':
+			// 	symbol = "42";
+			// 	break;
+			// 	// Alphacoin
+			// case 'ALF':
+			// 	symbol = "ALF";
+			// 	break;
+			// 	// AmericanCoin
+			// case 'AMC':
+			// 	symbol = "AMC";
+			// 	break;
+			// 	// Anoncoin
 			case 'ANC':
 				symbol = "ANC";
 				image: "CHEMIN/images/Logoscrypto/Anoncoin-64x64.png";
 				break;
 				// Argentum
-			case 'ARG':
-				symbol = "ARG";
-				break;
-				// Battlecoin
-			case 'BCX':
-				symbol = "BCX";
-				break;
-				// Benjamins
-			case 'BEN':
-				symbol = "BEN";
-				break;
+			// case 'ARG':
+			// 	symbol = "ARG";
+			// 	break;
+			// 	// Battlecoin
+			// case 'BCX':
+			// 	symbol = "BCX";
+			// 	break;
+			// 	// Benjamins
+			// case 'BEN':
+			// 	symbol = "BEN";
+			// 	break;
 				// BBQcoin
 			case 'BBQ':
 				symbol = "BBQ";
@@ -331,44 +331,44 @@
 				symbol = "BTG";
 				image: "CHEMIN/images/Logoscrypto/Bitgem-64x64.png";
 				break;
-				// CryptoBuck
-			case 'BUK':
-				symbol = "BUK";
-				break;
-				// CACHeCOin
-			case 'CACH':
-				symbol = "CACH";
-				break;
+			// 	// CryptoBuck
+			// case 'BUK':
+			// 	symbol = "BUK";
+			// 	break;
+			// 	// CACHeCOin
+			// case 'CACH':
+			// 	symbol = "CACH";
+			// 	break;
 				// BottleCaps
 			case 'CAP':
 				symbol = "CAP";
 				image: "CHEMIN/images/Logoscrypto/Bottlecaps-64x64.png";
 				break;
 				// CashCoin
-			case 'CASH':
-				symbol = "CASH";
-				break;
-				// CatCoin
-			case 'CAT':
-				symbol = "CAT";
-				break;
-				// CryptogenicBullion 
-			case 'CGB':
-				symbol = "CGB";
-				break;
-				// CopperLark
-			case 'CLR':
-				symbol = "CLR";
-				break;
+			// case 'CASH':
+			// 	symbol = "CASH";
+			// 	break;
+			// 	// CatCoin
+			// case 'CAT':
+			// 	symbol = "CAT";
+			// 	break;
+			// 	// CryptogenicBullion 
+			// case 'CGB':
+			// 	symbol = "CGB";
+			// 	break;
+			// 	// CopperLark
+			// case 'CLR':
+			// 	symbol = "CLR";
+			// 	break;
 				// CosmosCoin 
 			case 'CMC':
 				symbol = "CMC";
 				image: "CHEMIN/images/Logoscrypto/Cosmocoin-64x64.png";
 				break;
 				// Chinacoin 
-			case 'CNC':
-				symbol = "CNC";
-				break;
+			// case 'CNC':
+			// 	symbol = "CNC";
+			// 	break;
 				// CraftCoin 
 			case 'CRC':
 				symbol = "CRC";
@@ -380,9 +380,9 @@
 				image: "CHEMIN/images/Logoscrypto/Casinocoin-64x64.png";
 				break;
 				// eMark
-			case 'DEM':
-				symbol = "DEM";
-				break;
+			// case 'DEM':
+			// 	symbol = "DEM";
+			// 	break;
 				// DigitalCoin 
 			case 'DGC':
 				symbol = "DGC";
@@ -394,46 +394,46 @@
 				image: "CHEMIN/images/Logoscrypto/Diamond-64x64.png";
 				break;
 				//DarkCoin
-			case 'DRK':
-				symbol = "DRK";
-				break;
-				//DevCoin
-			case 'DVC':
-				symbol = "DVC";
-				break;
-				//EarthCoin
-			case 'EAC':
-				symbol = "EAC";
-				break;
-				//Elacoin
-			case 'ELC':
-				symbol = "ELC";
-				break;
+			// case 'DRK':
+			// 	symbol = "DRK";
+			// 	break;
+			// 	//DevCoin
+			// case 'DVC':
+			// 	symbol = "DVC";
+			// 	break;
+			// 	//EarthCoin
+			// case 'EAC':
+			// 	symbol = "EAC";
+			// 	break;
+			// 	//Elacoin
+			// case 'ELC':
+			// 	symbol = "ELC";
+			// 	break;
 				//Emerald
 			case 'EMD':
 				symbol = "EMD";
 				image: "CHEMIN/images/Logoscrypto/Emerald-64x64.png";
 				break;
 				//EZCoin
-			case 'EZC':
-				symbol = "EZC";
-				break;
-				//FirelyCoin
-			case 'FFC':
-				symbol = "FFC";
-				break;
-				//FlappyCoin
-			case 'FLAP':
-				symbol = "FLAP";
-				break;
-				//FreiCOin
-			case 'FRC':
-				symbol = "FRC";
-				break;
-				//Franko
-			case 'FRK':
-				symbol = "FRK";
-				break;
+			// case 'EZC':
+			// 	symbol = "EZC";
+			// 	break;
+			// 	//FirelyCoin
+			// case 'FFC':
+			// 	symbol = "FFC";
+			// 	break;
+			// 	//FlappyCoin
+			// case 'FLAP':
+			// 	symbol = "FLAP";
+			// 	break;
+			// 	//FreiCOin
+			// case 'FRC':
+			// 	symbol = "FRC";
+			// 	break;
+			// 	//Franko
+			// case 'FRK':
+			// 	symbol = "FRK";
+			// 	break;
 				//Fastcoin
 			case 'FST':
 				symbol = "FST";
@@ -455,215 +455,215 @@
 				image: "CHEMIN/images/Logoscrypto/Goldcoin-64x64.png";
 				break;
 				//Galaxycoin
-			case 'GLX':
-				symbol = "GLX";
-				break;
+			// case 'GLX':
+			// 	symbol = "GLX";
+			// 	break;
 				//Hobonickles
 			case 'HBN':
 				symbol = "HBN";
 				image: "CHEMIN/images/Logoscrypto/HoboNickels-64x64.png";
 				break;
 				//Infinitecoin
-			case 'IFC':
-				symbol = "IFC";
-				break;
-				//IXCoin
-			case 'IXC':
-				symbol = "IXC";
-				break;
-				//Junkcoin
-			case 'JKC':
-				symbol = "JKC";
-				break;
+			// case 'IFC':
+			// 	symbol = "IFC";
+			// 	break;
+			// 	//IXCoin
+			// case 'IXC':
+			// 	symbol = "IXC";
+			// 	break;
+			// 	//Junkcoin
+			// case 'JKC':
+			// 	symbol = "JKC";
+			// 	break;
 				//Krugercoin
 			case 'KGC':
 				symbol = "KGC";
 				image: "CHEMIN/images/Logoscrypto/Krugercoin-64x64.png";
 				break;
 				//leafcoin
-			case 'LEAF':
-				symbol = "LEAF";
-				break;
-				//Lucky7coin
-			case 'LK7':
-				symbol = "LK7";
-				break;
+			// case 'LEAF':
+			// 	symbol = "LEAF";
+			// 	break;
+			// 	//Lucky7coin
+			// case 'LK7':
+			// 	symbol = "LK7";
+			// 	break;
 				//Luckycoin
 			case 'LKC':
 				symbol = "LKC";
 				image: "CHEMIN/images/Logoscrypto/Luckycoin-64x64.png";
 				break;
 				//Lottocoin
-			case 'LOT':
-				symbol = "LOT";
-				break;
-				//Maxcoin
-			case 'MAX':
-				symbol = "MAX";
-				break;
+			// case 'LOT':
+			// 	symbol = "LOT";
+			// 	break;
+			// 	//Maxcoin
+			// case 'MAX':
+			// 	symbol = "MAX";
+			// 	break;
 				//Megacoin
 			case 'MEC':
 				symbol = "MEC";
 				image: "CHEMIN/images/Logoscrypto/Megacoin-64x64.png";
 				break;
 				//Kittehcoin
-			case 'MEOW':
-				symbol = "MEOW";
-				break;
-				//Mintcoin
-			case 'MINT':
-				symbol = "MINT";
-				break;
+			// case 'MEOW':
+			// 	symbol = "MEOW";
+			// 	break;
+			// 	//Mintcoin
+			// case 'MINT':
+			// 	symbol = "MINT";
+			// 	break;
 				//Mincoin
 			case 'MNC':
 				symbol = "MNC";
 				image: "CHEMIN/images/Logoscrypto/Mincoin-64x64.png";
 				break;
 				//Mooncoin
-			case 'MOON':
-				symbol = "MOON";
-				break;
-				//Mazacoin
-			case 'MZC':
-				symbol = "MZC";
-				break;
-				//Nanotoken
-			case 'NAN':
-				symbol = "NAN";
-				break;
-				//Nibble
-			case 'NBL':
-				symbol = "NBL";
-				break;
-				//Neocoin
-			case 'NEC':
-				symbol = "NEC";
-				break;
-				//Netcoin
-			case 'NET':
-				symbol = "NET";
-				break;
+			// case 'MOON':
+			// 	symbol = "MOON";
+			// 	break;
+			// 	//Mazacoin
+			// case 'MZC':
+			// 	symbol = "MZC";
+			// 	break;
+			// 	//Nanotoken
+			// case 'NAN':
+			// 	symbol = "NAN";
+			// 	break;
+			// 	//Nibble
+			// case 'NBL':
+			// 	symbol = "NBL";
+			// 	break;
+			// 	//Neocoin
+			// case 'NEC':
+			// 	symbol = "NEC";
+			// 	break;
+			// 	//Netcoin
+			// case 'NET':
+			// 	symbol = "NET";
+			// 	break;
 				//Noirsbits
 			case 'NRB':
 				symbol = "NRB";
 				image: "CHEMIN/images/Logoscrypto/Noirbits-64x64.png";
 				break;
 				//Nextcoin
-			case 'NXT':
-				symbol = "NXT";
-				break;
-				//Orbitcoin
-			case 'ORB':
-				symbol = "ORB";
-				break;
-				//Opensourcecoin
-			case 'OSC':
-				symbol = "OSC";
-				break;
-				//PhilosopherStone
-			case 'PHS':
-				symbol = "PHS";
-				break;
-				//Points
-			case 'Points':
-				symbol = "Points";
-				break;
-				//Protoshares
-			case 'PTS':
-				symbol = "PTS";
-				break;
+			// case 'NXT':
+			// 	symbol = "NXT";
+			// 	break;
+			// 	//Orbitcoin
+			// case 'ORB':
+			// 	symbol = "ORB";
+			// 	break;
+			// 	//Opensourcecoin
+			// case 'OSC':
+			// 	symbol = "OSC";
+			// 	break;
+			// 	//PhilosopherStone
+			// case 'PHS':
+			// 	symbol = "PHS";
+			// 	break;
+			// 	//Points
+			// case 'Points':
+			// 	symbol = "Points";
+			// 	break;
+			// 	//Protoshares
+			// case 'PTS':
+			// 	symbol = "PTS";
+			// 	break;
 				//Phoenixcoin
 			case 'PXC':
 				symbol = "PXC";
 				image: "CHEMIN/images/Logoscrypto/Phenixcoin-64x64.png";
 				break;
 				//Paycoin
-			case 'PYC':
-				symbol = "PYC";
-				break;
-				//Quarkcoin
-			case 'QRK':
-				symbol = "QRK";
-				break;
-				//RonPaulcoin
-			case 'RPC':
-				symbol = "RPC";
-				break;
+			// case 'PYC':
+			// 	symbol = "PYC";
+			// 	break;
+			// 	//Quarkcoin
+			// case 'QRK':
+			// 	symbol = "QRK";
+			// 	break;
+			// 	//RonPaulcoin
+			// case 'RPC':
+			// 	symbol = "RPC";
+			// 	break;
 				//Stablecoin
 			case 'SBC':
 				symbol = "SBC";
 				image: "CHEMIN/images/Logoscrypto/Stablecoin-64x64.png";
 				break;
 				//Smartcoin
-			case 'SMC':
-				symbol = "SMC";
-				break;
+			// case 'SMC':
+			// 	symbol = "SMC";
+			// 	break;
 				//Spots
 			case 'SPT':
 				symbol = "SRC";
 				image: "CHEMIN/images/Logoscrypto/Spots-64x64.png";
 				break;
 				//Securecoin
-			case 'SRC':
-				symbol = "SRC";
-				break;
-				//Starcoin
-			case 'STR':
-				symbol = "STR";
-				break;
-				//Sexcoin
-			case 'SXC':
-				symbol = "SXC";
-				break;
-				//Tagcoin
+			// case 'SRC':
+			// 	symbol = "SRC";
+			// 	break;
+			// 	//Starcoin
+			// case 'STR':
+			// 	symbol = "STR";
+			// 	break;
+			// 	//Sexcoin
+			// case 'SXC':
+			// 	symbol = "SXC";
+			// 	break;
+			// 	//Tagcoin
 			case 'TAG':
 				symbol = "TAG";
 				image: "CHEMIN/images/Logoscrypto/Tagcoin-64x64.png";
 				break;
-				//Takeicoin
-			case 'TAK':
-				symbol = "TAK";
-				break;
-				//Tekcoin
-			case 'TEK':
-				symbol = "TEK";
-				break;
-				//Tigercoin
-			case 'TGC':
-				symbol = "TGC";
-				break;
-				//Unobtanium
-			case 'UNO':
-				symbol = "UNO";
-				break;
-				//Ultracoin
-			case 'UTC':
-				symbol = "UTC";
-				break;
-				//Vertcoin
-			case 'VTC':
-				symbol = "VTC";
-				break;
-				//Worldcoin
-			case 'WDC':
-				symbol = "WDC";
-				break;
-				//Joulecoin
-			case 'XJO':
-				symbol = "XJO";
-				break;
-				//Yacoin
-			case 'YAC':
-				symbol = "YAC";
-				break;
-				//YBcoin
-			case 'YBC':
-				symbol = "YBC";
-				break;
-				//Zetacoin
-			case 'ZET':
-				symbol = "ZET";
-				break;
+			// 	//Takeicoin
+			// case 'TAK':
+			// 	symbol = "TAK";
+			// 	break;
+			// 	//Tekcoin
+			// case 'TEK':
+			// 	symbol = "TEK";
+			// 	break;
+			// 	//Tigercoin
+			// case 'TGC':
+			// 	symbol = "TGC";
+			// 	break;
+			// 	//Unobtanium
+			// case 'UNO':
+			// 	symbol = "UNO";
+			// 	break;
+			// 	//Ultracoin
+			// case 'UTC':
+			// 	symbol = "UTC";
+			// 	break;
+			// 	//Vertcoin
+			// case 'VTC':
+			// 	symbol = "VTC";
+			// 	break;
+			// 	//Worldcoin
+			// case 'WDC':
+			// 	symbol = "WDC";
+			// 	break;
+			// 	//Joulecoin
+			// case 'XJO':
+			// 	symbol = "XJO";
+			// 	break;
+			// 	//Yacoin
+			// case 'YAC':
+			// 	symbol = "YAC";
+			// 	break;
+			// 	//YBcoin
+			// case 'YBC':
+			// 	symbol = "YBC";
+			// 	break;
+			// 	//Zetacoin
+			// case 'ZET':
+			// 	symbol = "ZET";
+			// 	break;
 			default :
 				symbol = "STR";
 				image = "./img/currencies/STR.svg";

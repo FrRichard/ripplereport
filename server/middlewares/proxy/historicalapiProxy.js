@@ -56,16 +56,20 @@ HistoricalapiProxy.prototype.init = function(callback) {
 					var result = transactionsParsing.parse(fetched,address);
 					result = transactions.calculate(result);
 					result['period'] = "custom";
+					res.send(result);
 			} catch(e) {
-					console.log("API sent something unexcepected",e);
+					console.log("API sent something unexcepected FROM THE BLOP",e);
 					try {
+						// res.end(e);
+						var result = e;
 						res.send(e);
 					} catch(e) {
 						console.log("calculandsendSTOP_ERROR",e);
 					}
 			}
 			// try {
-				res.send(result);
+				// console.log(result,"ahhahah");
+				// res.send(result);
 			// } catch(e) {
 			// 	console.log("calculandsendSTOP_ERROR",e);
 			// }
@@ -105,7 +109,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 				}
 				if (error) {
 					console.log('error', error);
-					res.send(500, 'something went wrong')
+					// res.send(500, 'something went wrong')
 				} 
 
 				return result;
@@ -130,7 +134,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 
 			if(data && data.transactions) {
 				if(data.transactions.length == 1000) {
-					i +=1000;
+					i +=1000; 
 					qs.offset = i;
 					var options = {
 							method: 'GET',
@@ -171,7 +175,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 					} else {
 						var result = calcul(qs.period);
 					}
-
+					// console.log(result);
 					send(result);
 				}
 			}
@@ -180,7 +184,7 @@ HistoricalapiProxy.prototype.init = function(callback) {
 		
 		try {
 			var currentRequest = request(options, callback);
-
+			midself.request = currentRequest;
 			allRequest.push(currentRequest);
 			// console.log(allRequest);
 			// console.log("ALLLLLLLREQUEEESSST",allRequest,allRequest.length);
@@ -201,60 +205,60 @@ HistoricalapiProxy.prototype.init = function(callback) {
 
 	});
 
-	this.app.all('/ripple/historicalapi/transactions/*',function(req,res) {
-		req.query.params = JSON.parse(req.query.params);
+// 	this.app.all('/ripple/historicalapi/transactions/*',function(req,res) {
+// 		req.query.params = JSON.parse(req.query.params);
 
-		var options = {
-			method: 'GET',
-			qs: {type: "Payment", result:"tesSUCCESS", limit:1000},
-			rejectUnauthorized: false,
-			url: self.historicalapiProxyHost +"transactions/" + req.query.params.txhash ,
-			headers: {
-				"Content-Type": "application/json",
-				"Accept": "application/json"
-			}
+// 		var options = {
+// 			method: 'GET',
+// 			qs: {type: "Payment", result:"tesSUCCESS", limit:1000},
+// 			rejectUnauthorized: false,
+// 			url: self.historicalapiProxyHost +"transactions/" + req.query.params.txhash ,
+// 			headers: {
+// 				"Content-Type": "application/json",
+// 				"Accept": "application/json"
+// 			}
 
-		};
-		var callback = function(error, response, body) {
+// 		};
+// 		var callback = function(error, response, body) {
 
-			try {
+// 			try {
 				
-				var data = JSON.parse(body);
+// 				var data = JSON.parse(body);
 
-				// var transactionsParsing = new self.requestparsing.account_transactions();
-				// var transactions = new self.datacalcul.transactions();
-				// var datas = transactionsParsing.parse(data,req.query.params.account);
-				// var data = transactions.calculate(datas);
-			} catch(e) {
-				console.log("API sent something unexcepected",e,body);
-			}
+// 				// var transactionsParsing = new self.requestparsing.account_transactions();
+// 				// var transactions = new self.datacalcul.transactions();
+// 				// var datas = transactionsParsing.parse(data,req.query.params.account);
+// 				// var data = transactions.calculate(datas);
+// 			} catch(e) {
+// 				console.log("API sent something unexcepected",e,body);
+// 			}
 	
-			if (error) {
-				console.log('error', error);
-				res.send(500, 'something went wrong')
-			} 
+// 			if (error) {
+// 				console.log('error', error);
+// 				res.send(500, 'something went wrong')
+// 			} 
 
-			if(response.statusCode == 400) {
-				data = {message:'invalid format', result:'error'};
-			}
-			//  else if(response.statuscode == 404) {
-			// 	data = {error:'no_exist'};
-			// }
+// 			if(response.statusCode == 400) {
+// 				data = {message:'invalid format', result:'error'};
+// 			}
+// 			//  else if(response.statuscode == 404) {
+// 			// 	data = {error:'no_exist'};
+// 			// }
 
-			res.status(200).send(data);
-		};
+// 			res.status(200).send(data);
+// 		};
 		
-		try {
-			request(options, callback);
-		} catch(e) {
-			consoole.log("request error",e);
-		}
-	});
+// 		try {
+// 			request(options, callback);
+// 		} catch(e) {
+// 			consoole.log("request error",e);
+// 		}
+// 	});
 
 
-	if(callback) {
-		callback();
-	}
+// 	if(callback) {
+// 		callback();
+// 	}
 
 }
 

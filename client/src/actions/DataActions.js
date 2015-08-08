@@ -10,7 +10,6 @@ var RippledataActions = {
 		var range = range;
 
 		var collection = new rippleexchangerates();
-		console.log("NORMAL RATE",accountslines,range);
 		collection.getExchangerates(accountslines,range).then(function() {
 
 			Dispatcher.handleViewAction({
@@ -44,7 +43,7 @@ var RippledataActions = {
 		// var lines = accountinfo.attributes.lines;
 		var range = range;
 		var collection = new rippleexchangerates();
-		console.log("CAP RATE",queries,range);
+
 		collection.getExchangerates(queries,range).then(function() {
 			
 			Dispatcher.handleViewAction({

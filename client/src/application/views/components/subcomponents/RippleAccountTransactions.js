@@ -307,7 +307,9 @@ var RippleAccountTransactions = React.createClass({
 
     _onLoadingStatus: function() {
     	var loadingstatus = getRippleaccounttransactionsState('status').rippleaccounttransactions.status;
+    	console.log("loadingStatus",loadingstatus);
     	var msg = loadingstatus.msg;
+    	var account = loadingstatus.address;
 
     	if(loadingstatus.date) {
     		var period = loadingstatus.date;
@@ -320,10 +322,11 @@ var RippleAccountTransactions = React.createClass({
     	var uuid = loadingstatus.uuid;
 
 		if(uuid != this.state.uuid ) {
-			// console.log("account has changed!!",this.state,uuid,this.state.uuid);
+			console.log("account has changed!!",uuid,this.state.uuid);
 			this.stopFetching();
 		}
     	this.setState({
+    		account: account,
     		loadingstatus: {
     			msg: msg,
     			from: from,
@@ -412,13 +415,13 @@ var RippleAccountTransactions = React.createClass({
 		if(days !="all" & days !="tx") {
 			params['start'] = moment().subtract(days,'days').format('YYYY-MM-DDThh:mm');
 		}
-
+		console.log('account',this.state,account);
     	AccountActions.accountTransactions([account],params);
     	// console.log(account,params);
     },
 
     stopFetching: function() {
-    	// console.log("stat buttton",this.state);
+    	console.log("STOP FETCHING!",this.state.uuid);
     	PollingActions.stopTransactionRequest(this.state.uuid);
     }
 
