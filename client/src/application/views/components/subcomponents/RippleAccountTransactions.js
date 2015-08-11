@@ -350,10 +350,13 @@ var RippleAccountTransactions = React.createClass({
 		this.address= "address" + key;
 		var rippleaccounttransactions = getRippleaccounttransactionsState("address" + key).rippleaccounttransactions;
 		var data = table_funct.filldata(rippleaccounttransactions[this.address].transactions, ["amount", "time", "direction", "type", "currency"], ["issuer", "counterparty", "txHash", "ledgerIndex"]);
-		console.log("bouuuuuuuuuuuuuuuuuuuh",rippleaccounttransactions[self.address].account, this.state.account);
 		if(rippleaccounttransactions[self.address].account != this.state.account) {
 			var isloading = true;
 		} else {
+			var isloading = false;
+		}
+
+		if(!rippleaccounttransactions[self.address].transactions) {
 			var isloading = false;
 		}
 

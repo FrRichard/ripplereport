@@ -22,7 +22,8 @@ var PaymentTracking = React.createClass({
 			uuid:"",
 			nodes:{},
 			lastFetch: [],
-			isloading: true
+			isloading: true,
+			msg:""
 		};
 	},
 
@@ -39,22 +40,28 @@ var PaymentTracking = React.createClass({
 		} else {
 			var graph = <PaymentGraph id={"PaymentChart"} size={[1030,650]} data={this.state}/>;
 		}
+
 		var fetchList = [];
 		_.each(this.state.lastFetch, function(last) {
 			fetchList.push(<div className="fetchlist"> {last.address} </div>); 
 		});
+
 		var fetchStatus = <div id="fetchstatus">
 			<div> Fetched Address </div>
 			<div> {fetchList} </div>
 		</div>
+
 		var addressDetails = <div id="addressdetails">
 			<div> Address Details </div>
 		</div>;
+
 		var checkOptions = <div id="checkOptions">
 			<input type="checkbox" name="largestPath"/> Highlight largest path <br/>
-			<input type="checkbox" name="cashOut"/> Highligh cash-out paths <br/> <br/>
+			<input type="checkbox" name="cashOut"/> Highligh cash-out paths <br/> 
 			<button id="stopfetchpymnt" onClick={this.stopFetchingAll}> Stop fetching </button>
+			<div id="msg"> {this.state.msg} </div>
 		</div>
+
 		var stopfetch = <button id="stopfetchingbutton" onClick={this.stopFetchingAll} className="loadingbuttonstop_pymnt"> Stop fetching at this point </button>;
 		
 		var control = <div id="pymntcontrole">
@@ -87,12 +94,14 @@ var PaymentTracking = React.createClass({
 	},
 
 	_onPaymentUpdate: function() {
-		// console.log(this.state);
+		console.log("PAYMENTUPDATE!");
+		this.stopFetchingAll();
 		var nodes = PaymentStore.getAll();
 		console.log("nodes",nodes);
 		this.setState({	
 			nodes: nodes,
-			isloading:false
+			isloading:false,
+			msg: Object.keys(nodes).length + " nodes have been analysed"
 		});
 	},
 
@@ -102,7 +111,8 @@ var PaymentTracking = React.createClass({
 		lastList.unshift(last);
 		this.setState({
 			lastFetch: lastList,
-			uuid: last.uuid
+			uuid: last.uuid,
+			msg: lastList.length + " nodes have been analysed"
 		});
 	},
 

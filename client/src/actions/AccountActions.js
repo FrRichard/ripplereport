@@ -230,6 +230,7 @@ var AccountActions = {
 	accounttransactionstrack: function(accounts, reqParams, filterParams) {
 		var self=this;
 		this.recur = true;
+		this.count = 1;
 		Dispatcher.handleViewAction({
 			actionType: Constants.ActionTypes.ADDRESSCHANGE_PYMNTSTORE,
 			result: accounts
@@ -251,7 +252,6 @@ var AccountActions = {
 		var allNodes = [];
 		var uuid = Uuid();
 		LongPollingSocketManager.on(uuid, function(payload) {
-			console.log("COUCOU LONG POLLING!",payload);
 			if(payload.msg == 'stop') {
 				self.recur = false;
 			}
@@ -343,7 +343,10 @@ var AccountActions = {
 								parent: parent,
 								type:type
 							}
-							if(type != "gateway" && type != "hotwallet" && self.recur) {		
+							var isMax = self.isMax();
+
+							if(type != "gateway" && type != "hotwallet" && self.recur && !isMax) {	
+								self.count +=1;
 								explore([account],reqParams,filterParams,currentDepth);
 							} else {
 								gtw = true;
@@ -400,6 +403,15 @@ var AccountActions = {
 
 		this.isHotwallet = function(address) {
 
+		}
+
+		this.isMax = function() {
+			var max = 200; // max point/accounts number
+			if(this.count >= max) {
+				return true
+			} else {
+				return false
+			}
 		}
 
 		this.addressList.push(accounts[0].address);
