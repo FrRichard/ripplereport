@@ -57,9 +57,7 @@ function registerRippleExchangerates(rates) {
 
 function registerRippleCapitalization(caps) {
 	var caps = caps;
-	console.log("cappppppppppsssssSTORE!",caps,datasets);
 	_.each(caps, function(cap) {
-		console.log(cap);
 		datasets[cap.id]['ripplecapitalizations'] = cap;
 	});
 }

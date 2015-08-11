@@ -229,6 +229,7 @@ var AccountActions = {
 
 	accounttransactionstrack: function(accounts, reqParams, filterParams) {
 		var self=this;
+		this.recur = true;
 		Dispatcher.handleViewAction({
 			actionType: Constants.ActionTypes.ADDRESSCHANGE_PYMNTSTORE,
 			result: accounts
@@ -249,7 +250,13 @@ var AccountActions = {
 		this.paymentiteration = 0;
 		var allNodes = [];
 		var uuid = Uuid();
-		console.log('LONGPOOLIGNSHIT',LongPollingSocketManager);
+		LongPollingSocketManager.on(uuid, function(payload) {
+			console.log("COUCOU LONG POLLING!",payload);
+			if(payload.msg == 'stop') {
+				self.recur = false;
+			}
+		});
+
 		LongPollingSocketManager.on(uuid, function (payload) {
 				// console.log(payload);
 			 	function allNodeFetched(endedNodes)  {
@@ -298,6 +305,7 @@ var AccountActions = {
 						result: collection.toJSON()
 					});
 					var payload = collection.toJSON();
+					// console.log("COLLECTION PAYLOAD !!!!", payload);
 					var gtw = false;
 					var gatewayList = [];
 					var id = payload[0].id;
@@ -335,7 +343,7 @@ var AccountActions = {
 								parent: parent,
 								type:type
 							}
-							if(type != "gateway" && type != "hotwallet") {		
+							if(type != "gateway" && type != "hotwallet" && self.recur) {		
 								explore([account],reqParams,filterParams,currentDepth);
 							} else {
 								gtw = true;

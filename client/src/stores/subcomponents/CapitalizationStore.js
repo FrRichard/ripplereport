@@ -9,7 +9,6 @@ var _RippleCapitalizations = {};
 
 function registerCapitalization(result) {
 	var capitalizations = result.toJSON();
-	console.log("CAPAAAP",capitalizations);
 	_.each(capitalizations, function(capitalization) {
 		var caps = [];
 		caps["id"] = capitalization.id

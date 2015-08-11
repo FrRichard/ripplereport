@@ -169,11 +169,11 @@ var RippleAccountTransactions = React.createClass({
 	},
 
 	componentDidUpdate: function() {
-		
+		// console.log("DIDUPDAAAAAAAAAAAAAAAAAAATEEEEEEEEEEEEEEEEEEEEEEEEEEe");	
 	},
 
 	render: function() {
-			// console.log("STATE:",this.state);
+			console.log("STATE:",this.state);
 			var self =this;
 			this.address= "address" + this.props.attributes.reportnumber;
 			var panelstyle = viewcommon.linechart;
@@ -261,7 +261,7 @@ var RippleAccountTransactions = React.createClass({
            			<div className='loadingstatus_date1'>From:{this.state.loadingstatus.from}</div> 
            			<div className='loadingstatus_date2'>To:{this.state.loadingstatus.to} </div>   
            			{this.state.uuid ?
-           				<button onClick={this.stopFetching} className="loadingbuttonstop"> Stop fetching at this date </button> 
+           				<button onClick={this.stopFetching(this.state.uuid)} className="loadingbuttonstop"> Stop fetching at this date </button> 
            			: ''}
            		</div> : ''}
            		{ !this.state.isloading ?
@@ -309,7 +309,6 @@ var RippleAccountTransactions = React.createClass({
     	var loadingstatus = getRippleaccounttransactionsState('status').rippleaccounttransactions.status;
     	console.log("loadingStatus",loadingstatus);
     	var msg = loadingstatus.msg;
-    	var account = loadingstatus.address;
 
     	if(loadingstatus.date) {
     		var period = loadingstatus.date;
@@ -320,11 +319,20 @@ var RippleAccountTransactions = React.createClass({
     		var to = '';
     	}
     	var uuid = loadingstatus.uuid;
-
-		if(uuid != this.state.uuid ) {
-			console.log("account has changed!!",uuid,this.state.uuid);
-			this.stopFetching();
+    	console.log("uuid,this.state.uuid",uuid,this.state.uuid);
+		// if(loadingstatus.msg == "stop") {
+		// 	console.log("account has changed!!",uuid,this.state.uuid);
+		// 	this.stopFetching(uuid)();
+		// } else 
+		if(loadingstatus.msg == "Fetching" && (uuid != this.state.uuid)) {
+			console.log("truuuuuuuuuuuuuuuuuuuuuuuuuuuuuueee");
+			this.stopFetching(this.state.uuid)();
+		} else if(uuid != this.state.uuid){
+			var account = undefined;
+		} else {
+			var account = loadingstatus.address;
 		}
+
     	this.setState({
     		account: account,
     		loadingstatus: {
@@ -340,9 +348,15 @@ var RippleAccountTransactions = React.createClass({
 		var self = this;
 		var key = this.props.attributes.reportnumber;
 		this.address= "address" + key;
-		var isloading = false;
 		var rippleaccounttransactions = getRippleaccounttransactionsState("address" + key).rippleaccounttransactions;
 		var data = table_funct.filldata(rippleaccounttransactions[this.address].transactions, ["amount", "time", "direction", "type", "currency"], ["issuer", "counterparty", "txHash", "ledgerIndex"]);
+		console.log("bouuuuuuuuuuuuuuuuuuuh",rippleaccounttransactions[self.address].account, this.state.account);
+		if(rippleaccounttransactions[self.address].account != this.state.account) {
+			var isloading = true;
+		} else {
+			var isloading = false;
+		}
+
 		if(rippleaccounttransactions[self.address].account) {
 			var account = rippleaccounttransactions[self.address].account;
 		} else {
@@ -415,14 +429,15 @@ var RippleAccountTransactions = React.createClass({
 		if(days !="all" & days !="tx") {
 			params['start'] = moment().subtract(days,'days').format('YYYY-MM-DDThh:mm');
 		}
-		console.log('account',this.state,account);
     	AccountActions.accountTransactions([account],params);
     	// console.log(account,params);
     },
 
-    stopFetching: function() {
-    	console.log("STOP FETCHING!",this.state.uuid);
-    	PollingActions.stopTransactionRequest(this.state.uuid);
+    stopFetching: function(uuid) {
+    	return function() {
+    		console.log("STOP FETCHING!",uuid);
+    		PollingActions.stopTransactionRequest(uuid);
+    	}
     }
 
 

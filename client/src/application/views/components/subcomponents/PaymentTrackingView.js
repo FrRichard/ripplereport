@@ -6,6 +6,7 @@ var PaymentSummaryStore = require('AccountTransactionsStore');
 var IdStore = require('IdStore');
 var PaymentGraph = require('PaymentGraphReact');
 var PaymentSummary = require('RippleAccountTransactions');
+var LongPollingSocketManager = require('LongPollingSocketManager');
 
 
 var PaymentTracking = React.createClass({
@@ -87,7 +88,6 @@ var PaymentTracking = React.createClass({
 
 	_onPaymentUpdate: function() {
 		// console.log(this.state);
-		console.log("NODEUPDAAAAATRTTTETE");
 		var nodes = PaymentStore.getAll();
 		console.log("nodes",nodes);
 		this.setState({	
@@ -104,7 +104,6 @@ var PaymentTracking = React.createClass({
 			lastFetch: lastList,
 			uuid: last.uuid
 		});
-		console.log(this.state);
 	},
 
 	_cleanLastFetch: function() {
@@ -157,6 +156,8 @@ var PaymentTracking = React.createClass({
 	},
 
 	stopFetchingAll: function() {
+		console.log("----------------------------------STOP-------------------------------");
+		LongPollingSocketManager.emit('stopRecur');
 		PollingActions.stopTransactionRequest(this.state.uuid);
 	}
 

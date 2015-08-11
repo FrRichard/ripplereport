@@ -23,7 +23,6 @@ var RippledataActions = {
 
 	exchangerates_capitalization: function(caps,range) {
 		//Parsing needed by the collection
-		console.log(caps);
 		 var lines = [];
 		 lines["lines"] = [];
 		 lines["id"] = caps[0].id;
