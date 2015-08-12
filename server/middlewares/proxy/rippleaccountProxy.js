@@ -31,8 +31,11 @@ RippleaccountProxy.prototype.init = function(callback) {
 				console.log('error', error);
 				res.send(500, 'something went wrong')
 			} 
-		
-			res.status(response.statusCode).send(body);
+			try {
+				res.status(response.statusCode).send(body);
+			} catch(e) {
+				console.log(e);
+			}
 		};
 		request(options, callback);
 	});

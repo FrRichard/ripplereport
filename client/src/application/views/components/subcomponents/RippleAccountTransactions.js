@@ -326,7 +326,6 @@ var RippleAccountTransactions = React.createClass({
 		// 	this.stopFetching(uuid)();
 		// } else 
 		if(loadingstatus.msg == "Fetching" && (uuid != this.state.uuid)) {
-			console.log("truuuuuuuuuuuuuuuuuuuuuuuuuuuuuueee");
 			this.stopFetching(this.state.uuid)();
 		} else if(uuid != this.state.uuid){
 			var account = undefined;
@@ -350,7 +349,7 @@ var RippleAccountTransactions = React.createClass({
 		var key = this.props.attributes.reportnumber;
 		this.address= "address" + key;
 		var rippleaccounttransactions = getRippleaccounttransactionsState("address" + key).rippleaccounttransactions;
-		console.log("account transactions !!!!",rippleaccounttransactions);
+
 		var data = table_funct.filldata(rippleaccounttransactions[this.address].transactions, ["amount", "time", "direction", "type", "currency"], ["issuer", "counterparty", "txHash", "ledgerIndex"]);
 		if(rippleaccounttransactions[self.address].account != this.state.account) {
 			var isloading = true;

@@ -201,7 +201,6 @@ var AccountActions = {
 
 			params.uuid = Uuid();
 			LongPollingSocketManager.on(params.uuid, function (payload) {
-				console.log("RECEIVING MSG FROM TX SOCKET STATUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUSSSS",payload);
 				Dispatcher.handleServerAction({
 					actionType: Constants.ActionTypes.LOADINGSTATUS_ACCOUNTTRANSACTIONS,
 					result: payload
@@ -211,7 +210,6 @@ var AccountActions = {
 			var dataroom = params.uuid;
 			var collection = new rippleaccounttransactions();
 			collection.createAccountTransactionsList(accounts,params).then(function(result) {
-				console.log("RESULLLLLTTTTT ACTION NNNNNNNNNN");
 				Dispatcher.handleViewAction({
 					actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS,
 					result: collection.toJSON()
@@ -231,7 +229,7 @@ var AccountActions = {
 	accounttransactionstrack: function(accounts, reqParams, filterParams) {
 		var self=this;
 		this.recur = true;
-		this.count = 1;
+
 		Dispatcher.handleViewAction({
 			actionType: Constants.ActionTypes.ADDRESSCHANGE_PYMNTSTORE,
 			result: accounts
@@ -246,10 +244,10 @@ var AccountActions = {
 		});
 		this.isdispatched = false;
 		this.fetched = [];
-		this.paymentiteration = 0;
+		this.max = 300;
 		var allNodes = [];
 		var uuid = Uuid();
-		console.log("ACTION TRACKING!",uuid);
+
 		LongPollingSocketManager.on(uuid, function(payload) {
 			if(payload.msg == 'stop') {
 				self.recur = false;
@@ -287,9 +285,10 @@ var AccountActions = {
 		var explore = function(accounts, reqParams, filterParams,depth) {
 			var collection = new rippleaccounttransactions();
 			reqParams['uuid'] = uuid;
-
-			if(depth >= 0) {
+			
+			if(depth >= 0 && self.max >=0) {
 				var currentDepth = depth - 1 ;
+
 				collection.createAccountTransactionsList(accounts,reqParams).then(function() {
 
 					function registerNode(arg) {
@@ -321,7 +320,7 @@ var AccountActions = {
 					var parent = accounts[0].address;
 					var i = 0;
 					var j = 0;
-					while(i<filterParams.width && j<top10.length) {
+					while(i<filterParams.width && j<top10.length && self.max > 0) {
 
 						var address = top10[j].counterparty;
 						var type = self.isGateway(address);
@@ -342,12 +341,13 @@ var AccountActions = {
 								parent: parent,
 								type:type
 							}
-							var isMax = self.isMax();
-
-							if(type != "gateway" && type != "hotwallet" && self.recur && !isMax) {	
-								self.count +=1;
-								explore([account],reqParams,filterParams,currentDepth);
+						
+							if(type != "gateway" && type != "hotwallet" && self.recur) {
+								console.log(self.max);
+								explore([account],reqParams,filterParams,currentDepth);								
+								self.max -= 1;					
 							} else {
+								self.max -= 1;	
 								gtw = true;
 								account["account"] = account.address;
 								endedNodes[account.address] = true;
@@ -360,6 +360,7 @@ var AccountActions = {
 				}).then(function() {
 					// check if every request came back
 					endedNodes[accounts[0].address] = true;
+					// console.log("everything is fetched",allNodeFetched(endedNodes), allNodes.length, endedNodes, allNodes);
 					if(self.isdispatched == false) {
 						function allNodeFetched(endedNodes)  {
 							for(var node in endedNodes) {
@@ -402,15 +403,6 @@ var AccountActions = {
 
 		this.isHotwallet = function(address) {
 
-		}
-
-		this.isMax = function() {
-			var max = 200; // max point/accounts number
-			if(this.count >= max) {
-				return true
-			} else {
-				return false
-			}
 		}
 
 		this.addressList.push(accounts[0].address);

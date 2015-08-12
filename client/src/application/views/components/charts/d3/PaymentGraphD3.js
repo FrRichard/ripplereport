@@ -25,7 +25,10 @@ PaymentGraph.prototype.init = function(el, data, id, size) {
 	    .attr( 'height', this.height  )
 	    .attr('pointer-events', 'all')
     .append('svg:g')
-  	  .call(d3.behavior.zoom().on("zoom",redraw))
+  //   	.attr('transform',
+		// "translate(0,0)"
+		// + " scale(1)")
+  	    .call(d3.behavior.zoom().on("zoom",redraw))
   	.append('svg:g');
 
   	this.svg.append('svg:rect')
@@ -90,7 +93,7 @@ PaymentGraph.prototype.draw = function(el, data, id) {
     	.attr('class', 'node');
 
     this.node.exit().remove();
-
+    console.log("NODES", this.nodes);
     this.force.on('tick', function() {
 	    self.node
 	    .attr('cx', function(d) {  
@@ -195,7 +198,8 @@ PaymentGraph.prototype.draw = function(el, data, id) {
     	self.removeNameLabel();
     });
 
-	// this.force.start();
+	// this.svg.transition().attr("transform", "translate("+self.width/2+","+self.height/2+") scale(0.5)");
+
 
 }
 
