@@ -200,10 +200,18 @@ var AccountActions = {
 		var explore = function(accounts, params) {
 
 			params.uuid = Uuid();
+			LongPollingSocketManager.on(params.uuid, function (payload) {
+				console.log("RECEIVING MSG FROM TX SOCKET STATUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUSSSS",payload);
+				Dispatcher.handleServerAction({
+					actionType: Constants.ActionTypes.LOADINGSTATUS_ACCOUNTTRANSACTIONS,
+					result: payload
+				});
+			});
+			console.log("ACTION TRANSACTIONS",params,accounts);
 			var dataroom = params.uuid;
 			var collection = new rippleaccounttransactions();
 			collection.createAccountTransactionsList(accounts,params).then(function(result) {
-				// LongPollingSocketManager.emit('leave-dataroom', 'payment');
+				console.log("RESULLLLLTTTTT ACTION NNNNNNNNNN");
 				Dispatcher.handleViewAction({
 					actionType: Constants.ActionTypes.ASK_RIPPLEACCOUNTTRANSACTIONS,
 					result: collection.toJSON()
@@ -213,13 +221,6 @@ var AccountActions = {
 			Dispatcher.handleViewAction({
 				actionType: Constants.ActionTypes.ISLOADING_ACCOUNTTRANSACTIONS,
 				result: collection.toJSON()
-			});
-			LongPollingSocketManager.on(params.uuid, function (payload) {
-				// console.log("RECEIVING MSG FROM TX SOCKET",payload);
-				Dispatcher.handleServerAction({
-					actionType: Constants.ActionTypes.LOADINGSTATUS_ACCOUNTTRANSACTIONS,
-					result: payload
-				});
 			});
 		}
 
@@ -237,20 +238,18 @@ var AccountActions = {
 		});
 
 		var GatewayNames = require('GatewayNames');
-		LongPollingSocketManager._callbacks = {};
+		// LongPollingSocketManager._callbacks = {};
 		var endedNodes = [];
 		this.addressList = [];
-			LongPollingSocketManager.on("stopAll", function() {
-				// console.log("stop all the shit!");
-			});
-			LongPollingSocketManager.once('leave-dataroom', function (payload) {
-				// console.log("leave-dataroom transaction socket",payload);
-			});
+		LongPollingSocketManager.once('leave-dataroom', function (payload) {
+			// console.log("leave-dataroom transaction socket",payload);
+		});
 		this.isdispatched = false;
 		this.fetched = [];
 		this.paymentiteration = 0;
 		var allNodes = [];
 		var uuid = Uuid();
+		console.log("ACTION TRACKING!",uuid);
 		LongPollingSocketManager.on(uuid, function(payload) {
 			if(payload.msg == 'stop') {
 				self.recur = false;

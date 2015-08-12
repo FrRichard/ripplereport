@@ -58,8 +58,8 @@ var PaymentTracking = React.createClass({
 		var checkOptions = <div id="checkOptions">
 			<input type="checkbox" name="largestPath"/> Highlight largest path <br/>
 			<input type="checkbox" name="cashOut"/> Highligh cash-out paths <br/> 
-			<button id="stopfetchpymnt" onClick={this.stopFetchingAll}> Stop fetching </button>
-			<div id="msg"> {this.state.msg} </div>
+			<button id="stopfetchpymnt" onClick={this.stopFetchingAll}> Stop fetching </button> <br/>
+			<div id="msg"> {this.state.msg} </div> 
 		</div>
 
 		var stopfetch = <button id="stopfetchingbutton" onClick={this.stopFetchingAll} className="loadingbuttonstop_pymnt"> Stop fetching at this point </button>;

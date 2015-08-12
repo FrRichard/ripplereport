@@ -54,7 +54,7 @@ var SearchBar = React.createClass({
 		this.address = "address" + this.toresolve.length;
 
 		this.conf = Config.dashboards.paymenttracking;
-		this.conf['reportnumber']= this.toresolve.length;
+		this.conf['reportnumber'] = this.toresolve.length;
 		DashboardActions.registerconf(this.conf);				
 
 		_.each(gatewaysnames, function(gateway) {
@@ -70,12 +70,10 @@ var SearchBar = React.createClass({
 			// console.log("=========================++++>VIEW detects Address");
 			this.type = "address";
 			Actions.addresstrack(this.toresolve);
-			this.startTracking(e);
 		} else if(this.toresolve[0][0] == "~") {
 			// console.log("==========================++++>VIEW detects ~name");
 			this.type = "id"
 			Actions.idtrack(this.toresolve);
-			this.startTracking(e);
 		}
 
 	},
@@ -158,11 +156,7 @@ var SearchBar = React.createClass({
     _onWrongId: function() {
     	var self = this;
     	this.setState({isloading:"nonvalid"});
-    },
-
-   	startTracking: function(e) {
-
-	},
+    }
 
 });
 

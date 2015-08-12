@@ -167,7 +167,7 @@ var Router = Backbone.Router.extend({
         DashboardActions.registerconf(conf);
 
         // React.render(<Account params={params}/>, document.getElementById('app'));
-        React.render(<PaymentTrackingMain searchBar = {SearchbarTracking} title = "Payment Tracking"/>, document.getElementById('app'));
+        React.render(<PaymentTrackingMain searchBar={SearchbarTracking} title="Payment Tracking"/>, document.getElementById('app'));
     }
 
 

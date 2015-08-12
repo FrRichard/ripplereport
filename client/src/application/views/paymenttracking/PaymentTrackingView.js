@@ -54,15 +54,13 @@ var App = React.createClass({
 
     _onRightId_fromIdStore: function() {
     	var address = RippleidStore.getSpecific("address1")["address1"];
-    	// console.log("adreeeeeeeeeeeeessssssssssssssss ID",address);
-        // AccountActions.viewready(idcollection,"id");
+
         AccountActions.accountTransactions(address.raw.toJSON());
-         PaymentStore.cleanAll();
+        PaymentStore.cleanAll();
         var params = ParametersManagerConfig.transactiontrackingparams;
 		var width = $('#selectWidth').val();
 		var depth = $('#selectDepth').val();
 		var currency = $('#selectCurrency').val();
-		// var address = $('.searchinput').val().trim();
 		var filterParams = {
 			depth: depth,
 			width: width,
@@ -73,14 +71,14 @@ var App = React.createClass({
 			id: address.address,
 			parent: "origin"
 		};
-        // AccountActions.accounttransactionstrack([account], params, filterParams);
+        AccountActions.accounttransactionstrack([account], params, filterParams);
     	this.setState({page:"report"});
     },
 
     _onRightId_fromInfosStore: function() {
     	var idcollection = RippleinfosStore.getSpecific("address1")["address1"];
     	var address = idcollection.infos;
-  //       // AccountActions.viewready(idcollection,"address");
+
         AccountActions.accountTransactions(address);
         PaymentStore.cleanAll();
         var params = ParametersManagerConfig.transactiontrackingparams;
@@ -98,7 +96,7 @@ var App = React.createClass({
 			id: address,
 			parent: "origin"
 		};
-    	// console.log("IDCOLLUECTIONNNN",idcollection,address,"account",account,"filterparams",filterParams);
+
         AccountActions.accounttransactionstrack([account], params, filterParams);
     	this.setState({page:"report"});
     }

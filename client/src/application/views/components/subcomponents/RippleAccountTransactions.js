@@ -155,6 +155,7 @@ var RippleAccountTransactions = React.createClass({
 		
 		var key = this.props.attributes.reportnumber;
 		var address = "address" + key;
+		console.log("ADDDRESSSSSSS",address);
 		//Listener
 		RippleaccounttransactionsStore.addChangeListener('isloading', this._onLoading);
 		RippleaccounttransactionsStore.addChangeListener('loadingstatus', this._onLoadingStatus);
@@ -349,15 +350,15 @@ var RippleAccountTransactions = React.createClass({
 		var key = this.props.attributes.reportnumber;
 		this.address= "address" + key;
 		var rippleaccounttransactions = getRippleaccounttransactionsState("address" + key).rippleaccounttransactions;
+		console.log("account transactions !!!!",rippleaccounttransactions);
 		var data = table_funct.filldata(rippleaccounttransactions[this.address].transactions, ["amount", "time", "direction", "type", "currency"], ["issuer", "counterparty", "txHash", "ledgerIndex"]);
 		if(rippleaccounttransactions[self.address].account != this.state.account) {
 			var isloading = true;
 		} else {
 			var isloading = false;
 		}
-
 		if(!rippleaccounttransactions[self.address].transactions) {
-			var isloading = false;
+			isloading = false;
 		}
 
 		if(rippleaccounttransactions[self.address].account) {
