@@ -4,7 +4,7 @@ var cluster = require('cluster');
 var argv = require('minimist')(process.argv.slice(2));
 console.dir(argv);
 
-var port = argv.p || process.env.PORT || 9090;
+var port = argv.p || process.env.PORT || 9080;
 var isDev = argv.d || false;
 var isDeployed = argv.b || false;
 
