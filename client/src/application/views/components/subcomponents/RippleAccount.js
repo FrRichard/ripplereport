@@ -64,7 +64,6 @@ var RippleAccount = React.createClass({
       rippleinfos=getRippleinfosState("address"+key)["rippleinfos"];
       ripplelines=getRipplelinesState("address"+key)["ripplelines"];
       isloading=true;
-      //console.log("RIPPLEIDVIEWWWW",rippleids);
       return { rippleids:rippleids, rippleinfos:rippleinfos, ripplelines:ripplelines, isloading:isloading };
  
     },
@@ -280,41 +279,3 @@ var RippleAccount = React.createClass({
 });
 
 module.exports = RippleAccount;
-
-
-
-    // former getinitialestate()
-    // // initialize data structure for the first rendering. Not an anti-pattern. Fuck you. 
-      // rippleids[this.props.attributes.key] = {
-      //   address: "",
-      //   blobvault: "",
-      //   emailVerified: "",
-      //   id:"",
-      //   identity_verified:"",
-      //   exists: "",
-      //   username: "", 
-      //   recoverable: "",
-      //   profile_verified: "",
-      //   reserved: ""
-      // };
-      // rippleinfos[this.props.attributes.key] = {
-      //   account_data: {
-      //     Account: "",
-      //     Balance: "mescouilles",
-      //     Flags: "",
-      //     LedgerEntryType: "",
-      //     OwnerCount: "",
-      //     PreviousTxnID: "",
-      //     PreviousTxnLgrSeq: "",
-      //     Sequence: "",
-      //     index: ""
-      //   },
-      //   ledger_current_index: "",
-      //   validated: ""
-      // };
-      // ripplelines[this.props.attributes.key] = {
-      //    account: "",
-      //    ledger_current_index: "",
-      //    lines: [{}],
-      //    validated: false
-      // };

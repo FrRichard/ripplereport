@@ -24,13 +24,11 @@ function registerLastFetch(result) {
 
 function longestPath() {
 	_.each(_Payments, function(data, key) {
-		// console.log(data,key);
 	});
 }
 
 function registerStatus(status) {
 	_Payments['status'] = status;
-	// console.log("_RippleAccountTransactionsStore",_RippleAccountTransactions);
 }
 
 var PaymentsStore = assign({}, EventEmitter.prototype, {
@@ -100,10 +98,6 @@ PaymentsStore.dispatcherIndex = Dispatcher.register(function(payload) {
 			PaymentsStore.emitEvent('addresschange');
 			break;
 
-		// case Constants.ActionTypes.LOADINGSTATUS_ACCOUNTTRANSACTIONS:
-		// 	registerStatus(action.result);
-		// 	PaymentsStore.emitLoading('loadingstatus');
-		// 	break;
   	}
 
 

@@ -10,9 +10,6 @@ class UserStore extends AbstractStore.Model {
 
     handleDispatch(payload) {
         switch (payload.actionType) {
-            // case constants.USER_LOADED:
-            // this.reset();
-            // this.(payload.user);
             break;
         }
     }

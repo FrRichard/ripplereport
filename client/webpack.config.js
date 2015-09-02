@@ -244,7 +244,7 @@ module.exports = {
 			backbone: path.join(__dirname, './lib/bower_components/backbone/backbone'),
 			bootstrap: path.join(__dirname, './lib/bower_components/bootstrap/dist/js/bootstrap'),
 			jquery: path.join(__dirname, './lib/bower_components/jquery/dist/jquery'),
-			lodash: path.join(__dirname, './lib/bower_components/lodash/dist/lodash'),
+			//lodash: path.join(__dirname, './lib/bower_components/lodash/dist/lodash'),
 			modernizr: path.join(__dirname, './lib/bower_components/modernizr/modernizr'),
 			jsSchema: path.join(__dirname, './lib/bower_components/js-schema/js-schema.debug'),
 			chance: path.join(__dirname, './lib/bower_components/chance/chance'),

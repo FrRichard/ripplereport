@@ -70,7 +70,6 @@ var PaymentTracking = React.createClass({
 				{fetchStatus}
 				{addressDetails}
 			</div>;
-				// <input type="checkbox" name="vehicle" value="Bike"/>I have a bike</br>
 
 		return (
 			<div className="panel panel-default">
@@ -95,10 +94,8 @@ var PaymentTracking = React.createClass({
 	},
 
 	_onPaymentUpdate: function() {
-		console.log("PAYMENTUPDATE!");
 		this.stopFetchingAll();
 		var nodes = PaymentStore.getAll();
-		console.log("nodes",nodes);
 		this.setState({	
 			nodes: nodes,
 			isloading:false,
@@ -118,7 +115,6 @@ var PaymentTracking = React.createClass({
 	},
 
 	_cleanLastFetch: function() {
-		// console.log("cleaaaaaaaaaaaaaaaaaaaaaaannnnnn");
 		this.setState({
 			lastFetch: [],
 			isloading:true
@@ -126,48 +122,15 @@ var PaymentTracking = React.createClass({
 	},
 
 	_onAddressToName: function() {
-		// var nameObject = IdStore.getAll()["address1"];
-		// var name = IdStore.getAll()["address1"].username;
-		// var address = IdStore.getAll()["address1"].address;
-		// var res = {
-		// 	name:name,
-		// 	address:address
-		// }
-		// var nodes = this.state.nodes;
-
-		// if(this.state.address  == address) {
-		// 	this.setState({
-		//  		name:name
-		// 	});
-		// }
-
-		// _.each(nodes, function(node, key) {
-		//  	if(address == key){
-		// 		node['name'] = name;
-		// 	}
-		// });
-		// this.setState({
-		// 	nodes:nodes
-		// });
+		
 	
 	},
 
 	addAddressToList: function(list,all) {
-		// var self = this;
-		// _.each(list, function(address) {
-		// 	var exists = _.find(self.addressList, function(listed) {
-		// 		return address == listed;
-		// 	});
-		// 	if(!exists) {
-		// 		self.addressList.push(address);
-		// 		Actions.rippleid([address]);
-		// 	}
-
-		// });
+		
 	},
 
 	stopFetchingAll: function() {
-		console.log("----------------------------------STOP-------------------------------");
 		LongPollingSocketManager.emit('stopRecur');
 		PollingActions.stopTransactionRequest(this.state.uuid);
 	}

@@ -14,12 +14,10 @@ function registerAccountTransactions(result) {
 	_.each(accounttransactions, function(accounttransaction) {
 		_RippleAccountTransactions[accounttransaction.id] = accounttransaction;
 	});
-	console.log("_RippleAccountTransactionsStore",_RippleAccountTransactions);
 };
 
 function registerStatus(status) {
 	_RippleAccountTransactions['status'] = status;
-	console.log("_RippleAccountTransactionsStore",_RippleAccountTransactions);
 }
 
 var RippleaccounttransactionsStore = assign({}, EventEmitter.prototype, {

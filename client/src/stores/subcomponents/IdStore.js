@@ -26,8 +26,6 @@ function registerId(result) {
 		_RippleIddatas[addr.id]["loading"] = false;
 		_RippleIddatas[addr.id]["raw"] = result;
 	});
-	
-	// console.log("_RippleIdStore",_RippleIddatas);
 };
 
 var RippleidStore = assign({}, EventEmitter.prototype, {

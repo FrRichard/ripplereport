@@ -30,8 +30,6 @@ var Account = React.createClass({
     },
 
 	componentDidMount: function() {
-        // var idcollection = RippleidStore.getSpecific("address1")["address1"]["raw"];
-        // AccountActions.viewready(idcollection);
         GridStore.addChangeListener(this._onChangeGrid);
 	},
 	

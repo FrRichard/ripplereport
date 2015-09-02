@@ -16,7 +16,6 @@ var gatewayNames = require('GatewayNames');
 
 function registerAccountOverviews(result) {
 	_RippleAccountOverviews = result;
-	// console.log('_RippleAccountOverviews',_RippleAccountOverviews);
 }
 
 function createStoreObject(datasets) {
@@ -171,7 +170,6 @@ function calculateFiatTotal(shares,fiat,issuer) {
 var RippleaccountoverviewsStore = assign( {}, EventEmitter.prototype, {
 	getAll: function() {
 		return _RippleAccountOverviews;
-		// return datasets;
 	},
 
 	getSpecific:function(key) {

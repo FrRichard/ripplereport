@@ -25,7 +25,6 @@ PieChart.prototype.initChart = function(el,data,id,size) {
 			.attr("class","piechart_overview")
 		.append("g")
 			.attr("transform", "translate("+ (self.width/2 +self.margin.left) + "," + self.height/2 + ")");
-			// .attr("transform", "translate("+ self.margin.left + "," + self.margin.top + ")");
 			
 	this.colors = SvgCommon.colors.currencies;
 	
@@ -182,18 +181,14 @@ PieChart.prototype.draw = function(el,datas,id) {
 		.attr('dy',12)
 		.attr("class","piecharthiddenLabel");
 
-	// console.log("PIECHARTLABEL",d3.selectAll(".piechartLabel"));
 	var piechartlabel = d3.selectAll(".piechartLabel");
 	var prev;
 
 	_.each(piechartlabel[0], function(label,i) {
-		// console.log("LABEL!",d3.select(label).attr("class","piecharthiddenLabel"));
-		// console.log(label.getBoundingClientRect(),i);
 		
 		if(i > 0) {
 			var thisbb = label.getBoundingClientRect();
 			var prevbb = prev.getBoundingClientRect();
-			// console.log("===========+++>AJUST!",label,thisbb,prevbb);
 			if(!(thisbb.right < prevbb.left || 
                 thisbb.left > prevbb.right || 
                 thisbb.bottom < prevbb.top || 
@@ -213,7 +208,6 @@ PieChart.prototype.nodata = function(el) {
 }
 
 PieChart.prototype.remove = function(el) {
-	// d3.select(el).remove();
 };
 
 

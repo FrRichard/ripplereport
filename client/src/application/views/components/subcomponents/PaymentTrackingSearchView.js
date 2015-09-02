@@ -50,7 +50,6 @@ var SearchBar = React.createClass({
 
 		var input = $('#search input').val().trim();
 		this.toresolve = input.split(",");
-		// console.log("===================+++> USER INPUT",this.toresolve);
 		this.address = "address" + this.toresolve.length;
 
 		this.conf = Config.dashboards.paymenttracking;
@@ -67,11 +66,9 @@ var SearchBar = React.createClass({
 		
 
 		if(addressvalidator.decode(this.toresolve[0])) {
-			// console.log("=========================++++>VIEW detects Address");
 			this.type = "address";
 			Actions.addresstrack(this.toresolve);
 		} else if(this.toresolve[0][0] == "~") {
-			// console.log("==========================++++>VIEW detects ~name");
 			this.type = "id"
 			Actions.idtrack(this.toresolve);
 		}
@@ -84,7 +81,6 @@ var SearchBar = React.createClass({
 	},
 
 	render: function(){
-				// 	<input onKeyPress={this.handleKeyPress} type="text"  placeholder="Enter a azdazdazripple address" className="searchinput"/>	
 			var selector = <div id="pymnttrackingselector">
 				<label htmlFor={"selectWidth"}> Width </label>
 				<select id={"selectWidth"} defaultValue={10}>
@@ -118,7 +114,6 @@ var SearchBar = React.createClass({
 					<option value="XRP"> XRP </option>
 				</select> 
 			</div>; 
-		// console.log("====================LOADSTATE================",this.state.isloading);
 		if(!this.state.isloading) {
 			var searchlogo = <i  onClick={this.handleClick}   className="fa fa-search searchbutton"></i>;
 		} 

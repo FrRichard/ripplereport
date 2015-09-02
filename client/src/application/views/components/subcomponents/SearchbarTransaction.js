@@ -12,7 +12,6 @@ var SearchBar = React.createClass({
 
 	componentDidMount: function() {
 		TransactionStore.addChangeListener("transaction0",this._onChangeTransaction);
-		// TransactionStore.addChangeListener("isloading"), this.isloading);
 	},
 
 
@@ -36,11 +35,9 @@ var SearchBar = React.createClass({
 	},
 
 	onFocusInput: function() {
-		// $('.transaction_errormsg').remove();
 	}, 
 
 	render: function(){
-		console.log("====================LOADSTATE================",this.state);
 		if(!this.state.isloading) {
 			var searchlogo = <i  onClick={this.handleClick}   className="fa fa-search searchbutton"></i>;
 		} 

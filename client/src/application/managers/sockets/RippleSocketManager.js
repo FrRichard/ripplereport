@@ -13,17 +13,6 @@ var SocketManager = function() {
 SocketManager.getInstance = function() {
 	if(instance === null) {
 		instance = io('http://localhost:9090/rippletrade');
-        // instance = io('/rippletrade');
-        
-
-        // instance.on('connect', function() {
-        //     console.log('ripple_data socket connected!')
-        // });
-
-        // instance.on('disconnect', function() {
-        //     console.log('ripple_data socket disconnected!')
-        // });
-
 		return instance;
 
 	}

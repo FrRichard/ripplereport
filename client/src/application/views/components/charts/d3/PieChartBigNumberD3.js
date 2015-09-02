@@ -18,10 +18,8 @@ PieChart.prototype.initChart = function(el,data,id,size) {
 	this.svg = d3.select(el).append("svg")
 			.attr("width", self.width + this.margin.right + this.margin.left)
 			.attr("height",self.height + this.margin.top + this.margin.bottom)
-			// .attr("class","PieChart_bignumber")
 		.append("g")
 			.attr("transform", "translate("+ (self.width/2 +self.margin.left) + "," + self.height/2 + ")");
-			// .attr("transform", "translate("+ self.margin.left + "," + self.margin.top + ")");
 			
 	this.colors = SvgCommon.colors.currencies;
 	
@@ -84,10 +82,6 @@ PieChart.prototype.draw = function(el,datas,id) {
 			});
 
 	this.g.append("text")
-		// .attr("text-anchor", function(d) {
-		//     // are we past the center?
-		//     return (d.endAngle + d.startAngle)/2 > Math.PI ? "end" : "start";
-		// })	
 		.text(function(d) {
 			return d.data.type;
 		})
@@ -120,12 +114,10 @@ PieChart.prototype.draw = function(el,datas,id) {
 		.attr("class","piecharthiddenLabel");
 
 
-	// this.g.exit().remove();
 };
 
 
 PieChart.prototype.remove = function(el) {
-	// d3.select(el).remove();
 };
 
 

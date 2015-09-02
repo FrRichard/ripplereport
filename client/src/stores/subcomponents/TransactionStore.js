@@ -13,7 +13,6 @@ function registerTransaction(result) {
 	_.each(transactions, function(transaction) {
 		_Transaction[transaction.id] = transaction;
 	});
-	console.log("_Transaction",_Transaction);
 };
 
 var TransactionStore = assign({}, EventEmitter.prototype, {
@@ -33,7 +32,6 @@ var TransactionStore = assign({}, EventEmitter.prototype, {
 		var transactions = result.toJSON();
 		_.each(transactions, function(transaction) {
 			self.emit(transaction.id);
-			console.log(transaction.id,"EMIT!");
 		});
 	},
 

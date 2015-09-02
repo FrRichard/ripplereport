@@ -16,7 +16,6 @@ function addDataroom(dataroom) {
 	}
 	_Datarooms['all'].push(dataroom);
 	_Datarooms['current'] = dataroom;
-	console.log('dataroomStore(current pair update)', _Datarooms['current']);
 };
 
 function registerRipplePairs(pairs) {
@@ -26,7 +25,6 @@ function registerRipplePairs(pairs) {
 	}
 
 	_Datarooms['pairs'] = pairs;
-	console.log('dataroomStore(available pairs update', _Datarooms['pairs']);
 }
 
 var DataroomsStore = assign({}, EventEmitter.prototype, {
@@ -79,7 +77,6 @@ Dispatcher.register(function(payload) {
 
   		case Constants.ActionTypes.REGISTER_RIPPLEPAIRS:
   		 	registerRipplePairs(action.result);
-  			// DataroomsStore.emitChange();
   		 	break;
   	}
 

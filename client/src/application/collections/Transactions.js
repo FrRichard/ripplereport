@@ -18,11 +18,11 @@ var transactions = Backbone.Collection.extend({
 			var model = new transaction({id:id},t);
 			var xhr = model.fetch({
 				success: function(model,response) {
-					console.log("responseee");
+					//console.log("responseee");
 					self.add(model);
 				},
 				error: function(error) {
-					console.log("erooooor",error);
+					//console.log("erooooor",error);
 				}
 			});       
 			return xhr;       

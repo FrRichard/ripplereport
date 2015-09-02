@@ -11,16 +11,8 @@ var ParametersManager = function ParametersManager() {
 
 ParametersManager.prototype.init = function(callback) {
     var self = this;
-    // this.items.fetch({
-    //     type: 'POST',
-    //     success: function() {
-            self.initInternalParams();
-            self.isInit = true;
-    //         if (callback) {
-    //             callback();
-    //         }
-    //     }
-    // });
+    self.initInternalParams();
+    self.isInit = true;
 };
 
 
@@ -39,62 +31,35 @@ ParametersManager.prototype.updateUserInputParams = function(params) {
 };
 
 ParametersManager.prototype.getDefaultPairs = function(item) {
-//  if (typeof config.defaultPairs[item] !== 'undefined') {
-//             return config.defaultPairs[item];
-//         } 
 };
 
 ParametersManager.prototype.computeUrl = function(params) {
-    // return 'app?item=' + params.item + "&platform=" + params.platform + "&currency=" + params.currency;
     var sep = '/';
     return 'price?'+ params.item + sep + params.currency + sep +  params.platform;
 };
 
 ParametersManager.prototype.changeGlobalPair = function(channel) {
-    // console.log("paraametersManager: CHANGE GLOBAL PAIR!!",channel);
     var params = {};
     params.item = channel.split("/")[0];
     params.currency = channel.split("/")[1];
     params.platform = channel.split("/")[2];
-    // params.platform = platform || this.currentParams.platform;
     var url = this.computeUrl(params);
     Backbone.history.navigate(url, true);
-    // return false;
 };
 
 ParametersManager.prototype.changeGlobalPlatform = function(platformId, pairId) {
-    // var params = config.defaultplatforms[platformId];
-    // params.platform = platformId;
-    // if (pairId) {
-    //     params.item = pairId.split("/")[0];
-    //     params.currency = pairId.split("/")[1];
-    // }
-    // var url = this.computeUrl(params);
-    // Backbone.history.navigate(url, true);
-    // return false;
+    
 };
 
 ParametersManager.prototype.changeGlobalItem = function(itemid) {
-    // var params = config.defaultitems[itemid];
-    // params.item = itemid;
-    // var url = this.computeUrl(params);
-    // Backbone.history.navigate(url, true);
-    // return false;
+  
 };
 ParametersManager.prototype.getCurrentPlatformPairs = function() {
-//     var platform = this.currentParams.platform;
-//     return this.platforms.findByName(platform);
+
 };
 
 ParametersManager.prototype.getPlatformByPairId = function(pairId) {
-    // var result;
-    // _.each(this.platforms.models, function(model) {
-    //     if (_.contains(model.pairs, pairId))  {
-    //         result = model.id;
-    //         return;
-    //     }
-    // });
-    // return result;
+  
 };
 /* Getters */
 ParametersManager.prototype.getCurrentParams = function() {
@@ -121,10 +86,10 @@ ParametersManager.prototype.getCurrencies = function() {
 ParametersManager.instance = null;
 
 ParametersManager.getInstance = function() {
-        if (this.instance === null) {
-            this.instance = new ParametersManager();
-        }
-        return this.instance;
+    if (this.instance === null) {
+        this.instance = new ParametersManager();
+    }
+    return this.instance;
 };
 
 

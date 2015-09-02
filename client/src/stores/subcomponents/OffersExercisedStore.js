@@ -31,7 +31,6 @@ function registerOffersExercised(result,sum) {
 			_.extend(_RippleOffersExercised[offerexercised.id], offerexercised);
 		});
 	}
-	// console.log("__RippleOffersExercisedStore",_RippleOffersExercised);
 };
 
 var RippleoffersexercisedStore = assign({}, EventEmitter.prototype, {
@@ -90,7 +89,6 @@ RippleoffersexercisedStore.dispatcherIndex = Dispatcher.register(function(payloa
 		case Constants.ActionTypes.ASK_RIPPLEOFFERSEXERCISED_SUM:
 			registerOffersExercised(action.result,true);
 			RippleoffersexercisedStore.emitChange(action.result,"true");
-			// RippleoffersexercisedStore.emitChange(action.result); 
 			break;
   	}
 

@@ -47,7 +47,6 @@ var SearchBar = React.createClass({
 
 		var input = $('#search input').val();
 		this.toresolve = input.split(",");
-		// console.log("===================+++> USER INPUT",this.toresolve);
 		this.address = "address" + this.toresolve.length;
 
 		this.conf = Config.dashboards.account;
@@ -64,11 +63,9 @@ var SearchBar = React.createClass({
 		
 
 		if(addressvalidator.decode(this.toresolve[0])) {
-			// console.log("=========================++++>VIEW detects Address");
 			this.type = "address";
 			AccountActions.addresstrack(this.toresolve);
 		} else if(this.toresolve[0][0] == "~") {
-			// console.log("==========================++++>VIEW detects ~name");
 			this.type = "id"
 			AccountActions.idtrack(this.toresolve);
 		}
@@ -81,7 +78,6 @@ var SearchBar = React.createClass({
 	},
 
 	render: function(){
-		// console.log("====================LOADSTATE================",this.state.isloading);
 		if(!this.state.isloading) {
 			var searchlogo = <i  onClick={this.handleClick}   className="fa fa-search searchbutton"></i>;
 		} 
@@ -123,23 +119,3 @@ var SearchBar = React.createClass({
 });
 
 module.exports = SearchBar;
-		
-
-
-
-		// RippledataActions.markettraders(null,true); //FULL MARKETTRADERS
-
-		// var params = {
-		// 		base : {
-		// 		    currency : "XRP",
-		// 		    issuer : "",
-		// 		},
-		// 		counter : {
-		// 		    currency : "USD" ,
-		// 		    issuer   : "rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B"
-		// 		},
-		// 		period : "7d",
-		// 		transactions:"true",
-		// 		format:"json"
-		// }
-		// RippledataActions.markettraders([params],false);

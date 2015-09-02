@@ -21,8 +21,6 @@ function decode(payload) {
 
         // if we encounter an invalid character, decoding fails
         if (p === undefined) {
-            // throw new Error('invalid base58 string: ' + payload);
-            console.log('ainvalid address format');
             return false;
         }
 
@@ -38,7 +36,6 @@ function decode(payload) {
 
     var hex = num.toString(16);
 
-    // num.toString(16) does not have leading 0
     if (hex.length % 2 !== 0) {
         hex = '0' + hex;
     }

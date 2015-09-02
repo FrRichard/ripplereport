@@ -21,8 +21,6 @@ OffersExercisedTotal.prototype.parse = function(data) {
 
 OffersExercisedTotal.prototype.draw = function(chartId, data) {
 	var self = this;
-	console.log("DATAAAAAAAAA",chartId,data);
-	console.log("drawwwwwwwwwww");
 	this.x.domain([0, d3.max(data.summary.amount)])
 	data=[data.summary.amount];
 	d3.select("#"+chartId)

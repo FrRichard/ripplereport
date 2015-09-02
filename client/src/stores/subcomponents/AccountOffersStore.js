@@ -10,12 +10,10 @@ var _RippleAccountOffers = {};
 function registerAccountOffers(result) {
 
 	var offers = result.toJSON();
-	// console.log(infos);
 
 	_.each(offers, function(offer) {
 		_RippleAccountOffers[offer.id] = offer;
 	});
-	// console.log("_RippleAccountOffersStore",_RippleAccountOffers);
 };
 
 var RippleaccountoffersStore = assign({}, EventEmitter.prototype, {

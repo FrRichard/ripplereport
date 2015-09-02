@@ -187,11 +187,9 @@ var AccountActions = {
 		var i = 0;
 		var params = params || ParametersManagerConfig.transactionparams;
 		LongPollingSocketManager.once('connect', function (socket) {
-			console.log("CONNECTED TO TRANSACTIONS SOCKET");
 		});
 
 		LongPollingSocketManager.on("stop", function(dataroom) {
-			// console.log("REQUEST HAS BEEN STOPPED!",dataroom);
 		});
 
 		// LongPollingSocketManager.emit("stop",dataroom);
@@ -206,7 +204,7 @@ var AccountActions = {
 					result: payload
 				});
 			});
-			console.log("ACTION TRANSACTIONS",params,accounts);
+			//console.log("ACTION TRANSACTIONS",params,accounts);
 			var dataroom = params.uuid;
 			var collection = new rippleaccounttransactions();
 			collection.createAccountTransactionsList(accounts,params).then(function(result) {

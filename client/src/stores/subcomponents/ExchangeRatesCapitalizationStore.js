@@ -14,7 +14,6 @@ function registerExchangerates(result) {
 		if(!_Rippleexchangeratescapitalization[exchangerate.id] ) { _Rippleexchangeratescapitalization[exchangerate.id] = {};} 
 		_Rippleexchangeratescapitalization[exchangerate.id] = _.extend(_Rippleexchangeratescapitalization[exchangerate.id],exchangerate);
 	});
-	// console.log("_Rippleexchangerates_capitalization_Store",_Rippleexchangeratescapitalization);
 };
 
 var RippleexchangeratescapitalizationStore = assign({}, EventEmitter.prototype, {

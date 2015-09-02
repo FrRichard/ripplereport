@@ -21,7 +21,6 @@ parametersManagerConfig.transactiontrackingparams = {
     min_sequence:1
 };
 
-console.log('FUCKING QSSSSSS',parametersManagerConfig.transactionparams);
 
 parametersManagerConfig.rippleDefaultplatforms = {
 	BITSTAMP: {

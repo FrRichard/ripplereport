@@ -10,13 +10,9 @@ var _Grids = {};
 function registercurrentref(gridster) {
 	_Grids['current'] = gridster;
 };
-// function registercurrent(id) {
-// 	_Grids[id]=_Grids['current'].outerHTML;
-// };
 
 function registerconf(conf) {
 	_Grids['currentconf'] = conf;
-	// console.log("_GRIDSTORE",_Grids);
 };
 
 var GridStore = assign({}, EventEmitter.prototype, {

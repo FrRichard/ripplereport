@@ -21,7 +21,7 @@ var RippleAccountOffers = Backbone.Collection.extend({
 						self.add(model);
 					}, 
 					error: function(error) {
-						console.log("FETCHERROR_rippleaccountoffers",error);
+						//console.log("FETCHERROR_rippleaccountoffers",error);
 					}			
 			}); 
 			return xhr;       

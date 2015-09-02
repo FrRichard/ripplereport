@@ -21,11 +21,9 @@ var Register = React.createClass({
 			url: '/user/register',
 			success: function(response) {
 				store.set('auth', response);
-				console.log(store.get('auth'));
 				window.location.href = "/app";
 			},
 			error: function(response){
-				console.log(response);
 			}
 		});
 	},

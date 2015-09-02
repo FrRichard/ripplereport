@@ -28,9 +28,6 @@ var RippleAccountTransactionStats = React.createClass({
 	componentDidMount: function() {
 		var key = this.props.attributes.reportnumber;
 		var address = "address" + key;
-		// instanciation & initialition du chart
-   		//this.barchart = new BarChart(this.chartId);
-   		// store listener
 		RippleaccounttransactionstatsStore.addChangeListener(address, this._onChangeRippleaccounttransactionstats);
 	},
 

@@ -25,15 +25,12 @@ lineChart.prototype.draw = function(chartId,data) {
 		.key(function(d) { return d.currency;})
 		.entries(this.data);
 	this.data = this.nestedData[1].values[0].values;
-	console.log("nesteddataaaaaaaaaaaaaa",this.nestedData);
 
 
-	console.log("linechartdataaaaaaaaaaa",data);
 	this.xAxis = d3.svg.axis().scale(this.x).orient("bottom").ticks(5);
 	this.yAxis = d3.svg.axis().scale(this.y).orient("left").ticks(5);
 
 	this.valueline = d3.svg.line()
-		// .interpolate("monotone")
 		.x(function(d) { return this.x(Date.parse(d.time)); })
 		.y(function(d) { return this.y(d.amount); });
 
@@ -46,7 +43,6 @@ lineChart.prototype.draw = function(chartId,data) {
 
 		this.x.domain(d3.extent(this.data, function(d) {  return Date.parse(d.time);  }));
 		this.y.domain([0, d3.max(this.data, function(d) { return d.amount;})]);
-		// this.y.domain([d3.min(this.data, function(d) { return d.amount;}), d3.max(this.data, function(d) { return d.amount;})]);
 
 		this.svg.append("path").attr("d", this.valueline(this.data));
 
@@ -60,7 +56,6 @@ lineChart.prototype.draw = function(chartId,data) {
 			.call(this.yAxis);
 
 
-	// console.log("dataaaaaaaaaaaaa",data);
 
 }
 

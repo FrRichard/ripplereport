@@ -12,7 +12,6 @@ var RippleAccountTransactionStats = Backbone.Collection.extend({
 	createAccountTransactionStatsList: function(accounts) {
 		var self = this;
 		this.reset();
-		console.log(accounts);
 		var xhrs = _.map(accounts, function(account) {
 			var model = new RippleAccountTransactionStat({id:account.id},account.address);
 			var xhr = model.fetch({

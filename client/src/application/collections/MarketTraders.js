@@ -20,7 +20,7 @@ var RippleMarketTraders = Backbone.Collection.extend({
 			var xhr = model.fetch({
 				success: function(model,response) {
 					self.add(model);
-					console.log("modeeelll",model);
+					//console.log("modeeelll",model);
 				}
 			});       
 			return xhr;       

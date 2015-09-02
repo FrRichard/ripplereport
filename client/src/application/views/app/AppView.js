@@ -16,7 +16,6 @@ var App = React.createClass({
 	},
 
 	componentDidMount: function() {
-		// RippleidStore.addChangeListener("wrongaddress" ,this._onWrongId);
 		RippleidStore.addChangeListener("rightaddress_fromidstore" ,this._onRightId_fromIdStore);
 		RippleinfosStore.addChangeListener("rightaddress_frominfosstore" ,this._onRightId_fromInfosStore);
 	},

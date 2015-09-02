@@ -107,7 +107,6 @@ var RippleCapitalization = React.createClass({
 		} else {
 			this.setState({ ripplecapitalization:false,
 			isloading:isloading});
-			// this._onEmptyCap(["ripplecapitalization","capitalizationoverview"]);
 		}
 	},
 

@@ -23,7 +23,6 @@ function registerTrade(result) {
 		if(_RippleTrade[pair][trade.platform].length >= 10) { _RippleTrade[pair][trade.platform].pop();}
 
 	});
-	console.log("RippleTradeStore",_RippleTrade);
 };
 
 var RippleTradeStore = assign({}, EventEmitter.prototype, {
@@ -44,10 +43,8 @@ var RippleTradeStore = assign({}, EventEmitter.prototype, {
 	emitChange: function(result) {
 		var self=this;
 		var trades = result;
-		console.log("STORE_EMITTER => TRADES",trades);
 		_.each(trades, function(trade) {
 			var channel = trade.platform + ':' + trade.item + ':' + trade.currency;
-			console.log("emitter_channel:", channel);
 			self.emit(channel);
 		});
 	},

@@ -22,7 +22,7 @@ var RippleLines = Backbone.Collection.extend({
 						// RippledataActions.exchangerates(model,i);
 					}, 
 					error: function(error) {
-						console.log("FETCHERROR_ripplelines",error);
+						//console.log("FETCHERROR_ripplelines",error);
 					}			
 			}); 
 			return xhr;       

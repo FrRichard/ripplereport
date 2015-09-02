@@ -8,7 +8,7 @@ var Trade = Backbone.Model.extend({
 	initialize: function(params) {
 		this.params = params;
 		RippleSocketManager.once('connect', function (socket) {
-			console.log("CONNECTED TO /rippletrade SOCKET");
+			//console.log("CONNECTED TO /rippletrade SOCKET");
 
 		});
 		this.test = [];
@@ -21,47 +21,31 @@ var Trade = Backbone.Model.extend({
 		//remove old event listener (get old props & remove)
 		var updateCallback = function(payload) {
 			
-			// console.log("oooooooooooooouuuuuuh LE PAYLOAD",payload);
 			self.test.push(payload.data);
-			console.log("MODEL_UPDATE",self.test);
 		    var objTrade = payload.data;
-		    // if(objTrade.volumeitem != 0) {
-		    	self.update(objTrade);
-		    // }
-		    console.log("THIS!",self);
+	    	self.update(objTrade);
 		};
 		//   var eventId
 		if (this.isListening) {
 
 			eventId = this.eventIdUpdate('ASK');
-			console.log("REMOVE_MODEL_LISTENER",eventId);
-			// RippleSocketManager.removeAllListeners(eventId,function(id) {
-			// 	console.log("REMOVE FUCKING LISTENRET",id);
-			// });
 			delete RippleSocketManager._callbacks[eventId];
 
 			eventId = this.eventIdUpdate('BID');
-			console.log("REMOVE_MODEL_LISTENER",eventId);
-			// RippleSocketManager.removeAllListeners(eventId,function(id) {
-			// 	console.log("REMOVE FUCKING LISTENRET",id);
-			// });
 			delete RippleSocketManager._callbacks[eventId];
 
 		}
 		this.set('platform', this.params.platform);
 		this.set('currency', this.params.currency);
 		this.set('item', this.params.item);
-		// this.set('type', this.params.type);
 		// SET NEW LISTENER
 		RippleSocketManager.once('enter-dataroom', function(payload) {
 			console.log("model====> enterdatarooom",payload);
 			if(payload.isReversed == false) {
 				var eventId = self.eventIdUpdate('ASK');
 				RippleSocketManager.on(eventId, updateCallback);
-				console.log("MODEL_CURRENT_LISTENER",eventId);
 				eventId = self.eventIdUpdate('BID');
 				RippleSocketManager.on(eventId, updateCallback);
-				console.log("MODEL_CURRENT_LISTENER",eventId);
 			} else {
 				var eventId = self.eventIdUpdate('ASK',true);
 				RippleSocketManager.on(eventId, updateCallback);
@@ -80,7 +64,6 @@ var Trade = Backbone.Model.extend({
 	update: function(payload) {
 		var self = this;
 		if(payload) {
-			console.log("UPDATE_MODEL ========================>",payload);
 			this.set('type', payload.type);
 			this.set('price', payload.price);
 			this.set('volumeitem', payload.volumeitem);
@@ -102,7 +85,6 @@ var Trade = Backbone.Model.extend({
 	},
 
 	toString: function() {
-		// ?
 	}
 
 

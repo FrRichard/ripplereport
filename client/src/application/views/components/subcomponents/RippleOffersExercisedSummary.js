@@ -70,9 +70,6 @@ var RippleOffersExercisedSummary = React.createClass({
 		var ofexsum_total = viewcommon.ofexsum_total;
 		var rows = [];
 		var rows_total = [];
-	     // var name = _.filter(gatewayNames,function(gateway) {
-      //   return gateway.address == share.issuer;
-   		 // });
 	
 		if(this.state.rippleoffersexercisedsummary[this.address] ) {
 			var summarybase =Object.keys(this.state.rippleoffersexercisedsummary[this.address].summary.currencies["base"]);

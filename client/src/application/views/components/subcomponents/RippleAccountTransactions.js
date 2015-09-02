@@ -115,13 +115,10 @@ var RippleAccountTransactions = React.createClass({
 		        cell: (value, celldata, rowIndex, property) => {
 
 		            var collapse = table_funct.collapsable;
-		            // var details = collapse.details;
-		            // var button;
 		            var issuer = { address:celldata[rowIndex].hiddenprops.issuer };
 		            var counterparty = { address:celldata[rowIndex].hiddenprops.counterparty };
 		            var txhash = { txhash:celldata[rowIndex].hiddenprops.txHash };
 		            var ledgerindex = { ledgerindex:celldata[rowIndex].hiddenprops.ledgerIndex };
-		            // !collapse.iscollapsed ?  button = "fa fa-chevron-down" :  button = ""; 
 		    		var content = "<tr>" +
 		    			" <td style='max-width:0px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;'> <span> LedgerIndex: <a href=/app?"+JSON.stringify(ledgerindex)+" target='_blank'>" + celldata[rowIndex].hiddenprops.ledgerIndex +"</a> </span>" +
 		    			"</br><span > TxHash: <a href=/transaction?"+JSON.stringify(txhash)+" target='_blank'>  " + celldata[rowIndex].hiddenprops.txHash +" </a> </span></td>" + 
@@ -155,7 +152,6 @@ var RippleAccountTransactions = React.createClass({
 		
 		var key = this.props.attributes.reportnumber;
 		var address = "address" + key;
-		console.log("ADDDRESSSSSSS",address);
 		//Listener
 		RippleaccounttransactionsStore.addChangeListener('isloading', this._onLoading);
 		RippleaccounttransactionsStore.addChangeListener('loadingstatus', this._onLoadingStatus);
@@ -170,11 +166,9 @@ var RippleAccountTransactions = React.createClass({
 	},
 
 	componentDidUpdate: function() {
-		// console.log("DIDUPDAAAAAAAAAAAAAAAAAAATEEEEEEEEEEEEEEEEEEEEEEEEEEe");	
 	},
 
 	render: function() {
-			console.log("STATE:",this.state);
 			var self =this;
 			this.address= "address" + this.props.attributes.reportnumber;
 			var panelstyle = viewcommon.linechart;
@@ -308,7 +302,6 @@ var RippleAccountTransactions = React.createClass({
 
     _onLoadingStatus: function() {
     	var loadingstatus = getRippleaccounttransactionsState('status').rippleaccounttransactions.status;
-    	console.log("loadingStatus",loadingstatus);
     	var msg = loadingstatus.msg;
 
     	if(loadingstatus.date) {
@@ -320,11 +313,6 @@ var RippleAccountTransactions = React.createClass({
     		var to = '';
     	}
     	var uuid = loadingstatus.uuid;
-    	console.log("uuid,this.state.uuid",uuid,this.state.uuid);
-		// if(loadingstatus.msg == "stop") {
-		// 	console.log("account has changed!!",uuid,this.state.uuid);
-		// 	this.stopFetching(uuid)();
-		// } else 
 		if(loadingstatus.msg == "Fetching" && (uuid != this.state.uuid)) {
 			this.stopFetching(this.state.uuid)();
 		} else if(uuid != this.state.uuid){
@@ -433,12 +421,10 @@ var RippleAccountTransactions = React.createClass({
 			params['start'] = moment().subtract(days,'days').format('YYYY-MM-DDThh:mm');
 		}
     	AccountActions.accountTransactions([account],params);
-    	// console.log(account,params);
     },
 
     stopFetching: function(uuid) {
     	return function() {
-    		console.log("STOP FETCHING!",uuid);
     		PollingActions.stopTransactionRequest(uuid);
     	}
     }

@@ -52,26 +52,11 @@ var Price =  React.createClass({
     render: function() {
         var self = this;
         var options = [];
-        console.log("===============RENDER=================",this.state);
       
         if(!this.state.data.price) {
             var page = <div> This Pair Is Not Available </div>;
         } else if(this.state.isReversed) {
-            // var option = <option value={this.state.data.currency+ "/XRP/" + this.state.platform} >  {this.state.data.currency + '/' + this.state.data.item} </option>;
-            // options.push(option);
-            // _.each(this.state.availablePairs, function(platform,currency) {
-            //     if(currency != self.state.data.currency) {
-            //         var option = <option value={currency+"/XRP/" + platform}>  {currency}/XRP  </option>;
-            //         options.push(option);
-            //     }
-            // });
-
-            // var _price = <span>
-            //                 <div> {1/this.state.data.price}  </div>
-            //             </span>;
-            // var _select = <select onChange = {this._changePair}> 
-            //                 {options}                           
-            //              </select>;
+          
         } else {
             var price = Math.trunc(this.state.data.price*Math.pow(10,8))/Math.pow(10,8);
             var _price = <span>

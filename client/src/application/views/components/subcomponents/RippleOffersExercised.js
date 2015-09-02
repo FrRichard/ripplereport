@@ -29,7 +29,6 @@ var RippleOffersExercised = React.createClass({
 	componentDidMount: function() {
 		var key = this.props.attributes.reportnumber;
 		var address = "address" + key +"sum";
-		// this.linechart = new linechart(this.chartId);
 
 		RippleoffersexercisedStore.addChangeListener(address, this._onChangeRippleOffersExercised);
 		RippleoffersexercisedStore.addChangeListener('isloading', this._onLoading);

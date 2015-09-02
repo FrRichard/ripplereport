@@ -69,10 +69,6 @@ var AccountOverview = React.createClass({
       var currencyimgsrc =FormatUtils.formatCurrencyLabel(this.state.optlist.selectedcurrency[0]).image;
       var currencyimg = <img className="currencyimgoverview" src={currencyimgsrc}/> 
       total.push(<div key={"totalfiat"} className="totalfiat">{currencyimg} {FormatUtils.formatValue(this.state.totalfiat.amount)}</div> );
-      // total.push(<div>Total value in &nbsp;</div>);
-      // total.push(<div className="totalcurrencyimg">{this.state.optlist.selectedcurrency[0]}</div>);
-      // total.push(<div className="gatewayname"> { this.state.totalfiat.name } </div> );
-      // total.push(<div className="issuer"> { this.state.totalfiat.issuer } </div> );
   
     } else {
       var optionlist = undefined;      
