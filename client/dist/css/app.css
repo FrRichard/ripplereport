@@ -11629,8 +11629,18 @@ striping:
 .paymentgraph {
   background-color: #02061D; }
 
+.gateway {
+  fill: red;
+  stroke: #fff;
+  stroke-width: 2px; }
+
 .node {
   stroke: #fff;
+  stroke-width: 2px; }
+
+.selectedNode {
+  fill: #F2CF1D;
+  stroke: #535c51;
   stroke-width: 2px; }
 
 .link {

@@ -12,8 +12,20 @@
 	background-color: #02061D;
 }
 
+.gateway {
+    fill: red;
+    stroke: #fff;
+    stroke-width: 2px;
+}
+
 .node {
     stroke: #fff;
+    stroke-width: 2px;
+}
+
+.selectedNode {
+    fill:#F2CF1D;
+    stroke:rgb(83, 92, 81);
     stroke-width: 2px;
 }
 
@@ -98,3 +110,4 @@
     float:right;
     margin-right: 2em;
 }
+

@@ -1,6 +1,6 @@
 var d3 = require('d3');
 var DataHelper = require('DataHelper');
-
+var PaymentStore = require('PaymentStore');
 
 function PaymentGraph(el, data, id, size){
 	this.init(el, data, id, size);
@@ -110,7 +110,7 @@ PaymentGraph.prototype.draw = function(el, data, id) {
 	    	if(d.parent == 'origin') {
 	    		return 'green';
 	    	} else if(d.type == 'gateway') {
-	    		return 'red';
+	    		d3.select(this).attr("class","gateway");
 	    	} else {
 	    		return '#ccc';
 	    	}
@@ -139,6 +139,17 @@ PaymentGraph.prototype.draw = function(el, data, id) {
 	    .on("mouseout", function(d) {
 	    	d3.select("#label-"+d3.select(this).attr("data-id")).remove();
 
+	    })
+	    .on("click", function(d) {
+	    	console.log(d3.select(this).classed("selectedNode"));
+	    	if(d3.select(this).classed("selectedNode")) {
+	    		d3.select(".selectedNode").classed("selectedNode",false);
+	    	} else {
+	    		d3.select(".selectedNode").classed("selectedNode",false);
+	    		d3.select(this).attr("class","selectedNode");
+	    	}
+	    	var id = d.id;
+	    	self.showAddressDetails(PaymentStore.getAll()[id]);
 	    });
 
 	    self.link.attr('x1', function(d) {  return d.source.x ; })
@@ -203,6 +214,10 @@ PaymentGraph.prototype.draw = function(el, data, id) {
 
 }
 
+PaymentGraph.prototype.showAddressDetails = function(details) {
+	console.log("details", details);
+	// var details = PaymentStore.getAll()[id];
+}
 
 PaymentGraph.prototype.update = function(el, data, id) {
 	var self = this;

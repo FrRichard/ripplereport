@@ -53,6 +53,7 @@ var PaymentTracking = React.createClass({
 
 		var addressDetails = <div id="addressdetails">
 			<div> Address Details </div>
+			<div> Click on a node to see details </div>
 		</div>;
 
 		var checkOptions = <div id="checkOptions">

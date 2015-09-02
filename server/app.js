@@ -17,7 +17,7 @@ App.prototype.start = function(options) {
         })
         .then(function() {
             self.initProxies();
-            self.initWebsockets();
+            // self.initWebsockets();
             self.initSockets();
             self.initUserAPI();
             self.initClientRoutes();
@@ -44,8 +44,8 @@ App.prototype.initManagers = function() {
     // this.cronJobManager.start();
 
     return Q.all([
-        this.initEventManager(),
-        this.initRedisAndCacheManager()
+        this.initEventManager()
+        // this.initRedisAndCacheManager()
         // this.initMongoManager()
     ]);
 };
