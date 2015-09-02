@@ -90,12 +90,12 @@ var SearchBar = React.createClass({
 		}
 
 		if(this.state.isloading == "nonvalid") {
-			var searchlogo = <i id="searchwrongid" className="fa fa-times checkwrongid"></i>;
+			var searchlogo = <i onClick={this.handleClick}   className="fa fa-search searchbutton"></i>;
 			var errormsg = <div className ="errormsg"> This ~name or address has not been found </div>;
 		}
 
 		return ( 
-		 <div id="search" className="search_account">
+		 <div id="search" className="search search_account">
 			<input onKeyPress={this.handleKeyPress} type="text"  placeholder="Enter a ripple address or a ~name" className="searchinput"/>			
 			{searchlogo}
 			{errormsg}

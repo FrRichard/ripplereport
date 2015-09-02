@@ -7702,7 +7702,8 @@ button.close {
 
 body {
   font-family: "lato", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  height: 100%; }
 
 p {
   font-size: 20px; }
@@ -7710,13 +7711,12 @@ p {
 p.small {
   font-size: 16px; }
 
-a,
 a:hover,
 a:focus,
 a:active,
 a.active {
   outline: 0;
-  color: #18bc9c; }
+  text-decoration: none; }
 
 h1,
 h2,
@@ -7832,6 +7832,9 @@ section.success {
   color: #fff;
   background: #004756; }
 
+section.first {
+  padding-top: 15%; }
+
 @media (max-width: 767px) {
   section {
     padding: 75px 0; }
@@ -7840,6 +7843,7 @@ section.success {
 
 #feature .feature-item {
   right: 0;
+  top: 50%;
   margin: 0 0 15px; }
 
 #feature .feature-item i {

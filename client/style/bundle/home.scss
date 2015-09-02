@@ -8,6 +8,7 @@
 body {
     font-family: "lato", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
     overflow-x: hidden;
+    height:100%;
 }
 
 p {
@@ -18,13 +19,17 @@ p.small {
     font-size: 16px;
 }
 
-a,
+
+a{
+    
+}
 a:hover,
 a:focus,
 a:active,
 a.active {
     outline: 0;
-    color: #18bc9c;
+    //color: #428BCA;
+    text-decoration:none;
 }
 
 h1,
@@ -185,6 +190,9 @@ section.success {
     color: #fff;
     background: #004756;
 }
+section.first {
+    padding-top: 15%;
+}
 
 @media(max-width:767px) {
     section {
@@ -198,6 +206,7 @@ section.success {
 
 #feature .feature-item {
     right: 0;
+    top: 50%;
     margin: 0 0 15px;
 }
 

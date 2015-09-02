@@ -21,6 +21,7 @@
 
 .searchbutton {
 	display:inline;
+	cursor: pointer;
 }
 
 .errormsg {
@@ -31,8 +32,126 @@
   width:50%;
 }
 
+.search {
+  position: relative;
+  margin-left: 20px;
+}
+
+.search > input {
+  width: 95%;
+  background: #dfdfdf;
+  border: 1px solid #C7C7C7;
+  text-shadow:0 1px 1px #EEE;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  color: #686868;
+  line-height: 1em;
+  height: 2em;
+  padding: 0 35px 0 10px;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.search > input + i {
+  position: absolute;
+  top: 0.5em;
+  right: -1.5em;
+  color: #004756;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.search > input + #searchvalidid {
+  color: #3EA751;
+}
+
+.search > input + #searchwrongid {
+  color: #F40808;
+}
+
+
+
+.search > input + img {
+  position: absolute;
+  top: 0.5em;
+  right: -1.5em;
+  color: #004756;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.search > input:focus + i {
+  opacity:1;
+}
+
+.search > input:focus + img {
+  opacity:1;
+}
 
 
 #ripplelogo {
 	float:left;
+}
+@media screen and (min-width: 801px) {
+	#ripplelogo {
+		height:2.5em;
+		margin-left:3%;
+		margin-top:1%;
+	}
+
+	#rippletitle {
+		margin-left: 15%;
+		font-size: 2em;
+	}
+
+	#bigsearch {
+		margin-left: -15%;
+		margin-top: -9em;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 30em;
+		height:9em;
+
+	}
+}
+
+@media screen and (max-width: 800px) {
+	#ripplelogo {
+		height:1em;
+		margin-left:3%;
+		margin-top:1%;
+	}
+
+	#rippletitle {
+		margin-left: 15%;
+		font-size: 1em;
+	}
+
+	#bigsearch {
+		margin-left: -6em;
+		margin-top: -2.25em;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 14em;
+		height:7em;
+
+	}
+
+	#search > input {
+		height: 2em;
+		font-size:0.75em;
+	}
+
+	#search > input + i {
+		top:0.4em;
+	}
 }

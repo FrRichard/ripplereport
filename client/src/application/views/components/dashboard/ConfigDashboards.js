@@ -62,7 +62,7 @@ var Config = {
 	          row: 7,
 	          datatype:"RippleAccountTransactionsSummary"
 	        },
-	        {
+	        /*{
 	          key: 'keyfact7',
 	          title:'Offers Exercised',
 	          icon:'fa fa-area-chart',
@@ -81,7 +81,7 @@ var Config = {
 	          col: 1,
 	          row: 11,
 	          datatype:"RippleOffersExercisedSummary"
-	        },
+	        },*/
 	        {
 	          key: 'keyfact9',
 	          title:'Ongoing offers',
@@ -147,7 +147,7 @@ var Config = {
 	          row: 4,
 	          datatype:"RippleAccountTransactionsSummary"
 	        },
-	        {
+	        /*{
 	          key: 'keyfact7',
 	          title:'Offers Exercised',
 	          icon:'fa fa-area-chart',
@@ -166,7 +166,7 @@ var Config = {
 	          col: 1,
 	          row: 8,
 	          datatype:"RippleOffersExercisedSummary"
-	        },
+	        },*/
 	        {
 	          key: 'keyfact9',
 	          title:'Ongoing offers',

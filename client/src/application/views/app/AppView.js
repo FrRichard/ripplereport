@@ -27,7 +27,7 @@ var App = React.createClass({
     	if(this.state.page == "welcome") {
 			var page =   
 				<div id="bigsearch">
-			      	<div className="expanded-panel">
+			      	<div>
 			       		<div>
 				         	<div>
 					        	<Panel>
