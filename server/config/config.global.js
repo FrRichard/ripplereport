@@ -34,7 +34,8 @@ config.rippledataapiproxy.port = "";
 config.rippledataapiproxy.methodsUrls = {
 	exchange_rates: config.rippledataapiproxy.host +"exchange_rates",
 	issuer_capitalization: config.rippledataapiproxy.host + "issuer_capitalization",
-	account_offers_exercised: config.rippledataapiproxy.host + "account_offers_exercised",
+	account_offers_exercised: config.rippledataapiproxy.host + "accountoffersexercised",
+	// account_offers_exercised: "https://data.ripple.com/v2/accounts",
 	account_transactions: config.rippledataapiproxy.host + "account_transactions",
 	account_transaction_stats: config.rippledataapiproxy.host + "account_transaction_stats",
 	market_traders: config.rippledataapiproxy.host + "market_traders",

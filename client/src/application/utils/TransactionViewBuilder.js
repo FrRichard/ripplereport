@@ -2,9 +2,9 @@ var React = require('react');
 var transactionParser = require('ripple-lib-transactionparser');
 var Table = require('react-bootstrap').Table;
 var FormatUtils = require("FormatUtils");
-var BigNumber = require("bignumber");
+var BigNumber = require("BigNumber");
 var AccountActions = require("AccountActions");
-var IdStore = require("RippleidStore");
+var IdStore = require("IdStore");
 var rawJson = require("RawJson");
 
 
@@ -376,7 +376,7 @@ var Build = {
 	},
 
 	memo: function(data) {
-		if(data.transaction.tx.Memos[0].Memo) {
+		if(data.transaction.tx.Memo && data.transaction.tx.Memos[0].Memo) {
 			var format = data.transaction.tx.Memos[0].Memo.parsed_memo_format;
 			var type =data.transaction.tx.Memos[0].Memo.parsed_memo_type;
 		} else {

@@ -3,7 +3,7 @@ var Config = require('Config');
 var ParametersManagerConfig = require('ParametersManagerConfig');
 //View
 var App = require('App');
-var Transaction = require('Transaction');
+var TransactionView = require('TransactionView');
 var Price = require('Price');
 var Features = require('Features');
 var PaymentTrackingMain = require('PaymentTrackingMain');
@@ -85,7 +85,8 @@ var Router = Backbone.Router.extend({
             var params = JSON.parse(params);
             RippledataActions.transaction([params]);
         } 
-        React.render(<Transaction />, document.getElementById('app'));
+        // console.log(TransactionView);
+        React.render(<TransactionView />, document.getElementById('app'));
     },
 
     price: function(params) {

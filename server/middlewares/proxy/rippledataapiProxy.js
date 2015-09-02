@@ -69,7 +69,7 @@ RippledataapiProxy.prototype.init = function(callback) {
 			body:parameters
 
 		};
-
+		console.log("OPTION.URLLLLLLLLLLLLLLLLL",options.url);
 		if(JSON.parse(req.query.account).timeIncrement == null) {
 			var callback = function(error, response, body) {
 				if (error) {

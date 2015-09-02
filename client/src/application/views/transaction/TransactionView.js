@@ -4,7 +4,7 @@ var Dashboard = require('Dashboard');
 var Searchbar = require('SearchbarTransaction');
 var Topbar = require('Topbar');
 var TransactionStore = require('TransactionStore');
-var IdStore = require("RippleidStore");
+var IdStore = require("IdStore");
 var AccountActions = require("AccountActions");
 // var transactionParser = require('TransactionParser');
 var transactionParser = require('ripple-lib-transactionparser');
@@ -56,13 +56,14 @@ var Transaction = React.createClass({
 						        		<div>
 						        			<p id="rippletitle" className="search_transaction_title"> Transaction Viewer </p>
 						        		</div>
-						        		<Searchbar/>
+						        		// <Searchbar/>
 						    		</Panel>
 					    	</div>
 				    	</div>
 				    </div>
 				</div>;
-		} else  {
+		} 
+		else  {
 			if(this.state.isvalid == "success") {
 				if(this.state.data.transaction.tx.TransactionType == "OfferCreate") {
 					var Main = viewbuilder.offercreate(this.state.data, this.state.names);

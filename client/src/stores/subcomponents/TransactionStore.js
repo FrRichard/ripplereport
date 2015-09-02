@@ -13,6 +13,7 @@ function registerTransaction(result) {
 	_.each(transactions, function(transaction) {
 		_Transaction[transaction.id] = transaction;
 	});
+	console.log("TRANSACTION STORE", _Transaction);
 };
 
 var TransactionStore = assign({}, EventEmitter.prototype, {
