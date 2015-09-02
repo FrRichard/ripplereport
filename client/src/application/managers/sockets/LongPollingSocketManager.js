@@ -12,7 +12,7 @@ var SocketManager = function() {
 
 SocketManager.getInstance = function() {
 	if(instance === null) {
-		instance = io('http://localhost:9090/longpolling');
+		instance = io('http://localhost:9080/longpolling');
         
 
         instance.on('connect', function() {
