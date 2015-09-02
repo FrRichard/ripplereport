@@ -1,6 +1,7 @@
 var React = require('react');
 var TransactionStore = require('TransactionStore');
 var RippledataActions = require('DataActions');
+var Panel = require('react-bootstrap').Panel;
 
 
 var SearchBar = React.createClass({
@@ -21,7 +22,6 @@ var SearchBar = React.createClass({
 		this.setState({isloading:true});
 
 		var input = $('#search input').val();
-		console.log("input",input);
 		var tx = {
 			txhash:input
 		};
@@ -39,7 +39,7 @@ var SearchBar = React.createClass({
 
 	render: function(){
 		if(!this.state.isloading) {
-			var searchlogo = <i  onClick={this.handleClick}   className="fa fa-search searchbutton"></i>;
+			var searchlogo = <i onClick={this.handleClick} className="fa fa-search searchbutton"></i>;
 		} 
 		if(this.state.isloading) {
 			var searchlogo = <img className="loading_search"  src={'./img/loading2.gif'} />;
@@ -51,20 +51,18 @@ var SearchBar = React.createClass({
 			}
 
 			if(this.state.isvalid == "error") {
-				var searchlogo = <i id="searchwrongid" className="fa fa-times checkwrongid"></i>;
-				var errormsg = <div className ="transaction_errormsg"> {this.state.data.message}</div>;
+				var searchlogo = <i onClick={this.handleClick} className="fa fa-search searchbutton"></i>;
+				var errormsg = <div className ="errormsg"> {this.state.data.message}</div>;
 			}
 		}
 
 		return ( 
-		<span>
-			 <div id="search" className="search_transaction">
-				<input onKeyPress={this.handleKeyPress} onFocus={this.onFocusInput} type="text"  placeholder="Enter transaction hash" className="searchinput"/>
+		    <div id="search" className="search search_account">
+				<input onKeyPress={this.handleKeyPress} type="text" placeholder="Enter transaction hash" className="searchinput"/>
 				{searchlogo}
+			    {errormsg}
 			</div>
-			{errormsg}
-		</span>
-		)		
+			)
 	},
 
     _onChangeTransaction: function() {

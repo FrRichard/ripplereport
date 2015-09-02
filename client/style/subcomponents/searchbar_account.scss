@@ -146,12 +146,14 @@
 
 	}
 
-	#search > input {
+	.search > input {
 		height: 2em;
 		font-size:0.75em;
 	}
-
-	#search > input + i {
+    .top_bar_search  .search > input + i {
+		top:1em;
+	}
+	.search > input + i {
 		top:0.4em;
 	}
 }

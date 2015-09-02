@@ -6,3 +6,37 @@
 .top_sidebar {
 	margin-left:2em;
 }
+.top_bar_search .search > input {
+	width: 40%;
+}
+
+.top_bar_search .search > input + i {
+  position: absolute;
+  top: 1em;
+  left: 41%;
+  color: #004756;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.top_bar_search .search > input + img {
+  position: absolute;
+  top: 1em;
+  left:41%;
+  color: #004756;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.top_bar_search .search > input + #searchvalidid {
+  color: #3EA751;
+}
+
+.top_bar_search .search .erromsg {
+  color: #F40808;
+  float:right;
+}

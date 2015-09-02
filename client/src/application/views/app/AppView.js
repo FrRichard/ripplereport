@@ -27,19 +27,13 @@ var App = React.createClass({
     	if(this.state.page == "welcome") {
 			var page =   
 				<div id="bigsearch">
-			      	<div>
-			       		<div>
-				         	<div>
-					        	<Panel>
-					        		<div>
-					        			<img id="ripplelogo" src={'./img/Greenripple.png'}  />
-					        			<p id="rippletitle" > {Title} </p>
-					        		</div>
-					        		<Searchbar/>
-					    		</Panel>
-					    	</div>
-				    	</div>
-				    </div>
+		        	<Panel>
+		        		<div>
+		        			<img id="ripplelogo" src={'./img/Greenripple.png'}  />
+		        			<p id="rippletitle" > {Title} </p>
+		        		</div>
+		        		<Searchbar/>
+		    		</Panel>
 				</div>;
 		}
 

@@ -12009,10 +12009,12 @@ striping:
     left: 50%;
     width: 14em;
     height: 7em; }
-  #search > input {
+  .search > input {
     height: 2em;
     font-size: 0.75em; }
-  #search > input + i {
+  .top_bar_search .search > input + i {
+    top: 1em; }
+  .search > input + i {
     top: 0.4em; } }
 
 #searchwrongid {
@@ -12024,9 +12026,6 @@ striping:
   display: inline;
   margin-left: 0.8em; }
 
-.search_transaction {
-  width: 40%; }
-
 .search_transaction_title {
   font-size: 2em;
   margin-left: 2.5%; }
@@ -12037,6 +12036,36 @@ striping:
 
 .top_sidebar {
   margin-left: 2em; }
+
+.top_bar_search .search > input {
+  width: 40%; }
+
+.top_bar_search .search > input + i {
+  position: absolute;
+  top: 1em;
+  left: 41%;
+  color: #004756;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s; }
+
+.top_bar_search .search > input + img {
+  position: absolute;
+  top: 1em;
+  left: 41%;
+  color: #004756;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s; }
+
+.top_bar_search .search > input + #searchvalidid {
+  color: #3EA751; }
+
+.top_bar_search .search .erromsg {
+  color: #F40808;
+  float: right; }
 
 .transaction_header_title {
   color: #004756; }

@@ -6,6 +6,7 @@ var Topbar = require('Topbar');
 var TransactionStore = require('TransactionStore');
 var IdStore = require("IdStore");
 var AccountActions = require("AccountActions");
+
 // var transactionParser = require('TransactionParser');
 var transactionParser = require('ripple-lib-transactionparser');
 var viewbuilder = require('TransactionViewBuilder');
@@ -14,17 +15,6 @@ require('jsonViewer');
 // bootstrap
 var Panel = require('react-bootstrap').Panel;
 
-var logostyle = {
-	height:40+"px",
-	marginLeft:3+ '%',
-	marginTop:0.5 +'%'
-};
-
-var titlestyle = {
-	marginLeft:10 +"%", 
-	fontSize: 35+"px" ,
-
-};
 
 var Transaction = React.createClass({
 
@@ -48,19 +38,14 @@ var Transaction = React.createClass({
     render: function() {
     	if(this.state.isloaded == false && this.state.isvalid != "success") {
 			var page =   
-				<div id="bigsearch" style={{marginLeft: 'auto', marginRight:'auto',marginTop:15+"%"}}>
-			      	<div className="container-fluid expanded-panel">
-			       		<div className="row">
-				         	<div id="top-panel" >
-						        	<Panel  style={{height: 130 }} >
-						        		<div>
-						        			<p id="rippletitle" className="search_transaction_title"> Transaction Viewer </p>
-						        		</div>
-						        		// <Searchbar/>
-						    		</Panel>
-					    	</div>
-				    	</div>
-				    </div>
+				<div id="bigsearch">
+		        	<Panel>
+		        		<div>
+		        			<img id="ripplelogo" src={'./img/Greenripple.png'}  />
+		        			<p id="rippletitle"> Transaction Viewer </p>
+		        		</div>
+		        		<Searchbar/>
+		    		</Panel>
 				</div>;
 		} 
 		else  {

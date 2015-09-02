@@ -22,10 +22,9 @@ var Topbar = React.createClass({
             <div id="top-panel" >
               <div className="row" className="top_sidebar">
                 <div >
-                  <a href="#" className="show-sidebar">
-                    <i className="fa fa-bars"></i>
-                  </a>
+                  <div className="top_bar_search">
                     <this.props.searchbar/>
+                  </div>
                 </div>
               </div>
             </div>
