@@ -12,7 +12,8 @@ var SocketManager = function() {
 
 SocketManager.getInstance = function() {
 	if(instance === null) {
-		instance = io('http://localhost:9080/rippletrade');
+		var full = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+		instance = io(full+'/rippletrade');
 		return instance;
 
 	}

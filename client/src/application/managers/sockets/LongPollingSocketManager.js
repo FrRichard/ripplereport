@@ -11,8 +11,13 @@ var SocketManager = function() {
 
 
 SocketManager.getInstance = function() {
+
+
+	var full = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+
+
 	if(instance === null) {
-		instance = io('http://localhost:9080/longpolling');
+		instance = io(full+'/longpolling');
         
 
         instance.on('connect', function() {
