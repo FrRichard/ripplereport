@@ -204,15 +204,32 @@ section.first {
     }
 }
 
+#feature {
+    margin-left:19%;
+    margin-top:4%;
+}
+
 #feature .feature-item {
     right: 0;
     top: 50%;
     margin: 0 0 15px;
+    width:25%;
 }
 
-#feature .feature-item i {
+
+#feature .feature-item a {
     font-size:  80px;
+
+    color:#29343D;
 }
+
+#feature .feature-item a {
+    font-color:#29343D;
+}
+
+#feature .feature-item a:hover {
+    color:#4F7EA5;
+} 
 
 #feature .feature-item .feature-link {
     display: block;
