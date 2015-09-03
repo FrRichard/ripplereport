@@ -15,7 +15,6 @@ SocketManager.getInstance = function() {
 
 	var full = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
 
-
 	if(instance === null) {
 		instance = io(full+'/longpolling');
         
