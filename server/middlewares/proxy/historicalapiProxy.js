@@ -189,9 +189,10 @@ HistoricalapiProxy.prototype.init = function(callback) {
 						send(result);
 					} else {
 						// console.log("ALLLLLLLREQUEEESSST",allRequest);
-						midself.request = request(options,callback);
-						allRequest.push(midself.request);
-						
+						//midself.request = request(options,callback);
+						//allRequest.push(midself.request);
+						var result = calcul('1000');
+						send(result);
 					} 
 
 				} else {

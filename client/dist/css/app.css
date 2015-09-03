@@ -11764,6 +11764,9 @@ striping:
   float: left;
   display: block; }
 
+.title_float_right {
+  float: right; }
+
 .loadingstatus {
   left: 50%;
   top: 65%;

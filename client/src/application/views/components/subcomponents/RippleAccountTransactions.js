@@ -224,16 +224,10 @@ var RippleAccountTransactions = React.createClass({
 				var timeController = 
 							<div className="paymentTimeControllerBlock"> 
 								{fromto}
-								<select onChange={this.selectTimePeriod} className="paymentTimeController" value={this.state.period}> 
-									<option value={"tx"}> Last 1000 transactions </option>
-									<option value={"3"}> 3 days </option>
-									<option value={"10"}> 10 days </option>
-									<option value={"30"}> 30 days </option>
-									<option value={"90"}> 90 days </option>
-									<option value={"all"}> All </option>
-								</select>
+								<span className="title_float_right"> Last 1000 transactions </span>
 							</div>;
-			}
+				}
+							
 
 			if(this.state.rippleaccounttransactions[this.address]) {
 				var formatedtransactions =  this.DataHelper.transactionsGriddle(this.state.rippleaccounttransactions[this.address].transactions);
