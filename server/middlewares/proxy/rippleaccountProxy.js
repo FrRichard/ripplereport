@@ -2,10 +2,17 @@ var request = require('request');
 var Remote = require('ripple-lib').Remote;
 
 function RippleaccountProxy(params) {
+	var self = this;
 	this.app = params.app;
 	this.rippleaccountProxyHost = params.rippleaccountProxyHost;
 	this.remoteServer = params.rippleaccountRemoteServer;
 	this.restServer = params.restServer;
+	this.remote = new Remote({
+			servers: [ self.remoteServer ]
+		});
+	this.remote.connect(function() { 
+			console.log("Connected to : " + self.remoteServer);
+		});
 };
 
 RippleaccountProxy.prototype.init = function(callback) {
@@ -42,14 +49,15 @@ RippleaccountProxy.prototype.init = function(callback) {
 
 	this.app.all('/ripple/account_info/*', function(req, res) {
 
-		var remote = new Remote({
-			servers: [ self.remoteServer ]
-		});
-		remote.connect(function() { 
-			console.log("Connected to : " + self.remoteServer);
-		});
+		// var remote = new Remote({
+		// 	servers: [ self.remoteServer ]
+		// });
+		// remote.connect(function() { 
+		// 	console.log("Connected to : " + self.remoteServer);
+		// });
+	console.log("REMOTE account_infos!!:!!",self.remote);
 		var parameters = { account: req.query.id };
-		remote.request("account_info",parameters, function(err, acc) {
+		self.remote.request("account_info",parameters, function(err, acc) {
 			if(err) {
 				console.log("acount_info_error",err.remote.error);
 				res.send(err);
@@ -63,14 +71,15 @@ RippleaccountProxy.prototype.init = function(callback) {
 	
 	this.app.all('/ripple/account_lines/*', function(req, res) {
 
-		var remote = new Remote({
-			servers: [ self.remoteServer ]
-		});
-		remote.connect(function() { 
-			console.log("Connected to : " + self.remoteServer);
-		});
+		// var remote = new Remote({
+		// 	servers: [ self.remoteServer ]
+		// });
+		// remote.connect(function() { 
+		// 	console.log("Connected to : " + self.remoteServer);
+		// });
+		// console.log("ROMOTE ACCOUNT8OKLINES",remote);
 		var parameters = { account: req.query.id };
-		remote.request("account_lines",parameters, function(err, acc) {
+		self.remote.request("account_lines",parameters, function(err, acc) {
 			res.send(acc);
 		});
 
@@ -79,15 +88,16 @@ RippleaccountProxy.prototype.init = function(callback) {
 
 	this.app.all('/ripple/account_offers/*', function(req, res) {
 
-		var remote = new Remote({
-			servers: [ self.remoteServer ]
-		});
-		remote.connect(function() {
-			console.log("Connected to : " + self.remoteServer);
-		});
+		// var remote = new Remote({
+		// 	servers: [ self.remoteServer ]
+		// });
+		// remote.connect(function() {
+		// 	console.log("Connected to : " + self.remoteServer);
+		// });
+	// console.log("REMOTE ACCOUNT_OFFERS", remote) ;
 		var parameters = { account: req.query.id };
 
-		remote.request("account_offers", parameters, function(err, acc) {
+		self.remote.request("account_offers", parameters, function(err, acc) {
 			res.send(acc);
 		});
 	});
@@ -109,7 +119,7 @@ RippleaccountProxy.prototype.init = function(callback) {
 				console.log('error', error);
 				res.send(500, 'something went wrong')
 			} else {
-				res.send(response.statusCode, body);
+				res.status(response.statusCode).send(body);
 			}
 		}; 
 		request(options, callback);
