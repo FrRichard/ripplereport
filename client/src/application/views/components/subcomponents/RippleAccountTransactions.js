@@ -233,6 +233,14 @@ var RippleAccountTransactions = React.createClass({
 				var formatedtransactions =  this.DataHelper.transactionsGriddle(this.state.rippleaccounttransactions[this.address].transactions);
 			}
 
+           		// { this.state.isloading ?  <div>
+           		// 	<div className='loadingstatus'>{this.state.loadingstatus.msg} </div>
+           		// 	<div className='loadingstatus_date1'>From:{this.state.loadingstatus.from}</div> 
+           		// 	<div className='loadingstatus_date2'>To:{this.state.loadingstatus.to} </div>   
+           		// 	{this.state.uuid ?
+           		// 		<button onClick={this.stopFetching(this.state.uuid)} className="loadingbuttonstop"> Stop fetching at this date </button> 
+           		// 	: ''}
+           		// </div> : ''}
 		return ( 
 			<div className="panel panel-default">
 				 <div className="panel-heading clearfix">
@@ -244,15 +252,6 @@ var RippleAccountTransactions = React.createClass({
            			</div>
            		</div>
 			    {timeController}
-           		{ this.state.isloading ?  <div>
-           			<img className="loading" src={'./img/loading2.gif'} /> 
-           			<div className='loadingstatus'>{this.state.loadingstatus.msg} </div>
-           			<div className='loadingstatus_date1'>From:{this.state.loadingstatus.from}</div> 
-           			<div className='loadingstatus_date2'>To:{this.state.loadingstatus.to} </div>   
-           			{this.state.uuid ?
-           				<button onClick={this.stopFetching(this.state.uuid)} className="loadingbuttonstop"> Stop fetching at this date </button> 
-           			: ''}
-           		</div> : ''}
            		{ !this.state.isloading ?
            			this.state.rippleaccounttransactions[this.address] ?
            				this.state.rippleaccounttransactions[this.address].transactions ?
@@ -282,7 +281,7 @@ var RippleAccountTransactions = React.createClass({
 							:  <div className="didntissueiou"> This account didnt make any payment </div> 
 						: <div className="didntissueiou"> This account didnt make any payment for this period</div> 
 					: ""
-				: ""}
+				: <img className="loading" src={'./img/loading2.gif'} /> }
 
 			</div>);
 

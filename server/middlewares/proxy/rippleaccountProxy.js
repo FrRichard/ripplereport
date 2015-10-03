@@ -29,9 +29,10 @@ RippleaccountProxy.prototype.init = function(callback) {
 		};
 		var callback = function(error, response, body) {
 			try {
+				var glup = body;
 				var body = JSON.parse(body);
 			} catch(e) {
-				console.log("API sent something unexcepected",e);
+				console.log("API sent something unexcepected",e,body,glup);
 			}
 	
 			if (error) {

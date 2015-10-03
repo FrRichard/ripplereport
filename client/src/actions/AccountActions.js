@@ -5,7 +5,7 @@ var ripplelines = require('Lines');
 var rippleinfos = require('Infos');
 var ripplecapitalizations = require('Capitalizations');
 var Capitalization = require('Capitalization');
-var rippleoffersexercised =  require('Offersexercised');
+// var rippleoffersexercised =  require('Offersexercised');
 var rippleaccounttransactions = require('AccountTransactions');
 var rippleaccounttransactionstats = require('AccountTransactionStats');
 var rippleaccountoffers = require('AccountOffers');
@@ -104,20 +104,20 @@ var AccountActions = {
 		var self = this;
 		if(type == "address") {
 			self.rippleid( address.infos );
-			self.rippleoffersexercised( address.infos );
-			self.rippleoffersexercised_sum( address.infos, "sum" );
+			// self.rippleoffersexercised( address.infos );
+			// self.rippleoffersexercised_sum( address.infos, "sum" );
 			self.ripplecapitalization( address.infos );
 			self.accountTransactions( address.infos );
-			self.rippleaccounttransactionstats( address.infos );
+			// self.rippleaccounttransactionstats( address.infos );
 			self.rippleaccountoffers( address.infos );
 			self.ripplelines( address.infos );
 		} else {
 			self.rippleinfos( address.raw.toJSON() );
-			self.rippleoffersexercised( address.raw.toJSON() );
-			self.rippleoffersexercised_sum( address.raw.toJSON(), "sum" );
+			// self.rippleoffersexercised( address.raw.toJSON() );
+			// self.rippleoffersexercised_sum( address.raw.toJSON(), "sum" );
 			self.ripplecapitalization( address.raw.toJSON() );
 			self.accountTransactions( address.raw.toJSON() );
-			self.rippleaccounttransactionstats( address.raw.toJSON() );
+			// self.rippleaccounttransactionstats( address.raw.toJSON() );
 			self.rippleaccountoffers( address.raw.toJSON() );
 			self.ripplelines( address.raw.toJSON() );
 		}
