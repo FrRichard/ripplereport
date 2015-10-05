@@ -154,7 +154,7 @@ var RippleAccountTransactions = React.createClass({
 		var address = "address" + key;
 		//Listener
 		RippleaccounttransactionsStore.addChangeListener('isloading', this._onLoading);
-		RippleaccounttransactionsStore.addChangeListener('loadingstatus', this._onLoadingStatus);
+		// RippleaccounttransactionsStore.addChangeListener('loadingstatus', this._onLoadingStatus);
 		RippleaccounttransactionsStore.addChangeListener(address, this._onChangeRippleaccounttransactions);
 		// instanciate stuff
 		this.DataHelper = new datahelper();
@@ -169,78 +169,78 @@ var RippleAccountTransactions = React.createClass({
 	},
 
 	render: function() {
-			var self =this;
-			this.address= "address" + this.props.attributes.reportnumber;
-			var panelstyle = viewcommon.linechart;
-			var AllPies = [];
+		var self =this;
+		this.address= "address" + this.props.attributes.reportnumber;
+		var panelstyle = viewcommon.linechart;
+		var AllPies = [];
 
-	        var filteredData = Search.search(
-			    this.state.search,
-			    this.state.columns,
-			    this.state.data
-			);
-			var paginated = Paginator.paginate(filteredData, this.state.pagination);
-			var header = table_funct.header.call(this, this.state.columns, this.state.data);
+        var filteredData = Search.search(
+		    this.state.search,
+		    this.state.columns,
+		    this.state.data
+		);
+		var paginated = Paginator.paginate(filteredData, this.state.pagination);
+		var header = table_funct.header.call(this, this.state.columns, this.state.data);
 
-			if(this.state.rippleaccounttransactions[this.address]) {
-				if(this.state.rippleaccounttransactions[this.address].transactions) {
-					var transactions = this.state.rippleaccounttransactions[this.address];
-					var totalcashs = transactions.summary.totalcash;
-					_.each(totalcashs, function(totalcash,key) {
-						var todraw = self.DataHelper.PieChart_bignumber(totalcash);
-						var currencyimgsrc =FormatUtils.formatCurrencyLabel(key).image;
-			      		var currencyimg = <img key={"currencyimg"+key} className="currencyimgoverview" src={currencyimgsrc}/> 
-						if(todraw.length>0) {
-							if(todraw[0].amount > 0 || todraw[1].amount > 0) {
-								AllPies.push(
-									<div key={"smallpie"+key} className="transactionsmallpie">
-										<div key={"transactioncurrencytitle"+key} className="transactioncurrencytitle">
-											{currencyimg} &nbsp;
-											{key} 
-										</div>
-										<PieChart id={"Cashinout_"+key} size={[100,100]} data={todraw} />
-										<div className="totalcashinoutt">
-											<span key= {"cashin"+key} className="totalcashin">Cash In: {FormatUtils.formatValue(totalcash.cashin)} </span><br/>
-											<span key ={"cashout" +key} className="totalcashout">Cash Out: {FormatUtils.formatValue(totalcash.cashout)} </span><br/>
-											<span key={"standard"+key} className="totalstandard">Standard: {FormatUtils.formatValue(totalcash.standard)} </span>
-										</div>
+		if(this.state.rippleaccounttransactions[this.address]) {
+			if(this.state.rippleaccounttransactions[this.address].transactions) {
+				var transactions = this.state.rippleaccounttransactions[this.address];
+				var totalcashs = transactions.summary.totalcash;
+				_.each(totalcashs, function(totalcash,key) {
+					var todraw = self.DataHelper.PieChart_bignumber(totalcash);
+					var currencyimgsrc =FormatUtils.formatCurrencyLabel(key).image;
+		      		var currencyimg = <img key={"currencyimg"+key} className="currencyimgoverview" src={currencyimgsrc}/> 
+					if(todraw.length>0) {
+						if(todraw[0].amount > 0 || todraw[1].amount > 0) {
+							AllPies.push(
+								<div key={"smallpie"+key} className="transactionsmallpie">
+									<div key={"transactioncurrencytitle"+key} className="transactioncurrencytitle">
+										{currencyimg} &nbsp;
+										{key} 
 									</div>
-								);
-							}
+									<PieChart id={"Cashinout_"+key} size={[100,100]} data={todraw} />
+									<div className="totalcashinoutt">
+										<span key= {"cashin"+key} className="totalcashin">Cash In: {FormatUtils.formatValue(totalcash.cashin)} </span><br/>
+										<span key ={"cashout" +key} className="totalcashout">Cash Out: {FormatUtils.formatValue(totalcash.cashout)} </span><br/>
+										<span key={"standard"+key} className="totalstandard">Standard: {FormatUtils.formatValue(totalcash.standard)} </span>
+									</div>
+								</div>
+							);
 						}
-					});
-				}
-				if(transactions) {
-					var fromto = <div className="paymentTimePeriod">
-									<span> From: {moment(transactions.startTime).format('MMMM Do YYYY, h:mm:ss a')} </span> <br/>
-									<span> To: {moment(transactions.endTime).format('MMMM Do YYYY, h:mm:ss a')} </span>
-								</div>;
-				} else {
-					var fromto =  <div className="paymentTimePeriod">
-									<span> From:  </span> <br/>
-									<span> To: </span>
-								</div>;
-				}
-				var timeController = 
-							<div className="paymentTimeControllerBlock"> 
-								{fromto}
-								<span className="title_float_right"> Last 1000 transactions </span>
-							</div>;
-				}
-							
-
-			if(this.state.rippleaccounttransactions[this.address]) {
-				var formatedtransactions =  this.DataHelper.transactionsGriddle(this.state.rippleaccounttransactions[this.address].transactions);
+					}
+				});
 			}
+			if(transactions) {
+				var fromto = <div className="paymentTimePeriod">
+								<span> From: {moment(transactions.startTime).format('MMMM Do YYYY, h:mm:ss a')} </span> <br/>
+								<span> To: {moment(transactions.endTime).format('MMMM Do YYYY, h:mm:ss a')} </span>
+							</div>;
+			} else {
+				var fromto =  <div className="paymentTimePeriod">
+								<span> From:  </span> <br/>
+								<span> To: </span>
+							</div>;
+			}
+			var timeController = 
+						<div className="paymentTimeControllerBlock"> 
+							{fromto}
+							<span className="title_float_right"> Last 1000 transactions </span>
+						</div>;
+			}
+						
 
-           		// { this.state.isloading ?  <div>
-           		// 	<div className='loadingstatus'>{this.state.loadingstatus.msg} </div>
-           		// 	<div className='loadingstatus_date1'>From:{this.state.loadingstatus.from}</div> 
-           		// 	<div className='loadingstatus_date2'>To:{this.state.loadingstatus.to} </div>   
-           		// 	{this.state.uuid ?
-           		// 		<button onClick={this.stopFetching(this.state.uuid)} className="loadingbuttonstop"> Stop fetching at this date </button> 
-           		// 	: ''}
-           		// </div> : ''}
+		if(this.state.rippleaccounttransactions[this.address]) {
+			var formatedtransactions =  this.DataHelper.transactionsGriddle(this.state.rippleaccounttransactions[this.address].transactions);
+		}
+
+       		// { this.state.isloading ?  <div>
+       		// 	<div className='loadingstatus'>{this.state.loadingstatus.msg} </div>
+       		// 	<div className='loadingstatus_date1'>From:{this.state.loadingstatus.from}</div> 
+       		// 	<div className='loadingstatus_date2'>To:{this.state.loadingstatus.to} </div>   
+       		// 	{this.state.uuid ?
+       		// 		<button onClick={this.stopFetching(this.state.uuid)} className="loadingbuttonstop"> Stop fetching at this date </button> 
+       		// 	: ''}
+       		// </div> : ''}
 		return ( 
 			<div className="panel panel-default">
 				 <div className="panel-heading clearfix">
@@ -332,14 +332,16 @@ var RippleAccountTransactions = React.createClass({
 		var rippleaccounttransactions = getRippleaccounttransactionsState("address" + key).rippleaccounttransactions;
 
 		var data = table_funct.filldata(rippleaccounttransactions[this.address].transactions, ["amount", "time", "direction", "type", "currency"], ["issuer", "counterparty", "txHash", "ledgerIndex"]);
-		if(rippleaccounttransactions[self.address].account != this.state.account) {
-			var isloading = true;
-		} else {
-			var isloading = false;
-		}
-		if(!rippleaccounttransactions[self.address].transactions) {
-			isloading = false;
-		}
+
+		// if(rippleaccounttransactions[self.address].account != this.state.account) {
+		// 	var isloading = true;
+		// } else {
+		// 	var isloading = false;
+		// }
+		// if(!rippleaccounttransactions[self.address].transactions) {
+		// 	isloading = false;
+		// }
+		var isloading = false;
 
 		if(rippleaccounttransactions[self.address].account) {
 			var account = rippleaccounttransactions[self.address].account;
@@ -351,6 +353,7 @@ var RippleAccountTransactions = React.createClass({
 		} else {
 			var period = this.state.period;
 		}
+
 		this.setState({
 			rippleaccounttransactions: rippleaccounttransactions,
 			data:data,
@@ -362,7 +365,7 @@ var RippleAccountTransactions = React.createClass({
 	        },
 	        account: account,
 	        period:period
-		});
+		}, function() { console.log(this.state);});
 		$('.transactiondetailbutton').parents('td').addClass('transactiondetailbutton');
 	},
 
