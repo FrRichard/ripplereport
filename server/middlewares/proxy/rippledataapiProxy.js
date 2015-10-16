@@ -140,28 +140,29 @@ RippledataapiProxy.prototype.init = function(callback) {
 
 	});
 
-	this.app.get('/ripple/dataapi/account_transaction_stats/*', function(req,res) {
-		var parameters = req.query.account;
-		var options = {
-			method: 'POST',
-			url: self.rippledataapiProxyHost.account_transaction_stats,
-			headers: {
-				"Content-Type": "application/json",
-				"Accept": "application/json"
-			},
-			body:parameters 
-		};
+	// DEPRECATED see dataApiV2Proxy
+	// this.app.get('/ripple/dataapi/account_transaction_stats/*', function(req,res) {
+	// 	var parameters = req.query.account;
+	// 	var options = {
+	// 		method: 'POST',
+	// 		url: self.rippledataapiProxyHost.account_transaction_stats,
+	// 		headers: {
+	// 			"Content-Type": "application/json",
+	// 			"Accept": "application/json"
+	// 		},
+	// 		body:parameters 
+	// 	};
 
-		var callback = function(error, response, body) {
-			if (error) {
-				console.log('error', error);
-				res.send(500, 'something went wrong');
-			}
-			res.status(response.statusCode).send(body);
-		}
-		request(options, callback);
+	// 	var callback = function(error, response, body) {
+	// 		if (error) {
+	// 			console.log('error', error);
+	// 			res.send(500, 'something went wrong');
+	// 		}
+	// 		res.status(response.statusCode).send(body);
+	// 	}
+	// 	request(options, callback);
 
-	}); 
+	// }); 
 
 	this.app.get('/ripple/dataapi/market_traders/*', function(req,res) {
 		var parameters = req.query.params;

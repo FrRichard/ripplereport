@@ -250,6 +250,13 @@ App.prototype.initProxies = function() {
     };
     this.rippledataapiProxy = new RippledataapiProxy(rippledataapiProxyParams);
 
+    var DataapiV2Proxy = require(proxiesPath + 'dataApiV2Proxy');
+    var dataapiV2ProxyParams = {
+        dataapiV2ProxyHost: this.config.dataapiv2proxy.methodsUrls,
+        app: this.app
+    }
+    this.dataapiV2Proxy = new DataapiV2Proxy(dataapiV2ProxyParams);
+
     var HistoricalapiProxy = require(proxiesPath + 'historicalapiProxy');
     var historicalapiProxyParams = {
         historicalapiProxyHost : this.config.historicalapiproxy.hostUrl,
@@ -288,6 +295,12 @@ App.prototype.initProxies = function() {
     };
 
     this.rippledataapiProxy.init(initRippledataapiProxyCallback);
+
+    var initDataapiV2ProxyCallback = function() {
+        console.log("DataapiV2 ... ok");
+    }
+
+    this.dataapiV2Proxy.init(initDataapiV2ProxyCallback);
 
     var initHistoricalapiProxyCallback = function() {
         console.log('HistoricalApi proxy ... OK');

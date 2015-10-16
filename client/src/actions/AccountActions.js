@@ -108,7 +108,7 @@ var AccountActions = {
 			// self.rippleoffersexercised_sum( address.infos, "sum" );
 			self.ripplecapitalization( address.infos );
 			self.accountTransactions( address.infos );
-			// self.rippleaccounttransactionstats( address.infos );
+			self.rippleaccounttransactionstats( address.infos );
 			self.rippleaccountoffers( address.infos );
 			self.ripplelines( address.infos );
 		} else {
@@ -117,7 +117,7 @@ var AccountActions = {
 			// self.rippleoffersexercised_sum( address.raw.toJSON(), "sum" );
 			self.ripplecapitalization( address.raw.toJSON() );
 			self.accountTransactions( address.raw.toJSON() );
-			// self.rippleaccounttransactionstats( address.raw.toJSON() );
+			self.rippleaccounttransactionstats( address.raw.toJSON() );
 			self.rippleaccountoffers( address.raw.toJSON() );
 			self.ripplelines( address.raw.toJSON() );
 		}

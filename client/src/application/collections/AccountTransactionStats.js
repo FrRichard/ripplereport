@@ -12,14 +12,21 @@ var RippleAccountTransactionStats = Backbone.Collection.extend({
 	createAccountTransactionStatsList: function(accounts) {
 		var self = this;
 		this.reset();
+
 		var xhrs = _.map(accounts, function(account) {
-			var model = new RippleAccountTransactionStat({id:account.id},account.address);
-			var xhr = model.fetch({
-				success: function(model,response) {
-					self.add(model);
-				}
-			});       
-			return xhr;       
+			// var model = new RippleAccountTransactionStat({id:account.id},account.address);
+			// var xhr = model.fetch({
+			// 	success: function(model,response) {
+			// 		console.log("responssseee",response);
+			// 		_.each(response.reports, function(rep) {
+			// 			if(rep.payments_received != 0 | rep.payments_sent != 0) {
+			// 				console.log(rep);
+			// 			}
+			// 		});
+			// 		self.add(model);
+			// 	}
+			// });       
+			// return xhr;       
         });
 	     
         var sync = $.when.apply(null, xhrs);

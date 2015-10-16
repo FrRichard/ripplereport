@@ -4,8 +4,8 @@ var RippleAccountTransactionStats = Backbone.Model.extend({
 	initialize: function(attr,issuer) {
 		var query = {
 		    "account"   : issuer,
-		    "startTime" : "jan 1, 2014 10:00 am",
-		   	// "endTime"   : "mar 15, 2015 10:00 am",
+		    "start" : "2015-05-10T00:00:00",
+		   	"end"   : "2015-08-28T00:00:00",
 		    "format"    : "json"
 		}
 		this.url= config.rippledataapi.account_transaction_stats.urlModel+JSON.stringify(query);	

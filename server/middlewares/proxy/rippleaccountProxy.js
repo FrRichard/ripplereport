@@ -56,7 +56,7 @@ RippleaccountProxy.prototype.init = function(callback) {
 		// remote.connect(function() { 
 		// 	console.log("Connected to : " + self.remoteServer);
 		// });
-	console.log("REMOTE account_infos!!:!!",self.remote);
+
 		var parameters = { account: req.query.id };
 		self.remote.request("account_info",parameters, function(err, acc) {
 			if(err) {

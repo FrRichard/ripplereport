@@ -13,7 +13,8 @@ var Config = {
 		urlModel: "/ripple/dataapi/account_transactions/?account="
 	},
 	account_transaction_stats: {
-		urlModel: "/ripple/dataapi/account_transaction_stats/?account="
+		// urlModel: "/ripple/dataapi/account_transaction_stats/?account=" DEPRECATED
+		urlModel: "/ripple/dataapiV2/reports/?account="
 	},
 	market_traders: {
 		urlModel: "/ripple/dataapi/market_traders/?params="
@@ -25,7 +26,8 @@ var Config = {
 	default_period_sum: {
 		startTime: moment().subtract('year', 1).format('lll'),
 		endTime: moment().format('lll')
-	}
+	},
+
 };
 
 

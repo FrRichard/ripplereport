@@ -41,6 +41,13 @@ config.rippledataapiproxy.methodsUrls = {
 	market_traders: config.rippledataapiproxy.host + "market_traders",
 }
 
+config.dataapiv2proxy = {};
+config.dataapiv2proxy.host = "https://data.ripple.com/v2/";
+config.dataapiv2proxy.port= "";
+config.dataapiv2proxy.methodsUrls = {
+	accounts: config.dataapiv2proxy.host + "accounts/"
+}
+
 config.historicalapiproxy = {};
 config.historicalapiproxy.host = "https://history.ripple.com/v1/";
 config.historicalapiproxy.port = "";
