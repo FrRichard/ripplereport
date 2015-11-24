@@ -29,7 +29,7 @@ var App = React.createClass({
 				<div id="bigsearch">
 		        	<Panel>
 		        		<div>
-		        			<img id="ripplelogo" src={'./img/Greenripple.png'}  />
+		        			<img id="ripplelogo" src={'/img/Greenripple.png'}  />
 		        			<p id="rippletitle" > {Title} </p>
 		        		</div>
 		        		<Searchbar/>

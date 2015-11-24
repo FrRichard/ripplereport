@@ -51,9 +51,9 @@ var RippleCapitalization = React.createClass({
 			_.each(this.state.ripplecapitalization[this.address], function(cap,i) {
 				var hotwallets = [];
 				_.each(cap['hotwallets'], function(hotwallet) {
-					var address = { address:hotwallet };
+					var address = hotwallet;
 					hotwallets.push(
-						<span>  <a href={"/app?"+JSON.stringify(address)} target="_blank" value={hotwallet}> {hotwallet} </a> </span>
+						<span>  <a href={"/app/"+ address } target="_blank" value={hotwallet}> {hotwallet} </a> </span>
 					);
 				});
 				if(cap['amount'] != 0) {
@@ -76,7 +76,7 @@ var RippleCapitalization = React.createClass({
 		          </div>
 		        </div>
         		<div className="panel-body" style={panelstyle}>
-        		{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
+        		{ this.state.isloading ?  <div><img className="loading" src={'/img/loading2.gif'} /></div> : ''}
         		{ !this.state.isloading ?
 					this.state.ripplecapitalization ?
 						<Table striped bordered condensed hover>

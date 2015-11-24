@@ -16,7 +16,6 @@ var table_funct = {
   },
 
 collapsable: function(e,content) {
-    console.log("collapse!",e.target);
     if($(e.target).parents('tr').hasClass('iscollapsed')) {
         $(e.target).parents('tr').next().remove();
         $(e.target).parents('tr').removeClass('iscollapsed');

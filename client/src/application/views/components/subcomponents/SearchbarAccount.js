@@ -82,7 +82,7 @@ var SearchBar = React.createClass({
 			var searchlogo = <i  onClick={this.handleClick}   className="fa fa-search searchbutton"></i>;
 		} 
 		if(this.state.isloading) {
-			var searchlogo = <img className="loading_search"  src={'./img/loading2.gif'} />;
+			var searchlogo = <img className="loading_search"  src={'/img/loading2.gif'} />;
 		}
 
 		if(this.state.isloading == "valid") {

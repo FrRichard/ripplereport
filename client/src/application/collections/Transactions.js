@@ -12,6 +12,7 @@ var transactions = Backbone.Collection.extend({
 	createTransactionList: function(tx) {
 		var self = this;
 		this.reset();
+		console.log("TX!!!",tx);
 		var xhrs = _.map(tx, function(t,i) {
 			var id = "transaction" +i;
 

@@ -91,31 +91,31 @@ var RippleAccountTransactionsSummary = React.createClass({
 							var paymentd = "Standard";
 						}
 						if(payment.type == "received") {
-							var address = { address:payment.counterparty};
+							var address = payment.counterparty;
 							var content = 
 								<span key={"transactiontop10_block"+i}>
 									<span key={"transactiontop10_amount"+i} className="offersexercisedamount">{payment.currency} {FormatUtils.formatValue(payment.amount)}</span>
 									<span key={"transactiontop10_date"+i} className="offersexerciseddate">{payment.date}</span>
-									<span key={"transactiontop10_issuer"+i} className="offersexercisedissuer"> Sender: <a href={"/app?"+JSON.stringify(address)} target="_blank" value={payment.counterparty}> {payment.counterparty}</a></span>
+									<span key={"transactiontop10_issuer"+i} className="offersexercisedissuer"> Sender: <a href={"/app/" + address} target="_blank" value={payment.counterparty}> {payment.counterparty}</a></span>
 									<span key={"transactiontop10_direction"+i} className="direction"> Direction: <span className={directioncom}> {paymentd} </span> </span>
 								</span>;
 						} else {
-							var address = { address:payment.counterparty};
+							var address = payment.counterparty;
 							var content = 
 								<span  key={"transactiontop10_block"+i}>
 									<span key={"transactiontop10_amount"+i} className="offersexercisedamount">{payment.currency} {FormatUtils.formatValue(payment.amount)}</span>
 									<span key={"transactiontop10_date"+i} className="offersexerciseddate">{payment.date}</span>
-									<span key={"transactiontop10_issuer"+i} className="offersexercisedissuer">Receiver:<a href={"/app?"+JSON.stringify(address)} target="_blank" value={payment.counterparty}> {payment.counterparty}</a></span>
+									<span key={"transactiontop10_issuer"+i} className="offersexercisedissuer">Receiver:<a href={"/app/"+ address} target="_blank" value={payment.counterparty}> {payment.counterparty}</a></span>
 									<span key={"transactiontop10_direction"+i} className="direction"> Direction: <span className={directioncom}> {paymentd} </span> </span>
 								</span>;
 						}
 						if(payment.currency == 'XRP') {
 							var hiddencontent = <span key={"xrphiddencontentsum_block"+i} ></span>; 
 						} else {
-							var address = { address:payment.issuer};
+							var address = payment.issuer;
 							var hiddencontent = 
 								<span  key={"transactiontop10_block_hidden"+i} className="offersexercisedissuer">
-									Issuer: <a key={"transactiontop10_href"+i} href={"/app?"+JSON.stringify(address)} target="_blank" value={payment.issuer}>{payment.issuer}</a>
+									Issuer: <a key={"transactiontop10_href"+i} href={"/app/"+ address} target="_blank" value={payment.issuer}>{payment.issuer}</a>
 								</span>;
 						}
 
@@ -143,7 +143,7 @@ var RippleAccountTransactionsSummary = React.createClass({
 						var selectedpaymenttype_total = self.state.selectedpaymenttype_total;
 						if(self.state.selectedcurrency_total != "XRP") { 
 							if(issuer[self.state.selectedpaymenttype_total]) {
-								var Issuer = <a href={"/app?"+JSON.stringify(issuerkey)} target="_blank" value={issuerkey}> {issuerkey}</a>;
+								var Issuer = <a href={"/app/"+ issuerkey} target="_blank" value={issuerkey}> {issuerkey}</a>;
 		       		 			var com = "Issuer: ";
 
 								var content = 
@@ -193,7 +193,7 @@ var RippleAccountTransactionsSummary = React.createClass({
            			</div>
            		</div>			
 				<div className="panel-body" style={ofexsum_top10}>
-						{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
+						{ this.state.isloading ?  <div><img className="loading" src={'/img/loading2.gif'} /></div> : ''}
 						{ !this.state.isloading ?
 							this.state.rippletransactions[this.address].transactions ?
 								this.state.rippletransactions[this.address].transactions.length > 0 ?
@@ -221,7 +221,7 @@ var RippleAccountTransactionsSummary = React.createClass({
 		              	: "" }
 				</div>
 				<div className="panel-body" style={ofexsum_top10}>
-					{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
+					{ this.state.isloading ?  <div><img className="loading" src={'/img/loading2.gif'} /></div> : ''}
 						{ !this.state.isloading ?
 							this.state.rippletransactions[this.address].transactions ?
 								this.state.rippletransactions[this.address].transactions.length > 0 ?

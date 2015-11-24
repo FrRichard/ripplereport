@@ -83,7 +83,7 @@ var CapitalizationOverview = React.createClass({
           </div>
         </div>
         <div className="panel-body">
-        { this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
+        { this.state.isloading ?  <div><img className="loading" src={'/img/loading2.gif'} /></div> : ''}
 
         { !this.state.isloading ?
           this.state.shares ?

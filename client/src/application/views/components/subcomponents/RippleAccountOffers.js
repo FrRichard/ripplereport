@@ -72,10 +72,10 @@ var RippleAccountOffers = React.createClass({
 						d.taker_pays['name'] = d.taker_pays.issuer;
 					}
 				});
-				var taker_pays_issuer = { address:d.taker_pays.issuer  };
-				var taker_gets_issuer = { address:d.taker_gets.issuer };
-				var taker_pays_link = "/app?"+JSON.stringify(taker_pays_issuer);
-				var taker_gets_link = "/app?"+JSON.stringify(taker_gets_issuer);
+				var taker_pays_issuer = d.taker_pays.issuer;
+				var taker_gets_issuer = d.taker_gets.issuer;
+				var taker_pays_link = "/app/"+ taker_pays_issuer;
+				var taker_gets_link = "/app/" + taker_gets_issuer;
 				var target_pays = '_blank';
 				var target_gets = '_blank';
 
@@ -112,7 +112,7 @@ var RippleAccountOffers = React.createClass({
            			</div>
            		</div>
            		<div className="panel-body" style={panelstyle}>
-           			{ this.state.isloading ?  <div><img className="loading" src={'./img/loading2.gif'} /></div> : ''}
+           			{ this.state.isloading ?  <div><img className="loading" src={'/img/loading2.gif'} /></div> : ''}
            			{ !this.state.isloading ?
 		          		this.state.rippleaccountoffers[this.address] ?
 		          			 this.state.rippleaccountoffers[this.address].offers.length > 0 ?

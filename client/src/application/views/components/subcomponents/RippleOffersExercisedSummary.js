@@ -88,9 +88,9 @@ var RippleOffersExercisedSummary = React.createClass({
        		 		var issuer = "";
        		 		var com="";
        		 	} else {
-       		 		var address = { address:offer[self.state.selectedtypeoffer].issuer};
+       		 		var address = offer[self.state.selectedtypeoffer].issuer;
        		 		var com = "Issuer: ";
-       		 		var issuer = <a href={"/app?"+JSON.stringify(address)} target="_blank" value={offer[self.state.selectedtypeoffer].issuer}> {offer[self.state.selectedtypeoffer].issuer}</a>;
+       		 		var issuer = <a href={"/app/"+ address} target="_blank" value={offer[self.state.selectedtypeoffer].issuer}> {offer[self.state.selectedtypeoffer].issuer}</a>;
        		 	}
 
        		 	var content = 
@@ -105,8 +105,8 @@ var RippleOffersExercisedSummary = React.createClass({
        		 			var issuer = "";
        		 			var com = "";
        		 		} else {
-       		 			var address = { address:offer["base"].issuer};
-       		 			var issuer = <a href={"/app?"+JSON.stringify(address)} target="_blank" value={offer["base"].issuer}> {offer["base"].issuer}</a>;
+       		 			var address = offer["base"].issuer;
+       		 			var issuer = <a href={"/app/"+ address} target="_blank" value={offer["base"].issuer}> {offer["base"].issuer}</a>;
        		 			var com = "Issuer: ";
        		 		}
        		 		var hiddencontent = 
@@ -120,8 +120,8 @@ var RippleOffersExercisedSummary = React.createClass({
        		 			var issuer = "";
        		 			var com = "";
        		 		} else {
-       		 			var address = { address:offer["counter"].issuer};
-       		 			var issuer = <a href={"/app?"+JSON.stringify(address)} target="_blank" value={offer["counter"].issuer}> {offer["counter"].issuer}</a>;
+       		 			var address = offer["counter"].issuer;
+       		 			var issuer = <a href={"/app/"+address} target="_blank" value={offer["counter"].issuer}> {offer["counter"].issuer}</a>;
        		 			var com = "Issuer: ";
        		 		}
        		 		var hiddencontent = 
@@ -153,8 +153,8 @@ var RippleOffersExercisedSummary = React.createClass({
 	       						<span className="offersexercisedaverageamount"> Average amount: {FormatUtils.formatValue(d.averageamount)} </span>
 	       					</span>;
        		 		} else {
-       		 			var address = { address:issuer};
-       		 			var issuer = <a href={"/app?"+JSON.stringify(address)} target="_blank" value={issuer}> {issuer}</a>;
+       		 			var address = issuer;
+       		 			var issuer = <a href={"/app/"+address} target="_blank" value={issuer}> {issuer}</a>;
        		 			var com = "Issuer: ";
        		 			var content = 
 	       					<span>

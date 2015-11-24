@@ -115,15 +115,15 @@ var RippleAccountTransactions = React.createClass({
 		        cell: (value, celldata, rowIndex, property) => {
 
 		            var collapse = table_funct.collapsable;
-		            var issuer = { address:celldata[rowIndex].hiddenprops.issuer };
-		            var counterparty = { address:celldata[rowIndex].hiddenprops.counterparty };
-		            var txhash = { txhash:celldata[rowIndex].hiddenprops.txHash };
+		            var issuer = celldata[rowIndex].hiddenprops.issuer;
+		            var counterparty = celldata[rowIndex].hiddenprops.counterparty;
+		            var txhash = celldata[rowIndex].hiddenprops.txHash ;
 		            var ledgerindex = { ledgerindex:celldata[rowIndex].hiddenprops.ledgerIndex };
 		    		var content = "<tr>" +
 		    			" <td style='max-width:0px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;'> <span> LedgerIndex: <a href=/app?"+JSON.stringify(ledgerindex)+" target='_blank'>" + celldata[rowIndex].hiddenprops.ledgerIndex +"</a> </span>" +
-		    			"</br><span > TxHash: <a href=/transaction?"+JSON.stringify(txhash)+" target='_blank'>  " + celldata[rowIndex].hiddenprops.txHash +" </a> </span></td>" + 
-		    			"<td  style='max-width:0px; white-space:nowrap; border:0px;' ><span> Issuer: <a href=/app?"+JSON.stringify(issuer)+" target='_blank'>  " + celldata[rowIndex].hiddenprops.issuer +" </a> </span>" + 
-		    			"</br><span> Counterparty: <a href=/app?"+JSON.stringify(counterparty)+" target='_blank'>  " + celldata[rowIndex].hiddenprops.counterparty +" </a> </span></td>" + 
+		    			"</br><span > TxHash: <a href=/transaction/"+ txhash +" target='_blank'>  " + celldata[rowIndex].hiddenprops.txHash +" </a> </span></td>" + 
+		    			"<td  style='max-width:0px; white-space:nowrap; border:0px;' ><span> Issuer: <a href=/app/"+ issuer +" target='_blank'>  " + celldata[rowIndex].hiddenprops.issuer +" </a> </span>" + 
+		    			"</br><span> Counterparty: <a href=/app/"+ counterparty +" target='_blank'>  " + celldata[rowIndex].hiddenprops.counterparty +" </a> </span></td>" + 
 		    			"</tr>";
 		            var handler = function(e) {
 		            	return function(e) {
@@ -281,7 +281,7 @@ var RippleAccountTransactions = React.createClass({
 							:  <div className="didntissueiou"> This account didnt make any payment </div> 
 						: <div className="didntissueiou"> This account didnt make any payment for this period</div> 
 					: ""
-				: <img className="loading" src={'./img/loading2.gif'} /> }
+				: <img className="loading" src={'/img/loading2.gif'} /> }
 
 			</div>);
 
@@ -365,7 +365,7 @@ var RippleAccountTransactions = React.createClass({
 	        },
 	        account: account,
 	        period:period
-		}, function() { console.log(this.state);});
+		});
 		$('.transactiondetailbutton').parents('td').addClass('transactiondetailbutton');
 	},
 

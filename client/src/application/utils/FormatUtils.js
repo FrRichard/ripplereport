@@ -165,56 +165,56 @@
 			// dollars
 			case 'USD':
 				symbol = "$";
-				image = "./img/currencies/USD.svg";
+				image = "/img/currencies/USD.svg";
 				break;
 				// bitcoin
 			case 'CAD':
 				symbol = "$";
-				image = "./img/currencies/CAD.svg";
+				image = "/img/currencies/CAD.svg";
 				break;
 			//or
 			case 'XAU':
 				symbol = "XAU";
-				image = "./img/currencies/XAU.svg";
+				image = "/img/currencies/XAU.svg";
 				break;
 			//argent
 			case 'XAG':
 				symbol = "XAG";
-				image = "./img/currencies/XAG.svg";
+				image = "/img/currencies/XAG.svg";
 				break;
 			//brasil real
 			case 'BRL':
 				symbol = "BRL";
-				image = "./img/currencies/BRL.svg";
+				image = "/img/currencies/BRL.svg";
 				break;
 			case 'BTC':
 				symbol = "Ƀ";
-				image = "./img/currencies/BTC.svg";
+				image = "/img/currencies/BTC.svg";
 				break;
 				// euro
 			case 'EUR':
 				symbol = "€";
-				image = "./img/currencies/EUR.svg";
+				image = "/img/currencies/EUR.svg";
 				break;
 				//korean won
 			case 'KRW':
 				symbol = "KRW";
-				image = "./img/currencies/KRW.svg";
+				image = "/img/currencies/KRW.svg";
 				break;
 				//mexique pesos
 			case 'MXN':
 				symbol = "MXN";
-				image = "./img/currencies/MXN.svg";
+				image = "/img/currencies/MXN.svg";
 				break;
 				//singapour dollar
 			case 'SGD':
 				symbol = "$";
-				image = "./img/currencies/SGD.svg";
+				image = "/img/currencies/SGD.svg";
 				break;
 				// yuan
 			case 'CNY':
 				symbol = "¥";
-				image = "./img/currencies/CNY.svg";
+				image = "/img/currencies/CNY.svg";
 				break;
 				// rouble
 			case 'RUR':
@@ -223,17 +223,17 @@
 				// Japanese yen
 			case 'JPY':
 				symbol = '¥';
-				image = "./img/currencies/JPY.svg";
+				image = "/img/currencies/JPY.svg";
 				break;
 				// Pound
 			case 'GBP':
 				symbol = '£';
-				image = "./img/currencies/GBP.svg";
+				image = "/img/currencies/GBP.svg";
 				break;
 				//stellar
 			case 'STR':
 				symbol = "STR";
-				image = "./img/currencies/STR.svg";
+				image = "/img/currencies/STR.svg";
 				break;
 				// feathercoin
 			case 'FTC':
@@ -243,7 +243,7 @@
 				// litecoin
 			case 'LTC':
 				symbol = "Ł";
-				image = "./img/currencies/OTHER.svg";
+				image = "/img/currencies/OTHER.svg";
 				break;
 				// Dogecoin
 			case 'DOGE':
@@ -281,7 +281,7 @@
 				// 42
 			case 'XRP':
 				symbol = "XRP";
-				image = "./img/currencies/XRP.svg";
+				image = "/img/currencies/XRP.svg";
 				break;
 				// 42
 			// case '42':
@@ -666,7 +666,7 @@
 			// 	break;
 			default :
 				symbol = "STR";
-				image = "./img/currencies/STR.svg";
+				image = "/img/currencies/STR.svg";
 
 		}
 		return {symbol:symbol,image:image};

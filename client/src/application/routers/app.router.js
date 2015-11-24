@@ -38,30 +38,34 @@ var addressvalidator = require('AddressValidator');
 var Router = Backbone.Router.extend({
 
     routes: {
-        "app": "app",
-        "transaction":"transaction",
-        "price/*":"price",
-        "features":"features",
-        "paymenttracking": "paymenttracking"
+        'app(/:params)': 'app',
+        // 'app(/)(:address)': 'app',
+        // 'appss' : 'app',
+        'transaction(/:params)': 'transaction',
+        'price/*': 'price',
+        // "features":"features",
+        'paymenttracking': 'paymenttracking'       
     },
 
     initialize: function(params) {
-        // RealtimeActions.registerAvailablePairs();
+        console.log('INIT LE FUCKING ROUTER§§');
         Backbone.history.start({
-            pushState: true
+            pushState: true,
+            // root:'/'
         });
         this.datarooms = [];
     },
 
-    app: function(params) {
+
+    app: function(address) {
+        console.log("APP ROUTER PARAM", address);
         React.render(<App searchBar = {SearchbarAccount} title = "Ledger Monitor"/>, document.getElementById('app'));
-        if(params) {
-            var param = JSON.parse(params);
-            var toresolve = [param.address];
+        if(address) {
+            var toresolve = [address];
             var conf = Config.dashboards.account;
             DashboardActions.registerconf(conf);
             _.each(gatewaysnames, function(gateway) {
-                if(param.address == gateway.address || param.address == gateway.name) {
+                if(address == gateway.address || address == gateway.name) {
                     conf = Config.dashboards.gateway;
                     DashboardActions.registerconf(conf);
                 }
@@ -81,8 +85,9 @@ var Router = Backbone.Router.extend({
     },
 
     transaction: function(params) {
+        console.log('transaction ROUTER;',params);
         if(params) {
-            var params = JSON.parse(params);
+            // var params = JSON.parse(params);
             RippledataActions.transaction([params]);
         } 
         React.render(<TransactionView />, document.getElementById('app'));
@@ -149,6 +154,7 @@ var Router = Backbone.Router.extend({
 
 
 });
+
 
 
 module.exports = Router;
