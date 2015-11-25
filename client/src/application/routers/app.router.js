@@ -39,8 +39,6 @@ var Router = Backbone.Router.extend({
 
     routes: {
         'app(/:params)': 'app',
-        // 'app(/)(:address)': 'app',
-        // 'appss' : 'app',
         'transaction(/:params)': 'transaction',
         'price/*': 'price',
         // "features":"features",
@@ -48,7 +46,6 @@ var Router = Backbone.Router.extend({
     },
 
     initialize: function(params) {
-        console.log('INIT LE FUCKING ROUTER§§');
         Backbone.history.start({
             pushState: true,
             // root:'/'
@@ -58,7 +55,6 @@ var Router = Backbone.Router.extend({
 
 
     app: function(address) {
-        console.log("APP ROUTER PARAM", address);
         React.render(<App searchBar = {SearchbarAccount} title = "Ledger Monitor"/>, document.getElementById('app'));
         if(address) {
             var toresolve = [address];
@@ -85,7 +81,6 @@ var Router = Backbone.Router.extend({
     },
 
     transaction: function(params) {
-        console.log('transaction ROUTER;',params);
         if(params) {
             // var params = JSON.parse(params);
             RippledataActions.transaction([params]);

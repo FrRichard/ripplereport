@@ -16,7 +16,6 @@ var Uuid = require('Uuid');
 var LongPollingSocketManager = require('LongPollingSocketManager');
 
 
-
 var AccountActions = {
 
 	idtrack: function(toresolve) {
@@ -25,19 +24,20 @@ var AccountActions = {
 
 		rippleidcollection.createIdList(toresolve).then(function() {	
 			if(rippleidcollection.toJSON()[0].exists) {
-
-				Dispatcher.handleViewAction({
-					actionType: Constants.ActionTypes.ASK_RIPPLEID,
-					result: rippleidcollection,
-					init: "id"
-				});
-				Dispatcher.handleViewAction({
-					actionType: Constants.ActionTypes.RIGHTADDRESS_ID,
-					result: rippleidcollection
-				});
-				Dispatcher.handleServerAction({
-					actionType:Constants.ActionTypes.ISLOADING
-				});
+				console.log(rippleidcollection.toJSON()[0]);
+				window.location.pathname = '/app/' + rippleidcollection.toJSON()[0].address;
+				// Dispatcher.handleViewAction({
+				// 	actionType: Constants.ActionTypes.ASK_RIPPLEID,
+				// 	result: rippleidcollection,
+				// 	init: "id"
+				// });
+				// Dispatcher.handleViewAction({
+				// 	actionType: Constants.ActionTypes.RIGHTADDRESS_ID,
+				// 	result: rippleidcollection
+				// });
+				// Dispatcher.handleServerAction({
+				// 	actionType:Constants.ActionTypes.ISLOADING
+				// });
 				
 			} else {
 				Dispatcher.handleServerAction({

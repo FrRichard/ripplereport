@@ -64,7 +64,8 @@ var SearchBar = React.createClass({
 
 		if(addressvalidator.decode(this.toresolve[0])) {
 			this.type = "address";
-			AccountActions.addresstrack(this.toresolve);
+			window.location.pathname = "/app/" + this.toresolve[0];
+			// AccountActions.addresstrack(this.toresolve);
 		} else if(this.toresolve[0][0] == "~") {
 			this.type = "id"
 			AccountActions.idtrack(this.toresolve);
