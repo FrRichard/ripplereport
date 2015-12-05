@@ -68,7 +68,7 @@ var RippleCapitalization = React.createClass({
 		}
 
 		return ( 
-			<div className="panel panel-default">
+			<div className="panel panel-default grid-stack-item-content">
 		        <div className="panel-heading clearfix">
 		          <div className="panel-title  pull-left" onMouseOver="" onMouseOut="">
 		            <i className={this.props.attributes.icon}></i>

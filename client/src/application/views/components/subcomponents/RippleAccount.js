@@ -117,7 +117,7 @@ var RippleAccount = React.createClass({
               <tr key={"accounttable"+(i+1)} onMouseOver={self.mouseOverLinesHandler([line['currency'],line['account']])}    onMouseOut={self.mouseOutLinesHandler([line['currency'],line['account']])}>              
                   <td key={"rippleaccouncurrency"+(i+1)}> {line['currency']}</td>
                   <td key={"rippleaccountbalance"+(i+1)}> {FormatUtils.formatValue(line['balance'])} </td>
-                  <td key={"rippleaccountaccount"+(i+1)}> <a href={"/app/"+address} target="_blank" value={line['account']}> {line['account']} </a> </td>
+                  <td className="balancetable_address"  key={"rippleaccountaccount"+(i+1)}> <a href={"/app/"+address} target="_blank" value={line['account']}> {line['account']} </a> </td>
                   <td key={"rippleaccountname"+(i+1)}> {line['name']} </td>
                   <td className="check" key={"rippleaccountno_ripple"+(i+1)}> {noripple} </td>
               </tr>
@@ -127,7 +127,7 @@ var RippleAccount = React.createClass({
       }
 
       return (
-        <div className="panel panel-default">
+        <div className="panel panel-default grid-stack-item-content">
           <div className="panel-heading clearfix">
             <div className="panel-title  pull-left" onMouseOver="" onMouseOut="">
               <i className={this.props.attributes.icon}></i>
@@ -144,7 +144,7 @@ var RippleAccount = React.createClass({
               </span>
             </div>
           </div>
-          <div className="panel-body" style={panelstyle}>
+          <div className="panel-body balancetable" >
               { this.state.isloading ?  <div><img className="loading" src={'/img/loading2.gif'} /></div> : ''}
               { !this.state.isloading ?
               <Table striped bordered condensed hover>

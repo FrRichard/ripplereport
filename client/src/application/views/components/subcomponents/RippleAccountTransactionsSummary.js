@@ -56,10 +56,7 @@ var RippleAccountTransactionsSummary = React.createClass({
 
 	render: function() {
 		var self =this;
-		var ofexsum_titlestyle = viewcommon.ofexsum_title;
-		var ofexsum_top10 = viewcommon.ofexsum_top10;
 		var ofexsum_top10table = viewcommon.ofexsum_top10table;
-		var doubleselectorstyle = viewcommon.doubleselector;
 		var rows = [];
 		var rows2 = [];
 
@@ -94,19 +91,19 @@ var RippleAccountTransactionsSummary = React.createClass({
 							var address = payment.counterparty;
 							var content = 
 								<span key={"transactiontop10_block"+i}>
-									<span key={"transactiontop10_amount"+i} className="offersexercisedamount">{payment.currency} {FormatUtils.formatValue(payment.amount)}</span>
+									<span key={"transactiontop10_amount"+i} className="top10_offersexercisedamount">{payment.currency} {FormatUtils.formatValue(payment.amount)}</span>
 									<span key={"transactiontop10_date"+i} className="offersexerciseddate">{payment.date}</span>
-									<span key={"transactiontop10_issuer"+i} className="offersexercisedissuer"> Sender: <a href={"/app/" + address} target="_blank" value={payment.counterparty}> {payment.counterparty}</a></span>
-									<span key={"transactiontop10_direction"+i} className="direction"> Direction: <span className={directioncom}> {paymentd} </span> </span>
+									<span key={"transactiontop10_direction"+i} className="top10_direction"> Direction: <span className={directioncom}> {paymentd} </span> </span>
+									<span key={"transactiontop10_issuer"+i} className="top10_offersexercisedissuer"> Sender: <a href={"/app/" + address} target="_blank" value={payment.counterparty}> {payment.counterparty}</a></span>
 								</span>;
 						} else {
 							var address = payment.counterparty;
 							var content = 
 								<span  key={"transactiontop10_block"+i}>
-									<span key={"transactiontop10_amount"+i} className="offersexercisedamount">{payment.currency} {FormatUtils.formatValue(payment.amount)}</span>
+									<span key={"transactiontop10_amount"+i} className="top10_offersexercisedamount">{payment.currency} {FormatUtils.formatValue(payment.amount)}</span>
 									<span key={"transactiontop10_date"+i} className="offersexerciseddate">{payment.date}</span>
-									<span key={"transactiontop10_issuer"+i} className="offersexercisedissuer">Receiver:<a href={"/app/"+ address} target="_blank" value={payment.counterparty}> {payment.counterparty}</a></span>
-									<span key={"transactiontop10_direction"+i} className="direction"> Direction: <span className={directioncom}> {paymentd} </span> </span>
+									<span key={"transactiontop10_direction"+i} className="top10_direction"> Direction: <span className={directioncom}> {paymentd} </span> </span>
+									<span key={"transactiontop10_issuer"+i} className="top10_offersexercisedissuer">Receiver:<a href={"/app/"+ address} target="_blank" value={payment.counterparty}> {payment.counterparty}</a></span>
 								</span>;
 						}
 						if(payment.currency == 'XRP') {
@@ -114,7 +111,7 @@ var RippleAccountTransactionsSummary = React.createClass({
 						} else {
 							var address = payment.issuer;
 							var hiddencontent = 
-								<span  key={"transactiontop10_block_hidden"+i} className="offersexercisedissuer">
+								<span  key={"transactiontop10_block_hidden"+i} className="top10_offersexercisedissuer">
 									Issuer: <a key={"transactiontop10_href"+i} href={"/app/"+ address} target="_blank" value={payment.issuer}>{payment.issuer}</a>
 								</span>;
 						}
@@ -148,9 +145,9 @@ var RippleAccountTransactionsSummary = React.createClass({
 
 								var content = 
 									<span key={"transactionsum_block"+issuerkey}>
-										<span key={"transactionsum_amount"+issuerkey} className="offersexercisedamount"> {self.state.selectedcurrency_total}  {FormatUtils.formatValue(issuer[self.state.selectedpaymenttype_total].amount)} </span>
+										<span key={"transactionsum_amount"+issuerkey} className="top10_offersexercisedamount"> {self.state.selectedcurrency_total}  {FormatUtils.formatValue(issuer[self.state.selectedpaymenttype_total].amount)} </span>
 										<span key={"transactionsum_number"+issuerkey} className="transactionnumber"> Number of payments: {issuer[self.state.selectedpaymenttype_total].count} </span>
-										<span key={"transactionsum_issuer"+issuerkey} className="offersexercisedissuer"> {com} {Issuer}  </span>
+										<span key={"transactionsum_issuer"+issuerkey} className="top10_offersexercisedissuer"> {com} {Issuer}  </span>
 									</span>;
 								
 								rows2.push(
@@ -165,7 +162,7 @@ var RippleAccountTransactionsSummary = React.createClass({
 							if(currency_total[self.state.selectedpaymenttype_total]) {
 								var content = 
 									<span key={"transactionsum_block"+issuerkey} >
-										<span key={"transactionsum_amount"+issuerkey} className="offersexercisedamount"> {self.state.selectedcurrency_total} {FormatUtils.formatValue(currency_total[self.state.selectedpaymenttype_total].amount)} </span>
+										<span key={"transactionsum_amount"+issuerkey} className="top10_offersexercisedamount"> {self.state.selectedcurrency_total} {FormatUtils.formatValue(currency_total[self.state.selectedpaymenttype_total].amount)} </span>
 										<span key={"transactionsum_number"+issuerkey} className="transactionnumber"> Number of payments: {currency_total[self.state.selectedpaymenttype_total].count} </span>
 									</span>;
 
@@ -183,7 +180,7 @@ var RippleAccountTransactionsSummary = React.createClass({
 		}
 
 		return (
-			<div className="panel panel-default">
+			<div className="panel panel-default grid-stack-item-content">
 				<div className="panel-heading clearfix">
 					 <div className="panel-title  pull-left" onMouseOver="" onMouseOut="">
 	             		<i className={this.props.attributes.icon}></i>
@@ -192,7 +189,7 @@ var RippleAccountTransactionsSummary = React.createClass({
 						</span>
            			</div>
            		</div>			
-				<div className="panel-body" style={ofexsum_top10}>
+				<div className="panel-body txsum_top10 ">
 						{ this.state.isloading ?  <div><img className="loading" src={'/img/loading2.gif'} /></div> : ''}
 						{ !this.state.isloading ?
 							this.state.rippletransactions[this.address].transactions ?
@@ -200,13 +197,13 @@ var RippleAccountTransactionsSummary = React.createClass({
 							    <Table bordered condensed hover  >
 				                    <thead>
 										<th colSpan={2}> 
-											<span style={ofexsum_titlestyle}>Top 10 payments </span>
+											<span className="top10_title">Top 10 payments </span>
 												<span>
-													<select className="customSelector" style={doubleselectorstyle} onChange={this.onSelectPaymentType} value={this.state.selectedpaymenttype}>
+													<select className="doubleselector" onChange={this.onSelectPaymentType} value={this.state.selectedpaymenttype}>
 														<option key={"optionsent"} value={"sent"}> SENT </option>
 														<option key={"optionreceived"} value={"received"}> RECEIVED </option>
 													</select>
-													<select className="customSelector" onChange={this.onSelectCurrency} style={doubleselectorstyle} value={this.state.selectedcurrency}>
+													<select className="doubleselector" onChange={this.onSelectCurrency}  value={this.state.selectedcurrency}>
 														{optioncurrencies}
 													</select>
 												</span>
@@ -220,7 +217,7 @@ var RippleAccountTransactionsSummary = React.createClass({
 			              	: <div className="didntissueiou" > this account didnt made any payment for this period</div>
 		              	: "" }
 				</div>
-				<div className="panel-body" style={ofexsum_top10}>
+				<div className="panel-body txsum_top10">
 					{ this.state.isloading ?  <div><img className="loading" src={'/img/loading2.gif'} /></div> : ''}
 						{ !this.state.isloading ?
 							this.state.rippletransactions[this.address].transactions ?
@@ -228,13 +225,13 @@ var RippleAccountTransactionsSummary = React.createClass({
 							    <Table bordered condensed hover  >
 				                    <thead>
 										<th colSpan={2}> 
-											<span style={ofexsum_titlestyle}>Total payments </span>
+											<span className="top10_title">Total payments </span>
 												<span>
-													<select className="customSelector" style={doubleselectorstyle} onChange={this.onSelectPaymentType_total} value={this.state.selectedpaymenttype_total}>
+													<select className="doubleselector"onChange={this.onSelectPaymentType_total} value={this.state.selectedpaymenttype_total}>
 														<option key={"optionsent_total"} value={"sent"}> SENT </option>
 														<option key={"optionreceived_total"} value={"received"}> RECEIVED </option>
 													</select>
-													<select className="customSelector" onChange={this.onSelectCurrency_total} style={doubleselectorstyle} value={this.state.selectedcurrency_total}>
+													<select className="doubleselector" onChange={this.onSelectCurrency_total} value={this.state.selectedcurrency_total}>
 														{optioncurrencies}
 													</select>
 												</span>

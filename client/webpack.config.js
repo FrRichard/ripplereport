@@ -235,6 +235,7 @@ module.exports = {
 			EventsController: path.join(__dirname, './src/application/routers/eventscontroller'),
 			// Internal libs
 			gridster: path.join(__dirname, './lib/internal-libs/jquery.gridster/gridster'),
+			gridstack: path.join(__dirname, './lib/internal-libs/jquery.gridstack/gridstack'),
 			gridsterResponsive: path.join(__dirname, './lib/internal-libs/gridster-responsive/gridster.responsive'),
 			ChartEngine: path.join(__dirname, './lib/internal-libs/chartEngine/ChartEngine'),
 			jsonViewer: path.join(__dirname, './lib/internal-libs/jquery.json-viewer/jquery.json-viewer'),
@@ -244,6 +245,7 @@ module.exports = {
 			backbone: path.join(__dirname, './lib/bower_components/backbone/backbone'),
 			bootstrap: path.join(__dirname, './lib/bower_components/bootstrap/dist/js/bootstrap'),
 			jquery: path.join(__dirname, './lib/bower_components/jquery/dist/jquery'),
+			// "jquery-ui": 'jquery-ui/jquery-ui.js',
 			//lodash: path.join(__dirname, './lib/bower_components/lodash/dist/lodash'),
 			modernizr: path.join(__dirname, './lib/bower_components/modernizr/modernizr'),
 			jsSchema: path.join(__dirname, './lib/bower_components/js-schema/js-schema.debug'),

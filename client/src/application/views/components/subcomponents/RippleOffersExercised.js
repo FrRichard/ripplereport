@@ -47,7 +47,7 @@ var RippleOffersExercised = React.createClass({
 			var chart = <BarChart id={this.chartId} size={[550,230]} data={this.state.rippleoffersexercised[this.address].globalorders.results} />
 		}
 		return (
-			<div className="panel panel-default">
+			<div className="panel panel-default grid-stack-item-content">
 				 <div className="panel-heading clearfix">
 					 <div className="panel-title  pull-left" onMouseOver="" onMouseOut="">
 	             		<i className={this.props.attributes.icon}></i>

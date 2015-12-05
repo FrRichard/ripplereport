@@ -1,6 +1,8 @@
 var React = require('react');
 var DashboardActions = require('DashboardActions');
 var GridStore = require('GridStore');
+// var gridstack = require('gridstack');
+
 
 var GridElements = React.createClass({
 
@@ -11,16 +13,26 @@ var GridElements = React.createClass({
 
     componentDidMount: function() {
       var self=this;
-      var gridster = $(this.getDOMNode()).gridster({
-        widget_margins: [5, 5],
-        widget_base_dimensions: [350, 100],
-        resize: {
-            enabled: false
-          },
-        draggable: {
-            handle: '.panel-heading, .panel-handel'
-          }
-      }).data('gridster');
+      // var gridster = $(this.getDOMNode()).gridster({
+      //   widget_margins: [5, 5],
+      //   widget_base_dimensions: [350, 100],
+      //   resize: {
+      //       enabled: false
+      //     },
+      //   draggable: {
+      //       handle: '.panel-heading, .panel-handel'
+      //     }
+      // }).data('gridster');
+
+      var options = {
+        width:12,
+        always_show_resize_handle: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+        resizable: {
+            handles: 'e, se, s, sw, w'
+        },
+        cell_height:100
+      };
+      var gridstack = $('.grid-stack').gridstack(options).data('gridstack');
 
 
       var renderWidget = function() {
@@ -33,13 +45,13 @@ var GridElements = React.createClass({
             var datatype = attributes.datatype;
             item.props.attributes['reportnumber'] = reportnumber;
 
-            gridster.add_widget(
-                (('<li class="item" id={key} datatype={datatype} reportnumber={reportnumber}>  </li>'.replace('{key}', key)).replace('{datatype}',datatype))
+            gridstack.add_widget(
+                (('<div class="grid-stack-item" id={key} datatype={datatype} reportnumber={reportnumber}>  </div>'.replace('{key}', key)).replace('{datatype}',datatype))
                   .replace('{reportnumber}',reportnumber), 
-                attributes.width,
-                attributes.height,
                 attributes.col,
-                attributes.row
+                attributes.row,
+                attributes.width,
+                attributes.height
               );
 
             React.render(item, document.getElementById(key));
@@ -52,7 +64,7 @@ var GridElements = React.createClass({
       }
 
       renderWidget().then(function() {
-        DashboardActions.registerCurrentRef(gridster);
+        // DashboardActions.registerCurrentRef(gridster);
       });
 
     },

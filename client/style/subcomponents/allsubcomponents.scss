@@ -11,6 +11,8 @@
 @import "./rawjson.scss";
 @import "./price.scss";
 @import "./timecontroller.scss";
+@import "./rippleaccount.scss";
+@import "./accounttransactionsummary";
 
 .loading {
 	height:60px;
@@ -70,3 +72,24 @@
   color:rgb(51, 153, 51);
 }
 
+@media (max-width:450px) {
+  .title-address {
+    font-size : 0.8em;
+    font-weight:normal;
+    z-index: 10;  
+    position: absolute;  
+    right: 10px; 
+    top: 3px;
+  }
+
+  .title-name {
+    display:block;
+    font-size:0.5em;
+    font-weight:normal;
+    z-index: 10;  
+    position: absolute;  
+    right: 6px;  
+    top: 23px;
+  }
+
+}

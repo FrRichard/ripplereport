@@ -20,7 +20,7 @@ function loadFlag(toresolves) {
 function registerId(result) {
 
 	var addresses = result.toJSON();
-
+	console.log("RESULT!!!",result);
 	_.each(addresses, function(addr) {
 		_RippleIddatas[addr.id] = addr;
 		_RippleIddatas[addr.id]["loading"] = false;

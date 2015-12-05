@@ -24,6 +24,8 @@
     "griddle-react": "^0.2.12",
     "http-auth": "*",
     "jade": "^1.9.2",
+    "jquery": "^2.1.4",
+    "jquery-ui": "^1.10.5",
     "jquery.json-viewer": "^1.0.0",
     "jwt-simple": "*",
     "keymirror": "*",

@@ -1,5 +1,9 @@
 var React = require('react/addons');
 var gridster = require('gridster');
+var gridstack = require('gridstack');
+// var $ = require("jquery");
+//         require("jquery-ui");
+
 var config = require('Config');
 var subcomponentselector = require('SubcomponentSelector');
 var GridElements= require('GridElements');
@@ -50,9 +54,13 @@ var Dashboard = React.createClass({
     });
 
     return (
-      <div className="gridster"  ref="dashboardstate" >
+      // <div className="gridster"  ref="dashboardstate" >
+      //   <GridElements items={items} reportnumber={reportnumber}/>
+      // </div>
+      <div className="grid-stack"  ref="dashboardstate" >
         <GridElements items={items} reportnumber={reportnumber}/>
       </div>
+
     );
 
   },

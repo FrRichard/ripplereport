@@ -19,14 +19,6 @@ var viewcommon = {
 		width:350+'px'
 	},
 
-	doubleselector : {
-		display:"inline",
-		float:"right",
-		// width: 29+"%",
-		fontSize:'12',
-		padding:4+"px"
-	},
-
 	ofexsum_title: {
 		verticalAlign:"middle",
 		fontSize:18+"px",
@@ -35,11 +27,6 @@ var viewcommon = {
 
 	collapsablerow: {
 		cursor:"pointer"
-	},
-	ofexsum_top10 : {
-		height: 200 +"px",
-		width: 350 + "px",
-		fontSize:"14"
 	},
 
 	ofexsum_total : {
