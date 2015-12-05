@@ -144,7 +144,7 @@ var RippleAccount = React.createClass({
               </span>
             </div>
           </div>
-          <div className="panel-body balancetable" >
+          <div className="panel-body balancetable " >
               { this.state.isloading ?  <div><img className="loading" src={'/img/loading2.gif'} /></div> : ''}
               { !this.state.isloading ?
               <Table striped bordered condensed hover>

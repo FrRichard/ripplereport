@@ -14,7 +14,7 @@ var Topbar = React.createClass({
 
     return (
       <div className="top_bar">
-        <div className="container-fluid expanded-panel">
+        <div className="expanded-panel">
           <div className="">
             <div id="logo" className="main-search">
               <a href="/app">{title}</a>

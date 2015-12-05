@@ -12,11 +12,12 @@
 	display:inline-block;
 	font-size: 0.9em;
 	margin-left: 1em;
-	width: 95%
+	width: 95%;
+	color:rgb(44, 32, 32);
 }
 
 .paymentTimeControllerBlock {
-	border-style: solid;
+	border-style: hidden hidden solid hidden;
 	border-color: rgba(0, 71, 86, 0.19);
 	border-width: 0.1em;
 	padding: 0.5em;

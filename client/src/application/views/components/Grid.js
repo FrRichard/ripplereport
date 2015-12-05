@@ -30,6 +30,7 @@ var GridElements = React.createClass({
         // resizable: {
         //     handles: 'e, se, s, sw, w'
         // },
+        // vertical_margin: 10,
         cell_height:100,
         static_grid: true
       };
