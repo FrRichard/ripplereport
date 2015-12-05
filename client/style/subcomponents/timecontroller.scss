@@ -12,6 +12,7 @@
 	display:inline-block;
 	font-size: 0.9em;
 	margin-left: 1em;
+	width: 95%
 }
 
 .paymentTimeControllerBlock {
@@ -19,4 +20,22 @@
 	border-color: rgba(0, 71, 86, 0.19);
 	border-width: 0.1em;
 	padding: 0.5em;
+}
+
+@media (max-width:500px) {
+	.paymentTimePeriod {
+		font-size: 0.8em;
+	}
+}
+
+@media (max-width:445px) {
+	.paymentTimePeriod {
+		font-size: 0.7em;
+	}
+}
+
+@media (max-width:390px) {
+	.paymentTimePeriod {
+		font-size: 0.6em;
+	}
 }

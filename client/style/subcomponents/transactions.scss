@@ -2,6 +2,10 @@
 	float:right;
 }
 
+.txsearch {
+	
+}
+
 .loadingstatus {
 	left:50%;
 	top:65%;
@@ -40,6 +44,7 @@
 	color:#124A51;
 	font-size:12px;
 	margin-top:20px;
+	clear:both;
 }
 
 .per-page-container {
@@ -69,20 +74,10 @@
 }
 
 .allsmallpie {
-	width: 700px;
 	display:inline;
 	float:left;
-	margin-left:15px;
-	margin-top:10px;
-}
-
-.alltransactions {
-	float:right;
-	width:350px;
-	font-size:12px;
-	margin-right:0px;
-	margin-left:15px;
-	margin-top:13.5px;
+	margin-left: -1em;
+	margin-top:0.8em;
 }
 
 .griddletransactions {
@@ -90,10 +85,10 @@
 }
 
 .maintitleminipie {
-	width:200px;
-	font-size:15px;
-	color:#124A51;
-	font-weight:bold;
+	font-size: 1.1em;
+	color: #124A51;
+	font-weight: bold;
+	margin-left: 2em;
 }
 .maintitlealltransactions {
 	width:200px;
@@ -142,4 +137,47 @@
 
 .totalstandard {
 	color:#124A51;
+}
+
+.alltransactions table {
+	font-size: 1em;
+	clear:both;
+}
+
+@media (max-width: 1100px) {
+	.alltransactions table {
+		font-size: 0.85em;
+		clear:both;
+	}
+}
+
+@media (max-width: 720px) {
+	.alltransactions table {
+		font-size: 0.7em;
+		clear:both;
+	}
+}
+
+@media (max-width: 580px) {
+	.alltransactions table {
+		font-size: 0.6em;
+		clear:both;
+	}
+}
+@media (max-width: 450px) {
+	.alltransactions table {
+		font-size: 0.5em;
+		clear:both;
+	}
+}
+
+
+@media (max-width: 650px) {
+	.transactionsmallpie {
+		height: 80px;
+		width: 260px;
+		float: left;
+		margin-left: 2em;
+		clear: both;
+	}
 }

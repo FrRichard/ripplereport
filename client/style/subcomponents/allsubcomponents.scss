@@ -13,6 +13,7 @@
 @import "./timecontroller.scss";
 @import "./rippleaccount.scss";
 @import "./accounttransactionsummary";
+@import "./accountoffers";
 
 .loading {
 	height:60px;
@@ -26,10 +27,9 @@
 .customSelector {
 	display: inline-block;
   padding: 4px 3px 3px 5px;
-  max-width:200px;
+  max-width:60%;
   margin: 0;
   font: inherit;
-  font-size:14px;
   line-height: 1.2;
   background: #FFFFFF;
   color:#004756;

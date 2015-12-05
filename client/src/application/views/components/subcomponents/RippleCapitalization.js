@@ -45,7 +45,6 @@ var RippleCapitalization = React.createClass({
 	render: function() {
 		var self =this;
 		this.address= "address" + this.props.attributes.reportnumber;
-		var panelstyle = viewcommon.panellist;
 		var rows = [];
 		if(this.state.ripplecapitalization[this.address]) {
 			_.each(this.state.ripplecapitalization[this.address], function(cap,i) {
@@ -75,7 +74,7 @@ var RippleCapitalization = React.createClass({
 		            <span className="panel-title-text">{this.props.attributes.title}</span>
 		          </div>
 		        </div>
-        		<div className="panel-body" style={panelstyle}>
+        		<div className="panel-body">
         		{ this.state.isloading ?  <div><img className="loading" src={'/img/loading2.gif'} /></div> : ''}
         		{ !this.state.isloading ?
 					this.state.ripplecapitalization ?

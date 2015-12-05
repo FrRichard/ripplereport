@@ -171,7 +171,6 @@ var RippleAccountTransactions = React.createClass({
 	render: function() {
 		var self =this;
 		this.address= "address" + this.props.attributes.reportnumber;
-		var panelstyle = viewcommon.linechart;
 		var AllPies = [];
 
         var filteredData = Search.search(
@@ -212,6 +211,7 @@ var RippleAccountTransactions = React.createClass({
 			}
 			if(transactions) {
 				var fromto = <div className="paymentTimePeriod">
+								<span className="title_float_right"> Last 1000 transactions </span>
 								<span> From: {moment(transactions.startTime).format('MMMM Do YYYY, h:mm:ss a')} </span> <br/>
 								<span> To: {moment(transactions.endTime).format('MMMM Do YYYY, h:mm:ss a')} </span>
 							</div>;
@@ -224,7 +224,6 @@ var RippleAccountTransactions = React.createClass({
 			var timeController = 
 						<div className="paymentTimeControllerBlock"> 
 							{fromto}
-							<span className="title_float_right"> Last 1000 transactions </span>
 						</div>;
 			}
 						
@@ -256,17 +255,17 @@ var RippleAccountTransactions = React.createClass({
            			this.state.rippleaccounttransactions[this.address] ?
            				this.state.rippleaccounttransactions[this.address].transactions ?
 	           				this.state.rippleaccounttransactions[this.address].transactions.length > 0 ?
-				           		<div className="panel-body" style={panelstyle}>
+				           		<div className="panel-body">
 				           			<div className="allsmallpie">
 					           			<h4 className="maintitleminipie"> Payment Sum and Directions </h4>
 				           		 		{AllPies}
 				           		 	</div>
-				           		 	<div className="alltransactionss">
+				           		 	<div className="alltransactions">
 					           			<div className='search-container'>
 										    Search <Search ref={'search'} columns={this.state.columns} onChange={this.setState.bind(this)}></Search>
 										</div>
 				
-					           			<Table className="pure-table layoutfixed" columns={this.state.columns} data={paginated.data} header={header}/>
+					           			<Table className="pure-table" columns={this.state.columns} data={paginated.data} header={header}/>
 
 					           		 	<div className='pagination'>
 										    <Paginator

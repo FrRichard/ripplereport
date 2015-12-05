@@ -10161,7 +10161,8 @@ td.beauty-hover {
   filter: none; }
 
 .grid-stack {
-  position: relative; }
+  position: relative;
+  margin-bottom: 1em; }
 
 .grid-stack .grid-stack-placeholder > .placeholder-content {
   border: 1px dashed lightgray;
@@ -12096,7 +12097,8 @@ striping:
   float: left;
   color: #124A51;
   font-size: 12px;
-  margin-top: 20px; }
+  margin-top: 20px;
+  clear: both; }
 
 .per-page-container {
   display: inline;
@@ -12120,28 +12122,19 @@ striping:
   width: 650px; }
 
 .allsmallpie {
-  width: 700px;
   display: inline;
   float: left;
-  margin-left: 15px;
-  margin-top: 10px; }
-
-.alltransactions {
-  float: right;
-  width: 350px;
-  font-size: 12px;
-  margin-right: 0px;
-  margin-left: 15px;
-  margin-top: 13.5px; }
+  margin-left: -1em;
+  margin-top: 0.8em; }
 
 .griddletransactions {
   margin-top: 15px; }
 
 .maintitleminipie {
-  width: 200px;
-  font-size: 15px;
+  font-size: 1.1em;
   color: #124A51;
-  font-weight: bold; }
+  font-weight: bold;
+  margin-left: 2em; }
 
 .maintitlealltransactions {
   width: 200px;
@@ -12184,6 +12177,38 @@ striping:
 
 .totalstandard {
   color: #124A51; }
+
+.alltransactions table {
+  font-size: 1em;
+  clear: both; }
+
+@media (max-width: 1100px) {
+  .alltransactions table {
+    font-size: 0.85em;
+    clear: both; } }
+
+@media (max-width: 720px) {
+  .alltransactions table {
+    font-size: 0.7em;
+    clear: both; } }
+
+@media (max-width: 580px) {
+  .alltransactions table {
+    font-size: 0.6em;
+    clear: both; } }
+
+@media (max-width: 450px) {
+  .alltransactions table {
+    font-size: 0.5em;
+    clear: both; } }
+
+@media (max-width: 650px) {
+  .transactionsmallpie {
+    height: 80px;
+    width: 260px;
+    float: left;
+    margin-left: 2em;
+    clear: both; } }
 
 .didntissueiou {
   display: block;
@@ -12494,13 +12519,26 @@ td.transaction_field_title {
 .paymentTimePeriod {
   display: inline-block;
   font-size: 0.9em;
-  margin-left: 1em; }
+  margin-left: 1em;
+  width: 95%; }
 
 .paymentTimeControllerBlock {
   border-style: solid;
   border-color: rgba(0, 71, 86, 0.19);
   border-width: 0.1em;
   padding: 0.5em; }
+
+@media (max-width: 500px) {
+  .paymentTimePeriod {
+    font-size: 0.8em; } }
+
+@media (max-width: 445px) {
+  .paymentTimePeriod {
+    font-size: 0.7em; } }
+
+@media (max-width: 390px) {
+  .paymentTimePeriod {
+    font-size: 0.6em; } }
 
 .balancetable table {
   font-size: 80%; }
@@ -12589,6 +12627,13 @@ td.transaction_field_title {
     font-size: 0.8em;
     overflow: scroll; } }
 
+.ongoingoffers table {
+  font-size: 1em; }
+
+@media (max-width: 750px) {
+  .ongoingoffers table {
+    font-size: 0.7em; } }
+
 .loading {
   height: 60px;
   display: block;
@@ -12600,10 +12645,9 @@ td.transaction_field_title {
 .customSelector {
   display: inline-block;
   padding: 4px 3px 3px 5px;
-  max-width: 200px;
+  max-width: 60%;
   margin: 0;
   font: inherit;
-  font-size: 14px;
   line-height: 1.2;
   background: #FFFFFF;
   color: #004756;

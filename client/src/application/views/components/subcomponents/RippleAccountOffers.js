@@ -49,7 +49,6 @@ var RippleAccountOffers = React.createClass({
   
 	render: function() {
 		var self =this;
-		var panelstyle = ViewCommon.panellist;
 		var rows = [];
 		this.address= "address" + this.props.attributes.reportnumber;
 		if(this.state.rippleaccountoffers["address" + this.props.attributes.reportnumber] != undefined) {
@@ -111,7 +110,7 @@ var RippleAccountOffers = React.createClass({
 						</span>
            			</div>
            		</div>
-           		<div className="panel-body" style={panelstyle}>
+           		<div className="panel-body ongoingoffers">
            			{ this.state.isloading ?  <div><img className="loading" src={'/img/loading2.gif'} /></div> : ''}
            			{ !this.state.isloading ?
 		          		this.state.rippleaccountoffers[this.address] ?
