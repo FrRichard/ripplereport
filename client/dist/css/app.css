@@ -10457,7 +10457,7 @@ td.beauty-hover {
     @include vendor(transform, rotate(180deg));
 }
 */
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
   .grid-stack-item {
     position: relative !important;
     width: auto !important;
@@ -12567,7 +12567,7 @@ td.transaction_field_title {
   display: block;
   clear: both; }
 
-@media (max-width: 450px) {
+@media (max-width: 1200px) {
   .doubleselector {
     display: inline-block;
     padding: 4px 3px 3px 5px;

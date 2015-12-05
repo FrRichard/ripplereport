@@ -26,11 +26,12 @@ var GridElements = React.createClass({
 
       var options = {
         width:12,
-        always_show_resize_handle: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
-        resizable: {
-            handles: 'e, se, s, sw, w'
-        },
-        cell_height:100
+        // always_show_resize_handle: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+        // resizable: {
+        //     handles: 'e, se, s, sw, w'
+        // },
+        cell_height:100,
+        static_grid: true
       };
       var gridstack = $('.grid-stack').gridstack(options).data('gridstack');
 
