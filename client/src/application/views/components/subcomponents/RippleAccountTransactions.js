@@ -262,7 +262,7 @@ var RippleAccountTransactions = React.createClass({
 				           		 	</div>
 				           		 	<div className="alltransactions">
 					           			<div className='search-container'>
-										    Search <Search ref={'search'} columns={this.state.columns} onChange={this.setState.bind(this)}></Search>
+										    Filter <Search ref={'search'} columns={this.state.columns} onChange={this.setState.bind(this)}></Search>
 										</div>
 				
 					           			<Table className="pure-table" columns={this.state.columns} data={paginated.data} header={header}/>
