@@ -12109,6 +12109,11 @@ striping:
   margin-top: 20px;
   clear: both; }
 
+.search-container .search > input {
+  width: 8em;
+  margin-left: 0.5em;
+  height: 1.8em; }
+
 .per-page-container {
   display: inline;
   float: right;
