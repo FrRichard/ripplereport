@@ -14,6 +14,7 @@ function registerExchangerates(result) {
 	_.each(exchangerates, function(exchangerate) {
 		_Rippleexchangerates[exchangerate.id] = exchangerate;
 	});
+	console.log("REGISTER RIPPLE exchangerate", exchangerates);
 };
 
 var RippleexchangeratesStore = assign({}, EventEmitter.prototype, {

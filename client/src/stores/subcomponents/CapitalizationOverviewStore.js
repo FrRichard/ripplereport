@@ -5,6 +5,7 @@ var assign = require('object-assign');
 var RippleexchangeratescapitalizationStore = require('ExchangeRatesCapitalizationStore');
 var RipplecapitalizationStore = require('CapitalizationStore')
 var RippleidStore = require('IdStore');
+var InfosStore = require('InfosStore');
 
 var CHANGE_EVENT = 'change';
 var _RippleCapitalizationOverviews = {};
@@ -35,7 +36,7 @@ function createStoreObject(datasets) {
 }
 
 function initDatasets(ids) {
-	
+	console.log("INIT DATASETS! capoverviewstore",ids, "infosstore",InfosStore.getAll());
 	var ids = ids;
 	_.each(ids, function(id) {
 		datasets[id.id] = {
@@ -183,7 +184,8 @@ RipplecapitalizationoverviewStore.dispatcherIndex = Dispatcher.register(function
 				RippleexchangeratescapitalizationStore.dispatcherIndex,
 				RipplecapitalizationStore.dispatcherIndex
 			]);
-			initDatasets(RippleidStore.getAll());
+			// initDatasets(RippleidStore.getAll());
+			initDatasets(InfosStore.getAll());
 			registerRippleExchangerates(RippleexchangeratescapitalizationStore.getAll());
 			registerRippleCapitalization(RipplecapitalizationStore.getAll());
 			var tosave = createStoreObject(datasets);

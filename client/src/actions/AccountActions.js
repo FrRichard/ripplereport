@@ -102,6 +102,7 @@ var AccountActions = {
 
 	viewready: function(address,type) {
 		var self = this;
+		console.log("TYPE",type);
 		if(type == "address") {
 			self.rippleid( address.infos );
 			// self.rippleoffersexercised( address.infos );

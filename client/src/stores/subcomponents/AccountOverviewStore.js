@@ -19,6 +19,7 @@ function registerAccountOverviews(result) {
 }
 
 function createStoreObject(datasets) {
+	console.log(datasets);
 	var result = {};
 	_.each(datasets, function(dataset) {
 		result[dataset.id] = {};
@@ -47,6 +48,7 @@ function initDatasets(ids) {
 		};
 	});
 	defaultCurrency='XRP';
+	console.log("INITDATASETS",ids,datasets);
 }
 
 function registerRippleLines(lines) {
@@ -65,7 +67,7 @@ function registerRippleInfos(infos) {
 
 function registerRippleExchangerates(rates) {
 	var rates = rates;
-
+	console.log("RATES!!",rates);
 	_.each(rates, function(rate) {
 		datasets[rate.id]['rippleexchangerates']= rate;
 	});
@@ -220,11 +222,12 @@ RippleaccountoverviewsStore.dispatcherIndex = Dispatcher.register(function(paylo
 
 	if(action.init) {
 		if(action.init == "address") {
-			isReady = {	id: false, lines:false, exchangerates:false, infos:false};
+			isReady = {	id: true, lines:false, exchangerates:false, infos:false};
 			initDatasets(RippleinfosStore.getAll());
 		} else {
-			isReady = {	id: false, lines:false, exchangerates:false, infos:false };
-			initDatasets(RippleidStore.getAll());
+			isReady = {	id: true, lines:false, exchangerates:false, infos:false };
+			// initDatasets(RippleidStore.getAll());
+			initDatasets(RippleinfosStore.getAll());
 		}
 	}
 	switch(action.actionType) {
