@@ -20,7 +20,6 @@ function loadFlag(toresolves) {
 function registerId(result) {
 
 	var addresses = result.toJSON();
-	console.log("RESULT!!!",result);
 	_.each(addresses, function(addr) {
 		_RippleIddatas[addr.id] = addr;
 		_RippleIddatas[addr.id]["loading"] = false;
@@ -96,7 +95,11 @@ RippleidStore.dispatcherIndex = Dispatcher.register(function(payload) {
 			break;
 
 		case Constants.ActionTypes.WRONGADDRESS_ID:
-			RippleidStore.emitEvent("wrongaddress_fromidstore");
+			if(action.result.toJSON()[0].error = "api_unavailable") {
+				RippleidStore.emitEvent("api_unavailable");
+			} else {
+				RippleidStore.emitEvent("wrongaddress_fromidstore");
+			}
 			break;
 
 		case Constants.ActionTypes.RIGHTADDRESS_ID:

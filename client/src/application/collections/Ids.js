@@ -32,17 +32,18 @@ var RippleIds = Backbone.Collection.extend({
 							model.attributes.username = "This address has no username"
 						}
 						self.add(model);
+					},
+					error: function(model, response) {
+						model.attributes.error = "api_unavailable";
+						self.add(model);
 					}
-				});       
+				});      
 	        return xhr;		
 	    });
 
 
 
         var sync = $.when.apply(null, xhrs);
-	    // sync.then(function() {
-	    //     self.trigger('someshit');
-	    // });
 	    return sync;
 
 	}

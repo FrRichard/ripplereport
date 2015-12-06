@@ -35,6 +35,7 @@ var SearchBar = React.createClass({
 	componentDidMount: function() {
 		RippleidStore.addChangeListener("rightaddress_fromidstore", this._onRightId);
 		RippleidStore.addChangeListener("wrongaddress_fromidstore", this._onWrongId);
+		RippleidStore.addChangeListener("api_unavailable", this._onUnavailableApi);
 		RippleinfosStore.addChangeListener("rightaddress_frominfosstore", this._onRightId);
 		RippleinfosStore.addChangeListener("wrongaddress_frominfosstore", this._onWrongId);
 	},
@@ -95,6 +96,11 @@ var SearchBar = React.createClass({
 			var errormsg = <div className ="errormsg"> This ~name or address has not been found </div>;
 		}
 
+		if(this.state.isloading == "unavailableapi") {
+			var searchlogo = <i onClick={this.handleClick}   className="fa fa-search searchbutton"></i>;
+			var errormsg = <div className ="errormsg"> It seems the Ripple API is not available, try with an address </div>;
+		}
+
 		return ( 
 		 <div id="search" className="search search_account">
 			<input onKeyPress={this.handleKeyPress} type="text"  placeholder="Enter a ripple address or a ~name" className="searchinput"/>			
@@ -115,7 +121,13 @@ var SearchBar = React.createClass({
     _onWrongId: function() {
     	var self = this;
     	this.setState({isloading:"nonvalid"});
+    },
+
+    _onUnavailableApi: function() {
+    	var self = this;
+    	this.setState({isloading:"unavailableapi"});
     }
+
 
 });
 

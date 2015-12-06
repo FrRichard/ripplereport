@@ -19,7 +19,6 @@ function registerAccountOverviews(result) {
 }
 
 function createStoreObject(datasets) {
-	console.log(datasets);
 	var result = {};
 	_.each(datasets, function(dataset) {
 		result[dataset.id] = {};
@@ -48,7 +47,6 @@ function initDatasets(ids) {
 		};
 	});
 	defaultCurrency='XRP';
-	console.log("INITDATASETS",ids,datasets);
 }
 
 function registerRippleLines(lines) {
@@ -67,7 +65,6 @@ function registerRippleInfos(infos) {
 
 function registerRippleExchangerates(rates) {
 	var rates = rates;
-	console.log("RATES!!",rates);
 	_.each(rates, function(rate) {
 		datasets[rate.id]['rippleexchangerates']= rate;
 	});

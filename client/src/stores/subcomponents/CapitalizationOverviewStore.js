@@ -36,7 +36,6 @@ function createStoreObject(datasets) {
 }
 
 function initDatasets(ids) {
-	console.log("INIT DATASETS! capoverviewstore",ids, "infosstore",InfosStore.getAll());
 	var ids = ids;
 	_.each(ids, function(id) {
 		datasets[id.id] = {
@@ -49,7 +48,6 @@ function initDatasets(ids) {
 
 function registerRippleExchangerates(rates) {
 	var rates = rates;
-	console.log("raaaaaaaaaaaaaateees",rates, datasets);
 	_.each(rates, function(rate) {
 		datasets[rate.id]['rippleexchangerates']= rate;
 	});

@@ -21,10 +21,8 @@ var AccountActions = {
 	idtrack: function(toresolve) {
 		var self = this;
 		var rippleidcollection = new rippleids();
-
-		rippleidcollection.createIdList(toresolve).then(function() {	
+		rippleidcollection.createIdList(toresolve).always(function() {
 			if(rippleidcollection.toJSON()[0].exists) {
-				console.log(rippleidcollection.toJSON()[0]);
 				window.location.pathname = '/app/' + rippleidcollection.toJSON()[0].address;
 				// Dispatcher.handleViewAction({
 				// 	actionType: Constants.ActionTypes.ASK_RIPPLEID,
@@ -102,7 +100,6 @@ var AccountActions = {
 
 	viewready: function(address,type) {
 		var self = this;
-		console.log("TYPE",type);
 		if(type == "address") {
 			self.rippleid( address.infos );
 			// self.rippleoffersexercised( address.infos );
