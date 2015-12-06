@@ -1,0 +1,84 @@
+.txsum_top10  {
+	max-height: 45%;
+	width: 98%;
+	font-size:0.9em;
+	overflow-y: scroll;
+}
+
+
+.doubleselector  {
+	display: inline-block;
+	padding: 4px 3px 3px 5px;
+	max-width:30%;
+	margin: 0;
+	font: inherit;
+	font-size:0.9em;
+	line-height: 1.2;
+	background: #FFFFFF;
+	color:#004756;
+	float: right;
+}
+
+.top10_title {
+	vertical-align:middle;
+	font-size:1.25em;
+	color:#124A51;
+}
+
+.offersexerciseddate {
+	float: right;
+	font-size: 12px;
+	display: inline-block;
+}
+
+.top10_offersexercisedamount {
+	font-color: black;
+	color: black;
+	display: inline-block;
+	float: left;
+}
+
+.top10_offersexercisedissuer {
+	float:left;
+	font-size:10px;
+	color:black;
+	display:block;
+	margin-top:3px;
+	clear: both;
+}
+
+.top10_direction {
+	float:left;
+	display:block;
+	clear:both;
+}
+
+@media (max-width:1200px) {
+	.doubleselector  {
+		display: inline-block;
+		padding: 4px 3px 3px 5px;
+		max-width:30%;
+		margin: 0;
+		font: inherit;
+		font-size:0.75em;
+		line-height: 1.2;
+		background: #FFFFFF;
+		color:#004756;
+		float: right;
+	}
+
+	.top10_title {
+		vertical-align:middle;
+		font-size:0.9em;
+		color:#124A51;
+	}
+
+	.txsum_top10  {
+		max-height: 45%;
+		width: 98%;
+		font-size:0.8em;
+		overflow: scroll;
+	}
+
+
+}

@@ -1,0 +1,28 @@
+.balancetable {
+}
+
+.balancetable table {
+	font-size: 80%;
+}
+
+.balancetable_address {
+    max-width: 5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
+
+@media (max-width:450px) {
+	.balancetable table {
+		font-size: 60%;
+	}	
+
+	.balancetable_address {
+	    max-width: 5em;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+
+	}
+}
