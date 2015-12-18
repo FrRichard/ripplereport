@@ -13,17 +13,6 @@ var GridElements = React.createClass({
 
     componentDidMount: function() {
       var self=this;
-      // var gridster = $(this.getDOMNode()).gridster({
-      //   widget_margins: [5, 5],
-      //   widget_base_dimensions: [350, 100],
-      //   resize: {
-      //       enabled: false
-      //     },
-      //   draggable: {
-      //       handle: '.panel-heading, .panel-handel'
-      //     }
-      // }).data('gridster');
-
       var options = {
         width:12,
         // always_show_resize_handle: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
