@@ -36,22 +36,3 @@ var Router = Backbone.Router.extend({
 module.exports = Router;
 
 
-
-
-// $(".findrippleid").click(function() {
-// 	var id = toresolve.val();
-// 	var address;
-// 	var url = "/ripple/id/?id="+id;
-// 	// var url = "/ripple/account_info/?id="+id;
-// 	$.when($.get(url ,function(res,status) {
-// 			console.log(res);
-// 			address = res.address;
-// 		}))
-// 	.done(function() {
-// 		console.log(address);
-// 		url = "/ripple/account_info/?id="+address;
-// 		$.get(url, function(res, status) {
-// 			console.log(res);
-// 		});
-// 	});
-// });

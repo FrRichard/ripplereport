@@ -5,7 +5,6 @@ var React = require('react');
 var rawjson = function() {
 
 	this.createView = function(params) {
-		// console.log(paraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaams);
 		var custom_params = {};
 		_.each(params, function(value,key) {
 			custom_params[key] = value;

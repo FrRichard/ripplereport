@@ -54,9 +54,7 @@ var Dashboard = React.createClass({
     });
 
     return (
-      // <div className="gridster"  ref="dashboardstate" >
-      //   <GridElements items={items} reportnumber={reportnumber}/>
-      // </div>
+
       <div className="grid-stack"  ref="dashboardstate" >
         <GridElements items={items} reportnumber={reportnumber}/>
       </div>
@@ -66,7 +64,6 @@ var Dashboard = React.createClass({
   },
 
   _onChangeGrid: function() {
-    // console.log("from_dashboard:GRIDSTORE has changed");
   }
   
 });

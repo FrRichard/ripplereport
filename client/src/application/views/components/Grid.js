@@ -15,11 +15,6 @@ var GridElements = React.createClass({
       var self=this;
       var options = {
         width:12,
-        // always_show_resize_handle: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
-        // resizable: {
-        //     handles: 'e, se, s, sw, w'
-        // },
-        // vertical_margin: 10,
         cell_height:100,
         static_grid: true
       };

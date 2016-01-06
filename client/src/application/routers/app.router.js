@@ -82,7 +82,6 @@ var Router = Backbone.Router.extend({
 
     transaction: function(params) {
         if(params) {
-            // var params = JSON.parse(params);
             RippledataActions.transaction([params]);
         } 
         React.render(<TransactionView />, document.getElementById('app'));

@@ -46,15 +46,6 @@ define('depthDataHelper', ['FormatUtils'], function(FormatUtils) {
       var PriceAsks = [];
       var maxNbPoints = 150;
 
-      // if (bids.asks > maxNbPoints) {
-      //    bids = _.filter(bids, function(bid, index) {
-      //       return index % 2 == 0;
-      //    });
-      //    asks = _.filter(asks, function(ask, index) {
-      //       return index % 2 == 0;
-      //    });
-      // }
-
       _.each(bids, function(bid, index) {
          if (index == 0) index = 1
          AmountBids[index] = AmountBids[index - 1] + bid.amount;

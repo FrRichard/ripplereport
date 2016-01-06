@@ -9,7 +9,6 @@ var DashboardActions = {
 	
 	update: function(newconf) {
 		var dashboard_config=GridStore.getConf('currentconf').conf;
-        // React.render(<Account dashboard_config={ dashboard_config} />, document.getElementById('app'));
         return dashboard_config;
 	},
 

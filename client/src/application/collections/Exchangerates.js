@@ -50,9 +50,6 @@ var RippleExchangerates = Backbone.Collection.extend({
         });
 	     
         var sync = $.when.apply(null, xhrs);
-	    // sync.then(function() {
-	    //     self.trigger('someshit');
-	    // });
 
 	    return sync;
 

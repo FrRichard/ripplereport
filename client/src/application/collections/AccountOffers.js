@@ -10,7 +10,6 @@ var RippleAccountOffers = Backbone.Collection.extend({
 	},
 
 	createAccountOffersList: function(toresolves) {
-		// var RippledataActions = require("RippledataActions");
 		var self = this;
 		this.reset();
 		
@@ -21,7 +20,6 @@ var RippleAccountOffers = Backbone.Collection.extend({
 						self.add(model);
 					}, 
 					error: function(error) {
-						//console.log("FETCHERROR_rippleaccountoffers",error);
 					}			
 			}); 
 			return xhr;       

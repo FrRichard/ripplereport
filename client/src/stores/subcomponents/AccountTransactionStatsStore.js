@@ -13,7 +13,6 @@ function registerAccountTransactionStats(result) {
 	_.each(accounttransactionstats, function(accounttransactionstat) {
 		_RippleAccountTransactionStats[accounttransactionstat.id] = accounttransactionstat;
 	});
-	// console.log("accounttransactionstat Store", _RippleAccountTransactionStats);
 };
 
 var RippleaccounttransactionstatsStore = assign({}, EventEmitter.prototype, {

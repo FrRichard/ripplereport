@@ -15,9 +15,6 @@ var pieChart = React.createClass({
 	},
 
 	componentWillUnmount:  function() {
-		// console.log("unmoouunnnnnnnnnnnnnnnnnnnnn");
-		// var el = React.findDOMNode(this);
-		// this.pieChartD3.remove(el);
 	},
 
 	getChartState: function() {

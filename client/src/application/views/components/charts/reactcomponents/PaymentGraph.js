@@ -7,7 +7,6 @@ var paymentGraph = React.createClass({
 	componentDidMount: function() {
 		var el = React.findDOMNode(this);
 		this.PaymentGraphD3 = new PaymentGraphD3(el, this.getChartState().data, this.getChartState().id,this.getChartState().size);
-		// console.log(this.getChartState().data, this.getChartState().id,this.getChartState().size);
 	},
 
 	componentDidUpdate: function() {
@@ -17,9 +16,6 @@ var paymentGraph = React.createClass({
 	},
 
 	componentWillUnmount:  function() {
-		// console.log("unmoouunnnnnnnnnnnnnnnnnnnnn");
-		// var el = React.findDOMNode(this);
-		// this.pieChartD3.remove(el);
 	},
 
 	getChartState: function() {
@@ -31,8 +27,6 @@ var paymentGraph = React.createClass({
 	},
 
 	render: function() {
-		// console.log(this.someshit(),this);
-		// console.log(this);
 		return (
 			<div id={this.props.id} className="paymentgraph"></div>
 		);

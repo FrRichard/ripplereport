@@ -232,14 +232,7 @@ var RippleAccountTransactions = React.createClass({
 			var formatedtransactions =  this.DataHelper.transactionsGriddle(this.state.rippleaccounttransactions[this.address].transactions);
 		}
 
-       		// { this.state.isloading ?  <div>
-       		// 	<div className='loadingstatus'>{this.state.loadingstatus.msg} </div>
-       		// 	<div className='loadingstatus_date1'>From:{this.state.loadingstatus.from}</div> 
-       		// 	<div className='loadingstatus_date2'>To:{this.state.loadingstatus.to} </div>   
-       		// 	{this.state.uuid ?
-       		// 		<button onClick={this.stopFetching(this.state.uuid)} className="loadingbuttonstop"> Stop fetching at this date </button> 
-       		// 	: ''}
-       		// </div> : ''}
+
 		return ( 
 			<div className="panel panel-default grid-stack-item-content">
 				 <div className="panel-heading clearfix">
@@ -332,14 +325,6 @@ var RippleAccountTransactions = React.createClass({
 
 		var data = table_funct.filldata(rippleaccounttransactions[this.address].transactions, ["amount", "time", "direction", "type", "currency"], ["issuer", "counterparty", "txHash", "ledgerIndex"]);
 
-		// if(rippleaccounttransactions[self.address].account != this.state.account) {
-		// 	var isloading = true;
-		// } else {
-		// 	var isloading = false;
-		// }
-		// if(!rippleaccounttransactions[self.address].transactions) {
-		// 	isloading = false;
-		// }
 		var isloading = false;
 
 		if(rippleaccounttransactions[self.address].account) {

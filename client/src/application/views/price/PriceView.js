@@ -77,9 +77,7 @@ var Price =  React.createClass({
                 }
             });
         }
-            // var _select = <select onChange = {this._changePair} > 
-            //                 {options}                           
-            //              </select>;
+
         return (
         	<div className="priceView"> 
         		{_price}

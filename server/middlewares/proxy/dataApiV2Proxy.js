@@ -13,7 +13,7 @@ DataApiV2Proxy.prototype.init = function(callback) {
 
 	this.app.get('/ripple/dataapiV2/reports/*',function(req,res) {
 		var parameters = JSON.parse(req.query.account);
-		console.log("DATA API REPORTS§", parameters.account, self.dataapiV2ProxyHost);
+		console.log("DATA API REPORTS", parameters.account, self.dataapiV2ProxyHost);
 
 		var qs = {
 			start: parameters.start,
