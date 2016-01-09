@@ -10172,7 +10172,8 @@ td.beauty-hover {
 
 .grid-stack {
   position: relative;
-  margin-bottom: 1em; }
+  margin-bottom: 1em;
+  margin-top: 4em; }
 
 .grid-stack .grid-stack-placeholder > .placeholder-content {
   border: 1px dashed lightgray;
