@@ -10173,7 +10173,7 @@ td.beauty-hover {
 .grid-stack {
   position: relative;
   margin-bottom: 1em;
-  margin-top: 4em; }
+  margin-top: 1em; }
 
 .grid-stack .grid-stack-placeholder > .placeholder-content {
   border: 1px dashed lightgray;
@@ -12649,6 +12649,20 @@ td.transaction_field_title {
 @media (max-width: 750px) {
   .ongoingoffers table {
     font-size: 0.7em; } }
+
+.tab {
+  margin-top: 4em;
+  margin-left: 0.6em;
+  margin-right: 0.6em;
+  width: inherit; }
+
+@media screen and (max-width: 550px) {
+  .tab {
+    margin-top: 6em;
+    font-size: 0.7em;
+    margin-left: 1em;
+    margin-right: 1em;
+    width: inherit; } }
 
 .loading {
   height: 60px;

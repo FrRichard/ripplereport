@@ -60,6 +60,7 @@ var Router = Backbone.Router.extend({
             var toresolve = [address];
             var conf = Config.dashboards.account;
             DashboardActions.registerconf(conf);
+            DashboardActions.settype('balance'); //default tab type
             _.each(gatewaysnames, function(gateway) {
                 if(address == gateway.address || address == gateway.name) {
                     conf = Config.dashboards.gateway;
@@ -108,14 +109,11 @@ var Router = Backbone.Router.extend({
         RealtimeActions.registerDataroom(); //set listener
 
         if(!this.Model) {
-            console.log("NEW MODEL");
             this.Model = new rippletrade(currentParams);
         }
         if(params) {
-            console.log("MODEL SYNC with params");
             this.Model.socketSync(params);
         } else {
-            console.log("MODEL SYNC without params");
             this.Model.socketSync();
         }
 

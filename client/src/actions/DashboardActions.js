@@ -45,6 +45,20 @@ var DashboardActions = {
 			actionType: Constants.ActionTypes.REMOVE_WIDGET,
 			result: {items:items}
 		});
+	},
+
+	isloaded: function() {
+		Dispatcher.handleViewAction({
+			actionType: Constants.ActionTypes.GRID_LOADED,
+			result: {}
+		});
+	},
+
+	settype: function(type) {
+		Dispatcher.handleViewAction({
+			actionType: Constants.ActionTypes.SET_GRID_TYPE,
+			result: {type: type}
+		})
 	}
 
 }

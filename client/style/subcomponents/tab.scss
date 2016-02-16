@@ -1,0 +1,16 @@
+.tab {
+	margin-top: 4em;
+	margin-left: 0.6em;
+	margin-right: 0.6em;
+	width: inherit;
+}
+
+@media screen and (max-width: 550px) {
+	.tab {
+		margin-top: 6em;
+		font-size: 0.7em;
+		margin-left: 1em;
+		margin-right: 1em;
+		width: inherit;
+	}
+}

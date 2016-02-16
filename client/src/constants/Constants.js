@@ -37,6 +37,8 @@ module.exports = {
     REGISTER_CURRENTREFGRID: null,
     REGISTER_CURRENTGRID: null,
     REGISTER_CONF: null,
+    GRID_LOADED: null,
+    SET_GRID_TYPE: null,
     //DATAROOMS
     REGISTER_DATAROOMS:null,
     REGISTER_RIPPLEPAIRS:null

@@ -1,6 +1,7 @@
 var React = require('react');
 var ChartEngine = require('ChartEngine');
 var Topbar = require('Topbar');
+var Tab = require('Tab');
 var SideMenu = require('SideMenu');
 var Footer = require('Footer');
 var Dashboard = require('Dashboard');
@@ -30,7 +31,7 @@ var Account = React.createClass({
     },
 
 	componentDidMount: function() {
-        GridStore.addChangeListener(this._onChangeGrid);
+        GridStore.addChangeListener('change',this._onChangeGrid);
 	},
 	
     render: function() {
@@ -38,6 +39,7 @@ var Account = React.createClass({
             var isvalid = this.props.isvalid;
         return (<div>
             <Topbar searchbar={Searchbar}/>
+            <Tab/>
             { this.state.dashboard.items ?
             <Dashboard dashboard_config={ this.state.dashboard } />
             : ''}

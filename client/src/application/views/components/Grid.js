@@ -12,6 +12,8 @@ var GridElements = React.createClass({
     },
 
     componentDidMount: function() {
+      var currentGrid = GridStore.getAll();
+      console.log("currentGrid",currentGrid);
       var self=this;
       var options = {
         width:12,
@@ -50,7 +52,7 @@ var GridElements = React.createClass({
       }
 
       renderWidget().then(function() {
-        // DashboardActions.registerCurrentRef(gridster);
+        DashboardActions.isloaded();
       });
 
     },

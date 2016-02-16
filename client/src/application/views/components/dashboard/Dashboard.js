@@ -29,7 +29,7 @@ var Dashboard = React.createClass({
 
   componentDidMount: function() {
     //Listener
-    GridStore.addChangeListener(this._onChangeGrid);
+    GridStore.addChangeListener('change',this._onChangeGrid);
   
   },
   

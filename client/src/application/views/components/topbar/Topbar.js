@@ -48,23 +48,3 @@ var Topbar = React.createClass({
 });
 
 module.exports = Topbar;
-
-
-      // <div className="top_bar">
-      //   <div className="expanded-panel">
-      //     <div className="">
-      //       <div id="logo" className="main-search">
-      //         <a href="/app">{title}</a>
-      //       </div>
-      //       <div id="top-panel" >
-      //         <div className="row" className="top_sidebar">
-      //           <div >
-      //             <div className="top_bar_search">
-      //               <this.props.searchbar/>
-      //             </div>
-      //           </div>
-      //         </div>
-      //       </div>
-      //     </div>
-      //   </div>
-      // </div>

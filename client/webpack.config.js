@@ -117,6 +117,7 @@ module.exports = {
 			PaymentGraphReact: path.join(__dirname, './src/application/views/components/charts/reactcomponents/PaymentGraph'),
 			// components (sub-views)
 			Topbar: path.join(__dirname, './src/application/views/components/topbar/Topbar'),
+			Tab: path.join(__dirname, './src/application/views/components/tab/tab'),
 			Footer: path.join(__dirname, './src/application/views/components/footer/Footer'),
 			SideMenu: path.join(__dirname, './src/application/views/components/sidemenu/Sidemenu'),
 			// SearchComponent: path.join(__dirname, './src/components/search/searchComponent'),
