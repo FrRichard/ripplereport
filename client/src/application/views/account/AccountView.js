@@ -38,8 +38,8 @@ var Account = React.createClass({
             var Searchbar = this.props.searchbar;
             var isvalid = this.props.isvalid;
         return (<div>
-            <Topbar searchbar={Searchbar}/>
-            <Tab/>
+            <Topbar />
+            <Tab searchbar={Searchbar} />
             { this.state.dashboard.items ?
             <Dashboard dashboard_config={ this.state.dashboard } />
             : ''}

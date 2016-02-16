@@ -10,7 +10,8 @@
 }
 
 .search_account {
-	width:80%;
+	width: 100%;
+
 }
 
 #searchvalidid {
@@ -34,7 +35,7 @@
 
 .search {
   position: relative;
-  margin-left: 20px;
+  /*margin-left: 20px;*/
 }
 
 .search > input {
@@ -58,7 +59,7 @@
 .search > input + i {
   position: absolute;
   top: 0.5em;
-  right: -1.5em;
+  right: -1%;
   color: #004756;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;
@@ -79,7 +80,7 @@
 .search > input + img {
   position: absolute;
   top: 0.5em;
-  right: -1.5em;
+  right: -1%;
   color: #004756;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;

@@ -12244,7 +12244,7 @@ striping:
   top: -2em; }
 
 .search_account {
-  width: 80%; }
+  width: 100%; }
 
 #searchvalidid {
   color: #3EA751;
@@ -12263,7 +12263,7 @@ striping:
 
 .search {
   position: relative;
-  margin-left: 20px; }
+  /*margin-left: 20px;*/ }
 
 .search > input {
   width: 95%;
@@ -12285,7 +12285,7 @@ striping:
 .search > input + i {
   position: absolute;
   top: 0.5em;
-  right: -1.5em;
+  right: -1%;
   color: #004756;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;
@@ -12301,7 +12301,7 @@ striping:
 .search > input + img {
   position: absolute;
   top: 0.5em;
-  right: -1.5em;
+  right: -1%;
   color: #004756;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;

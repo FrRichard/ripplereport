@@ -5,6 +5,8 @@ var DashboardActions = require('DashboardActions');
 var Tab= React.createClass({
 
 	render: function() {
+		console.log("PROPPPPPS",this.props);
+		var Searchbar = this.props.searchbar;
 		return(
 			<ul className="nav nav-pills nav-justified tab">
 				<li role="balance" className="active" onClick={this._onChangeTab}> <a href='#'> Balance </a> </li>
@@ -13,6 +15,7 @@ var Tab= React.createClass({
 				<li role="trades"  onClick={this._onChangeTab}> <a href="#"> Trades </a> </li>
 				<li role="ongoingoffers" onClick={this._onChangeTab}> <a href="#"> Ongoing Offers </a> </li>
 				<li role="capitalization" onClick={this._onChangeTab}> <a href="#"> Capitalization </a> </li>
+				<li role="searchbar"> <Searchbar/> </li>
 			</ul>
 		);
 	},
