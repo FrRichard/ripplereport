@@ -81,7 +81,6 @@ Dispatcher.register(function(payload) {
   		 case Constants.ActionTypes.SET_GRID_TYPE:
   		 	settype(action.result.type);
   		 	GridStore.emitChange('type');
-  		 	console.log("SET GRID TYPE STOOORE");
   		 	break;
   	}
 

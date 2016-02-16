@@ -5,7 +5,6 @@ var DashboardActions = require('DashboardActions');
 var Tab= React.createClass({
 
 	render: function() {
-		console.log("PROPPPPPS",this.props);
 		var Searchbar = this.props.searchbar;
 		return(
 			<ul className="nav nav-pills nav-justified tab">
@@ -23,7 +22,6 @@ var Tab= React.createClass({
 	componentDidMount: function() {
 		GridStore.addChangeListener('gridloaded', this._onChangeGrid);
 		GridStore.addChangeListener('type', this._onChangeGrid);
-			// $('#keyfact2').remove();
 	},
 
 	_onChangeGrid: function() {
@@ -41,8 +39,6 @@ var Tab= React.createClass({
 				}
 			});
 		}
-		// $("[datatype='AccountOverview'], [datatype='RippleAccount'] ").siblings().hide();
-		console.log("TYPPPPPPE", GridStore.getSpecific('type'));
 
 	},
 
@@ -54,7 +50,7 @@ var Tab= React.createClass({
 	},
 
 	updateTab: function() {
-		console.log('UPDATE THE TAB!!');
+
 	},
 
 	datatypeCheck: function(datatype, tabtype) {

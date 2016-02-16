@@ -12,9 +12,8 @@ var GridElements = React.createClass({
     },
 
     componentDidMount: function() {
-      var currentGrid = GridStore.getAll();
-      console.log("currentGrid",currentGrid);
       var self=this;
+      var currentGrid = GridStore.getAll();
       var options = {
         width:12,
         cell_height:100,

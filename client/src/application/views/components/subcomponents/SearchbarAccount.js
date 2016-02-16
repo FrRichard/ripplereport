@@ -62,14 +62,17 @@ var SearchBar = React.createClass({
 			}
 		});
 		
-
-		if(addressvalidator.decode(this.toresolve[0])) {
-			this.type = "address";
-			window.location.pathname = "/app/" + this.toresolve[0];
-			// AccountActions.addresstrack(this.toresolve);
-		} else if(this.toresolve[0][0] == "~") {
-			this.type = "id"
-			AccountActions.idtrack(this.toresolve);
+		if(input != '') {
+			if(addressvalidator.decode(this.toresolve[0])) {
+				this.type = "address";
+				window.location.pathname = "/app/" + this.toresolve[0];
+				// AccountActions.addresstrack(this.toresolve);
+			} else if(this.toresolve[0][0] == "~") {
+				this.type = "id"
+				AccountActions.idtrack(this.toresolve);
+			}
+		} else {
+			this._onWrongId();
 		}
 
 	},
