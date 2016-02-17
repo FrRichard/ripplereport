@@ -5,6 +5,14 @@
 	width: inherit;
 }
 
+.tab a {
+	margin-left:1em;
+}
+
+.tab input {
+	margin-left:1em;
+}
+
 @media screen and (max-width: 550px) {
 	.tab {
 		margin-top: 6em;
