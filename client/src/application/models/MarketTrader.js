@@ -5,7 +5,6 @@ var RippleMarketTrader = Backbone.Model.extend({
 
 	initialize: function(attr,params,full) {
 		if(full) {
-			console.log("creaaaaaaaateFULL");
 			var query = {
 
 			  "period" : "7d",

@@ -27,6 +27,12 @@ var Config = {
 		startTime: moment().subtract('year', 1).format('lll'),
 		endTime: moment().format('lll')
 	},
+	payments : {
+		urlModel: "/ripple/dataapiV2/payments/?params="
+	},
+	exchanges: {
+		urlModel: "/ripple/dataapiV2/exchanges/?params="
+	}
 
 };
 

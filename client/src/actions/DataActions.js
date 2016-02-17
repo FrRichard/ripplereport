@@ -2,7 +2,9 @@ var Constants = require('Constants');
 var Dispatcher = require('Dispatcher');
 var rippleexchangerates = require('ExchangeRates');
 var ripplemarkettraders = require('MarketTraders');
-var transactions= require('Transactions');
+var transactions = require('Transactions');
+var payments = require("AccountPayments");
+var exchanges = require('AccountExchanges');
 
 var RippledataActions = {
 
@@ -70,7 +72,7 @@ var RippledataActions = {
 		var collection = new transactions("address1", params);
 		Dispatcher.handleServerAction({
 				actionType:Constants.ActionTypes.TX_ISLOADING
-			});
+		});
 		collection.createTransactionList(params).then(function() {
 			Dispatcher.handleViewAction({
 				actionType: Constants.ActionTypes.ASK_TRANSACTION,
@@ -80,6 +82,32 @@ var RippledataActions = {
 			// 	actionType:Constants.ActionTypes.TX_ISLOADING
 			// });
 		});
+	},
+
+	payments: function(params) {
+		var model = new payments(params);
+		Dispatcher.handleServerAction({
+				actionType:Constants.ActionTypes.ISLOADING_PYMNT
+		});
+		model.fetch(params).then(function() {
+			Dispatcher.handleViewAction({
+				actionType: Constants.ActionTypes.ASK_PYMNT,
+				result: model
+			});
+		})
+	},
+
+	exchanges: function(params)  {
+		var model = new exchanges(params);
+		Dispatcher.handleViewAction({
+			actionType: Constants.ActionTypes.ISLOADING_EXCHANGE
+		});
+		model.fetch(params).then(function() {
+			Dispatcher.handleViewAction({
+				actionType: Constants.ActionTypes.ASK_EXCHANGE,
+				result: model
+			});
+		})
 	}
 
 };

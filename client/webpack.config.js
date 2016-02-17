@@ -133,6 +133,9 @@ module.exports = {
 			RippleAccountTransactions: path.join(__dirname, './src/application/views/components/subcomponents/RippleAccountTransactions'),
 			RippleAccountTransactionsSummary: path.join(__dirname, './src/application/views/components/subcomponents/RippleAccountTransactionsSummary'),
 			RippleAccountTransactionStats: path.join(__dirname, './src/application/views/components/subcomponents/RippleAccountTransactionStats'),
+			Payments: path.join(__dirname, './src/application/views/components/subcomponents/Payments'),
+			Exchanges:  path.join(__dirname, './src/application/views/components/subcomponents/Exchanges'),
+
 
 			PaymentTrackingSearchView: path.join(__dirname, './src/application/views/components/subcomponents/PaymentTrackingSearchView'),
 			SearchbarAccount: path.join(__dirname, './src/application/views/components/subcomponents/SearchbarAccount'),
@@ -175,6 +178,8 @@ module.exports = {
 			OffersExercisedStore: path.join(__dirname, './src/stores/subcomponents/OffersExercisedStore'),
 			AccountTransactionsStore: path.join(__dirname, './src/stores/subcomponents/AccountTransactionsStore'),
 			PaymentStore: path.join(__dirname, './src/stores/subcomponents/PaymentStore'),
+			ExchangeStore: path.join(__dirname, './src/stores/subcomponents/ExchangeStore'),
+			PaymentStore2: path.join(__dirname, './src/stores/subcomponents/PaymentStore2'),
 			AccountOffersStore: path.join(__dirname, './src/stores/subcomponents/AccountOffersStore'),
 			AccountTransactionstatsStore: path.join(__dirname, './src/stores/subcomponents/AccountTransactionStatsStore'),
 			MarketTradersStore: path.join(__dirname, './src/stores/subcomponents/MarketTradersStore'),
@@ -229,6 +234,8 @@ module.exports = {
 			MarketTrader: path.join(__dirname, './src/application/models/MarketTrader'),
 			Transaction: path.join(__dirname, './src/application/models/Transaction'),
 			Grid: path.join(__dirname, './src/application/models/Grid'),
+			AccountPayments: path.join(__dirname, './src/application/models/Payments'),
+			AccountExchanges:  path.join(__dirname, './src/application/models/Exchanges'),
 
 			//routers
 			AccountRouter: path.join(__dirname,'./src/application/routers/account.router'),

@@ -1,0 +1,13 @@
+.received {
+	background: #92D492 !important; 
+}
+
+.sent {
+	background: #E87070 !important;
+}
+
+@media screen and (max-width: 500px) {
+	.pymnttxhash {
+		display:none;
+	}
+}

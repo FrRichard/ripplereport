@@ -190,7 +190,7 @@ var Config = {
 	          datatype:"RippleAccountTransactionStats",
 	          chart:"barchart"
 	        },
-	          {
+	        {
 	          key: 'keyfact3',
 	          title:'Capitalization',
 	          icon:'fa fa-pie-chart',
@@ -210,6 +210,26 @@ var Config = {
 	          row: 11,
 	          datatype:"CapitalizationOverview",
 	          chart:"pie_accountoverview"
+	        },
+	        {
+	          key: 'keyfact11',
+	          title:'Last Payments',
+	          icon:'fa fa-pie-chart',
+	          width: 12,
+	          height: 4,
+	          col: 5,
+	          row: 14,
+	          datatype:"Payments"
+	        },
+	        {
+	          key: 'keyfact12',
+	          title:'Trades',
+	          icon:'fa fa-pie-chart',
+	          width: 12,
+	          height: 4,
+	          col: 0,
+	          row: 18,
+	          datatype:"Exchanges",
 	        }
 	    ]
 	},

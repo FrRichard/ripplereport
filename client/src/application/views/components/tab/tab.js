@@ -70,6 +70,14 @@ var Tab= React.createClass({
 			if(datatype == "RippleCapitalization" || datatype == "CapitalizationOverview") {
 				return true;
 			}
+		} else if(tabtype == 'payments') {
+			if(datatype == "Payments") {
+				return true;
+			}
+		} else if (tabtype == 'trades') {
+			if(datatype == "Exchanges") {
+				return true;
+			}
 		}
 		return false
 	}

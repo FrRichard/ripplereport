@@ -45,7 +45,6 @@ RippleaccountProxy.prototype.init = function(callback) {
 				console.log(e);
 			}
 		};
-		console.log("OPTIOOONSSS",options);
 		request(options, callback);
 	});
 

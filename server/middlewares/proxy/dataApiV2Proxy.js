@@ -43,6 +43,68 @@ DataApiV2Proxy.prototype.init = function(callback) {
 	
 	});
 
+	this.app.get('/ripple/dataapiV2/payments/*',function(req,res) {
+		var parameters = JSON.parse(req.query.params);
+
+		var qs = {
+			start: parameters.start,
+			end: parameters.end,
+			accounts: true
+		}
+
+		var options = {
+			method: 'GET',
+			qs: qs,
+			rejectUnauthorized: false,
+			url: self.dataapiV2ProxyHost.accounts + parameters +"/payments",
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "application/json"
+			}
+		};
+
+		var callback = function(error, response, body) {
+			if (error) {
+				console.log('error', error);
+				res.send(500, 'something went wrong');
+			}
+			res.status('200').send(body);
+		}
+		request(options, callback);
+	
+	});
+
+	this.app.get('/ripple/dataapiV2/exchanges/*',function(req,res) {
+		var parameters = JSON.parse(req.query.params);
+
+		var qs = {
+			start: parameters.start,
+			end: parameters.end,
+			accounts: true
+		}
+
+		var options = {
+			method: 'GET',
+			qs: qs,
+			rejectUnauthorized: false,
+			url: self.dataapiV2ProxyHost.accounts + parameters +"/exchanges",
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "application/json"
+			}
+		};
+
+		var callback = function(error, response, body) {
+			if (error) {
+				console.log('error', error);
+				res.send(500, 'something went wrong');
+			}
+			res.status('200').send(body);
+		}
+		request(options, callback);
+	
+	});
+
 	if(callback) {
 		callback();
 	}

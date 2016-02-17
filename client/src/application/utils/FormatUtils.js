@@ -92,6 +92,9 @@
 		if(format=="trade") {
 			return moment(time).format('HH:mm:ss');
 		}
+		if(format == "pymnt") {
+			return moment(time).format('LLL');
+		}
 		if (moment(time, 'X').isValid()) {
 			return moment(time, 'X').format('HH:mm:ss');
 		} else {

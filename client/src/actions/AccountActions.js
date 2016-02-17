@@ -97,6 +97,8 @@ var AccountActions = {
 			self.rippleaccounttransactionstats( address.infos );
 			self.rippleaccountoffers( address.infos );
 			self.ripplelines( address.infos );
+			RippledataActions.payments( address.infos );
+			RippledataActions.exchanges( address.infos );
 		} else {
 			self.rippleinfos( address.raw.toJSON() );
 			// self.rippleoffersexercised( address.raw.toJSON() );
@@ -106,6 +108,8 @@ var AccountActions = {
 			self.rippleaccounttransactionstats( address.raw.toJSON() );
 			self.rippleaccountoffers( address.raw.toJSON() );
 			self.ripplelines( address.raw.toJSON() );
+			RippledataActions.payments( address.raw.toJSON() );
+			RippledataActions.exchanges( address.raw.toJSON() );
 		}
 	},
 
