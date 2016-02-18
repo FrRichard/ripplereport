@@ -38,9 +38,7 @@ var Tab= React.createClass({
 					$(elem).attr('data-gs-y',0);
 					var height= window.innerHeight || document.body.clientHeight;
 					var elemHeight = Math.floor((height-200)/100);
-					console.log(elemHeight);
 					$(elem).attr('data-gs-height',elemHeight);
-					console.log("height!", height);
 				}
 			});
 		}
