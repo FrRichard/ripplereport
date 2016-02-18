@@ -67,7 +67,6 @@ var Exchanges = React.createClass({
     var result = ExchangeStore.getAll();
     result['isloading'] = false;
 		this.setState(result);
-    console.log("RESULLLLT",result);
 	},
 
 	 _onLoading: function() {

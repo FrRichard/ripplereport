@@ -27,7 +27,6 @@ var ExchangesStore = assign({}, EventEmitter.prototype, {
 	},
 
 	addChangeListener: function(event, callback) {
-		console.log('add change listener!!', event);
 		this.on(event, callback);
 	},
 
