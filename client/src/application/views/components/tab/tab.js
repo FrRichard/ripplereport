@@ -7,15 +7,19 @@ var Tab= React.createClass({
 	render: function() {
 		var Searchbar = this.props.searchbar;
 		return(
-			<ul className="nav nav-pills nav-justified tab">
-				<li role="balance" className="active" onClick={this._onChangeTab}> <a href='#'> Balance </a> </li>
-				<li role="payments"  onClick={this._onChangeTab}> <a href="#"> Payments</a> </li>
-				<li role="paymentsummary"  onClick={this._onChangeTab}> <a href="#"> Payment Summary </a> </li>
-				<li role="trades"  onClick={this._onChangeTab}> <a href="#"> Trades </a> </li>
-				<li role="ongoingoffers" onClick={this._onChangeTab}> <a href="#"> Ongoing Offers </a> </li>
-				<li role="capitalization" onClick={this._onChangeTab}> <a href="#"> Capitalization </a> </li>
-				<li role="searchbar"> <Searchbar/> </li>
-			</ul>
+			<div>
+				<ul className="nav nav-pills nav-justified tab">
+					<li role="balance" className="active" onClick={this._onChangeTab}> <a href='#'> Balance </a> </li>
+					<li role="payments"  onClick={this._onChangeTab}> <a href="#"> Payments</a> </li>
+					<li role="paymentsummary"  onClick={this._onChangeTab}> <a href="#"> Payment Summary </a> </li>
+					<li role="trades"  onClick={this._onChangeTab}> <a href="#"> Trades </a> </li>
+					<li role="ongoingoffers" onClick={this._onChangeTab}> <a href="#"> Ongoing Offers </a> </li>
+					<li role="capitalization" onClick={this._onChangeTab}> <a href="#"> Capitalization </a> </li>
+				</ul>
+				<div className="searchTabContainer">
+					<Searchbar/>
+				</div>
+			</div>
 		);
 	},
 

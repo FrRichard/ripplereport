@@ -12241,10 +12241,9 @@ striping:
 .loading_search {
   height: 1em;
   width: 1em;
-  top: -2em; }
-
-.search_account {
-  width: 100%; }
+  position: absolute;
+  margin-top: 0.5em;
+  right: 3em; }
 
 #searchvalidid {
   color: #3EA751;
@@ -12258,12 +12257,10 @@ striping:
 .errormsg {
   color: #F40808; }
 
-#bigsearch {
-  width: 50%; }
-
-.search {
-  position: relative;
-  /*margin-left: 20px;*/ }
+#search {
+  margin-left: 0.5em;
+  margin-top: 0.5em;
+  width: 100%; }
 
 .search > input {
   width: 95%;
@@ -12284,8 +12281,8 @@ striping:
 
 .search > input + i {
   position: absolute;
-  top: 0.5em;
-  right: -1%;
+  margin-top: 0.5em;
+  right: 3em;
   color: #004756;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;
@@ -12300,8 +12297,8 @@ striping:
 
 .search > input + img {
   position: absolute;
-  top: 0.5em;
-  right: -1%;
+  margin-top: 0.5em;
+  right: 3em;
   color: #004756;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;
@@ -12652,7 +12649,7 @@ td.transaction_field_title {
 
 .tab {
   margin-top: 4em;
-  margin-left: 0.6em;
+  margin-left: -0.5em;
   margin-right: 0.6em;
   width: inherit; }
 
@@ -12669,6 +12666,9 @@ td.transaction_field_title {
     margin-left: 1em;
     margin-right: 1em;
     width: inherit; } }
+
+.searchTabContainer {
+  width: 33.8%; }
 
 .received {
   background: #92D492 !important; }

@@ -12,7 +12,6 @@ module.exports = {
 		login: ['loginBundle'],
 		register: ['registerBundle'],
 		account: ['accountBundle'],
-		// components: ['componentsBundle'] component.souscomponent ..etc NON global pas bon.
 	},
 
 	output: {

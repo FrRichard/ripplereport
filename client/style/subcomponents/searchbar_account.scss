@@ -1,18 +1,12 @@
 .loading_search {
 	height:1em;
 	width:1em;	
-	top:-2em;
- 
-}
+  position: absolute;
+  margin-top: 0.5em;
+  right: 3em;
+  }
 
-.searchinput {
 
-}
-
-.search_account {
-	width: 100%;
-
-}
 
 #searchvalidid {
 	color: #3EA751;
@@ -29,14 +23,12 @@
 	color:#F40808;
 }
 
-#bigsearch  {
-  width:50%;
+#search {
+	margin-left: 0.5em;
+	margin-top: 0.5em;
+	width: 100%;
 }
 
-.search {
-  position: relative;
-  /*margin-left: 20px;*/
-}
 
 .search > input {
   width: 95%;
@@ -58,8 +50,8 @@
 
 .search > input + i {
   position: absolute;
-  top: 0.5em;
-  right: -1%;
+  margin-top: 0.5em;
+  right: 3em;
   color: #004756;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;
@@ -79,8 +71,8 @@
 
 .search > input + img {
   position: absolute;
-  top: 0.5em;
-  right: -1%;
+  margin-top: 0.5em;
+  right: 3em;
   color: #004756;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;
