@@ -90,7 +90,7 @@ var Payments = React.createClass({
 						<td key={"pymntamount"+(i+1)}> {FormatUtils.formatValue(pymnt['amount'])}</td>
 						<td className="balancetable_address" key={"pymntsource"+(i+1)}> <a href={"/app/"+pymnt['source']} target="_blank" >{pymnt['source']} </a></td>
 						<td key={"pymntsourcecurrency"+(i+1)}> {pymnt['source_currency']}</td>
-						<td className="balancetable_address" key={"pymntdestination"+(i+1)}> <a href={"/app/"+pymnt['source']} target="_blank" > {pymnt['destination']} </a> </td>
+						<td className="balancetable_address" key={"pymntdestination"+(i+1)}> <a href={"/app/"+pymnt['destination']} target="_blank" > {pymnt['destination']} </a> </td>
 						<td key={"pymnttime"+(i+1)}> {FormatUtils.formatTime(pymnt['executed_time'], 'pymnt')}</td>
 						<td className="balancetable_address pymnttxhash" key={"pymnttxhash"+(i+1)}> <a href={/transaction/+ pymnt['tx_hash']} target='_blank'> {pymnt['tx_hash']} </a> </td>
 		            </tr>
