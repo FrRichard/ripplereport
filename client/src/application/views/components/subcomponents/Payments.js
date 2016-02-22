@@ -37,7 +37,6 @@ var Payments = React.createClass({
                 { !this.state.isloading ?
               <Table striped bordered condensed hover>
                     <thead>
-                      <th> Currency </th>
                       <th> Amount </th>
                       <th> Source </th>
                       <th> Source Currency</th>
@@ -86,14 +85,13 @@ var Payments = React.createClass({
     			}
     			rows.push(
 	    			<tr key={"paymenttable"+(i+1)} className= {type} >              
-						<td key={"pymntcurrency"+(i+1)}> {pymnt['currency']}</td>
-						<td key={"pymntamount"+(i+1)}> {FormatUtils.formatValue(pymnt['amount'])}</td>
-						<td className="balancetable_address" key={"pymntsource"+(i+1)}> <a href={"/app/"+pymnt['source']} target="_blank" >{pymnt['source']} </a></td>
-						<td key={"pymntsourcecurrency"+(i+1)}> {pymnt['source_currency']}</td>
-						<td className="balancetable_address" key={"pymntdestination"+(i+1)}> <a href={"/app/"+pymnt['destination']} target="_blank" > {pymnt['destination']} </a> </td>
-						<td key={"pymnttime"+(i+1)}> {FormatUtils.formatTime(pymnt['executed_time'], 'pymnt')}</td>
-						<td className="balancetable_address pymnttxhash" key={"pymnttxhash"+(i+1)}> <a href={/transaction/+ pymnt['tx_hash']} target='_blank'> {pymnt['tx_hash']} </a> </td>
-		            </tr>
+  						<td key={"pymntamount"+(i+1)}> {pymnt['currency']  + ' ' + FormatUtils.formatValue(pymnt['amount'])}</td>
+  						<td className="balancetablepymnt_address" key={"pymntsource"+(i+1)}> <a href={"/app/"+pymnt['source']} target="_blank" >{pymnt['source']} </a></td>
+  						<td key={"pymntsourcecurrency"+(i+1)} className="source_currency"> {pymnt['source_currency']}</td>
+  						<td className="balancetablepymnt_address" key={"pymntdestination"+(i+1)}> <a href={"/app/"+pymnt['destination']} target="_blank" > {pymnt['destination']} </a> </td>
+  						<td className="pymnt_time" key={"pymnttime"+(i+1)}> {FormatUtils.formatTime(pymnt['executed_time'], 'pymnt')}</td>
+  						<td className="balancetable_address pymnttxhash" key={"pymnttxhash"+(i+1)}> <a href={/transaction/+ pymnt['tx_hash']} target='_blank'> {pymnt['tx_hash']} </a> </td>
+		        </tr>
     			);
     		})
     	}

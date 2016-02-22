@@ -12680,6 +12680,20 @@ td.transaction_field_title {
   .pymnttxhash {
     display: none; } }
 
+.source_currency {
+  width: 1em;
+  text-align: center; }
+
+.pymnt_time {
+  width: 10em; }
+
+@media (max-width: 1028px) {
+  .balancetablepymnt_address {
+    max-width: 5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; } }
+
 .loading {
   height: 60px;
   display: block;
